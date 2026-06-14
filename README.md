@@ -9,7 +9,7 @@ Create a PR with the Commands you would like to add to the AutoPie repositories.
 {
   "Extract Audio": {
     #EXTRA DESCRIPTION OF THE COMMAND. CAN BE 1000 CHARS LONG. MARKDOWN SUPPORT.
-    description: "Extracts Audio from Video Files"
+    "description": "Extracts Audio from Video Files"
     #CURRENT WORKING DIR: DEFAULTS TO USER STORAGE (/storage/emualated/(0|10))
     "path": "",
     #APPLICATION TO RUN
