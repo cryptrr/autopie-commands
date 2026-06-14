@@ -19,14 +19,10 @@ Create a PR with the Commands you would like to add to the AutoPie repositories.
     "extras": [
       {
         "default": "195K",
-        "defaultBoolean": true,
         "description": "A value from 56K to 320K.\nLarger means better quality.",
         "id": "715336",
         "name": "BITRATE",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
         "type": "STRING"
       }
     ]
@@ -40,20 +36,15 @@ Create a PR with the Commands you would like to add to the AutoPie repositories.
       #EXTRA OF TYPE STRING, CAN BE ANYTHING
       {
         "default": "99",
-        "defaultBoolean": false,
         "description": "Set a value from 1 to 100.",
         "id": "148663",
         "name": "QUALITY",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
         "type": "STRING"
       },
       {
         #EXTRA OF TYPE SELECTABLE. TAKES IN selectableOptions ARRAY.
         "default": "6",
-        "defaultBoolean": true,
         "description": "0 is fastest. 6 is slowest.\n6 gives the lowest file size and highest quality.",
         "id": "306994",
         "name": "METHOD",
