@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "2026.6.1",
+  "commands": {
+    "autopie.wcurl": {
+      "name": "wCurl Download",
+      "version": "1.0.0",
+      "packageName": "wcurl",
+      "description": "Downloads Manager Using wCurl"
+    },
+    "autopie.pdf": {
+      "name": "Create PDF from URL",
+      "version": "1.0.0",
+      "packageName": "poppler",
+      "description": "PDF Utils applet for AutoPie"
+    }
+  }
+}

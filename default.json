@@ -1,0 +1,22 @@
+{
+  "Create PDF from URL": {
+    "id": "cmd-001",
+    "type": "PACKAGE",
+    "name": "Create PDF from URL",
+    "directory": "",
+    "command": "wkhtmltopdf \"${INPUT_URL}\"",
+    "packageUniqueName": "wkhtmltopdf",
+    "installationScript": "pkg install -y wkhtmltopdf",
+    "readme": "docs/create-pdf-from-url.md"
+  },
+  "wCurl Download": {
+    "id": "cmd-002",
+    "type": "PACKAGE",
+    "name": "wCurl Download",
+    "directory": "",
+    "command": "wcurl \"${INPUT_URL}\"",
+    "packageUniqueName": "wcurl",
+    "installationScript": "pkg install -y wcurl",
+    "readme": "docs/wcurl-download.md"
+  }
+}
