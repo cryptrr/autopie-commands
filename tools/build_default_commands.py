@@ -80,11 +80,13 @@ def convert_runtime_block(block: dict[str, Any], fallback_exec: str | None) -> d
 
 def convert_manifest(manifest: dict[str, Any]) -> tuple[str, dict[str, Any]]:
     name = manifest["name"]
+    command_id = manifest["id"]
     runtime = manifest.get("runtime", {})
     fallback_exec = manifest.get("commandSlug")
 
     if runtime.get("multiStage"):
         converted: dict[str, Any] = {
+            "id": command_id,
             "multiStage": True,
             "steps": [
                 convert_runtime_block(step, fallback_exec)
@@ -93,7 +95,9 @@ def convert_manifest(manifest: dict[str, Any]) -> tuple[str, dict[str, Any]]:
         }
         return name, converted
 
-    return name, convert_runtime_block(runtime, fallback_exec)
+    converted = convert_runtime_block(runtime, fallback_exec)
+    converted["id"] = command_id
+    return name, converted
 
 
 def build_default_commands() -> dict[str, Any]:

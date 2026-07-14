@@ -50,9 +50,11 @@
         ],
         "type": "SLIDER"
       }
-    ]
+    ],
+    "id": "autopie.change-volume-on-mac"
   },
   "Change Volume on Mac - AutoFetch": {
+    "id": "autopie.change-volume-on-mac-autofetch",
     "multiStage": true,
     "steps": [
       {
@@ -121,17 +123,20 @@
     "path": "",
     "exec": "exiftool",
     "command": "#@OPEN_LOGS\nexiftool \"${INPUT_FILE}\"",
-    "deleteSourceFile": false
+    "deleteSourceFile": false,
+    "id": "autopie.check-exif-data"
   },
   "Check Internet Archive": {
     "path": "",
     "exec": "",
-    "command": "#@PYTHON\n#@OPEN_LOGS\n\nimport os\nimport sys\nimport subprocess\nimport json\nimport urllib.parse\nimport urllib.request\n\ndef latest_wayback_snapshot(url: str) -> str | None:\n    api = \"https://archive.org/wayback/available\"\n    query = urllib.parse.urlencode({\"url\": url})\n    api_url = f\"{api}?{query}\"\n\n    with urllib.request.urlopen(api_url, timeout=20) as r:\n        data = json.loads(r.read().decode(\"utf-8\"))\n\n    snapshot = data.get(\"archived_snapshots\", {}).get(\"closest\")\n    if snapshot and snapshot.get(\"available\"):\n        return snapshot.get(\"url\")\n\n    return None\n\n\n\ndef main():\n    \n    url = os.getenv(\"INPUT_URL\")\n    print(\"CHECKING...\", flush=True)\n    snapshot_url = latest_wayback_snapshot(url)\n\n    if snapshot_url:\n        print(snapshot_url)\n        subprocess.run([\n            \"am\",\n            \"start\",\n            \"-a\",\n            \"android.intent.action.VIEW\",\n            \"-d\",\n            snapshot_url,\n        ], stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,check=True)\n    else:\n        print(\"No snapshot found\", file=sys.stderr)\n        sys.exit(2)\n\n\nif __name__ == \"__main__\":\n    main()\n"
+    "command": "#@PYTHON\n#@OPEN_LOGS\n\nimport os\nimport sys\nimport subprocess\nimport json\nimport urllib.parse\nimport urllib.request\n\ndef latest_wayback_snapshot(url: str) -> str | None:\n    api = \"https://archive.org/wayback/available\"\n    query = urllib.parse.urlencode({\"url\": url})\n    api_url = f\"{api}?{query}\"\n\n    with urllib.request.urlopen(api_url, timeout=20) as r:\n        data = json.loads(r.read().decode(\"utf-8\"))\n\n    snapshot = data.get(\"archived_snapshots\", {}).get(\"closest\")\n    if snapshot and snapshot.get(\"available\"):\n        return snapshot.get(\"url\")\n\n    return None\n\n\n\ndef main():\n    \n    url = os.getenv(\"INPUT_URL\")\n    print(\"CHECKING...\", flush=True)\n    snapshot_url = latest_wayback_snapshot(url)\n\n    if snapshot_url:\n        print(snapshot_url)\n        subprocess.run([\n            \"am\",\n            \"start\",\n            \"-a\",\n            \"android.intent.action.VIEW\",\n            \"-d\",\n            snapshot_url,\n        ], stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,check=True)\n    else:\n        print(\"No snapshot found\", file=sys.stderr)\n        sys.exit(2)\n\n\nif __name__ == \"__main__\":\n    main()\n",
+    "id": "autopie.check-internet-archive"
   },
   "Check Media Info": {
     "path": "",
     "exec": "",
-    "command": "#@OPEN_LOGS\nmediainfo \"${INPUT_FILE}\""
+    "command": "#@OPEN_LOGS\nmediainfo \"${INPUT_FILE}\"",
+    "id": "autopie.check-media-info"
   },
   "Combine Gifs Vertically": {
     "path": "",
@@ -151,7 +156,8 @@
           "1080x"
         ]
       }
-    ]
+    ],
+    "id": "autopie.combine-gifs-vertically"
   },
   "Combine Images Horizontally": {
     "path": "",
@@ -171,7 +177,8 @@
           "1080x": "1080x"
         }
       }
-    ]
+    ],
+    "id": "autopie.combine-images-horizontally"
   },
   "Combine Images into PDF": {
     "path": "",
@@ -191,7 +198,8 @@
           "1080x"
         ]
       }
-    ]
+    ],
+    "id": "autopie.combine-images-into-pdf"
   },
   "Combine Images to GIF": {
     "path": "",
@@ -206,7 +214,8 @@
         "required": false,
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.combine-images-to-gif"
   },
   "Combine Images Vertically": {
     "path": "",
@@ -226,23 +235,27 @@
           "1080x"
         ]
       }
-    ]
+    ],
+    "id": "autopie.combine-images-vertically"
   },
   "Compress ZIP (High) : Folder": {
     "path": "",
     "exec": "7z",
     "command": "7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILE}/* -mfb=258 -mpass=15",
-    "deleteSourceFile": false
+    "deleteSourceFile": false,
+    "id": "autopie.compress-zip-high-folder"
   },
   "Compress ZIP (High) : Multi File": {
     "path": "",
     "exec": "7z",
-    "command": "7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILES_ARR[@]} -mfb=258 -mpass=15"
+    "command": "7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILES_ARR[@]} -mfb=258 -mpass=15",
+    "id": "autopie.compress-zip-high-multi-file"
   },
   "Convert to Animated WebP": {
     "path": "",
     "exec": "ffmpeg",
-    "command": "ffmpeg -i \"${INPUT_FILE}\" -vf \"fps=15,scale=600:-1:flags=lanczos\" -c:v libwebp -loop 0 -an -preset default -quality 80 \"${INPUT_FILE}-anim.webp\""
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -vf \"fps=15,scale=600:-1:flags=lanczos\" -c:v libwebp -loop 0 -an -preset default -quality 80 \"${INPUT_FILE}-anim.webp\"",
+    "id": "autopie.convert-to-animated-webp"
   },
   "Convert to GIF": {
     "path": "",
@@ -265,7 +278,8 @@
         "required": false,
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.convert-to-gif"
   },
   "Convert To WebM": {
     "path": "Downloads",
@@ -300,7 +314,8 @@
         "required": false,
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.convert-to-webm"
   },
   "Convert To WEBP": {
     "path": "",
@@ -332,12 +347,14 @@
           "5"
         ]
       }
-    ]
+    ],
+    "id": "autopie.convert-to-webp"
   },
   "Convert video to AV1": {
     "path": "",
     "exec": "ffmpeg",
-    "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libaom-av1 -crf 18 -b:v 0 \"${INPUT_FILE}.mkv\""
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libaom-av1 -crf 18 -b:v 0 \"${INPUT_FILE}.mkv\"",
+    "id": "autopie.convert-video-to-av1"
   },
   "Crop Image/GIF": {
     "path": "",
@@ -375,7 +392,8 @@
           "west"
         ]
       }
-    ]
+    ],
+    "id": "autopie.crop-image-gif"
   },
   "Crop Video to Mobile Dimensions": {
     "path": "",
@@ -398,7 +416,8 @@
         "required": false,
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.crop-video-to-mobile-dimensions"
   },
   "Extract Audio from File": {
     "path": "",
@@ -430,7 +449,8 @@
           "wav"
         ]
       }
-    ]
+    ],
+    "id": "autopie.extract-audio"
   },
   "Extract Audio from URL": {
     "path": "Mp3",
@@ -453,18 +473,21 @@
         "required": true,
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.extract-audio-from-url"
   },
   "Extract Images from PDF": {
     "path": "",
     "exec": "magick",
-    "command": "magick \"${INPUT_FILE}\" \"${INPUT_FILE}_%03d.png\""
+    "command": "magick \"${INPUT_FILE}\" \"${INPUT_FILE}_%03d.png\"",
+    "id": "autopie.extract-images-from-pdf"
   },
   "FFMPEG: Convert to HEVC": {
     "path": "",
     "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libx264 -crf 24 -preset medium \"${INPUT_FILE}-x265.mp4\"",
-    "deleteSourceFile": false
+    "deleteSourceFile": false,
+    "id": "autopie.ffmpeg-convert-to-hevc"
   },
   "FFMPEG: Cut Video": {
     "path": "Download",
@@ -487,25 +510,29 @@
         "required": false,
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.ffmpeg-cut-video"
   },
   "FFMPEG: Optimize Video": {
     "path": "/storage/emulated/0/",
     "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libx264 -preset slow -crf 23 -c:a aac -b:a 128k -movflags +faststart \"${INPUT_FILE}-optim.mp4\"",
-    "deleteSourceFile": false
+    "deleteSourceFile": false,
+    "id": "autopie.ffmpeg-optimize-video"
   },
   "Flip/Mirror Video": {
     "path": "",
     "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -vf \"hflip\" \"${INPUT_FILE}-mirrored.mp4\"",
-    "deleteSourceFile": false
+    "deleteSourceFile": false,
+    "id": "autopie.flip-mirror-video"
   },
   "GalleryDL Download ": {
     "path": "",
     "exec": "gallery-dl",
     "command": "gallery-dl \"${INPUT_URL}\"",
-    "deleteSourceFile": false
+    "deleteSourceFile": false,
+    "id": "autopie.gallerydl-download"
   },
   "Open in Video Player": {
     "path": "",
@@ -527,7 +554,8 @@
           "bv*+ba/b": "bv*+ba/b"
         }
       }
-    ]
+    ],
+    "id": "autopie.open-in-video-player"
   },
   "OpenWRT Router Automations": {
     "path": "AutoSec/scripts",
@@ -586,18 +614,15 @@
           "etherwake -i br-lan AA:BB:CC:DD:EE:FF": "etherwake -i br-lan AA:BB:CC:DD:EE:FF"
         }
       }
-    ]
-  },
-  "PDF Utils Applet for AutoPie": {
-    "path": "",
-    "exec": "pdf",
-    "command": "poppler ${input.url}"
+    ],
+    "id": "autopie.openwrt-router-automations"
   },
   "Remove Audio": {
     "path": "",
     "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -an -c:v copy \"${INPUT_FILE}-noaud.mp4\"",
-    "deleteSourceFile": false
+    "deleteSourceFile": false,
+    "id": "autopie.remove-audio"
   },
   "Remove Image Borders": {
     "path": "",
@@ -612,7 +637,8 @@
         "required": true,
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.remove-image-borders"
   },
   "Resize Video": {
     "path": "",
@@ -635,7 +661,8 @@
         "required": false,
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.resize-video"
   },
   "Rotate Video": {
     "path": "",
@@ -655,7 +682,8 @@
           "270"
         ]
       }
-    ]
+    ],
+    "id": "autopie.rotate-video"
   },
   "RSYNC: Backup Pics to PC": {
     "path": "",
@@ -696,7 +724,8 @@
         ],
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.rsync-backup-pics-to-pc"
   },
   "RSYNC: Sync Pics - PC ➡️ Mob": {
     "path": "",
@@ -737,17 +766,20 @@
         ],
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.rsync-sync-pics-pc-mob"
   },
   "Set file modified date to now.": {
     "path": "",
     "exec": "",
-    "command": "touch \"${INPUT_FILE}\""
+    "command": "touch \"${INPUT_FILE}\"",
+    "id": "autopie.set-file-modified-date-to-now"
   },
   "SHA-256 Hash Check": {
     "path": "",
     "exec": "",
-    "command": "#@OPEN_LOGS\nsha256sum \"${INPUT_FILE}\""
+    "command": "#@OPEN_LOGS\nsha256sum \"${INPUT_FILE}\"",
+    "id": "autopie.sha-256-hash-check"
   },
   "Shutdown Remote Server": {
     "path": "AutoSec/scripts",
@@ -792,7 +824,8 @@
         ],
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.shutdown-remote-server"
   },
   "Trigger Home Assistant": {
     "path": "",
@@ -830,7 +863,8 @@
         "required": true,
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.trigger-home-assistant"
   },
   "Virus Check (VirusTotal)": {
     "path": "",
@@ -838,7 +872,8 @@
     "command": "set -euo pipefail\n\nif [[ ! -f \"$INPUT_FILE\" ]]; then\n    echo \"Usage: $0 <file>\"\n    exit 1\nfi\n\nHASH=$(sha256sum \"$INPUT_FILE\" | awk '{print $1}')\nURL=\"https://www.virustotal.com/gui/file/$HASH\"\n\necho \"SHA-256: $HASH\"\necho \"Opening: $URL\"\n\nam start \\\n    -a android.intent.action.VIEW \\\n    -d \"$URL\"",
     "flags": [
       "--show-loading-screen"
-    ]
+    ],
+    "id": "autopie.virus-check-virustotal"
   },
   "Watermark Video": {
     "path": "",
@@ -868,7 +903,8 @@
           "CENTER"
         ]
       }
-    ]
+    ],
+    "id": "autopie.watermark-video"
   },
   "wCurl Download": {
     "path": "Download",
@@ -883,7 +919,8 @@
         "required": false,
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.wcurl-download"
   },
   "YT-DLP Download": {
     "path": "Download",
@@ -922,7 +959,8 @@
         "required": false,
         "type": "STRING"
       }
-    ]
+    ],
+    "id": "autopie.yt-dlp-download"
   },
   "YT-DLP: Download as Audio": {
     "path": "Download",
@@ -946,22 +984,26 @@
           "wav"
         ]
       }
-    ]
+    ],
+    "id": "autopie.yt-dlp-download-as-audio"
   },
   "YT-DLP Get Direct URL": {
     "path": "",
     "exec": "yt-dlp",
     "command": "#@OPEN_LOGS\nyt-dlp -g \"${INPUT_URL}\"",
-    "deleteSourceFile": false
+    "deleteSourceFile": false,
+    "id": "autopie.yt-dlp-get-direct-url"
   },
   "Community ImageTools Applet for AutoPie": {
     "path": "",
-    "exec": "image-tools",
-    "command": "magick ${input.url}"
+    "exec": "magick",
+    "command": "magick ${input.url}",
+    "id": "community.image-tools"
   },
   "Community Video Downloader Applet for AutoPie": {
     "path": "",
-    "exec": "video-downloader",
-    "command": "yt-dlp ${input.url}"
+    "exec": "yt-dlp",
+    "command": "yt-dlp ${input.url}",
+    "id": "community.video-downloader"
   }
 }

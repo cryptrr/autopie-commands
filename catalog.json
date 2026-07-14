@@ -19,7 +19,7 @@
       "tags": [
         "openssh"
       ],
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "autopie.check-exif-data": {
       "name": "Check Exif Data",
@@ -291,18 +291,6 @@
       ],
       "version": "1.0.0"
     },
-    "autopie.pdf": {
-      "name": "PDF Utils Applet for AutoPie",
-      "namespace": "autopie",
-      "status": "stable",
-      "summary": "Do PDF operations in autopie",
-      "tags": [
-        "pdf",
-        "documents",
-        "conversion"
-      ],
-      "version": "1.0.0"
-    },
     "autopie.remove-audio": {
       "name": "Remove Audio",
       "namespace": "autopie",
@@ -423,7 +411,7 @@
       ],
       "version": "1.0.0"
     },
-    "autopie.wcurl": {
+    "autopie.wcurl-download": {
       "name": "wCurl Download",
       "namespace": "autopie",
       "status": "stable",
@@ -488,6 +476,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-07-14T11:20:11Z",
+  "generatedAt": "2026-07-14T13:56:24Z",
   "schemaVersion": "2026.6.1"
 }

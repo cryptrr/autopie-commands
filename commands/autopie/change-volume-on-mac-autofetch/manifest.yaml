@@ -1,5 +1,5 @@
 schemaVersion: "2026.6.1"
-version: "1.0.0"
+version: "1.0.1"
 id: "autopie.change-volume-on-mac-autofetch"
 namespace: "autopie"
 name: "Change Volume on Mac - AutoFetch"
