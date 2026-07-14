@@ -25,4 +25,4 @@ compatibility:
   autopieMinVersion: "3.0.0"
   autopieMaxVersion: "4.x"
 status: "stable"
-maintainers: ["username1", "username2"]
+maintainers: ["cryptrr"]
