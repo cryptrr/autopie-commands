@@ -1,0 +1,37 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.open-in-video-player"
+namespace: "autopie"
+name: "Open in Video Player"
+commandSlug: "am"
+summary: "AutoPie command for Open in Video Player"
+type: "PACKAGE"
+tags: ["yt-dlp"]
+runtime:
+  path: ""
+  command: "url=$(yt-dlp --no-warnings -q -g -f \"${FORMAT}\" \"${INPUT_URL}\")\nam start \\\n    -a android.intent.action.SEND \\\n    -t text/plain \\\n    --es android.intent.extra.TEXT $url"
+  flags: ["--show-loading-screen"]
+  extras:
+    - id: "370271"
+      name: "FORMAT"
+      type: "SELECTABLE"
+      default: "b"
+      description: ""
+      required: true
+      selectableOptions: {"b": "b", "bv*+ba/b": "bv*+ba/b"}
+install:
+  primaryPackage: "yt-dlp"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

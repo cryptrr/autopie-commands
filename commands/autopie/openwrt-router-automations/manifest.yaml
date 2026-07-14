@@ -1,0 +1,57 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.openwrt-router-automations"
+namespace: "autopie"
+name: "OpenWRT Router Automations"
+commandSlug: "openssh"
+summary: "AutoPie command for OpenWRT Router Automations"
+type: "PACKAGE"
+tags: ["openssh"]
+runtime:
+  path: "AutoSec/scripts"
+  command: "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"$REMOTE_COMMAND\""
+  extras:
+    - id: "735279"
+      name: "USER"
+      type: "STRING"
+      default: "root"
+      description: "The SSH user on the host."
+      required: true
+      flags: ["--internal-config"]
+    - id: "486044"
+      name: "HOST"
+      type: "STRING"
+      default: "openwrt"
+      description: "The SSH host to connect to."
+      required: true
+      flags: ["--internal-config"]
+    - id: "829258"
+      name: "PASSWORD"
+      type: "STRING"
+      default: ""
+      description: "SSH password."
+      required: true
+      flags: ["--password", "--internal-config"]
+    - id: "708927"
+      name: "REMOTE_COMMAND"
+      type: "SELECTABLE"
+      default: "uci set wireless.radio0.disabled=0 && uci commit wireless && wifi reload"
+      description: "The command to run after sshing into the remote server."
+      required: true
+      selectableOptions: {"Enable 5GHz": "uci set wireless.radio0.disabled=0 && uci commit wireless && wifi reload", "Disable 5GHz": "uci set wireless.radio0.disabled=1 && uci commit wireless && wifi reload", "/etc/init.d/network restart": "/etc/init.d/network restart", "reboot": "reboot", "logread": "logread", "ifdown wan && ifup wan": "ifdown wan && ifup wan", "wifi reload": "wifi reload", "etherwake -i br-lan AA:BB:CC:DD:EE:FF": "etherwake -i br-lan AA:BB:CC:DD:EE:FF"}
+install:
+  primaryPackage: "openssh"
+  extraPackages: ["sshpass"]
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

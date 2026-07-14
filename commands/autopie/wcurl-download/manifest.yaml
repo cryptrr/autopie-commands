@@ -1,0 +1,35 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.wcurl-download"
+namespace: "autopie"
+name: "wCurl Download"
+commandSlug: "wcurl"
+summary: "AutoPie command for wCurl Download"
+type: "PACKAGE"
+tags: ["wcurl"]
+runtime:
+  path: "Download"
+  command: "wcurl ${FILE_NAME_EXTRA:+-o \"$FILE_NAME_EXTRA\"} \"$INPUT_URL\""
+  extras:
+    - id: "948482"
+      name: "FILE_NAME_EXTRA"
+      type: "STRING"
+      default: ""
+      description: "Set a filename for this file."
+      required: false
+install:
+  primaryPackage: "wcurl"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

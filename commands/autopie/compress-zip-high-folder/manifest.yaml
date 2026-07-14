@@ -1,0 +1,29 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.compress-zip-high-folder"
+namespace: "autopie"
+name: "Compress ZIP (High) : Folder"
+commandSlug: "7z"
+summary: "AutoPie command for Compress ZIP (High) : Folder"
+type: "PACKAGE"
+tags: ["p7zip"]
+runtime:
+  path: ""
+  command: "7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILE}/* -mfb=258 -mpass=15"
+  deleteSourceFile: false
+install:
+  primaryPackage: "p7zip"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

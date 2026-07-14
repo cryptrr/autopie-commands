@@ -1,0 +1,64 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.change-volume-on-mac-autofetch"
+namespace: "autopie"
+name: "Change Volume on Mac - AutoFetch"
+commandSlug: "change-volume-on-mac-autofetch"
+summary: "AutoPie command for Change Volume on Mac - AutoFetch"
+type: "PACKAGE"
+tags: ["openssh"]
+runtime:
+  multiStage: true
+  steps:
+    - path: "AutoSec/scripts"
+      commandSlug: "openssh"
+      command: "CURRENT_VOLUME=$(sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"output volume of (get volume settings)\\\"\")\nexport CURRENT_VOLUME\nexport SLIDER_OPTIONS=0,\"$CURRENT_VOLUME\",100"
+      extras:
+        - id: "735279"
+          name: "USER"
+          type: "STRING"
+          default: "amal"
+          description: "The SSH user on the host."
+          required: true
+          flags: ["--internal-config"]
+        - id: "486044"
+          name: "HOST"
+          type: "STRING"
+          default: "amals-mac-mini.lan"
+          description: "The SSH host to connect to."
+          required: true
+          flags: ["--internal-config"]
+        - id: "829258"
+          name: "PASSWORD"
+          type: "STRING"
+          default: ""
+          description: "SSH password."
+          required: true
+          flags: ["--internal-config", "--password"]
+    - path: "AutoSec/scripts"
+      commandSlug: "openssh"
+      command: "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"set volume output volume ${VOLUME}\\\"\""
+      extras:
+        - id: "574538"
+          name: "VOLUME"
+          type: "SLIDER"
+          default: "$$SLIDER_OPTIONS"
+          description: "Slider to set volume."
+          required: true
+          flags: ["--int", "--realtime"]
+install:
+  primaryPackage: "openssh"
+  extraPackages: ["sshpass"]
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

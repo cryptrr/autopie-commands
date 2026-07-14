@@ -1,0 +1,57 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.change-volume-on-mac"
+namespace: "autopie"
+name: "Change Volume on Mac"
+commandSlug: "openssh"
+summary: "AutoPie command for Change Volume on Mac"
+type: "PACKAGE"
+tags: ["openssh"]
+runtime:
+  path: "AutoSec/scripts"
+  command: "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"set volume output volume ${VOLUME}\\\"\""
+  extras:
+    - id: "735279"
+      name: "USER"
+      type: "STRING"
+      default: "amal"
+      description: "The SSH user on the host."
+      required: true
+      flags: ["--internal-config"]
+    - id: "486044"
+      name: "HOST"
+      type: "STRING"
+      default: "amals-mac-mini.lan"
+      description: "The SSH host to connect to."
+      required: true
+      flags: ["--internal-config"]
+    - id: "829258"
+      name: "PASSWORD"
+      type: "STRING"
+      default: ""
+      description: "SSH password."
+      required: true
+      flags: ["--password", "--internal-config"]
+    - id: "574538"
+      name: "VOLUME"
+      type: "SLIDER"
+      default: "0,50,100"
+      description: "Slider to set volume."
+      required: true
+      flags: ["--int", "--realtime"]
+install:
+  primaryPackage: "openssh"
+  extraPackages: ["sshpass"]
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

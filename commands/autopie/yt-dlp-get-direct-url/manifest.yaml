@@ -1,0 +1,29 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.yt-dlp-get-direct-url"
+namespace: "autopie"
+name: "YT-DLP Get Direct URL"
+commandSlug: "yt-dlp"
+summary: "AutoPie command for YT-DLP Get Direct URL"
+type: "PACKAGE"
+tags: ["yt-dlp"]
+runtime:
+  path: ""
+  command: "#@OPEN_LOGS\nyt-dlp -g \"${INPUT_URL}\""
+  deleteSourceFile: false
+install:
+  primaryPackage: "yt-dlp"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

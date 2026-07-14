@@ -1,0 +1,48 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.yt-dlp-download"
+namespace: "autopie"
+name: "YT-DLP Download"
+commandSlug: "yt-dlp"
+summary: "AutoPie command for YT-DLP Download"
+type: "PACKAGE"
+tags: ["yt-dlp"]
+runtime:
+  path: "Download"
+  command: "yt-dlp \\\n  -o \"%(title).200B-${RAND}.%(ext)s\" \\\n  --no-mtime \\\n  -f \"bestvideo[height<=${MAX_QUALITY}]+bestaudio/best[height<=${MAX_QUALITY}]/best\" \\\n  ${COOKIE_JAR:+--cookies \"$COOKIE_JAR\"} \\\n  ${START_TIME:+--download-sections \"*${START_TIME}-${END_TIME:-inf}\"} \\\n  \"$INPUT_URL\""
+  extras:
+    - id: "969610"
+      name: "MAX_QUALITY"
+      type: "SELECTABLE"
+      default: "1920"
+      description: ""
+      required: true
+      selectableOptions: {"1920": "1920", "1080": "1080", "720": "720", "480": "480", "2160": "2160", "1440": "1440"}
+    - id: "599983"
+      name: "START_TIME"
+      type: "STRING"
+      default: "00:00:00"
+      description: ""
+      required: true
+    - id: "461479"
+      name: "END_TIME"
+      type: "STRING"
+      default: ""
+      description: ""
+      required: false
+install:
+  primaryPackage: "yt-dlp"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

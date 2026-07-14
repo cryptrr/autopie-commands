@@ -1,0 +1,41 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.ffmpeg-cut-video"
+namespace: "autopie"
+name: "FFMPEG: Cut Video"
+commandSlug: "ffmpeg"
+summary: "AutoPie command for FFMPEG: Cut Video"
+type: "PACKAGE"
+tags: ["ffmpeg"]
+runtime:
+  path: "Download"
+  command: "ffmpeg -i \"${INPUT_FILE}\" -ss ${START} ${END:+-t $END} \"${INPUT_FILE}-cut-${RAND}.mp4\""
+  extras:
+    - id: "368102"
+      name: "START"
+      type: "STRING"
+      default: "00:00:00"
+      description: "Start time"
+      required: false
+    - id: "218569"
+      name: "END"
+      type: "STRING"
+      default: ""
+      description: "End time "
+      required: false
+install:
+  primaryPackage: "ffmpeg"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

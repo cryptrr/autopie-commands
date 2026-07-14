@@ -1,0 +1,41 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.resize-video"
+namespace: "autopie"
+name: "Resize Video"
+commandSlug: "ffmpeg"
+summary: "AutoPie command for Resize Video"
+type: "PACKAGE"
+tags: ["ffmpeg"]
+runtime:
+  path: ""
+  command: "ffmpeg -i \"${INPUT_FILE}\" -vf \"scale=${HEIGHT}:${WIDTH}\" -c:a copy \"${INPUT_FILE}-resized-${RAND}.mp4\""
+  extras:
+    - id: "242041"
+      name: "HEIGHT"
+      type: "STRING"
+      default: "1280"
+      description: "Height in pixels"
+      required: false
+    - id: "664223"
+      name: "WIDTH"
+      type: "STRING"
+      default: "720"
+      description: "Width in pixels."
+      required: false
+install:
+  primaryPackage: "ffmpeg"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

@@ -1,0 +1,50 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.rsync-sync-pics-pc-mob"
+namespace: "autopie"
+name: "RSYNC: Sync Pics - PC \u27a1\ufe0f Mob"
+commandSlug: "rsync"
+summary: "AutoPie command for RSYNC: Sync Pics - PC \u27a1\ufe0f Mob"
+type: "PACKAGE"
+tags: ["rsync"]
+runtime:
+  path: ""
+  command: "rsync -avz \"${FOLDER_FROM}\" \"${FOLDER_TO}\""
+  extras:
+    - id: "093901"
+      name: "RSYNC_PASSWORD"
+      type: "STRING"
+      default: ""
+      description: "The remote machine should be running RSYNC daemon.\nFor security reasons, limit the usage of the RSYNC protocol to the local network."
+      required: true
+      flags: ["--password", "--internal-config"]
+    - id: "557719"
+      name: "FOLDER_FROM"
+      type: "STRING"
+      default: "rsync://user@192.168.1.132/home/user/Pictures_Backup/"
+      description: "The remote folder to sync to your device.\nShould be in the format 'rsync://user@192.168.1.132/path/to/folder/'"
+      required: false
+      flags: ["--internal-config"]
+    - id: "267285"
+      name: "FOLDER_TO"
+      type: "STRING"
+      default: "/storage/emulated/0/Pictures/"
+      description: "Absolute path to the folder on your device."
+      required: false
+      flags: ["--internal-config"]
+install:
+  primaryPackage: "rsync"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

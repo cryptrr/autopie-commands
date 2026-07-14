@@ -1,0 +1,35 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.remove-image-borders"
+namespace: "autopie"
+name: "Remove Image Borders"
+commandSlug: "magick"
+summary: "AutoPie command for Remove Image Borders"
+type: "PACKAGE"
+tags: ["imagemagick"]
+runtime:
+  path: ""
+  command: "magick \"${INPUT_FILE}\" -fuzz ${FUZZ}% -trim \"${INPUT_FILE}-trim.jpg\""
+  extras:
+    - id: "131124"
+      name: "FUZZ"
+      type: "STRING"
+      default: "50"
+      description: ""
+      required: true
+install:
+  primaryPackage: "imagemagick"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

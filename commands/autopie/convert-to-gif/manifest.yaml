@@ -1,0 +1,41 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.convert-to-gif"
+namespace: "autopie"
+name: "Convert to GIF"
+commandSlug: "ffmpeg"
+summary: "AutoPie command for Convert to GIF"
+type: "PACKAGE"
+tags: ["ffmpeg"]
+runtime:
+  path: ""
+  command: "ffmpeg -i \"${INPUT_FILE}\" -ss ${START} ${END:+-t $END} -vf \"fps=15,scale=480:-1:flags=lanczos\" -c:v gif \"${INPUT_FILE}.gif\""
+  extras:
+    - id: "608647"
+      name: "START"
+      type: "STRING"
+      default: "00:00:00"
+      description: ""
+      required: true
+    - id: "705186"
+      name: "END"
+      type: "STRING"
+      default: ""
+      description: ""
+      required: false
+install:
+  primaryPackage: "ffmpeg"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

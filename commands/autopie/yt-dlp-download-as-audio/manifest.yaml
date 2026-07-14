@@ -1,0 +1,36 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.yt-dlp-download-as-audio"
+namespace: "autopie"
+name: "YT-DLP: Download as Audio"
+commandSlug: "yt-dlp"
+summary: "AutoPie command for YT-DLP: Download as Audio"
+type: "PACKAGE"
+tags: ["yt-dlp"]
+runtime:
+  path: "Download"
+  command: "yt-dlp --no-mtime -x --audio-format ${FORMAT} \"${INPUT_URL}\""
+  extras:
+    - id: "745322"
+      name: "FORMAT"
+      type: "SELECTABLE"
+      default: "mp3"
+      description: "Choose the format to convert to."
+      required: true
+      selectableOptions: ["mp3", "m4a", "aac", "opus", "vorbis", "flac", "wav"]
+install:
+  primaryPackage: "yt-dlp"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

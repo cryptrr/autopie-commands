@@ -1,0 +1,35 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.combine-images-to-gif"
+namespace: "autopie"
+name: "Combine Images to GIF"
+commandSlug: "magick"
+summary: "AutoPie command for Combine Images to GIF"
+type: "PACKAGE"
+tags: ["imagemagick"]
+runtime:
+  path: ""
+  command: "magick -delay ${DELAY} -loop 0 ${INPUT_FILES} -gravity center \"${INPUT_FILE}-${RAND}.gif\""
+  extras:
+    - id: "714091"
+      name: "DELAY"
+      type: "STRING"
+      default: "100"
+      description: "Delay between frames in milliseconds."
+      required: false
+install:
+  primaryPackage: "imagemagick"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

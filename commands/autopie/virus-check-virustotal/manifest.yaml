@@ -1,0 +1,29 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.virus-check-virustotal"
+namespace: "autopie"
+name: "Virus Check (VirusTotal)"
+commandSlug: ""
+summary: "AutoPie command for Virus Check (VirusTotal)"
+type: "PACKAGE"
+tags: ["coreutils"]
+runtime:
+  path: ""
+  command: "set -euo pipefail\n\nif [[ ! -f \"$INPUT_FILE\" ]]; then\n    echo \"Usage: $0 <file>\"\n    exit 1\nfi\n\nHASH=$(sha256sum \"$INPUT_FILE\" | awk '{print $1}')\nURL=\"https://www.virustotal.com/gui/file/$HASH\"\n\necho \"SHA-256: $HASH\"\necho \"Opening: $URL\"\n\nam start \\\n    -a android.intent.action.VIEW \\\n    -d \"$URL\""
+  flags: ["--show-loading-screen"]
+install:
+  primaryPackage: "coreutils"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

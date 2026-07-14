@@ -1,0 +1,28 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.convert-video-to-av1"
+namespace: "autopie"
+name: "Convert video to AV1"
+commandSlug: "ffmpeg"
+summary: "AutoPie command for Convert video to AV1"
+type: "PACKAGE"
+tags: ["ffmpeg"]
+runtime:
+  path: ""
+  command: "ffmpeg -i \"${INPUT_FILE}\" -c:v libaom-av1 -crf 18 -b:v 0 \"${INPUT_FILE}.mkv\""
+install:
+  primaryPackage: "ffmpeg"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

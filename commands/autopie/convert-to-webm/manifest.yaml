@@ -1,0 +1,48 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.convert-to-webm"
+namespace: "autopie"
+name: "Convert To WebM"
+commandSlug: "ffmpeg"
+summary: "AutoPie command for Convert To WebM"
+type: "PACKAGE"
+tags: ["ffmpeg"]
+runtime:
+  path: "Downloads"
+  command: "ffmpeg -i \"${INPUT_FILE}\" -c:v libvpx-vp9 -crf 24 \"${INPUT_FILE}.webm\""
+  extras:
+    - id: "138558"
+      name: "BITRATE"
+      type: "STRING"
+      default: "1M"
+      description: "Use an ffmpeg compatible bitrate value."
+      required: false
+    - id: "246920"
+      name: "CODEC"
+      type: "SELECTABLE"
+      default: "libvpx-vp9"
+      description: "Choose vp9 for better file size. Choose vp8 for better support."
+      required: false
+      selectableOptions: ["libvpx-vp9", "libvpx"]
+    - id: "027046"
+      name: "CRF"
+      type: "STRING"
+      default: "24"
+      description: "Constant Rate Factor.\nA value between 4 to 63. Lower means better quality."
+      required: false
+install:
+  primaryPackage: "ffmpeg"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

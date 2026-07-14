@@ -1,0 +1,28 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.extract-images-from-pdf"
+namespace: "autopie"
+name: "Extract Images from PDF"
+commandSlug: "magick"
+summary: "AutoPie command for Extract Images from PDF"
+type: "PACKAGE"
+tags: ["imagemagick"]
+runtime:
+  path: ""
+  command: "magick \"${INPUT_FILE}\" \"${INPUT_FILE}_%03d.png\""
+install:
+  primaryPackage: "imagemagick"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

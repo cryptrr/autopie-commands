@@ -1,0 +1,29 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.ffmpeg-optimize-video"
+namespace: "autopie"
+name: "FFMPEG: Optimize Video"
+commandSlug: "ffmpeg"
+summary: "AutoPie command for FFMPEG: Optimize Video"
+type: "PACKAGE"
+tags: ["ffmpeg"]
+runtime:
+  path: "/storage/emulated/0/"
+  command: "ffmpeg -i \"${INPUT_FILE}\" -c:v libx264 -preset slow -crf 23 -c:a aac -b:a 128k -movflags +faststart \"${INPUT_FILE}-optim.mp4\""
+  deleteSourceFile: false
+install:
+  primaryPackage: "ffmpeg"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

@@ -1,0 +1,41 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.extract-audio-from-url"
+namespace: "autopie"
+name: "Extract Audio from URL"
+commandSlug: "ffmpeg"
+summary: "AutoPie command for Extract Audio from URL"
+type: "PACKAGE"
+tags: ["ffmpeg"]
+runtime:
+  path: "Mp3"
+  command: "ffmpeg -i \"${INPUT_URL}\" -b:a ${BITRATE} -vn \"${FILE_NAME:-$FILENAME}.mp3\""
+  extras:
+    - id: "715336"
+      name: "BITRATE"
+      type: "STRING"
+      default: "195K"
+      description: "A value from 56K to 320K.\nLarger means better quality."
+      required: true
+    - id: "568163"
+      name: "FILE_NAME"
+      type: "STRING"
+      default: ""
+      description: "Set a custom filename for this file."
+      required: true
+install:
+  primaryPackage: "ffmpeg"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

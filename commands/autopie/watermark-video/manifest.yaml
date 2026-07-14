@@ -1,0 +1,42 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.watermark-video"
+namespace: "autopie"
+name: "Watermark Video"
+commandSlug: "ffmpeg"
+summary: "AutoPie command for Watermark Video"
+type: "PACKAGE"
+tags: ["ffmpeg"]
+runtime:
+  path: ""
+  command: "ffmpeg -i \"${INPUT_FILE}\" -i \"${WATERMARK_FILE}\" -filter_complex \"overlay=$( \\\n    case $POSITION in \\\n        TOP_LEFT) echo '10:10';; \\\n        TOP_RIGHT) echo 'W-w-10:10';; \\\n        BOTTOM_LEFT) echo '10:H-h-10';; \\\n        BOTTOM_RIGHT) echo 'W-w-10:H-h-10';; \\\n        CENTER) echo '(W-w)/2:(H-h)/2';; \\\n        *) echo 'W-w-10:10';; \\\n    esac)\" -codec:a copy \"${INPUT_FILE}-watermarked-${RAND}.mp4\""
+  extras:
+    - id: "368719"
+      name: "WATERMARK_FILE"
+      type: "STRING"
+      default: ""
+      description: "Full path to the watermark image."
+      required: true
+    - id: "819827"
+      name: "POSITION"
+      type: "SELECTABLE"
+      default: "BOTTOM_RIGHT"
+      description: "Choose the position where you want to put the watermark."
+      required: true
+      selectableOptions: ["BOTTOM_RIGHT", "TOP_RIGHT", "TOP_LEFT", "BOTTOM_LEFT", "CENTER"]
+install:
+  primaryPackage: "ffmpeg"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

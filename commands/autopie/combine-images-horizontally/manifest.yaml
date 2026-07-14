@@ -1,0 +1,36 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.combine-images-horizontally"
+namespace: "autopie"
+name: "Combine Images Horizontally"
+commandSlug: "magick"
+summary: "AutoPie command for Combine Images Horizontally"
+type: "PACKAGE"
+tags: ["imagemagick"]
+runtime:
+  path: ""
+  command: "magick \"${INPUT_FILES_ARR[@]}\" -resize x${QUALITY} +append \"${INPUT_FILE}.horiz-${RAND}.jpeg\""
+  extras:
+    - id: "738502"
+      name: "QUALITY"
+      type: "SELECTABLE"
+      default: "720x"
+      description: ""
+      required: false
+      selectableOptions: {"720x": "720x", "480x": "480x", "1080x": "1080x"}
+install:
+  primaryPackage: "imagemagick"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

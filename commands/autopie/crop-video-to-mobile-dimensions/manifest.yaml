@@ -1,0 +1,41 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.crop-video-to-mobile-dimensions"
+namespace: "autopie"
+name: "Crop Video to Mobile Dimensions"
+commandSlug: "ffmpeg"
+summary: "AutoPie command for Crop Video to Mobile Dimensions"
+type: "PACKAGE"
+tags: ["ffmpeg"]
+runtime:
+  path: ""
+  command: "ffmpeg -i \"${INPUT_FILE}\" -vf \\\"crop=${WIDTH}/${HEIGHT}*in_h:in_h\\\" -c:a copy \"${INPUT_FILE}.cropped.mp4\""
+  extras:
+    - id: "551203"
+      name: "WIDTH"
+      type: "STRING"
+      default: "9"
+      description: "Width as aspect ratio"
+      required: false
+    - id: "657412"
+      name: "HEIGHT"
+      type: "STRING"
+      default: "16"
+      description: "Height as aspect ratio"
+      required: false
+install:
+  primaryPackage: "ffmpeg"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

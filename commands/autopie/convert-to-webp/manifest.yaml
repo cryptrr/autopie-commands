@@ -1,0 +1,42 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.convert-to-webp"
+namespace: "autopie"
+name: "Convert To WEBP"
+commandSlug: "magick"
+summary: "AutoPie command for Convert To WEBP"
+type: "PACKAGE"
+tags: ["imagemagick"]
+runtime:
+  path: ""
+  command: "magick \"${INPUT_FILE}\" -quality ${QUALITY} -define webp:method=${METHOD} \"${INPUT_FILE}.webp\""
+  extras:
+    - id: "148663"
+      name: "QUALITY"
+      type: "STRING"
+      default: "99"
+      description: "Set a value from 1 to 100."
+      required: false
+    - id: "306994"
+      name: "METHOD"
+      type: "SELECTABLE"
+      default: "6"
+      description: "0 is fastest. 6 is slowest.\n6 gives the lowest file size and highest quality."
+      required: false
+      selectableOptions: ["6", "0", "1", "2", "3", "4", "5"]
+install:
+  primaryPackage: "imagemagick"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

@@ -1,0 +1,48 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.crop-image-gif"
+namespace: "autopie"
+name: "Crop Image/GIF"
+commandSlug: "magick"
+summary: "AutoPie command for Crop Image/GIF"
+type: "PACKAGE"
+tags: ["imagemagick"]
+runtime:
+  path: ""
+  command: "magick \"${INPUT_FILE}\" -coalesce -gravity ${POSITION} -crop '%[fx:w]x%[fx:w*${RATIO_HEIGHT}/${RATIO_WIDTH}]+0+0' +repage \"${INPUT_FILE}-cropped-${RAND}.${FILE_EXT}\""
+  extras:
+    - id: "283266"
+      name: "RATIO_HEIGHT"
+      type: "STRING"
+      default: "5"
+      description: ""
+      required: false
+    - id: "269953"
+      name: "RATIO_WIDTH"
+      type: "STRING"
+      default: "3"
+      description: ""
+      required: false
+    - id: "487502"
+      name: "POSITION"
+      type: "SELECTABLE"
+      default: "center"
+      description: ""
+      required: false
+      selectableOptions: ["center", "north", "south", "east", "west"]
+install:
+  primaryPackage: "imagemagick"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

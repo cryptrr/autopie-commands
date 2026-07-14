@@ -1,0 +1,28 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.sha-256-hash-check"
+namespace: "autopie"
+name: "SHA-256 Hash Check"
+commandSlug: ""
+summary: "AutoPie command for SHA-256 Hash Check"
+type: "PACKAGE"
+tags: ["coreutils"]
+runtime:
+  path: ""
+  command: "#@OPEN_LOGS\nsha256sum \"${INPUT_FILE}\""
+install:
+  primaryPackage: "coreutils"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

@@ -1,0 +1,28 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.convert-to-animated-webp"
+namespace: "autopie"
+name: "Convert to Animated WebP"
+commandSlug: "ffmpeg"
+summary: "AutoPie command for Convert to Animated WebP"
+type: "PACKAGE"
+tags: ["ffmpeg"]
+runtime:
+  path: ""
+  command: "ffmpeg -i \"${INPUT_FILE}\" -vf \"fps=15,scale=600:-1:flags=lanczos\" -c:v libwebp -loop 0 -an -preset default -quality 80 \"${INPUT_FILE}-anim.webp\""
+install:
+  primaryPackage: "ffmpeg"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

@@ -1,0 +1,36 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.rotate-video"
+namespace: "autopie"
+name: "Rotate Video"
+commandSlug: "ffmpeg"
+summary: "AutoPie command for Rotate Video"
+type: "PACKAGE"
+tags: ["ffmpeg"]
+runtime:
+  path: ""
+  command: "ffmpeg -i ${INPUT_FILE} -vf \"$( \\\n    case $ROTATE in \\\n        90) echo 'transpose=1';; \\\n        180) echo 'transpose=2,transpose=2';; \\\n        270) echo 'transpose=3';; \\\n    esac)\" -c:a copy ${INPUT_FILE}.rotated.mp4"
+  extras:
+    - id: "492563"
+      name: "ROTATE"
+      type: "SELECTABLE"
+      default: "90"
+      description: "Degrees to rotate (clockwise)"
+      required: true
+      selectableOptions: ["90", "180", "270"]
+install:
+  primaryPackage: "ffmpeg"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

@@ -1,0 +1,29 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.gallerydl-download"
+namespace: "autopie"
+name: "GalleryDL Download "
+commandSlug: "gallery-dl"
+summary: "AutoPie command for GalleryDL Download "
+type: "PACKAGE"
+tags: ["gallery-dl"]
+runtime:
+  path: ""
+  command: "gallery-dl \"${INPUT_URL}\""
+  deleteSourceFile: false
+install:
+  primaryPackage: "gallery-dl"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

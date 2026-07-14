@@ -1,0 +1,967 @@
+{
+  "Change Volume on Mac": {
+    "path": "AutoSec/scripts",
+    "exec": "openssh",
+    "command": "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"set volume output volume ${VOLUME}\\\"\"",
+    "extras": [
+      {
+        "default": "amal",
+        "description": "The SSH user on the host.",
+        "id": "735279",
+        "name": "USER",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "amals-mac-mini.lan",
+        "description": "The SSH host to connect to.",
+        "id": "486044",
+        "name": "HOST",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "",
+        "description": "SSH password.",
+        "id": "829258",
+        "name": "PASSWORD",
+        "required": true,
+        "flags": [
+          "--password",
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "0,50,100",
+        "description": "Slider to set volume.",
+        "id": "574538",
+        "name": "VOLUME",
+        "required": true,
+        "flags": [
+          "--int",
+          "--realtime"
+        ],
+        "type": "SLIDER"
+      }
+    ]
+  },
+  "Change Volume on Mac - AutoFetch": {
+    "multiStage": true,
+    "steps": [
+      {
+        "path": "AutoSec/scripts",
+        "exec": "openssh",
+        "command": "CURRENT_VOLUME=$(sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"output volume of (get volume settings)\\\"\")\nexport CURRENT_VOLUME\nexport SLIDER_OPTIONS=0,\"$CURRENT_VOLUME\",100",
+        "extras": [
+          {
+            "default": "amal",
+            "description": "The SSH user on the host.",
+            "id": "735279",
+            "name": "USER",
+            "required": true,
+            "flags": [
+              "--internal-config"
+            ],
+            "type": "STRING"
+          },
+          {
+            "default": "amals-mac-mini.lan",
+            "description": "The SSH host to connect to.",
+            "id": "486044",
+            "name": "HOST",
+            "required": true,
+            "flags": [
+              "--internal-config"
+            ],
+            "type": "STRING"
+          },
+          {
+            "default": "",
+            "description": "SSH password.",
+            "id": "829258",
+            "name": "PASSWORD",
+            "required": true,
+            "flags": [
+              "--internal-config",
+              "--password"
+            ],
+            "type": "STRING"
+          }
+        ]
+      },
+      {
+        "path": "AutoSec/scripts",
+        "exec": "openssh",
+        "command": "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"set volume output volume ${VOLUME}\\\"\"",
+        "extras": [
+          {
+            "default": "$$SLIDER_OPTIONS",
+            "description": "Slider to set volume.",
+            "id": "574538",
+            "name": "VOLUME",
+            "required": true,
+            "flags": [
+              "--int",
+              "--realtime"
+            ],
+            "type": "SLIDER"
+          }
+        ]
+      }
+    ]
+  },
+  "Check Exif Data": {
+    "path": "",
+    "exec": "exiftool",
+    "command": "#@OPEN_LOGS\nexiftool \"${INPUT_FILE}\"",
+    "deleteSourceFile": false
+  },
+  "Check Internet Archive": {
+    "path": "",
+    "exec": "",
+    "command": "#@PYTHON\n#@OPEN_LOGS\n\nimport os\nimport sys\nimport subprocess\nimport json\nimport urllib.parse\nimport urllib.request\n\ndef latest_wayback_snapshot(url: str) -> str | None:\n    api = \"https://archive.org/wayback/available\"\n    query = urllib.parse.urlencode({\"url\": url})\n    api_url = f\"{api}?{query}\"\n\n    with urllib.request.urlopen(api_url, timeout=20) as r:\n        data = json.loads(r.read().decode(\"utf-8\"))\n\n    snapshot = data.get(\"archived_snapshots\", {}).get(\"closest\")\n    if snapshot and snapshot.get(\"available\"):\n        return snapshot.get(\"url\")\n\n    return None\n\n\n\ndef main():\n    \n    url = os.getenv(\"INPUT_URL\")\n    print(\"CHECKING...\", flush=True)\n    snapshot_url = latest_wayback_snapshot(url)\n\n    if snapshot_url:\n        print(snapshot_url)\n        subprocess.run([\n            \"am\",\n            \"start\",\n            \"-a\",\n            \"android.intent.action.VIEW\",\n            \"-d\",\n            snapshot_url,\n        ], stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,check=True)\n    else:\n        print(\"No snapshot found\", file=sys.stderr)\n        sys.exit(2)\n\n\nif __name__ == \"__main__\":\n    main()\n"
+  },
+  "Check Media Info": {
+    "path": "",
+    "exec": "",
+    "command": "#@OPEN_LOGS\nmediainfo \"${INPUT_FILE}\""
+  },
+  "Combine Gifs Vertically": {
+    "path": "",
+    "exec": "magick",
+    "command": "magick \"${INPUT_FILES_ARR[@]}\" -resize ${QUALITY}x -append \"${INPUT_FILE}.vert.gif\"",
+    "extras": [
+      {
+        "default": "720x",
+        "description": "",
+        "id": "280847",
+        "name": "QUALITY",
+        "required": false,
+        "type": "SELECTABLE",
+        "selectableOptions": [
+          "720x",
+          "480x",
+          "1080x"
+        ]
+      }
+    ]
+  },
+  "Combine Images Horizontally": {
+    "path": "",
+    "exec": "magick",
+    "command": "magick \"${INPUT_FILES_ARR[@]}\" -resize x${QUALITY} +append \"${INPUT_FILE}.horiz-${RAND}.jpeg\"",
+    "extras": [
+      {
+        "default": "720x",
+        "description": "",
+        "id": "738502",
+        "name": "QUALITY",
+        "required": false,
+        "type": "SELECTABLE",
+        "selectableOptions": {
+          "720x": "720x",
+          "480x": "480x",
+          "1080x": "1080x"
+        }
+      }
+    ]
+  },
+  "Combine Images into PDF": {
+    "path": "",
+    "exec": "magick",
+    "command": "magick \"${INPUT_FILES_ARR[@]}\" -resize ${QUALITY} -gravity center -extent ${QUALITY} \"${INPUT_FILE}.pdf\"",
+    "extras": [
+      {
+        "default": "720x",
+        "description": "Choose the PDF width.",
+        "id": "771088",
+        "name": "QUALITY",
+        "required": false,
+        "type": "SELECTABLE",
+        "selectableOptions": [
+          "720x",
+          "480x",
+          "1080x"
+        ]
+      }
+    ]
+  },
+  "Combine Images to GIF": {
+    "path": "",
+    "exec": "magick",
+    "command": "magick -delay ${DELAY} -loop 0 ${INPUT_FILES} -gravity center \"${INPUT_FILE}-${RAND}.gif\"",
+    "extras": [
+      {
+        "default": "100",
+        "description": "Delay between frames in milliseconds.",
+        "id": "714091",
+        "name": "DELAY",
+        "required": false,
+        "type": "STRING"
+      }
+    ]
+  },
+  "Combine Images Vertically": {
+    "path": "",
+    "exec": "magick",
+    "command": "magick \"${INPUT_FILES_ARR[@]}\" -resize ${QUALITY}x -append \"${INPUT_FILE}.vert.jpeg\"",
+    "extras": [
+      {
+        "default": "720x",
+        "description": "",
+        "id": "280847",
+        "name": "QUALITY",
+        "required": false,
+        "type": "SELECTABLE",
+        "selectableOptions": [
+          "720x",
+          "480x",
+          "1080x"
+        ]
+      }
+    ]
+  },
+  "Compress ZIP (High) : Folder": {
+    "path": "",
+    "exec": "7z",
+    "command": "7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILE}/* -mfb=258 -mpass=15",
+    "deleteSourceFile": false
+  },
+  "Compress ZIP (High) : Multi File": {
+    "path": "",
+    "exec": "7z",
+    "command": "7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILES_ARR[@]} -mfb=258 -mpass=15"
+  },
+  "Convert to Animated WebP": {
+    "path": "",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -vf \"fps=15,scale=600:-1:flags=lanczos\" -c:v libwebp -loop 0 -an -preset default -quality 80 \"${INPUT_FILE}-anim.webp\""
+  },
+  "Convert to GIF": {
+    "path": "",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -ss ${START} ${END:+-t $END} -vf \"fps=15,scale=480:-1:flags=lanczos\" -c:v gif \"${INPUT_FILE}.gif\"",
+    "extras": [
+      {
+        "default": "00:00:00",
+        "description": "",
+        "id": "608647",
+        "name": "START",
+        "required": true,
+        "type": "STRING"
+      },
+      {
+        "default": "",
+        "description": "",
+        "id": "705186",
+        "name": "END",
+        "required": false,
+        "type": "STRING"
+      }
+    ]
+  },
+  "Convert To WebM": {
+    "path": "Downloads",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libvpx-vp9 -crf 24 \"${INPUT_FILE}.webm\"",
+    "extras": [
+      {
+        "default": "1M",
+        "description": "Use an ffmpeg compatible bitrate value.",
+        "id": "138558",
+        "name": "BITRATE",
+        "required": false,
+        "type": "STRING"
+      },
+      {
+        "default": "libvpx-vp9",
+        "description": "Choose vp9 for better file size. Choose vp8 for better support.",
+        "id": "246920",
+        "name": "CODEC",
+        "required": false,
+        "type": "SELECTABLE",
+        "selectableOptions": [
+          "libvpx-vp9",
+          "libvpx"
+        ]
+      },
+      {
+        "default": "24",
+        "description": "Constant Rate Factor.\nA value between 4 to 63. Lower means better quality.",
+        "id": "027046",
+        "name": "CRF",
+        "required": false,
+        "type": "STRING"
+      }
+    ]
+  },
+  "Convert To WEBP": {
+    "path": "",
+    "exec": "magick",
+    "command": "magick \"${INPUT_FILE}\" -quality ${QUALITY} -define webp:method=${METHOD} \"${INPUT_FILE}.webp\"",
+    "extras": [
+      {
+        "default": "99",
+        "description": "Set a value from 1 to 100.",
+        "id": "148663",
+        "name": "QUALITY",
+        "required": false,
+        "type": "STRING"
+      },
+      {
+        "default": "6",
+        "description": "0 is fastest. 6 is slowest.\n6 gives the lowest file size and highest quality.",
+        "id": "306994",
+        "name": "METHOD",
+        "required": false,
+        "type": "SELECTABLE",
+        "selectableOptions": [
+          "6",
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      }
+    ]
+  },
+  "Convert video to AV1": {
+    "path": "",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libaom-av1 -crf 18 -b:v 0 \"${INPUT_FILE}.mkv\""
+  },
+  "Crop Image/GIF": {
+    "path": "",
+    "exec": "magick",
+    "command": "magick \"${INPUT_FILE}\" -coalesce -gravity ${POSITION} -crop '%[fx:w]x%[fx:w*${RATIO_HEIGHT}/${RATIO_WIDTH}]+0+0' +repage \"${INPUT_FILE}-cropped-${RAND}.${FILE_EXT}\"",
+    "extras": [
+      {
+        "default": "5",
+        "description": "",
+        "id": "283266",
+        "name": "RATIO_HEIGHT",
+        "required": false,
+        "type": "STRING"
+      },
+      {
+        "default": "3",
+        "description": "",
+        "id": "269953",
+        "name": "RATIO_WIDTH",
+        "required": false,
+        "type": "STRING"
+      },
+      {
+        "default": "center",
+        "description": "",
+        "id": "487502",
+        "name": "POSITION",
+        "required": false,
+        "type": "SELECTABLE",
+        "selectableOptions": [
+          "center",
+          "north",
+          "south",
+          "east",
+          "west"
+        ]
+      }
+    ]
+  },
+  "Crop Video to Mobile Dimensions": {
+    "path": "",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -vf \\\"crop=${WIDTH}/${HEIGHT}*in_h:in_h\\\" -c:a copy \"${INPUT_FILE}.cropped.mp4\"",
+    "extras": [
+      {
+        "default": "9",
+        "description": "Width as aspect ratio",
+        "id": "551203",
+        "name": "WIDTH",
+        "required": false,
+        "type": "STRING"
+      },
+      {
+        "default": "16",
+        "description": "Height as aspect ratio",
+        "id": "657412",
+        "name": "HEIGHT",
+        "required": false,
+        "type": "STRING"
+      }
+    ]
+  },
+  "Extract Audio from File": {
+    "path": "",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -b:a ${BITRATE} -vn \"${INPUT_FILE}.$FORMAT\"",
+    "extras": [
+      {
+        "default": "195K",
+        "description": "A value from 56K to 320K.\nLarger means better quality.",
+        "id": "715336",
+        "name": "BITRATE",
+        "required": false,
+        "type": "STRING"
+      },
+      {
+        "default": "mp3",
+        "description": "Select output format you want.",
+        "id": "480077",
+        "name": "FORMAT",
+        "required": true,
+        "type": "SELECTABLE",
+        "selectableOptions": [
+          "mp3",
+          "m4a",
+          "aac",
+          "opus",
+          "vorbis",
+          "flac",
+          "wav"
+        ]
+      }
+    ]
+  },
+  "Extract Audio from URL": {
+    "path": "Mp3",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_URL}\" -b:a ${BITRATE} -vn \"${FILE_NAME:-$FILENAME}.mp3\"",
+    "extras": [
+      {
+        "default": "195K",
+        "description": "A value from 56K to 320K.\nLarger means better quality.",
+        "id": "715336",
+        "name": "BITRATE",
+        "required": true,
+        "type": "STRING"
+      },
+      {
+        "default": "",
+        "description": "Set a custom filename for this file.",
+        "id": "568163",
+        "name": "FILE_NAME",
+        "required": true,
+        "type": "STRING"
+      }
+    ]
+  },
+  "Extract Images from PDF": {
+    "path": "",
+    "exec": "magick",
+    "command": "magick \"${INPUT_FILE}\" \"${INPUT_FILE}_%03d.png\""
+  },
+  "FFMPEG: Convert to HEVC": {
+    "path": "",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libx264 -crf 24 -preset medium \"${INPUT_FILE}-x265.mp4\"",
+    "deleteSourceFile": false
+  },
+  "FFMPEG: Cut Video": {
+    "path": "Download",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -ss ${START} ${END:+-t $END} \"${INPUT_FILE}-cut-${RAND}.mp4\"",
+    "extras": [
+      {
+        "default": "00:00:00",
+        "description": "Start time",
+        "id": "368102",
+        "name": "START",
+        "required": false,
+        "type": "STRING"
+      },
+      {
+        "default": "",
+        "description": "End time ",
+        "id": "218569",
+        "name": "END",
+        "required": false,
+        "type": "STRING"
+      }
+    ]
+  },
+  "FFMPEG: Optimize Video": {
+    "path": "/storage/emulated/0/",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libx264 -preset slow -crf 23 -c:a aac -b:a 128k -movflags +faststart \"${INPUT_FILE}-optim.mp4\"",
+    "deleteSourceFile": false
+  },
+  "Flip/Mirror Video": {
+    "path": "",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -vf \"hflip\" \"${INPUT_FILE}-mirrored.mp4\"",
+    "deleteSourceFile": false
+  },
+  "GalleryDL Download ": {
+    "path": "",
+    "exec": "gallery-dl",
+    "command": "gallery-dl \"${INPUT_URL}\"",
+    "deleteSourceFile": false
+  },
+  "Open in Video Player": {
+    "path": "",
+    "exec": "am",
+    "command": "url=$(yt-dlp --no-warnings -q -g -f \"${FORMAT}\" \"${INPUT_URL}\")\nam start \\\n    -a android.intent.action.SEND \\\n    -t text/plain \\\n    --es android.intent.extra.TEXT $url",
+    "flags": [
+      "--show-loading-screen"
+    ],
+    "extras": [
+      {
+        "default": "b",
+        "description": "",
+        "id": "370271",
+        "name": "FORMAT",
+        "required": true,
+        "type": "SELECTABLE",
+        "selectableOptions": {
+          "b": "b",
+          "bv*+ba/b": "bv*+ba/b"
+        }
+      }
+    ]
+  },
+  "OpenWRT Router Automations": {
+    "path": "AutoSec/scripts",
+    "exec": "openssh",
+    "command": "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"$REMOTE_COMMAND\"",
+    "extras": [
+      {
+        "default": "root",
+        "description": "The SSH user on the host.",
+        "id": "735279",
+        "name": "USER",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "openwrt",
+        "description": "The SSH host to connect to.",
+        "id": "486044",
+        "name": "HOST",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "",
+        "description": "SSH password.",
+        "id": "829258",
+        "name": "PASSWORD",
+        "required": true,
+        "flags": [
+          "--password",
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "uci set wireless.radio0.disabled=0 && uci commit wireless && wifi reload",
+        "description": "The command to run after sshing into the remote server.",
+        "id": "708927",
+        "name": "REMOTE_COMMAND",
+        "required": true,
+        "type": "SELECTABLE",
+        "selectableOptions": {
+          "Enable 5GHz": "uci set wireless.radio0.disabled=0 && uci commit wireless && wifi reload",
+          "Disable 5GHz": "uci set wireless.radio0.disabled=1 && uci commit wireless && wifi reload",
+          "/etc/init.d/network restart": "/etc/init.d/network restart",
+          "reboot": "reboot",
+          "logread": "logread",
+          "ifdown wan && ifup wan": "ifdown wan && ifup wan",
+          "wifi reload": "wifi reload",
+          "etherwake -i br-lan AA:BB:CC:DD:EE:FF": "etherwake -i br-lan AA:BB:CC:DD:EE:FF"
+        }
+      }
+    ]
+  },
+  "PDF Utils Applet for AutoPie": {
+    "path": "",
+    "exec": "pdf",
+    "command": "poppler ${input.url}"
+  },
+  "Remove Audio": {
+    "path": "",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -an -c:v copy \"${INPUT_FILE}-noaud.mp4\"",
+    "deleteSourceFile": false
+  },
+  "Remove Image Borders": {
+    "path": "",
+    "exec": "magick",
+    "command": "magick \"${INPUT_FILE}\" -fuzz ${FUZZ}% -trim \"${INPUT_FILE}-trim.jpg\"",
+    "extras": [
+      {
+        "default": "50",
+        "description": "",
+        "id": "131124",
+        "name": "FUZZ",
+        "required": true,
+        "type": "STRING"
+      }
+    ]
+  },
+  "Resize Video": {
+    "path": "",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -vf \"scale=${HEIGHT}:${WIDTH}\" -c:a copy \"${INPUT_FILE}-resized-${RAND}.mp4\"",
+    "extras": [
+      {
+        "default": "1280",
+        "description": "Height in pixels",
+        "id": "242041",
+        "name": "HEIGHT",
+        "required": false,
+        "type": "STRING"
+      },
+      {
+        "default": "720",
+        "description": "Width in pixels.",
+        "id": "664223",
+        "name": "WIDTH",
+        "required": false,
+        "type": "STRING"
+      }
+    ]
+  },
+  "Rotate Video": {
+    "path": "",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i ${INPUT_FILE} -vf \"$( \\\n    case $ROTATE in \\\n        90) echo 'transpose=1';; \\\n        180) echo 'transpose=2,transpose=2';; \\\n        270) echo 'transpose=3';; \\\n    esac)\" -c:a copy ${INPUT_FILE}.rotated.mp4",
+    "extras": [
+      {
+        "default": "90",
+        "description": "Degrees to rotate (clockwise)",
+        "id": "492563",
+        "name": "ROTATE",
+        "required": true,
+        "type": "SELECTABLE",
+        "selectableOptions": [
+          "90",
+          "180",
+          "270"
+        ]
+      }
+    ]
+  },
+  "RSYNC: Backup Pics to PC": {
+    "path": "",
+    "exec": "rsync",
+    "command": "rsync -avz \"${FOLDER_FROM}\" \"${FOLDER_TO}\"",
+    "extras": [
+      {
+        "default": "",
+        "description": "The remote machine should be running RSYNC daemon.\nFor security reasons, limit the usage of the RSYNC protocol to the local network.",
+        "id": "093901",
+        "name": "RSYNC_PASSWORD",
+        "required": true,
+        "flags": [
+          "--password",
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "rsync://user@192.168.1.132/home/user/Pictures_Backup/",
+        "description": "The remote folder to send backups to.\nShould be in the format 'rsync://user@192.168.1.132/path/to/folder/'",
+        "id": "557719",
+        "name": "FOLDER_TO",
+        "required": false,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "/storage/emulated/0/Pictures/",
+        "description": "Absolute path to the folder on your device",
+        "id": "267285",
+        "name": "FOLDER_FROM",
+        "required": false,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      }
+    ]
+  },
+  "RSYNC: Sync Pics - PC ➡️ Mob": {
+    "path": "",
+    "exec": "rsync",
+    "command": "rsync -avz \"${FOLDER_FROM}\" \"${FOLDER_TO}\"",
+    "extras": [
+      {
+        "default": "",
+        "description": "The remote machine should be running RSYNC daemon.\nFor security reasons, limit the usage of the RSYNC protocol to the local network.",
+        "id": "093901",
+        "name": "RSYNC_PASSWORD",
+        "required": true,
+        "flags": [
+          "--password",
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "rsync://user@192.168.1.132/home/user/Pictures_Backup/",
+        "description": "The remote folder to sync to your device.\nShould be in the format 'rsync://user@192.168.1.132/path/to/folder/'",
+        "id": "557719",
+        "name": "FOLDER_FROM",
+        "required": false,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "/storage/emulated/0/Pictures/",
+        "description": "Absolute path to the folder on your device.",
+        "id": "267285",
+        "name": "FOLDER_TO",
+        "required": false,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      }
+    ]
+  },
+  "Set file modified date to now.": {
+    "path": "",
+    "exec": "",
+    "command": "touch \"${INPUT_FILE}\""
+  },
+  "SHA-256 Hash Check": {
+    "path": "",
+    "exec": "",
+    "command": "#@OPEN_LOGS\nsha256sum \"${INPUT_FILE}\""
+  },
+  "Shutdown Remote Server": {
+    "path": "AutoSec/scripts",
+    "exec": "openssh",
+    "command": "sshpass -p \"$PASSWORD\" \\\nssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"echo '$PASSWORD' | sudo -S /sbin/shutdown -h now\"",
+    "extras": [
+      {
+        "default": "",
+        "description": "The SSH user on host.",
+        "id": "735279",
+        "name": "USER",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "amals-mac-mini.lan",
+        "description": "The SSH host to connect to.",
+        "id": "486044",
+        "name": "HOST",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "SELECTABLE",
+        "selectableOptions": {
+          "amals-mac-mini.lan": "amals-mac-mini.lan",
+          "pop-os": "pop-os"
+        }
+      },
+      {
+        "default": "",
+        "description": "SSH password.",
+        "id": "829258",
+        "name": "PASSWORD",
+        "required": true,
+        "flags": [
+          "--password",
+          "--internal-config"
+        ],
+        "type": "STRING"
+      }
+    ]
+  },
+  "Trigger Home Assistant": {
+    "path": "",
+    "exec": "httpx",
+    "command": "httpx -m POST ${COOKIE_FILE:+--cookie-file $COOKIE_FILE} -d entity_id script.${SCRIPT_NAME} $URL",
+    "extras": [
+      {
+        "default": "/storage/emulated/0/cookies.txt",
+        "description": "The full path to cookie file.",
+        "id": "829804",
+        "name": "COOKIE_FILE",
+        "required": true,
+        "type": "STRING"
+      },
+      {
+        "default": "night_mode",
+        "description": "The name of the script that is defined in the home automation server.",
+        "id": "862978",
+        "name": "SCRIPT_NAME",
+        "required": true,
+        "type": "SELECTABLE",
+        "selectableOptions": [
+          "night_mode",
+          "day_mode",
+          "lights_off",
+          "ambient_mode",
+          "emergency"
+        ]
+      },
+      {
+        "default": "https://homeassistant.local/api/services/script/turn_on",
+        "description": "The URL endpoint.",
+        "id": "202404",
+        "name": "URL",
+        "required": true,
+        "type": "STRING"
+      }
+    ]
+  },
+  "Virus Check (VirusTotal)": {
+    "path": "",
+    "exec": "",
+    "command": "set -euo pipefail\n\nif [[ ! -f \"$INPUT_FILE\" ]]; then\n    echo \"Usage: $0 <file>\"\n    exit 1\nfi\n\nHASH=$(sha256sum \"$INPUT_FILE\" | awk '{print $1}')\nURL=\"https://www.virustotal.com/gui/file/$HASH\"\n\necho \"SHA-256: $HASH\"\necho \"Opening: $URL\"\n\nam start \\\n    -a android.intent.action.VIEW \\\n    -d \"$URL\"",
+    "flags": [
+      "--show-loading-screen"
+    ]
+  },
+  "Watermark Video": {
+    "path": "",
+    "exec": "ffmpeg",
+    "command": "ffmpeg -i \"${INPUT_FILE}\" -i \"${WATERMARK_FILE}\" -filter_complex \"overlay=$( \\\n    case $POSITION in \\\n        TOP_LEFT) echo '10:10';; \\\n        TOP_RIGHT) echo 'W-w-10:10';; \\\n        BOTTOM_LEFT) echo '10:H-h-10';; \\\n        BOTTOM_RIGHT) echo 'W-w-10:H-h-10';; \\\n        CENTER) echo '(W-w)/2:(H-h)/2';; \\\n        *) echo 'W-w-10:10';; \\\n    esac)\" -codec:a copy \"${INPUT_FILE}-watermarked-${RAND}.mp4\"",
+    "extras": [
+      {
+        "default": "",
+        "description": "Full path to the watermark image.",
+        "id": "368719",
+        "name": "WATERMARK_FILE",
+        "required": true,
+        "type": "STRING"
+      },
+      {
+        "default": "BOTTOM_RIGHT",
+        "description": "Choose the position where you want to put the watermark.",
+        "id": "819827",
+        "name": "POSITION",
+        "required": true,
+        "type": "SELECTABLE",
+        "selectableOptions": [
+          "BOTTOM_RIGHT",
+          "TOP_RIGHT",
+          "TOP_LEFT",
+          "BOTTOM_LEFT",
+          "CENTER"
+        ]
+      }
+    ]
+  },
+  "wCurl Download": {
+    "path": "Download",
+    "exec": "wcurl",
+    "command": "wcurl ${FILE_NAME_EXTRA:+-o \"$FILE_NAME_EXTRA\"} \"$INPUT_URL\"",
+    "extras": [
+      {
+        "default": "",
+        "description": "Set a filename for this file.",
+        "id": "948482",
+        "name": "FILE_NAME_EXTRA",
+        "required": false,
+        "type": "STRING"
+      }
+    ]
+  },
+  "YT-DLP Download": {
+    "path": "Download",
+    "exec": "yt-dlp",
+    "command": "yt-dlp \\\n  -o \"%(title).200B-${RAND}.%(ext)s\" \\\n  --no-mtime \\\n  -f \"bestvideo[height<=${MAX_QUALITY}]+bestaudio/best[height<=${MAX_QUALITY}]/best\" \\\n  ${COOKIE_JAR:+--cookies \"$COOKIE_JAR\"} \\\n  ${START_TIME:+--download-sections \"*${START_TIME}-${END_TIME:-inf}\"} \\\n  \"$INPUT_URL\"",
+    "extras": [
+      {
+        "default": "1920",
+        "description": "",
+        "id": "969610",
+        "name": "MAX_QUALITY",
+        "required": true,
+        "type": "SELECTABLE",
+        "selectableOptions": {
+          "1920": "1920",
+          "1080": "1080",
+          "720": "720",
+          "480": "480",
+          "2160": "2160",
+          "1440": "1440"
+        }
+      },
+      {
+        "default": "00:00:00",
+        "description": "",
+        "id": "599983",
+        "name": "START_TIME",
+        "required": true,
+        "type": "STRING"
+      },
+      {
+        "default": "",
+        "description": "",
+        "id": "461479",
+        "name": "END_TIME",
+        "required": false,
+        "type": "STRING"
+      }
+    ]
+  },
+  "YT-DLP: Download as Audio": {
+    "path": "Download",
+    "exec": "yt-dlp",
+    "command": "yt-dlp --no-mtime -x --audio-format ${FORMAT} \"${INPUT_URL}\"",
+    "extras": [
+      {
+        "default": "mp3",
+        "description": "Choose the format to convert to.",
+        "id": "745322",
+        "name": "FORMAT",
+        "required": true,
+        "type": "SELECTABLE",
+        "selectableOptions": [
+          "mp3",
+          "m4a",
+          "aac",
+          "opus",
+          "vorbis",
+          "flac",
+          "wav"
+        ]
+      }
+    ]
+  },
+  "YT-DLP Get Direct URL": {
+    "path": "",
+    "exec": "yt-dlp",
+    "command": "#@OPEN_LOGS\nyt-dlp -g \"${INPUT_URL}\"",
+    "deleteSourceFile": false
+  },
+  "Community ImageTools Applet for AutoPie": {
+    "path": "",
+    "exec": "image-tools",
+    "command": "magick ${input.url}"
+  },
+  "Community Video Downloader Applet for AutoPie": {
+    "path": "",
+    "exec": "video-downloader",
+    "command": "yt-dlp ${input.url}"
+  }
+}

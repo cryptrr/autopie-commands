@@ -1,0 +1,29 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.check-exif-data"
+namespace: "autopie"
+name: "Check Exif Data"
+commandSlug: "exiftool"
+summary: "AutoPie command for Check Exif Data"
+type: "PACKAGE"
+tags: ["exiftool"]
+runtime:
+  path: ""
+  command: "#@OPEN_LOGS\nexiftool \"${INPUT_FILE}\""
+  deleteSourceFile: false
+install:
+  primaryPackage: "exiftool"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]
