@@ -3,7 +3,7 @@ version: "1.0.0"
 id: "autopie.change-volume-on-mac-autofetch"
 namespace: "autopie"
 name: "Change Volume on Mac - AutoFetch"
-commandSlug: "change-volume-on-mac-autofetch"
+commandSlug: "openssh"
 summary: "AutoPie command for Change Volume on Mac - AutoFetch"
 type: "PACKAGE"
 tags: ["openssh"]
