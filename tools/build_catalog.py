@@ -4,6 +4,8 @@ from pathlib import Path
 from datetime import datetime, UTC
 import json
 
+from manifest_io import find_manifest_files, load_manifest
+
 CATALOG_SCHEMA_VERSION = "2026.6.1"
 CATALOG_SCHEMA_PATH = (
     "schema/2026.6.1/catalog.schema.json"
@@ -11,11 +13,6 @@ CATALOG_SCHEMA_PATH = (
 
 COMMANDS_DIR = Path("commands")
 OUTPUT_FILE = Path("catalog.json")
-
-
-def load_manifest(manifest_file: Path) -> dict:
-    with manifest_file.open("r", encoding="utf-8") as f:
-        return json.load(f)
 
 
 def build_catalog() -> dict:
@@ -29,9 +26,7 @@ def build_catalog() -> dict:
         "commands": {}
     }
 
-    manifests = sorted(
-        COMMANDS_DIR.glob("*/*/manifest.json")
-    )
+    manifests = find_manifest_files(COMMANDS_DIR)
 
     for manifest_file in manifests:
         manifest = load_manifest(manifest_file)

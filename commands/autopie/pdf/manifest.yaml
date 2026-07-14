@@ -1,0 +1,28 @@
+"$schema": "schema/2026.6.1/manifest.schema.json"
+version: "1.0.0"
+id: "autopie.pdf"
+namespace: "autopie"
+commandSlug: "pdf"
+name: "PDF Utils Applet for AutoPie"
+summary: "Do PDF operations in autopie"
+type: "PACKAGE"
+tags: ["pdf", "documents", "conversion"]
+runtime:
+  command: "poppler"
+  args: ["${input.url}"]
+install:
+  primaryPackage: "poppler"
+  extraPackages: ["ghostscript"]
+  installerVersion: 3
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "3.0.0"
+  autopieMaxVersion: "4.x"
+status: "stable"
+maintainers: ["username1", "username2"]

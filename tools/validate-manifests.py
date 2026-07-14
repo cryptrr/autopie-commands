@@ -1,14 +1,14 @@
 from pathlib import Path
-import json
 import re
+
+from manifest_io import find_manifest_files, load_manifest
 
 ID_RE = re.compile(r"^[a-z][a-z0-9_-]*\.[a-z][a-z0-9_-]*$")
 
 seen_ids = set()
 
-for manifest_file in Path("commands").glob("*/*/manifest.json"):
-    manifest = json.loads(manifest_file.read_text())
-
+for manifest_file in find_manifest_files(Path("commands")):
+    manifest = load_manifest(manifest_file)
     command_dir = manifest_file.parent
 
     namespace = command_dir.parent.name

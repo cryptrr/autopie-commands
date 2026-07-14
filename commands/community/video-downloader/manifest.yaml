@@ -1,0 +1,28 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "community.video-downloader"
+namespace: "community"
+commandSlug: "video-downloader"
+name: "Community Video Downloader Applet for AutoPie"
+summary: "Download Videos from the Web"
+type: "PACKAGE"
+tags: ["video", "ffmpeg", "yt-dlp"]
+runtime:
+  command: "yt-dlp"
+  args: ["${input.url}"]
+install:
+  primaryPackage: "yt-dlp"
+  extraPackages: ["ffmpeg"]
+  installerVersion: 3
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "3.0.0"
+  autopieMaxVersion: "4.x"
+status: "stable"
+maintainers: ["username1", "username2"]
