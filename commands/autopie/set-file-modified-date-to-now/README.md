@@ -1,3 +1,16 @@
 # Set file modified date to now.
 
-AutoPie command imported from `default.json`.
+AutoPie command for Set file modified date to now.
+
+## Command
+
+- Path: `default`
+- Command slug: ``
+
+```sh
+touch "${INPUT_FILE}"
+```
+
+## Extras
+
+No extras.
