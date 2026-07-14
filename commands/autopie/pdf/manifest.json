@@ -1,7 +1,9 @@
 {
-  "schemaVersion": "2026.6.1",
+  "$schema": "schema/2026.6.1/manifest.schema.json",
   "version": "1.0.0",
   "id": "autopie.pdf",
+  "namespace": "autopie",
+  "commandSlug": "pdf",
   "name": "PDF Utils Applet for AutoPie",
   "summary": "Do PDF operations in autopie",
   "type": "PACKAGE",
@@ -11,8 +13,8 @@
     "args": ["${input.url}"]
   },
   "install": {
-    "packageUniqueName": "poppler",
-    "extraPackages": [],
+    "primaryPackage": "poppler",
+    "extraPackages": ["ghostscript"],
     "installerVersion": 3,
     "script": "install.sh",
     "sha256": "..."
@@ -25,7 +27,6 @@
     "changelog": "CHANGELOG.md"
   },
   "compatibility": {
-    "androidMinSdk": 26,
     "autopieMinVersion": "3.0.0",
     "autopieMaxVersion": "4.x"
   },

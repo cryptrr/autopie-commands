@@ -2,6 +2,8 @@
   "schemaVersion": "2026.6.1",
   "version": "1.0.0",
   "id": "community.image-tools",
+  "namespace": "community",
+  "commandSlug": "image-tools",
   "name": "Community ImageTools Applet for AutoPie",
   "summary": "Do Operations on Images.",
   "type": "PACKAGE",
@@ -11,7 +13,7 @@
     "args": ["${input.url}"]
   },
   "install": {
-    "packageUniqueName": "magick",
+    "primaryPackage": "magick",
     "extraPackages": [],
     "installerVersion": 3,
     "script": "install.sh",
@@ -25,7 +27,6 @@
     "changelog": "CHANGELOG.md"
   },
   "compatibility": {
-    "androidMinSdk": 26,
     "autopieMinVersion": "3.0.0",
     "autopieMaxVersion": "4.x"
   },

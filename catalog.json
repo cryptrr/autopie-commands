@@ -1,17 +1,54 @@
 {
-  "schemaVersion": "2026.6.1",
+  "$schema": "schema/2026.6.1/catalog.schema.json",
   "commands": {
+    "autopie.pdf": {
+      "name": "PDF Utils Applet for AutoPie",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Do PDF operations in autopie",
+      "tags": [
+        "pdf",
+        "documents",
+        "conversion"
+      ],
+      "version": "1.0.0"
+    },
     "autopie.wcurl": {
       "name": "wCurl Download",
-      "version": "1.0.0",
-      "packageName": "wcurl",
-      "description": "Downloads Manager Using wCurl"
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Download URLs using wcurl",
+      "tags": [
+        "download",
+        "network"
+      ],
+      "version": "1.0.0"
     },
-    "autopie.pdf": {
-      "name": "Create PDF from URL",
-      "version": "1.0.0",
-      "packageName": "poppler",
-      "description": "PDF Utils applet for AutoPie"
+    "community.image-tools": {
+      "name": "Community ImageTools Applet for AutoPie",
+      "namespace": "community",
+      "status": "stable",
+      "summary": "Do Operations on Images.",
+      "tags": [
+        "images",
+        "manipulation",
+        "magick"
+      ],
+      "version": "1.0.0"
+    },
+    "community.video-downloader": {
+      "name": "Community Video Downloader Applet for AutoPie",
+      "namespace": "community",
+      "status": "stable",
+      "summary": "Download Videos from the Web",
+      "tags": [
+        "video",
+        "ffmpeg",
+        "yt-dlp"
+      ],
+      "version": "1.0.0"
     }
-  }
+  },
+  "generatedAt": "2026-06-15T16:27:03Z",
+  "schemaVersion": "2026.6.1"
 }
