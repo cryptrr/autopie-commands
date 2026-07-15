@@ -1,8 +1,8 @@
-# Change Volume on Mac
+## Change Volume on Mac
 
 AutoPie command for Change Volume on Mac
 
-## Command
+### Command
 
 - Path: `AutoSec/scripts`
 - Command slug: `openssh`
@@ -14,7 +14,7 @@ sshpass -p "$PASSWORD" ssh -nT \
 "osascript -e \"set volume output volume ${VOLUME}\""
 ```
 
-## Extras
+### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |
