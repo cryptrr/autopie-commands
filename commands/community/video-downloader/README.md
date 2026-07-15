@@ -1,8 +1,8 @@
-# Community Video Downloader Applet for AutoPie
+### Community Video Downloader Applet for AutoPie
 
 Download Videos from the Web
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `yt-dlp`
@@ -11,6 +11,6 @@ Download Videos from the Web
 yt-dlp ${input.url}
 ```
 
-## Extras
+#### Extras
 
 No extras.

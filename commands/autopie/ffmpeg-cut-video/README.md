@@ -1,8 +1,8 @@
-# FFMPEG: Cut Video
+### FFMPEG: Cut Video
 
 AutoPie command for FFMPEG: Cut Video
 
-## Command
+#### Command
 
 - Path: `Download`
 - Command slug: `ffmpeg`
@@ -11,7 +11,7 @@ AutoPie command for FFMPEG: Cut Video
 ffmpeg -i "${INPUT_FILE}" -ss ${START} ${END:+-t $END} "${INPUT_FILE}-cut-${RAND}.mp4"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

@@ -1,8 +1,8 @@
-# GalleryDL Download 
+### GalleryDL Download 
 
 AutoPie command for GalleryDL Download 
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `gallery-dl`
@@ -11,6 +11,6 @@ AutoPie command for GalleryDL Download
 gallery-dl "${INPUT_URL}"
 ```
 
-## Extras
+#### Extras
 
 No extras.

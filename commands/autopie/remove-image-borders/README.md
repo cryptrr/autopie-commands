@@ -1,8 +1,8 @@
-# Remove Image Borders
+### Remove Image Borders
 
 AutoPie command for Remove Image Borders
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `magick`
@@ -11,7 +11,7 @@ AutoPie command for Remove Image Borders
 magick "${INPUT_FILE}" -fuzz ${FUZZ}% -trim "${INPUT_FILE}-trim.jpg"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

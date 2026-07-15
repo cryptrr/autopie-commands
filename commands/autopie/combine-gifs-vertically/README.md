@@ -1,8 +1,8 @@
-# Combine Gifs Vertically
+### Combine Gifs Vertically
 
 AutoPie command for Combine Gifs Vertically
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `magick`
@@ -11,7 +11,7 @@ AutoPie command for Combine Gifs Vertically
 magick "${INPUT_FILES_ARR[@]}" -resize ${QUALITY}x -append "${INPUT_FILE}.vert.gif"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

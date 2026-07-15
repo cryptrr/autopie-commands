@@ -1,8 +1,8 @@
-# Compress ZIP (High) : Folder
+### Compress ZIP (High) : Folder
 
 AutoPie command for Compress ZIP (High) : Folder
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `7z`
@@ -11,6 +11,6 @@ AutoPie command for Compress ZIP (High) : Folder
 7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILE}/* -mfb=258 -mpass=15
 ```
 
-## Extras
+#### Extras
 
 No extras.

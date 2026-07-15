@@ -1,8 +1,8 @@
-# Combine Images into PDF
+### Combine Images into PDF
 
 AutoPie command for Combine Images into PDF
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `magick`
@@ -11,7 +11,7 @@ AutoPie command for Combine Images into PDF
 magick "${INPUT_FILES_ARR[@]}" -resize ${QUALITY} -gravity center -extent ${QUALITY} "${INPUT_FILE}.pdf"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

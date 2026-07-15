@@ -21,8 +21,8 @@ runtime:
     - id: "557719"
       name: "FOLDER_FROM"
       type: "STRING"
-      default: "rsync://user@192.168.1.132/home/user/Pictures_Backup/"
-      description: "The remote folder to sync to your device.\nShould be in the format 'rsync://user@192.168.1.132/path/to/folder/'"
+      default: "rsync://user@host/path/to/folder/"
+      description: "The remote folder to sync to your device.\nShould be in the format 'rsync://user@host/path/to/folder/'"
       required: false
       flags: ["--internal-config"]
     - id: "267285"

@@ -1,8 +1,8 @@
-# Combine Images to GIF
+### Combine Images to GIF
 
 AutoPie command for Combine Images to GIF
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `magick`
@@ -11,7 +11,7 @@ AutoPie command for Combine Images to GIF
 magick -delay ${DELAY} -loop 0 ${INPUT_FILES} -gravity center "${INPUT_FILE}-${RAND}.gif"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

@@ -1,13 +1,14 @@
-# Virus Check (VirusTotal)
+### Virus Check (VirusTotal)
 
 AutoPie command for Virus Check (VirusTotal)
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: ``
 
 ```sh
+#@SHELL
 set -euo pipefail
 
 if [[ ! -f "$INPUT_FILE" ]]; then
@@ -28,6 +29,6 @@ am start \
 
 - Flags: `--show-loading-screen`
 
-## Extras
+#### Extras
 
 No extras.

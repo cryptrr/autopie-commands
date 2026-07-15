@@ -8,7 +8,7 @@ summary: "AutoPie command for OpenWRT Router Automations"
 type: "PACKAGE"
 tags: ["openssh"]
 runtime:
-  path: "AutoSec/scripts"
+  path: ""
   command: "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"$REMOTE_COMMAND\""
   extras:
     - id: "735279"

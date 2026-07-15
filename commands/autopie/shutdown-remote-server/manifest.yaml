@@ -8,7 +8,7 @@ summary: "AutoPie command for Shutdown Remote Server"
 type: "PACKAGE"
 tags: ["openssh"]
 runtime:
-  path: "AutoSec/scripts"
+  path: ""
   command: "sshpass -p \"$PASSWORD\" \\\nssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"echo '$PASSWORD' | sudo -S /sbin/shutdown -h now\""
   extras:
     - id: "735279"
@@ -21,11 +21,11 @@ runtime:
     - id: "486044"
       name: "HOST"
       type: "SELECTABLE"
-      default: "amals-mac-mini.lan"
+      default: "server.local"
       description: "The SSH host to connect to."
       required: true
       flags: ["--internal-config"]
-      selectableOptions: {"amals-mac-mini.lan": "amals-mac-mini.lan", "pop-os": "pop-os"}
+      selectableOptions: {"server.local": "server.local", "workstation.lan": "workstation.lan"}
     - id: "829258"
       name: "PASSWORD"
       type: "STRING"

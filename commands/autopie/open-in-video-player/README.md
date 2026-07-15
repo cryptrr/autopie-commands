@@ -1,8 +1,8 @@
-# Open in Video Player
+### Open in Video Player
 
 AutoPie command for Open in Video Player
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `am`
@@ -17,7 +17,7 @@ am start \
 
 - Flags: `--show-loading-screen`
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

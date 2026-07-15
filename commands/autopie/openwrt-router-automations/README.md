@@ -1,10 +1,10 @@
-# OpenWRT Router Automations
+### OpenWRT Router Automations
 
 AutoPie command for OpenWRT Router Automations
 
-## Command
+#### Command
 
-- Path: `AutoSec/scripts`
+- Path: `default`
 - Command slug: `openssh`
 
 ```sh
@@ -14,7 +14,7 @@ sshpass -p "$PASSWORD" ssh -nT \
 "$REMOTE_COMMAND"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

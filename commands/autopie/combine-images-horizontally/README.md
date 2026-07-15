@@ -1,8 +1,8 @@
-# Combine Images Horizontally
+### Combine Images Horizontally
 
 AutoPie command for Combine Images Horizontally
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `magick`
@@ -11,7 +11,7 @@ AutoPie command for Combine Images Horizontally
 magick "${INPUT_FILES_ARR[@]}" -resize x${QUALITY} +append "${INPUT_FILE}.horiz-${RAND}.jpeg"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

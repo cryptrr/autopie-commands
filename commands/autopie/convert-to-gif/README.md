@@ -1,8 +1,8 @@
-# Convert to GIF
+### Convert to GIF
 
 AutoPie command for Convert to GIF
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `ffmpeg`
@@ -11,7 +11,7 @@ AutoPie command for Convert to GIF
 ffmpeg -i "${INPUT_FILE}" -ss ${START} ${END:+-t $END} -vf "fps=15,scale=480:-1:flags=lanczos" -c:v gif "${INPUT_FILE}.gif"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

@@ -1,8 +1,8 @@
-# Convert to Animated WebP
+### Convert to Animated WebP
 
 AutoPie command for Convert to Animated WebP
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `ffmpeg`
@@ -11,6 +11,6 @@ AutoPie command for Convert to Animated WebP
 ffmpeg -i "${INPUT_FILE}" -vf "fps=15,scale=600:-1:flags=lanczos" -c:v libwebp -loop 0 -an -preset default -quality 80 "${INPUT_FILE}-anim.webp"
 ```
 
-## Extras
+#### Extras
 
 No extras.

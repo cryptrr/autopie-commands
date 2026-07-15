@@ -1,8 +1,8 @@
-# Combine Images Vertically
+### Combine Images Vertically
 
 AutoPie command for Combine Images Vertically
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `magick`
@@ -11,7 +11,7 @@ AutoPie command for Combine Images Vertically
 magick "${INPUT_FILES_ARR[@]}" -resize ${QUALITY}x -append "${INPUT_FILE}.vert.jpeg"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

@@ -1,8 +1,8 @@
-# YT-DLP Get Direct URL
+### YT-DLP Get Direct URL
 
 AutoPie command for YT-DLP Get Direct URL
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `yt-dlp`
@@ -12,6 +12,6 @@ AutoPie command for YT-DLP Get Direct URL
 yt-dlp -g "${INPUT_URL}"
 ```
 
-## Extras
+#### Extras
 
 No extras.

@@ -1,8 +1,8 @@
-# Check Exif Data
+### Check Exif Data
 
 AutoPie command for Check Exif Data
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `exiftool`
@@ -12,6 +12,6 @@ AutoPie command for Check Exif Data
 exiftool "${INPUT_FILE}"
 ```
 
-## Extras
+#### Extras
 
 No extras.

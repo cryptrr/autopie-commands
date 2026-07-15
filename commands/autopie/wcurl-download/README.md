@@ -1,8 +1,8 @@
-# wCurl Download
+### wCurl Download
 
 AutoPie command for wCurl Download
 
-## Command
+#### Command
 
 - Path: `Download`
 - Command slug: `wcurl`
@@ -11,7 +11,7 @@ AutoPie command for wCurl Download
 wcurl ${FILE_NAME_EXTRA:+-o "$FILE_NAME_EXTRA"} "$INPUT_URL"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

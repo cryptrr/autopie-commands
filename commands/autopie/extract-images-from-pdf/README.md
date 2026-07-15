@@ -1,8 +1,8 @@
-# Extract Images from PDF
+### Extract Images from PDF
 
 AutoPie command for Extract Images from PDF
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `magick`
@@ -11,6 +11,6 @@ AutoPie command for Extract Images from PDF
 magick "${INPUT_FILE}" "${INPUT_FILE}_%03d.png"
 ```
 
-## Extras
+#### Extras
 
 No extras.

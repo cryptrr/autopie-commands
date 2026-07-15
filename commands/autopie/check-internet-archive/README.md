@@ -1,8 +1,8 @@
-# Check Internet Archive
+### Check Internet Archive
 
 AutoPie command for Check Internet Archive
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: ``
@@ -60,6 +60,6 @@ if __name__ == "__main__":
 
 ```
 
-## Extras
+#### Extras
 
 No extras.

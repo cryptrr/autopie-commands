@@ -1,8 +1,8 @@
-# Check Media Info
+### Check Media Info
 
 AutoPie command for Check Media Info
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: ``
@@ -12,6 +12,6 @@ AutoPie command for Check Media Info
 mediainfo "${INPUT_FILE}"
 ```
 
-## Extras
+#### Extras
 
 No extras.

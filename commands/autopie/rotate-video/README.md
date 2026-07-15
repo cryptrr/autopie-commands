@@ -1,8 +1,8 @@
-# Rotate Video
+### Rotate Video
 
 AutoPie command for Rotate Video
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `ffmpeg`
@@ -16,7 +16,7 @@ ffmpeg -i ${INPUT_FILE} -vf "$( \
     esac)" -c:a copy ${INPUT_FILE}.rotated.mp4
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

@@ -1,8 +1,8 @@
-# Crop Video to Mobile Dimensions
+### Crop Video to Mobile Dimensions
 
 AutoPie command for Crop Video to Mobile Dimensions
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `ffmpeg`
@@ -11,7 +11,7 @@ AutoPie command for Crop Video to Mobile Dimensions
 ffmpeg -i "${INPUT_FILE}" -vf \"crop=${WIDTH}/${HEIGHT}*in_h:in_h\" -c:a copy "${INPUT_FILE}.cropped.mp4"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

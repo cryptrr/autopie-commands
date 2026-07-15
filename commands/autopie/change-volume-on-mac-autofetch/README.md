@@ -1,12 +1,12 @@
-## Change Volume on Mac - AutoFetch
+### Change Volume on Mac - AutoFetch
 
 AutoPie command for Change Volume on Mac - AutoFetch
 
-## Steps
+#### Steps
 
-#### Step 1
+##### Step 1
 
-- Path: `AutoSec/scripts`
+- Path: `default`
 - Command slug: `openssh`
 
 ```sh
@@ -18,9 +18,9 @@ export CURRENT_VOLUME
 export SLIDER_OPTIONS=0,"$CURRENT_VOLUME",100
 ```
 
-#### Step 2
+##### Step 2
 
-- Path: `AutoSec/scripts`
+- Path: `default`
 - Command slug: `openssh`
 
 ```sh
@@ -34,7 +34,7 @@ sshpass -p "$PASSWORD" ssh -nT \
 
 | Step | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Step 1 | USER | STRING | yes | amal | --internal-config | - | The SSH user on the host. |
-| Step 1 | HOST | STRING | yes | amals-mac-mini.lan | --internal-config | - | The SSH host to connect to. |
+| Step 1 | USER | STRING | yes | - | --internal-config | - | The SSH user on the host. |
+| Step 1 | HOST | STRING | yes | - | --internal-config | - | The SSH host to connect to. |
 | Step 1 | PASSWORD | STRING | yes | - | --internal-config, --password | - | SSH password. |
 | Step 2 | VOLUME | SLIDER | yes | $$SLIDER_OPTIONS | --int, --realtime | - | Slider to set volume. |

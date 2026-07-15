@@ -40,12 +40,12 @@
     "multiStage": true,
     "steps": [
       {
-        "path": "AutoSec/scripts",
+        "path": "",
         "exec": "openssh",
         "command": "CURRENT_VOLUME=$(sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"output volume of (get volume settings)\\\"\")\nexport CURRENT_VOLUME\nexport SLIDER_OPTIONS=0,\"$CURRENT_VOLUME\",100",
         "extras": [
           {
-            "default": "amal",
+            "default": "",
             "defaultBoolean": true,
             "description": "The SSH user on the host.",
             "flags": [
@@ -60,7 +60,7 @@
             "type": "STRING"
           },
           {
-            "default": "amals-mac-mini.lan",
+            "default": "",
             "defaultBoolean": true,
             "description": "The SSH host to connect to.",
             "flags": [
@@ -93,7 +93,7 @@
         ]
       },
       {
-        "path": "AutoSec/scripts",
+        "path": "",
         "exec": "openssh",
         "command": "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"set volume output volume ${VOLUME}\\\"\"",
         "extras": [
@@ -352,11 +352,11 @@
         "selectableOptions": {},
         "type": "STRING"
       },
-      {
-        "default": "",
-        "defaultBoolean": true,
-        "description": "",
-        "id": "461479",
+            {
+                "default": "",
+                "defaultBoolean": true,
+                "description": "",
+                "id": "461479",
         "name": "END_TIME",
         "required": false,
         "selectableOptions": {},
@@ -462,7 +462,7 @@
     "command": "ffmpeg -i \"${INPUT_FILE}\" -an -c:v copy \"${INPUT_FILE}-noaud.mp4\""
   },
   "Shutdown Remote Server": {
-    "path": "AutoSec/scripts",
+    "path": "",
     "exec": "openssh",
     "command": "sshpass -p \"$PASSWORD\" \\\nssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"echo '$PASSWORD' | sudo -S /sbin/shutdown -h now\"",
     
@@ -481,7 +481,7 @@
         "type": "STRING"
       },
       {
-        "default": "amals-mac-mini.lan",
+        "default": "server.local",
         "defaultBoolean": true,
         "description": "The SSH host to connect to.",
         "id": "486044",
@@ -491,8 +491,8 @@
           "--internal-config"
         ],
         "selectableOptions": {
-          "amals-mac-mini.lan": "amals-mac-mini.lan",
-          "pop-os": "pop-os"
+          "server.local": "server.local",
+          "workstation.lan": "workstation.lan"
         },
         "type": "SELECTABLE"
       },
@@ -669,9 +669,9 @@
         "type": "STRING"
       },
       {
-        "default": "rsync://user@192.168.1.132/home/user/Pictures_Backup/",
+        "default": "rsync://user@host/path/to/folder/",
         "defaultBoolean": true,
-        "description": "The remote folder to send backups to.\nShould be in the format 'rsync://user@192.168.1.132/path/to/folder/'",
+        "description": "The remote folder to send backups to.\nShould be in the format 'rsync://user@host/path/to/folder/'",
         "id": "557719",
         "name": "FOLDER_TO",
         "required": false,
@@ -723,9 +723,9 @@
         "type": "STRING"
       },
       {
-        "default": "rsync://user@192.168.1.132/home/user/Pictures_Backup/",
+        "default": "rsync://user@host/path/to/folder/",
         "defaultBoolean": true,
-        "description": "The remote folder to sync to your device.\nShould be in the format 'rsync://user@192.168.1.132/path/to/folder/'",
+        "description": "The remote folder to sync to your device.\nShould be in the format 'rsync://user@host/path/to/folder/'",
         "id": "557719",
         "name": "FOLDER_FROM",
         "required": false,
@@ -850,7 +850,7 @@
     ]
   },
   "OpenWRT Router Automations": {
-    "path": "AutoSec/scripts",
+    "path": "",
     "exec": "openssh",
     "command": "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"$REMOTE_COMMAND\"",
     
@@ -964,12 +964,12 @@
     "command": "gallery-dl \"${INPUT_URL}\""
   },
   "Change Volume on Mac": {
-    "path": "AutoSec/scripts",
+    "path": "",
     "exec": "openssh",
     "command": "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"set volume output volume ${VOLUME}\\\"\"",
     "extras": [
       {
-        "default": "amal",
+        "default": "",
         "defaultBoolean": true,
         "description": "The SSH user on the host.",
         "flags": [
@@ -982,7 +982,7 @@
         "type": "STRING"
       },
       {
-        "default": "amals-mac-mini.lan",
+        "default": "",
         "defaultBoolean": true,
         "description": "The SSH host to connect to.",
         "flags": [

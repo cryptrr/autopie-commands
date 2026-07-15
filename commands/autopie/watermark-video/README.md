@@ -1,8 +1,8 @@
-# Watermark Video
+### Watermark Video
 
 AutoPie command for Watermark Video
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `ffmpeg`
@@ -19,7 +19,7 @@ ffmpeg -i "${INPUT_FILE}" -i "${WATERMARK_FILE}" -filter_complex "overlay=$( \
     esac)" -codec:a copy "${INPUT_FILE}-watermarked-${RAND}.mp4"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

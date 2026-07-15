@@ -1,8 +1,8 @@
-# Convert To WEBP
+### Convert To WEBP
 
 AutoPie command for Convert To WEBP
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `magick`
@@ -11,7 +11,7 @@ AutoPie command for Convert To WEBP
 magick "${INPUT_FILE}" -quality ${QUALITY} -define webp:method=${METHOD} "${INPUT_FILE}.webp"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

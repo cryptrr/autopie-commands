@@ -1,8 +1,8 @@
-# Extract Audio from File
+### Extract Audio from File
 
 AutoPie command for Extract Audio from File
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `ffmpeg`
@@ -11,7 +11,7 @@ AutoPie command for Extract Audio from File
 ffmpeg -i "${INPUT_FILE}" -b:a ${BITRATE} -vn "${INPUT_FILE}.$FORMAT"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

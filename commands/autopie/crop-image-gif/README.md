@@ -1,8 +1,8 @@
-# Crop Image/GIF
+### Crop Image/GIF
 
 AutoPie command for Crop Image/GIF
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `magick`
@@ -11,7 +11,7 @@ AutoPie command for Crop Image/GIF
 magick "${INPUT_FILE}" -coalesce -gravity ${POSITION} -crop '%[fx:w]x%[fx:w*${RATIO_HEIGHT}/${RATIO_WIDTH}]+0+0' +repage "${INPUT_FILE}-cropped-${RAND}.${FILE_EXT}"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

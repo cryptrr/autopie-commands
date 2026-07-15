@@ -1,10 +1,10 @@
-# Shutdown Remote Server
+### Shutdown Remote Server
 
 AutoPie command for Shutdown Remote Server
 
-## Command
+#### Command
 
-- Path: `AutoSec/scripts`
+- Path: `default`
 - Command slug: `openssh`
 
 ```sh
@@ -15,10 +15,10 @@ ssh -nT \
 "echo '$PASSWORD' | sudo -S /sbin/shutdown -h now"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |
 | USER | STRING | yes | - | --internal-config | - | The SSH user on host. |
-| HOST | SELECTABLE | yes | amals-mac-mini.lan | --internal-config | amals-mac-mini.lan, pop-os | The SSH host to connect to. |
+| HOST | SELECTABLE | yes | server.local | --internal-config | server.local, workstation.lan | The SSH host to connect to. |
 | PASSWORD | STRING | yes | - | --password, --internal-config | - | SSH password. |

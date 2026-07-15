@@ -1,10 +1,10 @@
-## Change Volume on Mac
+### Change Volume on Mac
 
 AutoPie command for Change Volume on Mac
 
-### Command
+#### Command
 
-- Path: `AutoSec/scripts`
+- Path: `default`
 - Command slug: `openssh`
 
 ```sh
@@ -14,11 +14,11 @@ sshpass -p "$PASSWORD" ssh -nT \
 "osascript -e \"set volume output volume ${VOLUME}\""
 ```
 
-### Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |
-| USER | STRING | yes | amal | --internal-config | - | The SSH user on the host. |
-| HOST | STRING | yes | amals-mac-mini.lan | --internal-config | - | The SSH host to connect to. |
+| USER | STRING | yes | - | --internal-config | - | The SSH user on the host. |
+| HOST | STRING | yes | - | --internal-config | - | The SSH host to connect to. |
 | PASSWORD | STRING | yes | - | --password, --internal-config | - | SSH password. |
 | VOLUME | SLIDER | yes | 0,50,100 | --int, --realtime | - | Slider to set volume. |

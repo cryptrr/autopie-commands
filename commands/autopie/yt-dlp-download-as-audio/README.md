@@ -1,8 +1,8 @@
-# YT-DLP: Download as Audio
+### YT-DLP: Download as Audio
 
 AutoPie command for YT-DLP: Download as Audio
 
-## Command
+#### Command
 
 - Path: `Download`
 - Command slug: `yt-dlp`
@@ -11,7 +11,7 @@ AutoPie command for YT-DLP: Download as Audio
 yt-dlp --no-mtime -x --audio-format ${FORMAT} "${INPUT_URL}"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

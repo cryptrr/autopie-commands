@@ -1,8 +1,8 @@
-# Community ImageTools Applet for AutoPie
+### Community ImageTools Applet for AutoPie
 
 Do Operations on Images.
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `magick`
@@ -11,6 +11,6 @@ Do Operations on Images.
 magick ${input.url}
 ```
 
-## Extras
+#### Extras
 
 No extras.

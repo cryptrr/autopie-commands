@@ -1,8 +1,8 @@
-# Set file modified date to now.
+### Set file modified date to now.
 
 AutoPie command for Set file modified date to now.
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: ``
@@ -11,6 +11,6 @@ AutoPie command for Set file modified date to now.
 touch "${INPUT_FILE}"
 ```
 
-## Extras
+#### Extras
 
 No extras.

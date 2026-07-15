@@ -1,8 +1,8 @@
-# Trigger Home Assistant
+### Trigger Home Assistant
 
 AutoPie command for Trigger Home Assistant
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `httpx`
@@ -11,7 +11,7 @@ AutoPie command for Trigger Home Assistant
 httpx -m POST ${COOKIE_FILE:+--cookie-file $COOKIE_FILE} -d entity_id script.${SCRIPT_NAME} $URL
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

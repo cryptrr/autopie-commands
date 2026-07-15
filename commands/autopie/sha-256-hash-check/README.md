@@ -1,8 +1,8 @@
-# SHA-256 Hash Check
+### SHA-256 Hash Check
 
 AutoPie command for SHA-256 Hash Check
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: ``
@@ -12,6 +12,6 @@ AutoPie command for SHA-256 Hash Check
 sha256sum "${INPUT_FILE}"
 ```
 
-## Extras
+#### Extras
 
 No extras.

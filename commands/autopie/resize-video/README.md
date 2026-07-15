@@ -1,8 +1,8 @@
-# Resize Video
+### Resize Video
 
 AutoPie command for Resize Video
 
-## Command
+#### Command
 
 - Path: `default`
 - Command slug: `ffmpeg`
@@ -11,7 +11,7 @@ AutoPie command for Resize Video
 ffmpeg -i "${INPUT_FILE}" -vf "scale=${HEIGHT}:${WIDTH}" -c:a copy "${INPUT_FILE}-resized-${RAND}.mp4"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

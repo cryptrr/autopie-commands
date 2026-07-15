@@ -93,16 +93,16 @@ def build_readme(manifest: dict[str, Any]) -> str:
     name = manifest["name"]
     summary = manifest.get("summary", "")
     runtime = manifest.get("runtime", {})
-    lines = [f"# {name}", ""]
+    lines = [f"### {name}", ""]
 
     if summary:
         lines.extend([summary, ""])
 
     if runtime.get("multiStage"):
         steps = runtime.get("steps", [])
-        lines.extend(["## Steps", ""])
+        lines.extend(["#### Steps", ""])
         for index, step in enumerate(steps, 1):
-            lines.extend([f"### Step {index}", ""])
+            lines.extend([f"##### Step {index}", ""])
             lines.extend(command_block_markdown(step, manifest.get("commandSlug", "")))
             lines.append("")
 
@@ -110,7 +110,7 @@ def build_readme(manifest: dict[str, Any]) -> str:
         for index, step in enumerate(steps, 1):
             rows.extend(extra_rows(step, f"Step {index}"))
 
-        lines.extend(["## Extras", ""])
+        lines.extend(["#### Extras", ""])
         if rows:
             lines.extend(
                 [
@@ -122,9 +122,9 @@ def build_readme(manifest: dict[str, Any]) -> str:
         else:
             lines.append("No extras.")
     else:
-        lines.extend(["## Command", ""])
+        lines.extend(["#### Command", ""])
         lines.extend(command_block_markdown(runtime, manifest.get("commandSlug", "")))
-        lines.extend(["", "## Extras", ""])
+        lines.extend(["", "#### Extras", ""])
 
         rows = extra_rows(runtime)
         if rows:

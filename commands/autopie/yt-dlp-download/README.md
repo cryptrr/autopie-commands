@@ -1,8 +1,8 @@
-# YT-DLP Download
+### YT-DLP Download
 
 AutoPie command for YT-DLP Download
 
-## Command
+#### Command
 
 - Path: `Download`
 - Command slug: `yt-dlp`
@@ -17,7 +17,7 @@ yt-dlp \
   "$INPUT_URL"
 ```
 
-## Extras
+#### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |

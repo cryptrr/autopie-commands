@@ -10,21 +10,21 @@ tags: ["openssh"]
 runtime:
   multiStage: true
   steps:
-    - path: "AutoSec/scripts"
+    - path: ""
       commandSlug: "openssh"
       command: "CURRENT_VOLUME=$(sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"output volume of (get volume settings)\\\"\")\nexport CURRENT_VOLUME\nexport SLIDER_OPTIONS=0,\"$CURRENT_VOLUME\",100"
       extras:
         - id: "735279"
           name: "USER"
           type: "STRING"
-          default: "amal"
+          default: ""
           description: "The SSH user on the host."
           required: true
           flags: ["--internal-config"]
         - id: "486044"
           name: "HOST"
           type: "STRING"
-          default: "amals-mac-mini.lan"
+          default: ""
           description: "The SSH host to connect to."
           required: true
           flags: ["--internal-config"]
@@ -35,7 +35,7 @@ runtime:
           description: "SSH password."
           required: true
           flags: ["--internal-config", "--password"]
-    - path: "AutoSec/scripts"
+    - path: ""
       commandSlug: "openssh"
       command: "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"set volume output volume ${VOLUME}\\\"\""
       extras:
