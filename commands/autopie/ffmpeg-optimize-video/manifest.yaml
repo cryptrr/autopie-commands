@@ -10,7 +10,6 @@ tags: ["ffmpeg"]
 runtime:
   path: "/storage/emulated/0/"
   command: "ffmpeg -i \"${INPUT_FILE}\" -c:v libx264 -preset slow -crf 23 -c:a aac -b:a 128k -movflags +faststart \"${INPUT_FILE}-optim.mp4\""
-  deleteSourceFile: false
 install:
   primaryPackage: "ffmpeg"
   extraPackages: []

@@ -10,7 +10,6 @@ tags: ["ffmpeg"]
 runtime:
   path: ""
   command: "ffmpeg -i \"${INPUT_FILE}\" -c:v libx264 -crf 24 -preset medium \"${INPUT_FILE}-x265.mp4\""
-  deleteSourceFile: false
 install:
   primaryPackage: "ffmpeg"
   extraPackages: []

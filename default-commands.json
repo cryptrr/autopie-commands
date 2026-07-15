@@ -123,7 +123,6 @@
     "path": "",
     "exec": "exiftool",
     "command": "#@OPEN_LOGS\nexiftool \"${INPUT_FILE}\"",
-    "deleteSourceFile": false,
     "id": "autopie.check-exif-data"
   },
   "Check Internet Archive": {
@@ -242,7 +241,6 @@
     "path": "",
     "exec": "7z",
     "command": "7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILE}/* -mfb=258 -mpass=15",
-    "deleteSourceFile": false,
     "id": "autopie.compress-zip-high-folder"
   },
   "Compress ZIP (High) : Multi File": {
@@ -486,7 +484,6 @@
     "path": "",
     "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libx264 -crf 24 -preset medium \"${INPUT_FILE}-x265.mp4\"",
-    "deleteSourceFile": false,
     "id": "autopie.ffmpeg-convert-to-hevc"
   },
   "FFMPEG: Cut Video": {
@@ -517,21 +514,18 @@
     "path": "/storage/emulated/0/",
     "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libx264 -preset slow -crf 23 -c:a aac -b:a 128k -movflags +faststart \"${INPUT_FILE}-optim.mp4\"",
-    "deleteSourceFile": false,
     "id": "autopie.ffmpeg-optimize-video"
   },
   "Flip/Mirror Video": {
     "path": "",
     "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -vf \"hflip\" \"${INPUT_FILE}-mirrored.mp4\"",
-    "deleteSourceFile": false,
     "id": "autopie.flip-mirror-video"
   },
   "GalleryDL Download ": {
     "path": "",
     "exec": "gallery-dl",
     "command": "gallery-dl \"${INPUT_URL}\"",
-    "deleteSourceFile": false,
     "id": "autopie.gallerydl-download"
   },
   "Open in Video Player": {
@@ -621,7 +615,6 @@
     "path": "",
     "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -an -c:v copy \"${INPUT_FILE}-noaud.mp4\"",
-    "deleteSourceFile": false,
     "id": "autopie.remove-audio"
   },
   "Remove Image Borders": {
@@ -991,7 +984,6 @@
     "path": "",
     "exec": "yt-dlp",
     "command": "#@OPEN_LOGS\nyt-dlp -g \"${INPUT_URL}\"",
-    "deleteSourceFile": false,
     "id": "autopie.yt-dlp-get-direct-url"
   },
   "Community ImageTools Applet for AutoPie": {

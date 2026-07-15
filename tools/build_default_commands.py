@@ -68,9 +68,6 @@ def convert_runtime_block(block: dict[str, Any], fallback_exec: str | None) -> d
     if "flags" in block:
         converted["flags"] = block["flags"]
 
-    if "deleteSourceFile" in block:
-        converted["deleteSourceFile"] = block["deleteSourceFile"]
-
     extras = block.get("extras")
     if extras:
         converted["extras"] = [convert_extra(extra) for extra in extras]

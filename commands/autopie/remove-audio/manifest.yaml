@@ -10,7 +10,6 @@ tags: ["ffmpeg"]
 runtime:
   path: ""
   command: "ffmpeg -i \"${INPUT_FILE}\" -an -c:v copy \"${INPUT_FILE}-noaud.mp4\""
-  deleteSourceFile: false
 install:
   primaryPackage: "ffmpeg"
   extraPackages: []

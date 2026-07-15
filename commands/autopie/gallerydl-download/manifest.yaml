@@ -10,7 +10,6 @@ tags: ["gallery-dl"]
 runtime:
   path: ""
   command: "gallery-dl \"${INPUT_URL}\""
-  deleteSourceFile: false
 install:
   primaryPackage: "gallery-dl"
   extraPackages: []

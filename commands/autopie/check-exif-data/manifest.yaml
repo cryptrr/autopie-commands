@@ -10,7 +10,6 @@ tags: ["exiftool"]
 runtime:
   path: ""
   command: "#@OPEN_LOGS\nexiftool \"${INPUT_FILE}\""
-  deleteSourceFile: false
 install:
   primaryPackage: "exiftool"
   extraPackages: []

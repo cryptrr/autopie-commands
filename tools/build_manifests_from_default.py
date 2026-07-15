@@ -145,9 +145,6 @@ def emit_runtime_block(
     if "flags" in block:
         lines.append(f"{prefix}flags: {json_scalar(block['flags'])}")
 
-    if "deleteSourceFile" in block:
-        lines.append(f"{prefix}deleteSourceFile: {json_scalar(block['deleteSourceFile'])}")
-
     emit_extras(lines, indent, block.get("extras", []))
 
 
@@ -161,9 +158,6 @@ def emit_runtime_step(lines: list[str], indent: int, block: dict[str, Any]) -> N
 
     if "flags" in block:
         lines.append(f"{child}flags: {json_scalar(block['flags'])}")
-
-    if "deleteSourceFile" in block:
-        lines.append(f"{child}deleteSourceFile: {json_scalar(block['deleteSourceFile'])}")
 
     emit_extras(lines, indent + 2, block.get("extras", []))
 

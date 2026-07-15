@@ -10,7 +10,6 @@ tags: ["yt-dlp"]
 runtime:
   path: ""
   command: "#@OPEN_LOGS\nyt-dlp -g \"${INPUT_URL}\""
-  deleteSourceFile: false
 install:
   primaryPackage: "yt-dlp"
   extraPackages: []

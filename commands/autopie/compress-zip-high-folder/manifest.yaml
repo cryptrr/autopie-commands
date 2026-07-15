@@ -10,7 +10,6 @@ tags: ["p7zip"]
 runtime:
   path: ""
   command: "7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILE}/* -mfb=258 -mpass=15"
-  deleteSourceFile: false
 install:
   primaryPackage: "p7zip"
   extraPackages: []
