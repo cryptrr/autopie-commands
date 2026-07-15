@@ -235,7 +235,7 @@ def readme_text(name: str, command: dict[str, Any]) -> str:
 
 
 def changelog_text() -> str:
-    return "# Changelog\n\n## 1.0.0\n\n- Initial manifest import from `default.json`.\n"
+    return "### Changelog\n\n#### 1.0.0\n\n- Initial manifest import from `default.json`.\n"
 
 
 def uninstall_script_text() -> str:
