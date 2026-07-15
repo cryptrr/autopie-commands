@@ -1,10 +1,10 @@
-# Change Volume on Mac - AutoFetch
+## Change Volume on Mac - AutoFetch
 
 AutoPie command for Change Volume on Mac - AutoFetch
 
 ## Steps
 
-### Step 1
+#### Step 1
 
 - Path: `AutoSec/scripts`
 - Command slug: `openssh`
@@ -18,7 +18,7 @@ export CURRENT_VOLUME
 export SLIDER_OPTIONS=0,"$CURRENT_VOLUME",100
 ```
 
-### Step 2
+#### Step 2
 
 - Path: `AutoSec/scripts`
 - Command slug: `openssh`
@@ -30,7 +30,7 @@ sshpass -p "$PASSWORD" ssh -nT \
 "osascript -e \"set volume output volume ${VOLUME}\""
 ```
 
-## Extras
+#### Extras
 
 | Step | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- | --- |
