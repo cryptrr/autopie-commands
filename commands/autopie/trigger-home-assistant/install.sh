@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 set -eu
 
-pkg install -y httpx
+pip install httpx[cli]

@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
 set -eu
 
-pkg install -y yt-dlp
+pip install yt-dlp
+pkg install -y ffmpeg
