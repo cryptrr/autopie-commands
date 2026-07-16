@@ -6,7 +6,7 @@ name: "GalleryDL Download "
 commandSlug: "gallery-dl"
 summary: "AutoPie command for GalleryDL Download "
 type: "PACKAGE"
-tags: ["gallery-dl"]
+tags: ["gallery-dl","downloader"]
 runtime:
   path: ""
   command: "gallery-dl \"${INPUT_URL}\""
