@@ -450,32 +450,8 @@
         "yt-dlp"
       ],
       "version": "1.0.0"
-    },
-    "community.image-tools": {
-      "name": "Community ImageTools Applet for AutoPie",
-      "namespace": "community",
-      "status": "stable",
-      "summary": "Do Operations on Images.",
-      "tags": [
-        "images",
-        "manipulation",
-        "magick"
-      ],
-      "version": "1.0.0"
-    },
-    "community.video-downloader": {
-      "name": "Community Video Downloader Applet for AutoPie",
-      "namespace": "community",
-      "status": "stable",
-      "summary": "Download Videos from the Web",
-      "tags": [
-        "video",
-        "ffmpeg",
-        "yt-dlp"
-      ],
-      "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-07-14T13:56:24Z",
+  "generatedAt": "2026-07-16T19:40:55Z",
   "schemaVersion": "2026.6.1"
 }
