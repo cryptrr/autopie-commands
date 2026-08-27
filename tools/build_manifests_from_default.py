@@ -94,6 +94,7 @@ def emit_extra(lines: list[str], indent: int, extra: dict[str, Any]) -> None:
         "description",
         "required",
         "flags",
+        "visibleWhen",
     )
 
     first_key = True
@@ -152,8 +153,14 @@ def emit_runtime_step(lines: list[str], indent: int, block: dict[str, Any]) -> N
     prefix = " " * indent
     child = " " * (indent + 2)
 
-    lines.append(f"{prefix}- path: {json_scalar(block.get('path', ''))}")
-    lines.append(f"{child}commandSlug: {json_scalar(block.get('exec', ''))}")
+    if "id" in block:
+        lines.append(f"{prefix}- id: {json_scalar(block['id'])}")
+        lines.append(f"{child}path: {json_scalar(block.get('path', ''))}")
+    else:
+        lines.append(f"{prefix}- path: {json_scalar(block.get('path', ''))}")
+
+    if "exec" in block:
+        lines.append(f"{child}commandSlug: {json_scalar(block['exec'])}")
     lines.append(f"{child}command: {json_scalar(block.get('command', ''))}")
 
     if "flags" in block:
@@ -185,6 +192,10 @@ def manifest_text(name: str, slug: str, command: dict[str, Any]) -> str:
 
     if command.get("multiStage"):
         lines.append("  multiStage: true")
+        if "type" in command:
+            lines.append(f"  type: {json_scalar(command['type'])}")
+        if "flags" in command:
+            lines.append(f"  flags: {json_scalar(command['flags'])}")
         lines.append("  steps:")
         for step in command.get("steps", []):
             emit_runtime_step(lines, 4, step)

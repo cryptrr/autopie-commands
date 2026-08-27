@@ -381,6 +381,18 @@
       ],
       "version": "1.0.0"
     },
+    "autopie.smart-ytdlp-downloader": {
+      "version": "1.0.0",
+      "name": "Smart YT-DLP Downloader",
+      "summary": "Inspect a shared media URL, then download video, audio, subtitles, or a selected clip.",
+      "namespace": "autopie",
+      "status": "stable",
+      "tags": [
+        "yt-dlp",
+        "ffmpeg",
+        "media"
+      ]
+    },
     "autopie.trigger-home-assistant": {
       "name": "Trigger Home Assistant",
       "namespace": "autopie",
@@ -452,6 +464,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-07-16T19:40:55Z",
+  "generatedAt": "2026-08-27T04:52:37Z",
   "schemaVersion": "2026.6.1"
 }

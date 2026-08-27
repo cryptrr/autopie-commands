@@ -1,0 +1,126 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.smart-ytdlp-downloader"
+namespace: "autopie"
+name: "Smart YT-DLP Downloader"
+commandSlug: "smart-ytdlp-downloader"
+summary: "Inspect a shared media URL, then download video, audio, subtitles, or a selected clip."
+type: "PACKAGE"
+tags: ["yt-dlp","ffmpeg","media"]
+runtime:
+  multiStage: true
+  type: "SHARE"
+  flags: ["--show-loading-screen"]
+  steps:
+    - id: "inspect"
+      path: "Download"
+      command: "set -euo pipefail\n\ncommand -v yt-dlp >/dev/null 2>&1 || {\n  echo \"yt-dlp is not installed. Run: pip install -U yt-dlp\"\n  exit 1\n}\n\ncommand -v ffmpeg >/dev/null 2>&1 || {\n  echo \"ffmpeg is not installed. Run: pkg install ffmpeg\"\n  exit 1\n}\n\nexport SOURCE_URL=\"$INPUT_URL\"\nexport WORK_ROOT=\"$HOME/.cache/autopie-smart-ytdlp-$RAND\"\nmkdir -p \"$WORK_ROOT\"\n\nINFO_JSON=\"$WORK_ROOT/info.json\"\n\nyt-dlp \\\n  --ignore-config \\\n  --dump-single-json \\\n  --no-playlist \\\n  --no-warnings \\\n  \"$SOURCE_URL\" > \"$INFO_JSON\"\n\neval \"$(\npython - \"$INFO_JSON\" <<'PYINFO'\nimport json\nimport math\nimport re\nimport shlex\nimport sys\n\npath = sys.argv[1]\nwith open(path, \"r\", encoding=\"utf-8\") as f:\n    info = json.load(f)\n\ndef clean(value, fallback=\"Unknown\"):\n    value = str(value or fallback)\n    value = value.replace(\"\\n\", \" \").replace(\"\\r\", \" \")\n    value = re.sub(r\"\\s+\", \" \", value).strip()\n    return value or fallback\n\ndef option_label(value):\n    return clean(value).replace(\",\", \" \").replace(\"=\", \"-\")\n\ndef safe_code(value):\n    value = str(value or \"\")\n    return value if re.fullmatch(r\"[A-Za-z0-9._-]+\", value) else \"\"\n\ndef export(name, value):\n    print(f\"export {name}={shlex.quote(str(value))}\")\n\ntitle = clean(info.get(\"title\"), \"Untitled media\")\nuploader = clean(\n    info.get(\"uploader\")\n    or info.get(\"channel\")\n    or info.get(\"creator\"),\n    \"Unknown uploader\"\n)\nsource = clean(\n    info.get(\"extractor_key\")\n    or info.get(\"extractor\")\n    or info.get(\"webpage_url_domain\"),\n    \"Unknown source\"\n)\n\nduration_raw = info.get(\"duration\") or 0\ntry:\n    duration = max(0.0, float(duration_raw))\nexcept (TypeError, ValueError):\n    duration = 0.0\n\nif duration:\n    total = int(round(duration))\n    h, rem = divmod(total, 3600)\n    m, s = divmod(rem, 60)\n    duration_text = f\"{h}:{m:02d}:{s:02d}\" if h else f\"{m}:{s:02d}\"\nelse:\n    duration_text = \"Live / unknown\"\n\nformats = info.get(\"formats\") or []\nheights = []\n\nfor fmt in formats:\n    if fmt.get(\"vcodec\") in (None, \"none\"):\n        continue\n\n    try:\n        height = int(fmt.get(\"height\") or 0)\n    except (TypeError, ValueError):\n        height = 0\n\n    if height > 0:\n        heights.append(height)\n\nmax_height = max(heights, default=0)\nmax_height_text = f\"{max_height}p\" if max_height else \"Unknown\"\n\nquality = [(\"Best available\", \"best\")]\n\nfor height, label in [\n    (4320, \"Up to 4320p (8K)\"),\n    (2160, \"Up to 2160p (4K)\"),\n    (1440, \"Up to 1440p\"),\n    (1080, \"Up to 1080p\"),\n    (720, \"Up to 720p\"),\n    (480, \"Up to 480p\"),\n    (360, \"Up to 360p\")\n]:\n    if max_height >= height:\n        quality.append((label, str(height)))\n\nquality_options = \",\".join(\n    f\"{option_label(label)}={value}\"\n    for label, value in quality\n)\n\nif max_height >= 1080:\n    quality_default = \"1080\"\nelif max_height >= 720:\n    quality_default = \"720\"\nelif max_height >= 480:\n    quality_default = \"480\"\nelse:\n    quality_default = \"best\"\n\nsubtitle_options = [(\"None\", \"none\")]\nmanual = info.get(\"subtitles\") or {}\nautomatic = info.get(\"automatic_captions\") or {}\n\ndef subtitle_name(code, entries):\n    if isinstance(entries, list):\n        for entry in entries:\n            if isinstance(entry, dict) and entry.get(\"name\"):\n                return clean(entry[\"name\"], code)\n    return code\n\ndef language_priority(code):\n    lowered = code.lower()\n    if lowered == \"en\":\n        return (0, lowered)\n    if lowered.startswith(\"en-\"):\n        return (1, lowered)\n    return (2, lowered)\n\nfor raw_code in sorted(manual.keys(), key=language_priority):\n    code = safe_code(raw_code)\n    if not code or code == \"live_chat\":\n        continue\n\n    label = subtitle_name(code, manual.get(raw_code))\n    subtitle_options.append(\n        (f\"{label} [{code}] - manual\", f\"manual|{code}\")\n    )\n\nauto_codes = [\n    code\n    for code in sorted(automatic.keys(), key=language_priority)\n    if code not in manual\n]\n\nfor raw_code in auto_codes[:30]:\n    code = safe_code(raw_code)\n    if not code or code == \"live_chat\":\n        continue\n\n    label = subtitle_name(code, automatic.get(raw_code))\n    subtitle_options.append(\n        (f\"{label} [{code}] - auto\", f\"auto|{code}\")\n    )\n\nsubtitle_options_value = \",\".join(\n    f\"{option_label(label)}={value}\"\n    for label, value in subtitle_options\n)\n\nif duration >= 2:\n    duration_seconds = max(2, int(math.ceil(duration)))\n    clip_options = \"Full media=full,Choose a clip=clip\"\n    trim_start_range = f\"0,0,{duration_seconds}\"\n    trim_end_range = f\"0,{duration_seconds},{duration_seconds}\"\nelse:\n    clip_options = \"Full media=full\"\n    trim_start_range = \"0,0,1\"\n    trim_end_range = \"0,1,1\"\n\nexport(\"MEDIA_TITLE\", title)\nexport(\"MEDIA_UPLOADER\", uploader)\nexport(\"MEDIA_SOURCE\", source)\nexport(\"MEDIA_DURATION_TEXT\", duration_text)\nexport(\"MEDIA_MAX_HEIGHT_TEXT\", max_height_text)\nexport(\"QUALITY_OPTIONS\", quality_options)\nexport(\"QUALITY_DEFAULT\", quality_default)\nexport(\"SUBTITLE_OPTIONS\", subtitle_options_value)\nexport(\"CLIP_OPTIONS\", clip_options)\nexport(\"TRIM_START_RANGE\", trim_start_range)\nexport(\"TRIM_END_RANGE\", trim_end_range)\nPYINFO\n)\"\n\nprintf 'Found: %s\\nUploader: %s\\nSource: %s\\nDuration: %s\\nMax video: %s\\n' \\\n  \"$MEDIA_TITLE\" \\\n  \"$MEDIA_UPLOADER\" \\\n  \"$MEDIA_SOURCE\" \\\n  \"$MEDIA_DURATION_TEXT\" \\\n  \"$MEDIA_MAX_HEIGHT_TEXT\""
+    - id: "download"
+      path: "Download"
+      command: "set -euo pipefail\n\nmkdir -p \"$OUTPUT_FOLDER\"\n\nCOMMON_ARGS=(\n  --ignore-config\n  --no-playlist\n  --no-overwrites\n  --newline\n  --no-simulate\n  -o \"$OUTPUT_FOLDER/%(title).180B [%(id)s].%(ext)s\"\n)\n\nFORMAT_ARGS=()\n\nif [[ \"$DOWNLOAD_TYPE\" == \"video\" ]]; then\n  if [[ \"$QUALITY\" == \"best\" ]]; then\n    case \"$VIDEO_CONTAINER\" in\n      mp4)\n        FORMAT_SELECTOR='bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best'\n        ;;\n      webm)\n        FORMAT_SELECTOR='bestvideo[ext=webm]+bestaudio[ext=webm]/bestvideo+bestaudio/best'\n        ;;\n      mkv)\n        FORMAT_SELECTOR='bestvideo+bestaudio/best'\n        ;;\n      *)\n        echo \"Unsupported video container: $VIDEO_CONTAINER\"\n        exit 1\n        ;;\n    esac\n  else\n    case \"$VIDEO_CONTAINER\" in\n      mp4)\n        FORMAT_SELECTOR=\"bestvideo[ext=mp4][height<=$QUALITY]+bestaudio[ext=m4a]/bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]\"\n        ;;\n      webm)\n        FORMAT_SELECTOR=\"bestvideo[ext=webm][height<=$QUALITY]+bestaudio[ext=webm]/bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]\"\n        ;;\n      mkv)\n        FORMAT_SELECTOR=\"bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]\"\n        ;;\n      *)\n        echo \"Unsupported video container: $VIDEO_CONTAINER\"\n        exit 1\n        ;;\n    esac\n  fi\n\n  FORMAT_ARGS=(\n    -f \"$FORMAT_SELECTOR\"\n    --merge-output-format \"$VIDEO_CONTAINER\"\n  )\nelse\n  FORMAT_ARGS=(\n    -f \"bestaudio/best\"\n    -x\n    --audio-format \"$AUDIO_FORMAT\"\n  )\n\n  if [[ \"$AUDIO_FORMAT\" != \"flac\" ]]; then\n    FORMAT_ARGS+=(--audio-quality \"$AUDIO_QUALITY\")\n  fi\nfi\n\nSUBTITLE_ARGS=()\n\nif [[ \"$DOWNLOAD_TYPE\" == \"video\" && \"$SUBTITLE_CHOICE\" != \"none\" ]]; then\n  SUB_KIND=\"${SUBTITLE_CHOICE%%|*}\"\n  SUB_LANG=\"${SUBTITLE_CHOICE#*|}\"\n\n  if [[ \"$SUB_KIND\" == \"manual\" ]]; then\n    SUBTITLE_ARGS=(\n      --write-subs\n      --sub-langs \"$SUB_LANG\"\n      --sub-format \"srt/best\"\n      --embed-subs\n    )\n  elif [[ \"$SUB_KIND\" == \"auto\" ]]; then\n    SUBTITLE_ARGS=(\n      --write-auto-subs\n      --sub-langs \"$SUB_LANG\"\n      --sub-format \"srt/best\"\n      --embed-subs\n    )\n  fi\nfi\n\nCLIP_ARGS=()\n\nif [[ \"$CLIP_MODE\" == \"clip\" ]]; then\n  if (( CLIP_END <= CLIP_START )); then\n    echo \"Clip End must be greater than Clip Start.\"\n    exit 1\n  fi\n\n  CLIP_ARGS=(\n    --download-sections \"*${CLIP_START}-${CLIP_END}\"\n  )\nfi\n\nPOST_ARGS=()\n\nif [[ -n \"$EMBED_METADATA\" ]]; then\n  POST_ARGS+=(\"$EMBED_METADATA\")\nfi\n\nif [[ -n \"$EMBED_THUMBNAIL\" ]]; then\n  POST_ARGS+=(\"$EMBED_THUMBNAIL\")\nfi\n\nif [[ -n \"$EMBED_CHAPTERS\" ]]; then\n  POST_ARGS+=(\"$EMBED_CHAPTERS\")\nfi\n\nif [[ -n \"$REMOVE_SPONSORS\" ]]; then\n  POST_ARGS+=(--sponsorblock-remove \"$REMOVE_SPONSORS\")\nfi\n\nPATH_FILE=\"$WORK_ROOT/final-path.txt\"\nrm -f -- \"$PATH_FILE\"\n\nyt-dlp \\\n  \"${COMMON_ARGS[@]}\" \\\n  \"${FORMAT_ARGS[@]}\" \\\n  \"${SUBTITLE_ARGS[@]}\" \\\n  \"${CLIP_ARGS[@]}\" \\\n  \"${POST_ARGS[@]}\" \\\n  --print-to-file \"after_move:filepath\" \"$PATH_FILE\" \\\n  \"$SOURCE_URL\"\n\n[[ -s \"$PATH_FILE\" ]] || {\n  echo \"Download completed but the output path could not be determined.\"\n  exit 1\n}\n\nDOWNLOADED_FILE=\"$(tail -n 1 \"$PATH_FILE\")\"\n\n[[ -f \"$DOWNLOADED_FILE\" ]] || {\n  echo \"Downloaded file not found: $DOWNLOADED_FILE\"\n  exit 1\n}\n\nexport OUTPUT=\"$DOWNLOADED_FILE\"\n\nprintf 'Downloaded successfully\\nTitle: %s\\nUploader: %s\\nSaved: %s\\n' \\\n  \"$MEDIA_TITLE\" \\\n  \"$MEDIA_UPLOADER\" \\\n  \"$OUTPUT\"\n\nrm -rf -- \"$WORK_ROOT\""
+      flags: ["--show-loading-screen"]
+      extras:
+        - id: "output_folder"
+          name: "OUTPUT_FOLDER"
+          type: "STRING"
+          default: "Download/AutoPie"
+          description: "Folder where the downloaded media will be saved."
+          flags: ["--internal-config","--folder-picker"]
+        - id: "download_type"
+          name: "DOWNLOAD_TYPE"
+          type: "SELECTABLE"
+          default: "video"
+          description: "Download as video or extract audio only."
+          selectableOptions: {"Video":"video","Audio only":"audio"}
+        - id: "quality"
+          name: "QUALITY"
+          type: "SELECTABLE"
+          default: "$$QUALITY_DEFAULT"
+          description: "Resolution choices are generated from the inspected media."
+          selectableOptions: {"Available resolutions":"$$QUALITY_OPTIONS"}
+          visibleWhen: {"extraId":"download_type","equals":"video"}
+        - id: "video_container"
+          name: "VIDEO_CONTAINER"
+          type: "SELECTABLE"
+          default: "mp4"
+          description: "MP4 gives the widest compatibility. MKV accepts almost any source streams."
+          selectableOptions: {"MP4":"mp4","MKV":"mkv","WebM":"webm"}
+          visibleWhen: {"extraId":"download_type","equals":"video"}
+        - id: "audio_format"
+          name: "AUDIO_FORMAT"
+          type: "SELECTABLE"
+          default: "mp3"
+          description: "Output format for audio-only downloads."
+          selectableOptions: {"MP3":"mp3","M4A / AAC":"m4a","Opus":"opus","FLAC":"flac"}
+          visibleWhen: {"extraId":"download_type","equals":"audio"}
+        - id: "audio_quality"
+          name: "AUDIO_QUALITY"
+          type: "SELECTABLE"
+          default: "192K"
+          description: "Target bitrate for lossy audio formats."
+          selectableOptions: {"128 kbps":"128K","192 kbps":"192K","320 kbps":"320K"}
+          visibleWhen: {"all":[{"extraId":"download_type","equals":"audio"},{"extraId":"audio_format","notEquals":"flac"}]}
+        - id: "subtitle_choice"
+          name: "SUBTITLE_CHOICE"
+          type: "SELECTABLE"
+          default: "none"
+          description: "Manual and automatic subtitle languages are discovered from the URL."
+          selectableOptions: {"Available subtitles":"$$SUBTITLE_OPTIONS"}
+          visibleWhen: {"extraId":"download_type","equals":"video"}
+        - id: "clip_mode"
+          name: "CLIP_MODE"
+          type: "SELECTABLE"
+          default: "full"
+          description: "Download the full media or only a selected section."
+          selectableOptions: {"Available clip modes":"$$CLIP_OPTIONS"}
+        - id: "clip_start"
+          name: "CLIP_START"
+          type: "SLIDER"
+          default: "$$TRIM_START_RANGE"
+          description: "Clip start position in seconds."
+          flags: ["--int","--large"]
+          visibleWhen: {"extraId":"clip_mode","equals":"clip"}
+        - id: "clip_end"
+          name: "CLIP_END"
+          type: "SLIDER"
+          default: "$$TRIM_END_RANGE"
+          description: "Clip end position in seconds."
+          flags: ["--int","--large"]
+          visibleWhen: {"extraId":"clip_mode","equals":"clip"}
+        - id: "embed_metadata"
+          name: "EMBED_METADATA"
+          type: "FLAG"
+          default: "--embed-metadata"
+          description: "Embed title, uploader and other available metadata."
+        - id: "embed_thumbnail"
+          name: "EMBED_THUMBNAIL"
+          type: "FLAG"
+          default: "--embed-thumbnail"
+          description: "Embed the source thumbnail as cover art when supported."
+        - id: "embed_chapters"
+          name: "EMBED_CHAPTERS"
+          type: "FLAG"
+          default: "--embed-chapters"
+          description: "Preserve chapter markers when the source provides them."
+          visibleWhen: {"extraId":"download_type","equals":"video"}
+        - id: "remove_sponsors"
+          name: "REMOVE_SPONSORS"
+          type: "FLAG"
+          default: "default"
+          description: "Remove SponsorBlock segments on supported sites."
+install:
+  primaryPackage: "yt-dlp"
+  extraPackages: ["ffmpeg"]
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

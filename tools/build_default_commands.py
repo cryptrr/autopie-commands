@@ -33,6 +33,7 @@ def convert_extra(extra: dict[str, Any]) -> dict[str, Any]:
         "required",
         "flags",
         "type",
+        "visibleWhen",
     ):
         if key in extra:
             converted[key] = extra[key]
@@ -61,9 +62,15 @@ def build_command(block: dict[str, Any]) -> str:
 def convert_runtime_block(block: dict[str, Any], fallback_exec: str | None) -> dict[str, Any]:
     converted: dict[str, Any] = {
         "path": block.get("path", ""),
-        "exec": block.get("commandSlug", block.get("exec", fallback_exec or "")),
         "command": build_command(block),
     }
+
+    command_slug = block.get("commandSlug", block.get("exec", fallback_exec))
+    if command_slug is not None:
+        converted["exec"] = command_slug
+
+    if "id" in block:
+        converted["id"] = block["id"]
 
     if "flags" in block:
         converted["flags"] = block["flags"]
@@ -86,10 +93,14 @@ def convert_manifest(manifest: dict[str, Any]) -> tuple[str, dict[str, Any]]:
             "id": command_id,
             "multiStage": True,
             "steps": [
-                convert_runtime_block(step, fallback_exec)
+                convert_runtime_block(step, None)
                 for step in runtime.get("steps", [])
             ],
         }
+        if "flags" in runtime:
+            converted["flags"] = runtime["flags"]
+        if "type" in runtime:
+            converted["type"] = runtime["type"]
         return name, converted
 
     converted = convert_runtime_block(runtime, fallback_exec)
