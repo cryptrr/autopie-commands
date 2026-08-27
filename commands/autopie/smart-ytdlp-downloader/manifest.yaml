@@ -3,7 +3,7 @@ version: "1.0.0"
 id: "autopie.smart-ytdlp-downloader"
 namespace: "autopie"
 name: "Smart YT-DLP Downloader"
-commandSlug: "smart-ytdlp-downloader"
+commandSlug: "ytdlp"
 summary: "Inspect a shared media URL, then download video, audio, subtitles, or a selected clip."
 type: "PACKAGE"
 tags: ["yt-dlp","ffmpeg","media"]
