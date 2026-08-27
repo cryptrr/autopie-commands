@@ -23,7 +23,7 @@ runtime:
         - id: "output_folder"
           name: "OUTPUT_FOLDER"
           type: "STRING"
-          default: "Download/AutoPie"
+          default: "Download"
           description: "Folder where the downloaded media will be saved."
           flags: ["--internal-config","--folder-picker"]
         - id: "download_type"
