@@ -1,4 +1,4 @@
-### Smart Media Downloader
+### Smart YT-DLP Downloader
 
 Inspect a shared media URL, then download video, audio, subtitles, or a selected clip.
 

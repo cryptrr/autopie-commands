@@ -2,5 +2,5 @@
 
 #### 1.0.0
 
-- Added the Smart Media Downloader command.
+- Added the Smart YT-DLP Downloader command.
 

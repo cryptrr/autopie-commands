@@ -820,7 +820,7 @@
     ],
     "id": "autopie.shutdown-remote-server"
   },
-  "Smart Media Downloader": {
+  "Smart YT-DLP Downloader": {
     "id": "autopie.smart-ytdlp-downloader",
     "type": "SHARE",
     "multiStage": true,
