@@ -222,7 +222,7 @@ printf 'Found: %s\nUploader: %s\nSource: %s\nDuration: %s\nMax video: %s\n' \
 ##### Step 2
 
 - Path: `Download`
-- Command slug: `ytdlp`
+- Command slug: `yt-dlp`
 
 ```sh
 set -euo pipefail
