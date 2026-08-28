@@ -7,7 +7,7 @@ Inspect a shared media URL, then download video, audio, subtitles, or a selected
 ##### Step 1
 
 - Path: `Download`
-- Command slug: `smart-ytdlp-downloader`
+- Command slug: `yt-dlp`
 
 ```sh
 set -euo pipefail
