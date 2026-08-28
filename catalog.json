@@ -6,9 +6,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Change Volume on Mac",
-      "tags": [
-        "openssh"
-      ],
+      "tags": ["openssh"],
       "version": "1.0.0"
     },
     "autopie.change-volume-on-mac-autofetch": {
@@ -16,9 +14,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Change Volume on Mac - AutoFetch",
-      "tags": [
-        "openssh"
-      ],
+      "tags": ["openssh"],
       "version": "1.0.1"
     },
     "autopie.check-exif-data": {
@@ -26,9 +22,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Check Exif Data",
-      "tags": [
-        "exiftool"
-      ],
+      "tags": ["exiftool"],
       "version": "1.0.0"
     },
     "autopie.check-internet-archive": {
@@ -36,9 +30,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Check Internet Archive",
-      "tags": [
-        "python"
-      ],
+      "tags": ["python"],
       "version": "1.0.0"
     },
     "autopie.check-media-info": {
@@ -46,9 +38,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Check Media Info",
-      "tags": [
-        "mediainfo"
-      ],
+      "tags": ["mediainfo"],
       "version": "1.0.0"
     },
     "autopie.combine-gifs-vertically": {
@@ -56,9 +46,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Combine Gifs Vertically",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "version": "1.0.0"
     },
     "autopie.combine-images-horizontally": {
@@ -66,9 +54,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Combine Images Horizontally",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "version": "1.0.0"
     },
     "autopie.combine-images-into-pdf": {
@@ -76,9 +62,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Combine Images into PDF",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "version": "1.0.0"
     },
     "autopie.combine-images-to-gif": {
@@ -86,9 +70,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Combine Images to GIF",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "version": "1.0.0"
     },
     "autopie.combine-images-vertically": {
@@ -96,9 +78,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Combine Images Vertically",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "version": "1.0.0"
     },
     "autopie.compress-zip-high-folder": {
@@ -106,9 +86,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Compress ZIP (High) : Folder",
-      "tags": [
-        "p7zip"
-      ],
+      "tags": ["p7zip"],
       "version": "1.0.0"
     },
     "autopie.compress-zip-high-multi-file": {
@@ -116,9 +94,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Compress ZIP (High) : Multi File",
-      "tags": [
-        "p7zip"
-      ],
+      "tags": ["p7zip"],
       "version": "1.0.0"
     },
     "autopie.convert-to-animated-webp": {
@@ -126,9 +102,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Convert to Animated WebP",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.convert-to-gif": {
@@ -136,9 +110,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Convert to GIF",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.convert-to-webm": {
@@ -146,9 +118,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Convert To WebM",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.convert-to-webp": {
@@ -156,9 +126,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Convert To WEBP",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "version": "1.0.0"
     },
     "autopie.convert-video-to-av1": {
@@ -166,9 +134,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Convert video to AV1",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.crop-image-gif": {
@@ -176,9 +142,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Crop Image/GIF",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "version": "1.0.0"
     },
     "autopie.crop-video-to-mobile-dimensions": {
@@ -186,9 +150,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Crop Video to Mobile Dimensions",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.extract-audio": {
@@ -196,9 +158,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Extract Audio from File",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.extract-audio-from-url": {
@@ -206,9 +166,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Extract Audio from URL",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.extract-images-from-pdf": {
@@ -216,9 +174,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Extract Images from PDF",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "version": "1.0.0"
     },
     "autopie.ffmpeg-convert-to-hevc": {
@@ -226,9 +182,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for FFMPEG: Convert to HEVC",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.ffmpeg-cut-video": {
@@ -236,9 +190,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for FFMPEG: Cut Video",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.ffmpeg-optimize-video": {
@@ -246,9 +198,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for FFMPEG: Optimize Video",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.flip-mirror-video": {
@@ -256,9 +206,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Flip/Mirror Video",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.gallerydl-download": {
@@ -266,9 +214,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for GalleryDL Download ",
-      "tags": [
-        "gallery-dl"
-      ],
+      "tags": ["gallery-dl"],
       "version": "1.0.0"
     },
     "autopie.open-in-video-player": {
@@ -276,9 +222,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Open in Video Player",
-      "tags": [
-        "yt-dlp"
-      ],
+      "tags": ["yt-dlp"],
       "version": "1.0.0"
     },
     "autopie.openwrt-router-automations": {
@@ -286,9 +230,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for OpenWRT Router Automations",
-      "tags": [
-        "openssh"
-      ],
+      "tags": ["openssh"],
       "version": "1.0.0"
     },
     "autopie.remove-audio": {
@@ -296,9 +238,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Remove Audio",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.remove-image-borders": {
@@ -306,9 +246,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Remove Image Borders",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "version": "1.0.0"
     },
     "autopie.resize-video": {
@@ -316,9 +254,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Resize Video",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.rotate-video": {
@@ -326,9 +262,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Rotate Video",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.rsync-backup-pics-to-pc": {
@@ -336,9 +270,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for RSYNC: Backup Pics to PC",
-      "tags": [
-        "rsync"
-      ],
+      "tags": ["rsync"],
       "version": "1.0.0"
     },
     "autopie.rsync-sync-pics-pc-mob": {
@@ -346,9 +278,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for RSYNC: Sync Pics - PC ➡️ Mob",
-      "tags": [
-        "rsync"
-      ],
+      "tags": ["rsync"],
       "version": "1.0.0"
     },
     "autopie.set-file-modified-date-to-now": {
@@ -356,9 +286,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Set file modified date to now.",
-      "tags": [
-        "coreutils"
-      ],
+      "tags": ["coreutils"],
       "version": "1.0.0"
     },
     "autopie.sha-256-hash-check": {
@@ -366,9 +294,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for SHA-256 Hash Check",
-      "tags": [
-        "coreutils"
-      ],
+      "tags": ["coreutils"],
       "version": "1.0.0"
     },
     "autopie.shutdown-remote-server": {
@@ -376,31 +302,23 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Shutdown Remote Server",
-      "tags": [
-        "openssh"
-      ],
+      "tags": ["openssh"],
       "version": "1.0.0"
     },
     "autopie.smart-ytdlp-downloader": {
-      "version": "1.0.0",
+      "version": "1.0.1",
       "name": "Smart YT-DLP Downloader",
       "summary": "Inspect a shared media URL, then download video, audio, subtitles, or a selected clip.",
       "namespace": "autopie",
       "status": "stable",
-      "tags": [
-        "yt-dlp",
-        "ffmpeg",
-        "media"
-      ]
+      "tags": ["yt-dlp", "ffmpeg", "media"]
     },
     "autopie.trigger-home-assistant": {
       "name": "Trigger Home Assistant",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Trigger Home Assistant",
-      "tags": [
-        "httpx"
-      ],
+      "tags": ["httpx"],
       "version": "1.0.0"
     },
     "autopie.virus-check-virustotal": {
@@ -408,9 +326,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Virus Check (VirusTotal)",
-      "tags": [
-        "coreutils"
-      ],
+      "tags": ["coreutils"],
       "version": "1.0.0"
     },
     "autopie.watermark-video": {
@@ -418,9 +334,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Watermark Video",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "version": "1.0.0"
     },
     "autopie.wcurl-download": {
@@ -428,9 +342,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for wCurl Download",
-      "tags": [
-        "wcurl"
-      ],
+      "tags": ["wcurl"],
       "version": "1.0.0"
     },
     "autopie.yt-dlp-download": {
@@ -438,9 +350,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for YT-DLP Download",
-      "tags": [
-        "yt-dlp"
-      ],
+      "tags": ["yt-dlp"],
       "version": "1.0.0"
     },
     "autopie.yt-dlp-download-as-audio": {
@@ -448,9 +358,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for YT-DLP: Download as Audio",
-      "tags": [
-        "yt-dlp"
-      ],
+      "tags": ["yt-dlp"],
       "version": "1.0.0"
     },
     "autopie.yt-dlp-get-direct-url": {
@@ -458,9 +366,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for YT-DLP Get Direct URL",
-      "tags": [
-        "yt-dlp"
-      ],
+      "tags": ["yt-dlp"],
       "version": "1.0.0"
     }
   },
