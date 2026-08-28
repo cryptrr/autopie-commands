@@ -222,7 +222,7 @@ printf 'Found: %s\nUploader: %s\nSource: %s\nDuration: %s\nMax video: %s\n' \
 ##### Step 2
 
 - Path: `Download`
-- Command slug: `smart-ytdlp-downloader`
+- Command slug: `ytdlp`
 
 ```sh
 set -euo pipefail
@@ -383,19 +383,19 @@ rm -rf -- "$WORK_ROOT"
 
 #### Extras
 
-| Step | Name | Type | Required | Default | Flags | Options | Details |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Step 2 | OUTPUT_FOLDER | STRING | no | Download/AutoPie | --internal-config, --folder-picker | - | Folder where the downloaded media will be saved. |
-| Step 2 | DOWNLOAD_TYPE | SELECTABLE | no | video | - | Video=video, Audio only=audio | Download as video or extract audio only. |
-| Step 2 | QUALITY | SELECTABLE | no | $$QUALITY_DEFAULT | - | Available resolutions=$$QUALITY_OPTIONS | Resolution choices are generated from the inspected media. |
-| Step 2 | VIDEO_CONTAINER | SELECTABLE | no | mp4 | - | MP4=mp4, MKV=mkv, WebM=webm | MP4 gives the widest compatibility. MKV accepts almost any source streams. |
-| Step 2 | AUDIO_FORMAT | SELECTABLE | no | mp3 | - | MP3=mp3, M4A / AAC=m4a, Opus=opus, FLAC=flac | Output format for audio-only downloads. |
-| Step 2 | AUDIO_QUALITY | SELECTABLE | no | 192K | - | 128 kbps=128K, 192 kbps=192K, 320 kbps=320K | Target bitrate for lossy audio formats. |
-| Step 2 | SUBTITLE_CHOICE | SELECTABLE | no | none | - | Available subtitles=$$SUBTITLE_OPTIONS | Manual and automatic subtitle languages are discovered from the URL. |
-| Step 2 | CLIP_MODE | SELECTABLE | no | full | - | Available clip modes=$$CLIP_OPTIONS | Download the full media or only a selected section. |
-| Step 2 | CLIP_START | SLIDER | no | $$TRIM_START_RANGE | --int, --large | - | Clip start position in seconds. |
-| Step 2 | CLIP_END | SLIDER | no | $$TRIM_END_RANGE | --int, --large | - | Clip end position in seconds. |
-| Step 2 | EMBED_METADATA | FLAG | no | --embed-metadata | - | - | Embed title, uploader and other available metadata. |
-| Step 2 | EMBED_THUMBNAIL | FLAG | no | --embed-thumbnail | - | - | Embed the source thumbnail as cover art when supported. |
-| Step 2 | EMBED_CHAPTERS | FLAG | no | --embed-chapters | - | - | Preserve chapter markers when the source provides them. |
-| Step 2 | REMOVE_SPONSORS | FLAG | no | default | - | - | Remove SponsorBlock segments on supported sites. |
+| Step   | Name            | Type       | Required | Default            | Flags                              | Options                                      | Details                                                                    |
+| ------ | --------------- | ---------- | -------- | ------------------ | ---------------------------------- | -------------------------------------------- | -------------------------------------------------------------------------- |
+| Step 2 | OUTPUT_FOLDER   | STRING     | no       | Download/AutoPie   | --internal-config, --folder-picker | -                                            | Folder where the downloaded media will be saved.                           |
+| Step 2 | DOWNLOAD_TYPE   | SELECTABLE | no       | video              | -                                  | Video=video, Audio only=audio                | Download as video or extract audio only.                                   |
+| Step 2 | QUALITY         | SELECTABLE | no       | $$QUALITY_DEFAULT  | -                                  | Available resolutions=$$QUALITY_OPTIONS      | Resolution choices are generated from the inspected media.                 |
+| Step 2 | VIDEO_CONTAINER | SELECTABLE | no       | mp4                | -                                  | MP4=mp4, MKV=mkv, WebM=webm                  | MP4 gives the widest compatibility. MKV accepts almost any source streams. |
+| Step 2 | AUDIO_FORMAT    | SELECTABLE | no       | mp3                | -                                  | MP3=mp3, M4A / AAC=m4a, Opus=opus, FLAC=flac | Output format for audio-only downloads.                                    |
+| Step 2 | AUDIO_QUALITY   | SELECTABLE | no       | 192K               | -                                  | 128 kbps=128K, 192 kbps=192K, 320 kbps=320K  | Target bitrate for lossy audio formats.                                    |
+| Step 2 | SUBTITLE_CHOICE | SELECTABLE | no       | none               | -                                  | Available subtitles=$$SUBTITLE_OPTIONS       | Manual and automatic subtitle languages are discovered from the URL.       |
+| Step 2 | CLIP_MODE       | SELECTABLE | no       | full               | -                                  | Available clip modes=$$CLIP_OPTIONS          | Download the full media or only a selected section.                        |
+| Step 2 | CLIP_START      | SLIDER     | no       | $$TRIM_START_RANGE | --int, --large                     | -                                            | Clip start position in seconds.                                            |
+| Step 2 | CLIP_END        | SLIDER     | no       | $$TRIM_END_RANGE   | --int, --large                     | -                                            | Clip end position in seconds.                                              |
+| Step 2 | EMBED_METADATA  | FLAG       | no       | --embed-metadata   | -                                  | -                                            | Embed title, uploader and other available metadata.                        |
+| Step 2 | EMBED_THUMBNAIL | FLAG       | no       | --embed-thumbnail  | -                                  | -                                            | Embed the source thumbnail as cover art when supported.                    |
+| Step 2 | EMBED_CHAPTERS  | FLAG       | no       | --embed-chapters   | -                                  | -                                            | Preserve chapter markers when the source provides them.                    |
+| Step 2 | REMOVE_SPONSORS | FLAG       | no       | default            | -                                  | -                                            | Remove SponsorBlock segments on supported sites.                           |
