@@ -78,13 +78,7 @@ runtime:
           type: "SELECTABLE"
           default: "online"
           description: "Which devices should be discovered."
-          selectableOptions:
-            {
-              "Online clients": "online",
-              "Wi-Fi clients": "wifi",
-              "Wired clients": "wired",
-              "All known clients": "all",
-            }
+          selectableOptions: { "Online clients": "online", "Wi-Fi clients": "wifi", "Wired clients": "wired", "All known clients": "all" }
     - id: "inspect_device"
       path: "Download"
       command: "set -eo pipefail\n\nexport DEVICE_MAC=\"$(printf '%s' \"$DEVICE_MAC\" | tr 'A-F' 'a-f')\"\n\nDEVICE_RAW=\"$(\n  router_ssh \"MAC='$DEVICE_MAC' sh -s\" <<'REMOTE'\nmac=\"$(printf '%s' \"$MAC\" | tr 'A-F' 'a-f')\"\n\nlease_line=\"$(\n  awk -v wanted=\"$mac\" '\n    tolower($2)==wanted {\n      host=$4\n      if (host==\"\" || host==\"*\") host=\"Unknown\"\n      print $3 \"\\t\" host\n      exit\n    }\n  ' /tmp/dhcp.leases 2>/dev/null\n)\"\n\nip=\"$(printf '%s' \"$lease_line\" | cut -f1)\"\nhostname=\"$(printf '%s' \"$lease_line\" | cut -f2-)\"\n\nif [ -z \"$ip\" ]; then\n  ip=\"$(\n    ip neigh show 2>/dev/null |\n      awk -v wanted=\"$mac\" '\n        {\n          found=\"\"\n          for (i=1; i<=NF; i++) {\n            if ($i==\"lladdr\" && i<NF)\n              found=tolower($(i+1))\n          }\n\n          if (found==wanted) {\n            print $1\n            exit\n          }\n        }\n      '\n  )\"\nfi\n\n[ -n \"$hostname\" ] || hostname=\"Unknown\"\n\nwifi_obj=\"\"\n\nfor obj in $(ubus list 'hostapd.*' 2>/dev/null); do\n  if ubus call \"$obj\" get_clients 2>/dev/null | grep -qi \"\\\"$mac\\\"\"; then\n    wifi_obj=\"$obj\"\n    break\n  fi\ndone\n\nreachable=\"no\"\n\nif [ -n \"$ip\" ] && ping -c 1 -W 1 \"$ip\" >/dev/null 2>&1; then\n  reachable=\"yes\"\nfi\n\nblock_name=\"AutoPie Block $mac\"\n\nblock_ref=\"$(\n  uci show firewall 2>/dev/null |\n    grep -F \".name='$block_name'\" |\n    head -n 1 |\n    sed 's/\\.name=.*//'\n)\"\n\nmanaged_lease_name=\"AutoPie Lease $mac\"\n\nmanaged_lease_ref=\"$(\n  uci show dhcp 2>/dev/null |\n    grep -F \".name='$managed_lease_name'\" |\n    head -n 1 |\n    sed 's/\\.name=.*//'\n)\"\n\nany_lease_ref=\"$(\n  uci show dhcp 2>/dev/null |\n    grep -Fi \".mac='$mac'\" |\n    head -n 1 |\n    sed 's/\\.mac=.*//'\n)\"\n\nprintf 'IP=%s\\n' \"$ip\"\nprintf 'HOSTNAME=%s\\n' \"$hostname\"\nprintf 'WIFI_OBJECT=%s\\n' \"$wifi_obj\"\nprintf 'REACHABLE=%s\\n' \"$reachable\"\nprintf 'BLOCKED=%s\\n' \"$([ -n \"$block_ref\" ] && echo yes || echo no)\"\n\nif [ -n \"$managed_lease_ref\" ]; then\n  printf 'RESERVATION=managed\\n'\nelif [ -n \"$any_lease_ref\" ]; then\n  printf 'RESERVATION=existing\\n'\nelse\n  printf 'RESERVATION=none\\n'\nfi\nREMOTE\n)\"\n\nexport DEVICE_RAW\n\neval \"$(\n  DEVICE_RAW=\"$DEVICE_RAW\" DEVICE_MAC=\"$DEVICE_MAC\" python - <<'PYDEVICE'\nimport os\nimport re\nimport shlex\n\ndata = {}\n\nfor line in os.environ.get(\"DEVICE_RAW\", \"\").splitlines():\n    if \"=\" in line:\n        key, value = line.split(\"=\", 1)\n        data[key] = value\n\nmac = os.environ[\"DEVICE_MAC\"]\nhostname = data.get(\"HOSTNAME\") or \"Unknown\"\nip = data.get(\"IP\") or \"\"\nwifi_object = data.get(\"WIFI_OBJECT\") or \"\"\nreachable = data.get(\"REACHABLE\") == \"yes\"\nblocked = data.get(\"BLOCKED\") == \"yes\"\nreservation = data.get(\"RESERVATION\", \"none\")\n\nactions = []\n\nif ip:\n    actions.append((\"Ping device\", \"ping\"))\n\nif blocked:\n    actions.append((\"Unblock internet\", \"unblock\"))\nelse:\n    actions.append((\"Block internet\", \"block\"))\n\nif wifi_object:\n    actions.append((\"Disconnect from Wi-Fi\", \"kick\"))\n\nif reservation == \"managed\":\n    actions.append((\"Remove AutoPie static DHCP lease\", \"unreserve\"))\nelif reservation == \"none\" and ip:\n    actions.append((\"Reserve current IP with DHCP\", \"reserve\"))\n\n\ndef clean(value):\n    return (\n        re.sub(r\"\\s+\", \" \", str(value))\n        .replace(\",\", \" \")\n        .replace(\"=\", \"-\")\n        .strip()\n    )\n\n\noptions = \",\".join(\n    f\"{clean(label)}={value}\"\n    for label, value in actions\n)\n\ndefault = \"ping\" if ip else (\"unblock\" if blocked else \"block\")\nconnection = \"Wi-Fi\" if wifi_object else \"LAN / unknown\"\n\nexports = {\n    \"DEVICE_HOSTNAME\": hostname,\n    \"DEVICE_IP\": ip,\n    \"DEVICE_WIFI_OBJECT\": wifi_object,\n    \"DEVICE_REACHABLE\": \"yes\" if reachable else \"no\",\n    \"DEVICE_BLOCKED\": \"yes\" if blocked else \"no\",\n    \"DEVICE_RESERVATION\": reservation,\n    \"DEVICE_CONNECTION\": connection,\n    \"ACTION_OPTIONS\": options,\n    \"ACTION_DEFAULT\": default\n}\n\nfor key, value in exports.items():\n    print(f\"export {key}={shlex.quote(str(value))}\")\nPYDEVICE\n)\"\n\nprintf 'Device: %s\\nIP: %s\\nMAC: %s\\nConnection: %s\\nReachable now: %s\\nInternet blocked by AutoPie: %s\\nDHCP reservation: %s\\n' \\\n  \"$DEVICE_HOSTNAME\" \\\n  \"${DEVICE_IP:-Unknown}\" \\\n  \"$DEVICE_MAC\" \\\n  \"$DEVICE_CONNECTION\" \\\n  \"$DEVICE_REACHABLE\" \\\n  \"$DEVICE_BLOCKED\" \\\n  \"$DEVICE_RESERVATION\""
@@ -115,21 +109,14 @@ runtime:
           default: "REJECT"
           description: "How the firewall should deny this device's WAN traffic."
           visibleWhen: { "extraId": "action", "equals": "block" }
-          selectableOptions:
-            { "Reject immediately": "REJECT", "Drop silently": "DROP" }
+          selectableOptions: { "Reject immediately": "REJECT", "Drop silently": "DROP" }
         - id: "ban_time_ms"
           name: "BAN_TIME_MS"
           type: "SELECTABLE"
           default: "10000"
           description: "How long the Wi-Fi client should be prevented from immediately reconnecting."
           visibleWhen: { "extraId": "action", "equals": "kick" }
-          selectableOptions:
-            {
-              "Disconnect only": "0",
-              "10 seconds": "10000",
-              "1 minute": "60000",
-              "5 minutes": "300000",
-            }
+          selectableOptions: { "Disconnect only": "0", "10 seconds": "10000", "1 minute": "60000", "5 minutes": "300000" }
         - id: "reserved_ip"
           name: "RESERVED_IP"
           type: "STRING"
