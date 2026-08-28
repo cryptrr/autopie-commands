@@ -1,0 +1,162 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.openwrt-device-manager"
+namespace: "autopie"
+name: "OpenWRT Device Manager"
+commandSlug: "openssh"
+summary: "Discover and manage OpenWrt network clients over SSH."
+type: "PACKAGE"
+tags: ["openssh", "openwrt", "network"]
+runtime:
+  multiStage: true
+  type: "SHARE"
+  steps:
+    - id: "discover_clients"
+      path: "Download"
+      command: "set -eo pipefail\n\ncommand -v ssh >/dev/null 2>&1 || {\n  echo \"OpenSSH is not installed.\"\n  exit 1\n}\n\nif [[ ! \"$ROUTER_PORT\" =~ ^[0-9]+$ ]]; then\n  echo \"Invalid SSH port.\"\n  exit 1\nfi\n\nif [[ ! \"$FIREWALL_SRC_ZONE\" =~ ^[A-Za-z0-9_-]+$ ]] || [[ ! \"$FIREWALL_DEST_ZONE\" =~ ^[A-Za-z0-9_-]+$ ]]; then\n  echo \"Invalid firewall zone name.\"\n  exit 1\nfi\n\nif [[ \"$AUTH_METHOD\" == \"password\" ]] && ! command -v sshpass >/dev/null 2>&1; then\n  echo \"sshpass is required for password authentication.\"\n  exit 1\nfi\n\nexport SSH_KEY_RESOLVED=\"${SSH_KEY_PATH/#\\~/$HOME}\"\n\nif [[ \"$AUTH_METHOD\" == \"key\" && ! -r \"$SSH_KEY_RESOLVED\" ]]; then\n  echo \"SSH private key is not readable: $SSH_KEY_RESOLVED\"\n  exit 1\nfi\n\nSSH_BASE=(\n  ssh\n  -p \"$ROUTER_PORT\"\n  -o ConnectTimeout=7\n  -o ServerAliveInterval=10\n  -o StrictHostKeyChecking=accept-new\n)\n\nrouter_ssh() {\n  if [[ \"$AUTH_METHOD\" == \"password\" ]]; then\n    SSHPASS=\"$ROUTER_PASSWORD\" sshpass -e \"${SSH_BASE[@]}\" \\\n      \"$ROUTER_USER@$ROUTER_HOST\" \"$@\"\n  else\n    \"${SSH_BASE[@]}\" \\\n      -o BatchMode=yes \\\n      -i \"$SSH_KEY_RESOLVED\" \\\n      \"$ROUTER_USER@$ROUTER_HOST\" \"$@\"\n  fi\n}\n\nrouter_ssh \"printf 'AUTOPIE_OPENWRT_OK\\\\n'\" | grep -q '^AUTOPIE_OPENWRT_OK$' || {\n  echo \"Could not connect to the OpenWrt router.\"\n  exit 1\n}\n\nCLIENT_RAW=\"$(\n  router_ssh 'sh -s' <<'REMOTE'\nif [ -r /tmp/dhcp.leases ]; then\n  awk '{\n    host=$4\n    if (host==\"\" || host==\"*\") host=\"Unknown\"\n    printf \"LEASE\\t%s\\t%s\\t%s\\n\", tolower($2), $3, host\n  }' /tmp/dhcp.leases\nfi\n\nip neigh show 2>/dev/null | awk '{\n  ip=$1\n  mac=\"\"\n  state=$NF\n\n  for (i=1; i<=NF; i++) {\n    if ($i==\"lladdr\" && i<NF) mac=tolower($(i+1))\n  }\n\n  if (mac!=\"\")\n    printf \"NEIGH\\t%s\\t%s\\t%s\\n\", mac, ip, state\n}'\n\nfor obj in $(ubus list 'hostapd.*' 2>/dev/null); do\n  ubus call \"$obj\" get_clients 2>/dev/null |\n    grep -Eio '([0-9a-f]{2}:){5}[0-9a-f]{2}' |\n    tr 'A-F' 'a-f' |\n    sort -u |\n    while IFS= read -r mac; do\n      [ -n \"$mac\" ] && printf \"WIFI\\t%s\\t%s\\n\" \"$mac\" \"$obj\"\n    done\ndone\nREMOTE\n)\"\n\nexport CLIENT_RAW\n\neval \"$(\n  CLIENT_RAW=\"$CLIENT_RAW\" CLIENT_SCOPE=\"$CLIENT_SCOPE\" python - <<'PYCLIENTS'\nimport os\nimport re\nimport shlex\n\nrecords = os.environ.get(\"CLIENT_RAW\", \"\").splitlines()\nscope = os.environ.get(\"CLIENT_SCOPE\", \"online\")\ndevices = {}\n\nmac_re = re.compile(r\"^(?:[0-9a-f]{2}:){5}[0-9a-f]{2}$\", re.I)\n\n\ndef get_device(mac):\n    mac = mac.lower()\n    return devices.setdefault(mac, {\n        \"mac\": mac,\n        \"ip\": \"\",\n        \"hostname\": \"Unknown\",\n        \"online\": False,\n        \"wifi_object\": \"\"\n    })\n\n\nfor line in records:\n    parts = line.split(\"\\t\")\n    if not parts:\n        continue\n\n    kind = parts[0]\n\n    if kind == \"LEASE\" and len(parts) >= 4:\n        mac = parts[1].lower()\n        if not mac_re.match(mac):\n            continue\n\n        d = get_device(mac)\n        d[\"ip\"] = parts[2]\n\n        if parts[3] and parts[3] != \"*\":\n            d[\"hostname\"] = parts[3]\n\n    elif kind == \"NEIGH\" and len(parts) >= 4:\n        mac = parts[1].lower()\n        if not mac_re.match(mac):\n            continue\n\n        d = get_device(mac)\n\n        if not d[\"ip\"]:\n            d[\"ip\"] = parts[2]\n\n        state = parts[3].upper()\n        if state not in {\"FAILED\", \"INCOMPLETE\", \"NONE\"}:\n            d[\"online\"] = True\n\n    elif kind == \"WIFI\" and len(parts) >= 3:\n        mac = parts[1].lower()\n        if not mac_re.match(mac):\n            continue\n\n        d = get_device(mac)\n        d[\"wifi_object\"] = parts[2]\n        d[\"online\"] = True\n\n\ndef include(d):\n    if scope == \"all\":\n        return True\n    if scope == \"wifi\":\n        return bool(d[\"wifi_object\"])\n    if scope == \"wired\":\n        return d[\"online\"] and not d[\"wifi_object\"]\n    return d[\"online\"]\n\n\nselected = [d for d in devices.values() if include(d)]\n\nselected.sort(key=lambda d: (\n    not d[\"online\"],\n    d[\"hostname\"].lower(),\n    d[\"ip\"],\n    d[\"mac\"]\n))\n\nif not selected:\n    raise SystemExit(\n        f\"No clients matched scope '{scope}'. \"\n        \"Try All known clients if the device is offline.\"\n    )\n\n\ndef clean(value):\n    value = re.sub(r\"\\s+\", \" \", str(value)).strip()\n    return value.replace(\",\", \" \").replace(\"=\", \"-\")\n\n\noptions = []\n\nfor d in selected:\n    if d[\"wifi_object\"]:\n        connection = \"Wi-Fi\"\n    elif d[\"online\"]:\n        connection = \"LAN\"\n    else:\n        connection = \"Offline\"\n\n    label = (\n        f\"{clean(d['hostname'])} \u2014 \"\n        f\"{clean(d['ip'] or 'No IP')} \u2014 \"\n        f\"{connection} \u2014 {d['mac']}\"\n    )\n\n    options.append(f\"{label}={d['mac']}\")\n\nprint(\"export CLIENT_OPTIONS=\" + shlex.quote(\",\".join(options)))\nprint(\"export CLIENT_DEFAULT=\" + shlex.quote(selected[0][\"mac\"]))\nprint(\"export CLIENT_COUNT=\" + shlex.quote(str(len(selected))))\nPYCLIENTS\n)\"\n\nprintf 'Router: %s\\nDiscovered clients: %s\\n\\nChoose a device in the next step.\\n' \\\n  \"$ROUTER_HOST\" \\\n  \"$CLIENT_COUNT\""
+      extras:
+        - id: "router_host"
+          name: "ROUTER_HOST"
+          type: "STRING"
+          default: "192.168.1.1"
+          description: "OpenWrt router hostname or IP address."
+          required: true
+          flags: ["--internal-config"]
+        - id: "router_port"
+          name: "ROUTER_PORT"
+          type: "STRING"
+          default: "22"
+          description: "SSH port."
+          required: true
+          flags: ["--internal-config"]
+        - id: "router_user"
+          name: "ROUTER_USER"
+          type: "STRING"
+          default: "root"
+          description: "SSH username."
+          required: true
+          flags: ["--internal-config"]
+        - id: "auth_method"
+          name: "AUTH_METHOD"
+          type: "SELECTABLE"
+          default: "password"
+          description: "Authentication method used to connect to OpenWrt."
+          flags: ["--internal-config"]
+          selectableOptions: { "Password": "password", "SSH key": "key" }
+        - id: "router_password"
+          name: "ROUTER_PASSWORD"
+          type: "STRING"
+          default: ""
+          description: "SSH password. Stored in AutoPie's encrypted private preferences."
+          required: true
+          flags: ["--secret", "--internal-config"]
+          visibleWhen: { "extraId": "auth_method", "equals": "password" }
+        - id: "ssh_key_path"
+          name: "SSH_KEY_PATH"
+          type: "STRING"
+          default: "~/.ssh/id_ed25519"
+          description: "Private SSH key inside AutoPie's Linux environment."
+          required: true
+          flags: ["--internal-config"]
+          visibleWhen: { "extraId": "auth_method", "equals": "key" }
+        - id: "firewall_src_zone"
+          name: "FIREWALL_SRC_ZONE"
+          type: "STRING"
+          default: "lan"
+          description: "Source firewall zone used when blocking a device."
+          required: true
+          flags: ["--internal-config"]
+        - id: "firewall_dest_zone"
+          name: "FIREWALL_DEST_ZONE"
+          type: "STRING"
+          default: "wan"
+          description: "Destination firewall zone used when blocking a device."
+          required: true
+          flags: ["--internal-config"]
+        - id: "client_scope"
+          name: "CLIENT_SCOPE"
+          type: "SELECTABLE"
+          default: "online"
+          description: "Which devices should be discovered."
+          selectableOptions:
+            {
+              "Online clients": "online",
+              "Wi-Fi clients": "wifi",
+              "Wired clients": "wired",
+              "All known clients": "all",
+            }
+    - id: "inspect_device"
+      path: "Download"
+      command: "set -eo pipefail\n\nexport DEVICE_MAC=\"$(printf '%s' \"$DEVICE_MAC\" | tr 'A-F' 'a-f')\"\n\nDEVICE_RAW=\"$(\n  router_ssh \"MAC='$DEVICE_MAC' sh -s\" <<'REMOTE'\nmac=\"$(printf '%s' \"$MAC\" | tr 'A-F' 'a-f')\"\n\nlease_line=\"$(\n  awk -v wanted=\"$mac\" '\n    tolower($2)==wanted {\n      host=$4\n      if (host==\"\" || host==\"*\") host=\"Unknown\"\n      print $3 \"\\t\" host\n      exit\n    }\n  ' /tmp/dhcp.leases 2>/dev/null\n)\"\n\nip=\"$(printf '%s' \"$lease_line\" | cut -f1)\"\nhostname=\"$(printf '%s' \"$lease_line\" | cut -f2-)\"\n\nif [ -z \"$ip\" ]; then\n  ip=\"$(\n    ip neigh show 2>/dev/null |\n      awk -v wanted=\"$mac\" '\n        {\n          found=\"\"\n          for (i=1; i<=NF; i++) {\n            if ($i==\"lladdr\" && i<NF)\n              found=tolower($(i+1))\n          }\n\n          if (found==wanted) {\n            print $1\n            exit\n          }\n        }\n      '\n  )\"\nfi\n\n[ -n \"$hostname\" ] || hostname=\"Unknown\"\n\nwifi_obj=\"\"\n\nfor obj in $(ubus list 'hostapd.*' 2>/dev/null); do\n  if ubus call \"$obj\" get_clients 2>/dev/null | grep -qi \"\\\"$mac\\\"\"; then\n    wifi_obj=\"$obj\"\n    break\n  fi\ndone\n\nreachable=\"no\"\n\nif [ -n \"$ip\" ] && ping -c 1 -W 1 \"$ip\" >/dev/null 2>&1; then\n  reachable=\"yes\"\nfi\n\nblock_name=\"AutoPie Block $mac\"\n\nblock_ref=\"$(\n  uci show firewall 2>/dev/null |\n    grep -F \".name='$block_name'\" |\n    head -n 1 |\n    sed 's/\\.name=.*//'\n)\"\n\nmanaged_lease_name=\"AutoPie Lease $mac\"\n\nmanaged_lease_ref=\"$(\n  uci show dhcp 2>/dev/null |\n    grep -F \".name='$managed_lease_name'\" |\n    head -n 1 |\n    sed 's/\\.name=.*//'\n)\"\n\nany_lease_ref=\"$(\n  uci show dhcp 2>/dev/null |\n    grep -Fi \".mac='$mac'\" |\n    head -n 1 |\n    sed 's/\\.mac=.*//'\n)\"\n\nprintf 'IP=%s\\n' \"$ip\"\nprintf 'HOSTNAME=%s\\n' \"$hostname\"\nprintf 'WIFI_OBJECT=%s\\n' \"$wifi_obj\"\nprintf 'REACHABLE=%s\\n' \"$reachable\"\nprintf 'BLOCKED=%s\\n' \"$([ -n \"$block_ref\" ] && echo yes || echo no)\"\n\nif [ -n \"$managed_lease_ref\" ]; then\n  printf 'RESERVATION=managed\\n'\nelif [ -n \"$any_lease_ref\" ]; then\n  printf 'RESERVATION=existing\\n'\nelse\n  printf 'RESERVATION=none\\n'\nfi\nREMOTE\n)\"\n\nexport DEVICE_RAW\n\neval \"$(\n  DEVICE_RAW=\"$DEVICE_RAW\" DEVICE_MAC=\"$DEVICE_MAC\" python - <<'PYDEVICE'\nimport os\nimport re\nimport shlex\n\ndata = {}\n\nfor line in os.environ.get(\"DEVICE_RAW\", \"\").splitlines():\n    if \"=\" in line:\n        key, value = line.split(\"=\", 1)\n        data[key] = value\n\nmac = os.environ[\"DEVICE_MAC\"]\nhostname = data.get(\"HOSTNAME\") or \"Unknown\"\nip = data.get(\"IP\") or \"\"\nwifi_object = data.get(\"WIFI_OBJECT\") or \"\"\nreachable = data.get(\"REACHABLE\") == \"yes\"\nblocked = data.get(\"BLOCKED\") == \"yes\"\nreservation = data.get(\"RESERVATION\", \"none\")\n\nactions = []\n\nif ip:\n    actions.append((\"Ping device\", \"ping\"))\n\nif blocked:\n    actions.append((\"Unblock internet\", \"unblock\"))\nelse:\n    actions.append((\"Block internet\", \"block\"))\n\nif wifi_object:\n    actions.append((\"Disconnect from Wi-Fi\", \"kick\"))\n\nif reservation == \"managed\":\n    actions.append((\"Remove AutoPie static DHCP lease\", \"unreserve\"))\nelif reservation == \"none\" and ip:\n    actions.append((\"Reserve current IP with DHCP\", \"reserve\"))\n\n\ndef clean(value):\n    return (\n        re.sub(r\"\\s+\", \" \", str(value))\n        .replace(\",\", \" \")\n        .replace(\"=\", \"-\")\n        .strip()\n    )\n\n\noptions = \",\".join(\n    f\"{clean(label)}={value}\"\n    for label, value in actions\n)\n\ndefault = \"ping\" if ip else (\"unblock\" if blocked else \"block\")\nconnection = \"Wi-Fi\" if wifi_object else \"LAN / unknown\"\n\nexports = {\n    \"DEVICE_HOSTNAME\": hostname,\n    \"DEVICE_IP\": ip,\n    \"DEVICE_WIFI_OBJECT\": wifi_object,\n    \"DEVICE_REACHABLE\": \"yes\" if reachable else \"no\",\n    \"DEVICE_BLOCKED\": \"yes\" if blocked else \"no\",\n    \"DEVICE_RESERVATION\": reservation,\n    \"DEVICE_CONNECTION\": connection,\n    \"ACTION_OPTIONS\": options,\n    \"ACTION_DEFAULT\": default\n}\n\nfor key, value in exports.items():\n    print(f\"export {key}={shlex.quote(str(value))}\")\nPYDEVICE\n)\"\n\nprintf 'Device: %s\\nIP: %s\\nMAC: %s\\nConnection: %s\\nReachable now: %s\\nInternet blocked by AutoPie: %s\\nDHCP reservation: %s\\n' \\\n  \"$DEVICE_HOSTNAME\" \\\n  \"${DEVICE_IP:-Unknown}\" \\\n  \"$DEVICE_MAC\" \\\n  \"$DEVICE_CONNECTION\" \\\n  \"$DEVICE_REACHABLE\" \\\n  \"$DEVICE_BLOCKED\" \\\n  \"$DEVICE_RESERVATION\""
+      extras:
+        - id: "device_mac"
+          name: "DEVICE_MAC"
+          type: "SELECTABLE"
+          default: "$$CLIENT_DEFAULT"
+          description: "Clients discovered live from DHCP leases, neighbour state and Wi-Fi associations."
+          required: true
+          flags: ["--large"]
+          selectableOptions: { "Discovered devices": "$$CLIENT_OPTIONS" }
+    - id: "manage_device"
+      path: "Download"
+      command: "set -eo pipefail\n\ncase \"$ACTION\" in\n  ping)\n    [[ -n \"$DEVICE_IP\" ]] || {\n      echo \"This device does not currently have a known IP address.\"\n      exit 1\n    }\n\n    router_ssh \"ping -c '$PING_COUNT' '$DEVICE_IP'\"\n    ;;\n\n  block)\n    router_ssh \\\n      \"MAC='$DEVICE_MAC' SRC_ZONE='$FIREWALL_SRC_ZONE' DEST_ZONE='$FIREWALL_DEST_ZONE' TARGET='$BLOCK_TARGET' sh -s\" <<'REMOTE'\nname=\"AutoPie Block $MAC\"\n\nif uci show firewall 2>/dev/null | grep -Fq \".name='$name'\"; then\n  echo \"Device is already blocked by AutoPie.\"\n  exit 0\nfi\n\nsection=\"$(uci add firewall rule)\"\n\nuci set \"firewall.$section.name=$name\"\nuci set \"firewall.$section.src=$SRC_ZONE\"\nuci set \"firewall.$section.dest=$DEST_ZONE\"\nuci set \"firewall.$section.src_mac=$MAC\"\nuci set \"firewall.$section.proto=all\"\nuci set \"firewall.$section.target=$TARGET\"\nuci commit firewall\n/etc/init.d/firewall reload\n\necho \"Internet access blocked for $MAC.\"\nREMOTE\n    ;;\n\n  unblock)\n    router_ssh \"MAC='$DEVICE_MAC' sh -s\" <<'REMOTE'\nname=\"AutoPie Block $MAC\"\nremoved=0\n\nwhile :; do\n  ref=\"$(\n    uci show firewall 2>/dev/null |\n      grep -F \".name='$name'\" |\n      head -n 1 |\n      sed 's/\\.name=.*//'\n  )\"\n\n  [ -n \"$ref\" ] || break\n\n  uci delete \"$ref\"\n  removed=1\ndone\n\nif [ \"$removed\" -eq 1 ]; then\n  uci commit firewall\n  /etc/init.d/firewall reload\n  echo \"Internet access restored for $MAC.\"\nelse\n  echo \"No AutoPie block rule exists for $MAC.\"\nfi\nREMOTE\n    ;;\n\n  kick)\n    [[ -n \"$DEVICE_WIFI_OBJECT\" ]] || {\n      echo \"The selected client is not currently associated with Wi-Fi.\"\n      exit 1\n    }\n\n    router_ssh \\\n      \"MAC='$DEVICE_MAC' OBJ='$DEVICE_WIFI_OBJECT' BAN_MS='$BAN_TIME_MS' sh -s\" <<'REMOTE'\nubus call \"$OBJ\" del_client \\\n  \"{\\\"addr\\\":\\\"$MAC\\\",\\\"reason\\\":5,\\\"deauth\\\":true,\\\"ban_time\\\":$BAN_MS}\"\n\necho \"Disconnected $MAC from $OBJ.\"\nREMOTE\n    ;;\n\n  reserve)\n    [[ \"$RESERVED_IP\" =~ ^[0-9]{1,3}(\\.[0-9]{1,3}){3}$ ]] || {\n      echo \"Enter a valid IPv4 address.\"\n      exit 1\n    }\n\n    router_ssh \"MAC='$DEVICE_MAC' IP='$RESERVED_IP' sh -s\" <<'REMOTE'\nif uci show dhcp 2>/dev/null | grep -Fiq \".mac='$MAC'\"; then\n  echo \"A static DHCP lease already exists for $MAC.\"\n  exit 1\nfi\n\nname=\"AutoPie Lease $MAC\"\nsection=\"$(uci add dhcp host)\"\n\nuci set \"dhcp.$section.name=$name\"\nuci set \"dhcp.$section.mac=$MAC\"\nuci set \"dhcp.$section.ip=$IP\"\nuci commit dhcp\n/etc/init.d/dnsmasq restart\n\necho \"Reserved $IP for $MAC.\"\nREMOTE\n    ;;\n\n  unreserve)\n    router_ssh \"MAC='$DEVICE_MAC' sh -s\" <<'REMOTE'\nname=\"AutoPie Lease $MAC\"\nremoved=0\n\nwhile :; do\n  ref=\"$(\n    uci show dhcp 2>/dev/null |\n      grep -F \".name='$name'\" |\n      head -n 1 |\n      sed 's/\\.name=.*//'\n  )\"\n\n  [ -n \"$ref\" ] || break\n\n  uci delete \"$ref\"\n  removed=1\ndone\n\nif [ \"$removed\" -eq 1 ]; then\n  uci commit dhcp\n  /etc/init.d/dnsmasq restart\n  echo \"Removed AutoPie static DHCP lease for $MAC.\"\nelse\n  echo \"No AutoPie-managed DHCP lease exists for $MAC.\"\nfi\nREMOTE\n    ;;\n\n  *)\n    echo \"Unsupported action: $ACTION\"\n    exit 1\n    ;;\nesac"
+      extras:
+        - id: "action"
+          name: "ACTION"
+          type: "SELECTABLE"
+          default: "$$ACTION_DEFAULT"
+          description: "Actions are generated from the selected device's current state."
+          required: true
+          flags: ["--large"]
+          selectableOptions: { "Available actions": "$$ACTION_OPTIONS" }
+        - id: "block_target"
+          name: "BLOCK_TARGET"
+          type: "SELECTABLE"
+          default: "REJECT"
+          description: "How the firewall should deny this device's WAN traffic."
+          visibleWhen: { "extraId": "action", "equals": "block" }
+          selectableOptions:
+            { "Reject immediately": "REJECT", "Drop silently": "DROP" }
+        - id: "ban_time_ms"
+          name: "BAN_TIME_MS"
+          type: "SELECTABLE"
+          default: "10000"
+          description: "How long the Wi-Fi client should be prevented from immediately reconnecting."
+          visibleWhen: { "extraId": "action", "equals": "kick" }
+          selectableOptions:
+            {
+              "Disconnect only": "0",
+              "10 seconds": "10000",
+              "1 minute": "60000",
+              "5 minutes": "300000",
+            }
+        - id: "reserved_ip"
+          name: "RESERVED_IP"
+          type: "STRING"
+          default: "$$DEVICE_IP"
+          description: "IPv4 address to reserve for this MAC address."
+          required: true
+          visibleWhen: { "extraId": "action", "equals": "reserve" }
+        - id: "ping_count"
+          name: "PING_COUNT"
+          type: "SLIDER"
+          default: "1,3,10"
+          description: "Number of ICMP probes to send from the router."
+          flags: ["--int"]
+          visibleWhen: { "extraId": "action", "equals": "ping" }
+install:
+  primaryPackage: "openssh"
+  extraPackages: ["sshpass", "python"]
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]

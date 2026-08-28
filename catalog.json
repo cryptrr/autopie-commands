@@ -225,6 +225,14 @@
       "tags": ["yt-dlp"],
       "version": "1.0.0"
     },
+    "autopie.openwrt-device-manager": {
+      "name": "OpenWRT Device Manager",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Discover and manage OpenWrt network clients over SSH.",
+      "tags": ["openssh", "openwrt", "network"],
+      "version": "1.0.0"
+    },
     "autopie.openwrt-router-automations": {
       "name": "OpenWRT Router Automations",
       "namespace": "autopie",
@@ -370,6 +378,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-08-27T04:52:37Z",
+  "generatedAt": "2026-08-28T18:15:53Z",
   "schemaVersion": "2026.6.1"
 }
