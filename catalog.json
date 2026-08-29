@@ -305,6 +305,14 @@
       "tags": ["coreutils"],
       "version": "1.0.0"
     },
+    "autopie.share-file-folder-lan": {
+      "name": "Share file/folder over LAN",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Temporarily share a file or folder over the local network with an expiring HTTP link.",
+      "tags": ["python", "network", "sharing"],
+      "version": "1.0.0"
+    },
     "autopie.shutdown-remote-server": {
       "name": "Shutdown Remote Server",
       "namespace": "autopie",
@@ -378,6 +386,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-08-28T18:15:53Z",
+  "generatedAt": "2026-08-29T15:40:40Z",
   "schemaVersion": "2026.6.1"
 }
