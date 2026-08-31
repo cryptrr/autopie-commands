@@ -18,5 +18,5 @@ wcurl \
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |
-| NO_REMOTE_TIME | FLAG | no | `--curl-options=--no-remote-time` | - | - | Use the download time instead of the server-provided modification time. |
+| NO_REMOTE_TIME | FLAG | no | enabled (`--curl-options=--no-remote-time`) | - | - | Use the download time instead of the server-provided modification time. |
 | FILE_NAME_EXTRA | STRING | no | - | - | - | Set a filename for this file. |

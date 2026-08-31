@@ -27,6 +27,7 @@ def convert_extra(extra: dict[str, Any]) -> dict[str, Any]:
 
     for key in (
         "default",
+        "defaultBoolean",
         "description",
         "id",
         "name",

@@ -15,6 +15,7 @@ runtime:
       name: "NO_REMOTE_TIME"
       type: "FLAG"
       default: "--curl-options=--no-remote-time"
+      defaultBoolean: true
       description: "Use the download time instead of the server-provided modification time."
     - id: "948482"
       name: "FILE_NAME_EXTRA"

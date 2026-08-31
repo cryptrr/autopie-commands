@@ -1110,6 +1110,7 @@
     "extras": [
       {
         "default": "--curl-options=--no-remote-time",
+        "defaultBoolean": true,
         "description": "Use the download time instead of the server-provided modification time.",
         "id": "no_remote_time",
         "name": "NO_REMOTE_TIME",
