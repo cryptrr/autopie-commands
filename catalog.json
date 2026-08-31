@@ -359,7 +359,7 @@
       "status": "stable",
       "summary": "AutoPie command for wCurl Download",
       "tags": ["wcurl"],
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "autopie.yt-dlp-download": {
       "name": "YT-DLP Download",
