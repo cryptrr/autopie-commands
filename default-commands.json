@@ -10,9 +10,7 @@
         "id": "735279",
         "name": "USER",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -21,9 +19,7 @@
         "id": "486044",
         "name": "HOST",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -32,10 +28,7 @@
         "id": "829258",
         "name": "PASSWORD",
         "required": true,
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
+        "flags": ["--password", "--internal-config"],
         "type": "STRING"
       },
       {
@@ -44,10 +37,7 @@
         "id": "574538",
         "name": "VOLUME",
         "required": true,
-        "flags": [
-          "--int",
-          "--realtime"
-        ],
+        "flags": ["--int", "--realtime"],
         "type": "SLIDER"
       }
     ],
@@ -68,9 +58,7 @@
             "id": "735279",
             "name": "USER",
             "required": true,
-            "flags": [
-              "--internal-config"
-            ],
+            "flags": ["--internal-config"],
             "type": "STRING"
           },
           {
@@ -79,9 +67,7 @@
             "id": "486044",
             "name": "HOST",
             "required": true,
-            "flags": [
-              "--internal-config"
-            ],
+            "flags": ["--internal-config"],
             "type": "STRING"
           },
           {
@@ -90,10 +76,7 @@
             "id": "829258",
             "name": "PASSWORD",
             "required": true,
-            "flags": [
-              "--internal-config",
-              "--password"
-            ],
+            "flags": ["--internal-config", "--password"],
             "type": "STRING"
           }
         ]
@@ -109,10 +92,7 @@
             "id": "574538",
             "name": "VOLUME",
             "required": true,
-            "flags": [
-              "--int",
-              "--realtime"
-            ],
+            "flags": ["--int", "--realtime"],
             "type": "SLIDER"
           }
         ]
@@ -149,11 +129,7 @@
         "name": "QUALITY",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "720x",
-          "480x",
-          "1080x"
-        ]
+        "selectableOptions": ["720x", "480x", "1080x"]
       }
     ],
     "id": "autopie.combine-gifs-vertically"
@@ -191,11 +167,7 @@
         "name": "QUALITY",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "720x",
-          "480x",
-          "1080x"
-        ]
+        "selectableOptions": ["720x", "480x", "1080x"]
       }
     ],
     "id": "autopie.combine-images-into-pdf"
@@ -228,11 +200,7 @@
         "name": "QUALITY",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "720x",
-          "480x",
-          "1080x"
-        ]
+        "selectableOptions": ["720x", "480x", "1080x"]
       }
     ],
     "id": "autopie.combine-images-vertically"
@@ -299,10 +267,7 @@
         "name": "CODEC",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "libvpx-vp9",
-          "libvpx"
-        ]
+        "selectableOptions": ["libvpx-vp9", "libvpx"]
       },
       {
         "default": "24",
@@ -335,15 +300,7 @@
         "name": "METHOD",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "6",
-          "0",
-          "1",
-          "2",
-          "3",
-          "4",
-          "5"
-        ]
+        "selectableOptions": ["6", "0", "1", "2", "3", "4", "5"]
       }
     ],
     "id": "autopie.convert-to-webp"
@@ -382,13 +339,7 @@
         "name": "POSITION",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "center",
-          "north",
-          "south",
-          "east",
-          "west"
-        ]
+        "selectableOptions": ["center", "north", "south", "east", "west"]
       }
     ],
     "id": "autopie.crop-image-gif"
@@ -532,9 +483,7 @@
     "path": "",
     "exec": "am",
     "command": "url=$(yt-dlp --no-warnings -q -g -f \"${FORMAT}\" \"${INPUT_URL}\")\nam start \\\n    -a android.intent.action.SEND \\\n    -t text/plain \\\n    --es android.intent.extra.TEXT $url",
-    "flags": [
-      "--show-loading-screen"
-    ],
+    "flags": ["--show-loading-screen"],
     "extras": [
       {
         "default": "b",
@@ -562,9 +511,7 @@
         "id": "735279",
         "name": "USER",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -573,9 +520,7 @@
         "id": "486044",
         "name": "HOST",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -584,10 +529,7 @@
         "id": "829258",
         "name": "PASSWORD",
         "required": true,
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
+        "flags": ["--password", "--internal-config"],
         "type": "STRING"
       },
       {
@@ -669,11 +611,7 @@
         "name": "ROTATE",
         "required": true,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "90",
-          "180",
-          "270"
-        ]
+        "selectableOptions": ["90", "180", "270"]
       }
     ],
     "id": "autopie.rotate-video"
@@ -689,10 +627,7 @@
         "id": "093901",
         "name": "RSYNC_PASSWORD",
         "required": true,
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
+        "flags": ["--password", "--internal-config"],
         "type": "STRING"
       },
       {
@@ -701,9 +636,7 @@
         "id": "557719",
         "name": "FOLDER_TO",
         "required": false,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -712,9 +645,7 @@
         "id": "267285",
         "name": "FOLDER_FROM",
         "required": false,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       }
     ],
@@ -731,10 +662,7 @@
         "id": "093901",
         "name": "RSYNC_PASSWORD",
         "required": true,
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
+        "flags": ["--password", "--internal-config"],
         "type": "STRING"
       },
       {
@@ -743,9 +671,7 @@
         "id": "557719",
         "name": "FOLDER_FROM",
         "required": false,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -754,9 +680,7 @@
         "id": "267285",
         "name": "FOLDER_TO",
         "required": false,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       }
     ],
@@ -785,9 +709,7 @@
         "id": "735279",
         "name": "USER",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -796,9 +718,7 @@
         "id": "486044",
         "name": "HOST",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "SELECTABLE",
         "selectableOptions": {
           "server.local": "server.local",
@@ -811,10 +731,7 @@
         "id": "829258",
         "name": "PASSWORD",
         "required": true,
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
+        "flags": ["--password", "--internal-config"],
         "type": "STRING"
       }
     ],
@@ -824,9 +741,7 @@
     "id": "autopie.smart-ytdlp-downloader",
     "type": "SHARE",
     "multiStage": true,
-    "flags": [
-      "--show-loading-screen"
-    ],
+    "flags": ["--show-loading-screen"],
     "steps": [
       {
         "id": "inspect",
@@ -836,9 +751,7 @@
       {
         "id": "download",
         "path": "Download",
-        "flags": [
-          "--show-loading-screen"
-        ],
+        "flags": ["--show-loading-screen"],
         "command": "set -euo pipefail\n\nmkdir -p \"$OUTPUT_FOLDER\"\n\nCOMMON_ARGS=(\n  --ignore-config\n  --no-playlist\n  --no-overwrites\n  --newline\n  --no-simulate\n  -o \"$OUTPUT_FOLDER/%(title).180B [%(id)s].%(ext)s\"\n)\n\nFORMAT_ARGS=()\n\nif [[ \"$DOWNLOAD_TYPE\" == \"video\" ]]; then\n  if [[ \"$QUALITY\" == \"best\" ]]; then\n    case \"$VIDEO_CONTAINER\" in\n      mp4)\n        FORMAT_SELECTOR='bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best'\n        ;;\n      webm)\n        FORMAT_SELECTOR='bestvideo[ext=webm]+bestaudio[ext=webm]/bestvideo+bestaudio/best'\n        ;;\n      mkv)\n        FORMAT_SELECTOR='bestvideo+bestaudio/best'\n        ;;\n      *)\n        echo \"Unsupported video container: $VIDEO_CONTAINER\"\n        exit 1\n        ;;\n    esac\n  else\n    case \"$VIDEO_CONTAINER\" in\n      mp4)\n        FORMAT_SELECTOR=\"bestvideo[ext=mp4][height<=$QUALITY]+bestaudio[ext=m4a]/bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]\"\n        ;;\n      webm)\n        FORMAT_SELECTOR=\"bestvideo[ext=webm][height<=$QUALITY]+bestaudio[ext=webm]/bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]\"\n        ;;\n      mkv)\n        FORMAT_SELECTOR=\"bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]\"\n        ;;\n      *)\n        echo \"Unsupported video container: $VIDEO_CONTAINER\"\n        exit 1\n        ;;\n    esac\n  fi\n\n  FORMAT_ARGS=(\n    -f \"$FORMAT_SELECTOR\"\n    --merge-output-format \"$VIDEO_CONTAINER\"\n  )\nelse\n  FORMAT_ARGS=(\n    -f \"bestaudio/best\"\n    -x\n    --audio-format \"$AUDIO_FORMAT\"\n  )\n\n  if [[ \"$AUDIO_FORMAT\" != \"flac\" ]]; then\n    FORMAT_ARGS+=(--audio-quality \"$AUDIO_QUALITY\")\n  fi\nfi\n\nSUBTITLE_ARGS=()\n\nif [[ \"$DOWNLOAD_TYPE\" == \"video\" && \"$SUBTITLE_CHOICE\" != \"none\" ]]; then\n  SUB_KIND=\"${SUBTITLE_CHOICE%%|*}\"\n  SUB_LANG=\"${SUBTITLE_CHOICE#*|}\"\n\n  if [[ \"$SUB_KIND\" == \"manual\" ]]; then\n    SUBTITLE_ARGS=(\n      --write-subs\n      --sub-langs \"$SUB_LANG\"\n      --sub-format \"srt/best\"\n      --embed-subs\n    )\n  elif [[ \"$SUB_KIND\" == \"auto\" ]]; then\n    SUBTITLE_ARGS=(\n      --write-auto-subs\n      --sub-langs \"$SUB_LANG\"\n      --sub-format \"srt/best\"\n      --embed-subs\n    )\n  fi\nfi\n\nCLIP_ARGS=()\n\nif [[ \"$CLIP_MODE\" == \"clip\" ]]; then\n  if (( CLIP_END <= CLIP_START )); then\n    echo \"Clip End must be greater than Clip Start.\"\n    exit 1\n  fi\n\n  CLIP_ARGS=(\n    --download-sections \"*${CLIP_START}-${CLIP_END}\"\n  )\nfi\n\nPOST_ARGS=()\n\nif [[ -n \"$EMBED_METADATA\" ]]; then\n  POST_ARGS+=(\"$EMBED_METADATA\")\nfi\n\nif [[ -n \"$EMBED_THUMBNAIL\" ]]; then\n  POST_ARGS+=(\"$EMBED_THUMBNAIL\")\nfi\n\nif [[ -n \"$EMBED_CHAPTERS\" ]]; then\n  POST_ARGS+=(\"$EMBED_CHAPTERS\")\nfi\n\nif [[ -n \"$REMOVE_SPONSORS\" ]]; then\n  POST_ARGS+=(--sponsorblock-remove \"$REMOVE_SPONSORS\")\nfi\n\nPATH_FILE=\"$WORK_ROOT/final-path.txt\"\nrm -f -- \"$PATH_FILE\"\n\nyt-dlp \\\n  \"${COMMON_ARGS[@]}\" \\\n  \"${FORMAT_ARGS[@]}\" \\\n  \"${SUBTITLE_ARGS[@]}\" \\\n  \"${CLIP_ARGS[@]}\" \\\n  \"${POST_ARGS[@]}\" \\\n  --print-to-file \"after_move:filepath\" \"$PATH_FILE\" \\\n  \"$SOURCE_URL\"\n\n[[ -s \"$PATH_FILE\" ]] || {\n  echo \"Download completed but the output path could not be determined.\"\n  exit 1\n}\n\nDOWNLOADED_FILE=\"$(tail -n 1 \"$PATH_FILE\")\"\n\n[[ -f \"$DOWNLOADED_FILE\" ]] || {\n  echo \"Downloaded file not found: $DOWNLOADED_FILE\"\n  exit 1\n}\n\nexport OUTPUT=\"$DOWNLOADED_FILE\"\n\nprintf 'Downloaded successfully\\nTitle: %s\\nUploader: %s\\nSaved: %s\\n' \\\n  \"$MEDIA_TITLE\" \\\n  \"$MEDIA_UPLOADER\" \\\n  \"$OUTPUT\"\n\nrm -rf -- \"$WORK_ROOT\"",
         "extras": [
           {
@@ -847,10 +760,7 @@
             "type": "STRING",
             "default": "Download/AutoPie",
             "description": "Folder where the downloaded media will be saved.",
-            "flags": [
-              "--internal-config",
-              "--folder-picker"
-            ]
+            "flags": ["--internal-config", "--folder-picker"]
           },
           {
             "id": "download_type",
@@ -964,10 +874,7 @@
             "type": "SLIDER",
             "default": "$$TRIM_START_RANGE",
             "description": "Clip start position in seconds.",
-            "flags": [
-              "--int",
-              "--large"
-            ],
+            "flags": ["--int", "--large"],
             "visibleWhen": {
               "extraId": "clip_mode",
               "equals": "clip"
@@ -979,10 +886,7 @@
             "type": "SLIDER",
             "default": "$$TRIM_END_RANGE",
             "description": "Clip end position in seconds.",
-            "flags": [
-              "--int",
-              "--large"
-            ],
+            "flags": ["--int", "--large"],
             "visibleWhen": {
               "extraId": "clip_mode",
               "equals": "clip"
@@ -1024,52 +928,11 @@
       }
     ]
   },
-  "Trigger Home Assistant": {
-    "path": "",
-    "exec": "httpx",
-    "command": "httpx -m POST ${COOKIE_FILE:+--cookie-file $COOKIE_FILE} -d entity_id script.${SCRIPT_NAME} $URL",
-    "extras": [
-      {
-        "default": "/storage/emulated/0/cookies.txt",
-        "description": "The full path to cookie file.",
-        "id": "829804",
-        "name": "COOKIE_FILE",
-        "required": true,
-        "type": "STRING"
-      },
-      {
-        "default": "night_mode",
-        "description": "The name of the script that is defined in the home automation server.",
-        "id": "862978",
-        "name": "SCRIPT_NAME",
-        "required": true,
-        "type": "SELECTABLE",
-        "selectableOptions": [
-          "night_mode",
-          "day_mode",
-          "lights_off",
-          "ambient_mode",
-          "emergency"
-        ]
-      },
-      {
-        "default": "https://homeassistant.local/api/services/script/turn_on",
-        "description": "The URL endpoint.",
-        "id": "202404",
-        "name": "URL",
-        "required": true,
-        "type": "STRING"
-      }
-    ],
-    "id": "autopie.trigger-home-assistant"
-  },
   "Virus Check (VirusTotal)": {
     "path": "",
     "exec": "",
     "command": "#@SHELL\nset -euo pipefail\n\nif [[ ! -f \"$INPUT_FILE\" ]]; then\n    echo \"Usage: $0 <file>\"\n    exit 1\nfi\n\nHASH=$(sha256sum \"$INPUT_FILE\" | awk '{print $1}')\nURL=\"https://www.virustotal.com/gui/file/$HASH\"\n\necho \"SHA-256: $HASH\"\necho \"Opening: $URL\"\n\nam start \\\n    -a android.intent.action.VIEW \\\n    -d \"$URL\"",
-    "flags": [
-      "--show-loading-screen"
-    ],
+    "flags": ["--show-loading-screen"],
     "id": "autopie.virus-check-virustotal"
   },
   "Watermark Video": {

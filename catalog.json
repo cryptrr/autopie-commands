@@ -329,14 +329,6 @@
       "status": "stable",
       "tags": ["yt-dlp", "ffmpeg", "media"]
     },
-    "autopie.trigger-home-assistant": {
-      "name": "Trigger Home Assistant",
-      "namespace": "autopie",
-      "status": "stable",
-      "summary": "AutoPie command for Trigger Home Assistant",
-      "tags": ["httpx"],
-      "version": "1.0.0"
-    },
     "autopie.virus-check-virustotal": {
       "name": "Virus Check (VirusTotal)",
       "namespace": "autopie",

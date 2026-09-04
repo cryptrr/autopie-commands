@@ -11,9 +11,7 @@
         "id": "715336",
         "name": "BITRATE",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -48,9 +46,7 @@
             "default": "",
             "defaultBoolean": true,
             "description": "The SSH user on the host.",
-            "flags": [
-              "--internal-config"
-            ],
+            "flags": ["--internal-config"],
             "id": "735279",
             "name": "USER",
             "required": true,
@@ -63,9 +59,7 @@
             "default": "",
             "defaultBoolean": true,
             "description": "The SSH host to connect to.",
-            "flags": [
-              "--internal-config"
-            ],
+            "flags": ["--internal-config"],
             "id": "486044",
             "name": "HOST",
             "required": true,
@@ -78,10 +72,7 @@
             "default": "",
             "defaultBoolean": true,
             "description": "SSH password.",
-            "flags": [
-              "--internal-config",
-              "--password"
-            ],
+            "flags": ["--internal-config", "--password"],
             "id": "829258",
             "name": "PASSWORD",
             "required": true,
@@ -104,13 +95,8 @@
             "id": "574538",
             "name": "VOLUME",
             "required": true,
-            "flags": [
-              "--int",
-              "--realtime"
-            ],
-            "selectableOptions": [
-              ""
-            ],
+            "flags": ["--int", "--realtime"],
+            "selectableOptions": [""],
             "type": "SLIDER"
           }
         ]
@@ -129,9 +115,7 @@
         "id": "148663",
         "name": "QUALITY",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -141,15 +125,7 @@
         "id": "306994",
         "name": "METHOD",
         "required": false,
-        "selectableOptions": [
-          "6",
-          "0",
-          "1",
-          "2",
-          "3",
-          "4",
-          "5"
-        ],
+        "selectableOptions": ["6", "0", "1", "2", "3", "4", "5"],
         "type": "SELECTABLE"
       }
     ]
@@ -166,9 +142,7 @@
         "id": "714091",
         "name": "DELAY",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       }
     ]
@@ -206,11 +180,7 @@
         "id": "280847",
         "name": "QUALITY",
         "required": false,
-        "selectableOptions": [
-          "720x",
-          "480x",
-          "1080x"
-        ],
+        "selectableOptions": ["720x", "480x", "1080x"],
         "type": "SELECTABLE"
       }
     ]
@@ -227,9 +197,7 @@
         "id": "242041",
         "name": "HEIGHT",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -239,9 +207,7 @@
         "id": "664223",
         "name": "WIDTH",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       }
     ]
@@ -263,9 +229,7 @@
         "id": "138558",
         "name": "BITRATE",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -275,10 +239,7 @@
         "id": "246920",
         "name": "CODEC",
         "required": false,
-        "selectableOptions": [
-          "libvpx-vp9",
-          "libvpx"
-        ],
+        "selectableOptions": ["libvpx-vp9", "libvpx"],
         "type": "SELECTABLE"
       },
       {
@@ -288,9 +249,7 @@
         "id": "027046",
         "name": "CRF",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       }
     ]
@@ -352,11 +311,11 @@
         "selectableOptions": {},
         "type": "STRING"
       },
-            {
-                "default": "",
-                "defaultBoolean": true,
-                "description": "",
-                "id": "461479",
+      {
+        "default": "",
+        "defaultBoolean": true,
+        "description": "",
+        "id": "461479",
         "name": "END_TIME",
         "required": false,
         "selectableOptions": {},
@@ -376,9 +335,7 @@
         "id": "368102",
         "name": "START",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -388,9 +345,7 @@
         "id": "218569",
         "name": "END",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       }
     ]
@@ -407,11 +362,7 @@
         "id": "492563",
         "name": "ROTATE",
         "required": true,
-        "selectableOptions": [
-          "90",
-          "180",
-          "270"
-        ],
+        "selectableOptions": ["90", "180", "270"],
         "type": "SELECTABLE"
       }
     ]
@@ -428,9 +379,7 @@
         "id": "368719",
         "name": "WATERMARK_FILE",
         "required": true,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -465,7 +414,7 @@
     "path": "",
     "exec": "openssh",
     "command": "sshpass -p \"$PASSWORD\" \\\nssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"echo '$PASSWORD' | sudo -S /sbin/shutdown -h now\"",
-    
+
     "extras": [
       {
         "default": "",
@@ -475,9 +424,7 @@
         "name": "USER",
         "required": true,
         "selectableOptions": {},
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -487,9 +434,7 @@
         "id": "486044",
         "name": "HOST",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "selectableOptions": {
           "server.local": "server.local",
           "workstation.lan": "workstation.lan"
@@ -503,10 +448,7 @@
         "id": "829258",
         "name": "PASSWORD",
         "required": true,
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
+        "flags": ["--password", "--internal-config"],
         "selectableOptions": {},
         "type": "STRING"
       }
@@ -529,9 +471,7 @@
         "id": "608647",
         "name": "START",
         "required": true,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -541,9 +481,7 @@
         "id": "705186",
         "name": "END",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       }
     ]
@@ -560,9 +498,7 @@
         "id": "551203",
         "name": "WIDTH",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -572,9 +508,7 @@
         "id": "657412",
         "name": "HEIGHT",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       }
     ]
@@ -591,9 +525,7 @@
         "id": "283266",
         "name": "RATIO_HEIGHT",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -603,9 +535,7 @@
         "id": "269953",
         "name": "RATIO_WIDTH",
         "required": false,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -615,13 +545,7 @@
         "id": "487502",
         "name": "POSITION",
         "required": false,
-        "selectableOptions": [
-          "center",
-          "north",
-          "south",
-          "east",
-          "west"
-        ],
+        "selectableOptions": ["center", "north", "south", "east", "west"],
         "type": "SELECTABLE"
       }
     ]
@@ -638,11 +562,7 @@
         "id": "771088",
         "name": "QUALITY",
         "required": false,
-        "selectableOptions": [
-          "720x",
-          "480x",
-          "1080x"
-        ],
+        "selectableOptions": ["720x", "480x", "1080x"],
         "type": "SELECTABLE"
       }
     ]
@@ -659,13 +579,8 @@
         "id": "093901",
         "name": "RSYNC_PASSWORD",
         "required": true,
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
-        "selectableOptions": [
-          ""
-        ],
+        "flags": ["--password", "--internal-config"],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -675,12 +590,8 @@
         "id": "557719",
         "name": "FOLDER_TO",
         "required": false,
-        "flags": [
-          "--internal-config"
-        ],
-        "selectableOptions": [
-          ""
-        ],
+        "flags": ["--internal-config"],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -690,12 +601,8 @@
         "id": "267285",
         "name": "FOLDER_FROM",
         "required": false,
-        "flags": [
-          "--internal-config"
-        ],
-        "selectableOptions": [
-          ""
-        ],
+        "flags": ["--internal-config"],
+        "selectableOptions": [""],
         "type": "STRING"
       }
     ]
@@ -704,7 +611,7 @@
     "path": "",
     "exec": "rsync",
     "command": "rsync -avz \"${FOLDER_FROM}\" \"${FOLDER_TO}\"",
-    
+
     "extras": [
       {
         "default": "",
@@ -713,13 +620,8 @@
         "id": "093901",
         "name": "RSYNC_PASSWORD",
         "required": true,
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
-        "selectableOptions": [
-          ""
-        ],
+        "flags": ["--password", "--internal-config"],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -729,12 +631,8 @@
         "id": "557719",
         "name": "FOLDER_FROM",
         "required": false,
-        "flags": [
-          "--internal-config"
-        ],
-        "selectableOptions": [
-          ""
-        ],
+        "flags": ["--internal-config"],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -744,12 +642,8 @@
         "id": "267285",
         "name": "FOLDER_TO",
         "required": false,
-        "flags": [
-          "--internal-config"
-        ],
-        "selectableOptions": [
-          ""
-        ],
+        "flags": ["--internal-config"],
+        "selectableOptions": [""],
         "type": "STRING"
       }
     ]
@@ -773,7 +667,7 @@
     "path": "Mp3",
     "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_URL}\" -b:a ${BITRATE} -vn \"${FILE_NAME:-$FILENAME}.mp3\"",
-    
+
     "extras": [
       {
         "default": "195K",
@@ -782,9 +676,7 @@
         "id": "715336",
         "name": "BITRATE",
         "required": true,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       },
       {
@@ -794,57 +686,7 @@
         "id": "568163",
         "name": "FILE_NAME",
         "required": true,
-        "selectableOptions": [
-          ""
-        ],
-        "type": "STRING"
-      }
-    ]
-  },
-  "Trigger Home Assistant": {
-    "path": "",
-    "exec": "httpx",
-    "command": "httpx -m POST ${COOKIE_FILE:+--cookie-file $COOKIE_FILE} -d entity_id script.${SCRIPT_NAME} $URL",
-    
-    "extras": [
-      {
-        "default": "/storage/emulated/0/cookies.txt",
-        "defaultBoolean": true,
-        "description": "The full path to cookie file.",
-        "id": "829804",
-        "name": "COOKIE_FILE",
-        "required": true,
-        "selectableOptions": [
-          ""
-        ],
-        "type": "STRING"
-      },
-      {
-        "default": "night_mode",
-        "defaultBoolean": true,
-        "description": "The name of the script that is defined in the home automation server.",
-        "id": "862978",
-        "name": "SCRIPT_NAME",
-        "required": true,
-        "selectableOptions": [
-          "night_mode",
-          "day_mode",
-          "lights_off",
-          "ambient_mode",
-          "emergency"
-        ],
-        "type": "SELECTABLE"
-      },
-      {
-        "default": "https://homeassistant.local/api/services/script/turn_on",
-        "defaultBoolean": true,
-        "description": "The URL endpoint.",
-        "id": "202404",
-        "name": "URL",
-        "required": true,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       }
     ]
@@ -853,7 +695,7 @@
     "path": "",
     "exec": "openssh",
     "command": "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"$REMOTE_COMMAND\"",
-    
+
     "extras": [
       {
         "default": "root",
@@ -862,9 +704,7 @@
         "id": "735279",
         "name": "USER",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "selectableOptions": {},
         "type": "STRING"
       },
@@ -875,9 +715,7 @@
         "id": "486044",
         "name": "HOST",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "selectableOptions": {},
         "type": "STRING"
       },
@@ -885,10 +723,7 @@
         "default": "",
         "defaultBoolean": true,
         "description": "SSH password.",
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
+        "flags": ["--password", "--internal-config"],
         "id": "829258",
         "name": "PASSWORD",
         "required": true,
@@ -920,7 +755,7 @@
     "path": "",
     "exec": "magick",
     "command": "magick \"${INPUT_FILE}\" -fuzz ${FUZZ}% -trim \"${INPUT_FILE}-trim.jpg\"",
-    
+
     "extras": [
       {
         "default": "50",
@@ -929,9 +764,7 @@
         "id": "131124",
         "name": "FUZZ",
         "required": true,
-        "selectableOptions": [
-          ""
-        ],
+        "selectableOptions": [""],
         "type": "STRING"
       }
     ]
@@ -940,7 +773,7 @@
     "path": "",
     "exec": "magick",
     "command": "magick \"${INPUT_FILES_ARR[@]}\" -resize ${QUALITY}x -append \"${INPUT_FILE}.vert.gif\"",
-    
+
     "extras": [
       {
         "default": "720x",
@@ -949,11 +782,7 @@
         "id": "280847",
         "name": "QUALITY",
         "required": false,
-        "selectableOptions": [
-          "720x",
-          "480x",
-          "1080x"
-        ],
+        "selectableOptions": ["720x", "480x", "1080x"],
         "type": "SELECTABLE"
       }
     ]
@@ -972,9 +801,7 @@
         "default": "",
         "defaultBoolean": true,
         "description": "The SSH user on the host.",
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "id": "735279",
         "name": "USER",
         "required": true,
@@ -985,9 +812,7 @@
         "default": "",
         "defaultBoolean": true,
         "description": "The SSH host to connect to.",
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "id": "486044",
         "name": "HOST",
         "required": true,
@@ -998,10 +823,7 @@
         "default": "",
         "defaultBoolean": true,
         "description": "SSH password.",
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
+        "flags": ["--password", "--internal-config"],
         "id": "829258",
         "name": "PASSWORD",
         "required": true,
@@ -1012,10 +834,7 @@
         "default": "0,50,100",
         "defaultBoolean": true,
         "description": "Slider to set volume.",
-        "flags": [
-          "--int",
-          "--realtime"
-        ],
+        "flags": ["--int", "--realtime"],
         "id": "574538",
         "name": "VOLUME",
         "required": true,
@@ -1028,7 +847,7 @@
     "path": "Download",
     "exec": "wcurl",
     "command": "wcurl \\\n  $NO_REMOTE_TIME \\\n  ${FILE_NAME_EXTRA:+-o \"$FILE_NAME_EXTRA\"} \\\n  \"$INPUT_URL\"",
-    
+
     "extras": [
       {
         "default": "--curl-options=--no-remote-time",
@@ -1060,10 +879,8 @@
     "path": "",
     "exec": "am",
     "command": "url=$(yt-dlp --no-warnings -q -g -f \"${FORMAT}\" \"${INPUT_URL}\")\nam start \\\n    -a android.intent.action.SEND \\\n    -t text/plain \\\n    --es android.intent.extra.TEXT $url",
-    
-    "flags": [
-      "--show-loading-screen"
-    ],
+
+    "flags": ["--show-loading-screen"],
     "extras": [
       {
         "default": "b",
@@ -1118,9 +935,7 @@
   "Virus Check (VirusTotal)": {
     "path": "",
     "exec": "",
-    "flags": [
-      "--show-loading-screen"
-    ],
+    "flags": ["--show-loading-screen"],
     "command": "set -euo pipefail\n\nif [[ ! -f \"$INPUT_FILE\" ]]; then\n    echo \"Usage: $0 <file>\"\n    exit 1\nfi\n\nHASH=$(sha256sum \"$INPUT_FILE\" | awk '{print $1}')\nURL=\"https://www.virustotal.com/gui/file/$HASH\"\n\necho \"SHA-256: $HASH\"\necho \"Opening: $URL\"\n\nam start \\\n    -a android.intent.action.VIEW \\\n    -d \"$URL\""
   }
 }
