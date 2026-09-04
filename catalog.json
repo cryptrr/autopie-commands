@@ -319,7 +319,7 @@
       "status": "stable",
       "summary": "AutoPie command for Shutdown Remote Server",
       "tags": ["openssh"],
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "autopie.smart-ytdlp-downloader": {
       "version": "1.0.1",
