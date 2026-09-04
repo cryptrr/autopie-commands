@@ -311,7 +311,7 @@
       "status": "stable",
       "summary": "Temporarily share a file or folder over the local network with an expiring HTTP link.",
       "tags": ["python", "network", "sharing"],
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "autopie.shutdown-remote-server": {
       "name": "Shutdown Remote Server",
