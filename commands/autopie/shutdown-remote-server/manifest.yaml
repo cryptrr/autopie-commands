@@ -24,8 +24,9 @@ runtime:
       default: "server.local"
       description: "The SSH host to connect to."
       required: true
-      flags: ["--internal-config"]
-      selectableOptions: {"server.local": "server.local", "workstation.lan": "workstation.lan"}
+      flags: []
+      selectableOptions:
+        { "server.local": "server.local", "workstation.lan": "workstation.lan" }
     - id: "829258"
       name: "PASSWORD"
       type: "STRING"
