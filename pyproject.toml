@@ -1,0 +1,11 @@
+[project]
+name = "autopie-commands-tools"
+version = "0.1.0"
+description = "Development tooling for the AutoPie command catalog"
+requires-python = ">=3.11"
+dependencies = [
+  "PyYAML>=6.0.2,<7",
+]
+
+[tool.uv]
+package = false

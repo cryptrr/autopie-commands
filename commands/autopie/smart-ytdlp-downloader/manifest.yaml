@@ -1,5 +1,5 @@
 schemaVersion: "2026.6.1"
-version: "1.0.1"
+version: "1.0.2"
 id: "autopie.smart-ytdlp-downloader"
 namespace: "autopie"
 name: "Smart YT-DLP Downloader"
@@ -14,10 +14,384 @@ runtime:
   steps:
     - id: "inspect"
       path: "Download"
-      command: "set -euo pipefail\n\ncommand -v yt-dlp >/dev/null 2>&1 || {\n  echo \"yt-dlp is not installed. Run: pip install -U yt-dlp\"\n  exit 1\n}\n\ncommand -v ffmpeg >/dev/null 2>&1 || {\n  echo \"ffmpeg is not installed. Run: pkg install ffmpeg\"\n  exit 1\n}\n\nexport SOURCE_URL=\"$INPUT_URL\"\nexport WORK_ROOT=\"$HOME/.cache/autopie-smart-ytdlp-$RAND\"\nmkdir -p \"$WORK_ROOT\"\n\nINFO_JSON=\"$WORK_ROOT/info.json\"\n\nyt-dlp \\\n  --ignore-config \\\n  --dump-single-json \\\n  --no-playlist \\\n  --no-warnings \\\n  \"$SOURCE_URL\" > \"$INFO_JSON\"\n\neval \"$(\npython - \"$INFO_JSON\" <<'PYINFO'\nimport json\nimport math\nimport re\nimport shlex\nimport sys\n\npath = sys.argv[1]\nwith open(path, \"r\", encoding=\"utf-8\") as f:\n    info = json.load(f)\n\ndef clean(value, fallback=\"Unknown\"):\n    value = str(value or fallback)\n    value = value.replace(\"\\n\", \" \").replace(\"\\r\", \" \")\n    value = re.sub(r\"\\s+\", \" \", value).strip()\n    return value or fallback\n\ndef option_label(value):\n    return clean(value).replace(\",\", \" \").replace(\"=\", \"-\")\n\ndef safe_code(value):\n    value = str(value or \"\")\n    return value if re.fullmatch(r\"[A-Za-z0-9._-]+\", value) else \"\"\n\ndef export(name, value):\n    print(f\"export {name}={shlex.quote(str(value))}\")\n\ntitle = clean(info.get(\"title\"), \"Untitled media\")\nuploader = clean(\n    info.get(\"uploader\")\n    or info.get(\"channel\")\n    or info.get(\"creator\"),\n    \"Unknown uploader\"\n)\nsource = clean(\n    info.get(\"extractor_key\")\n    or info.get(\"extractor\")\n    or info.get(\"webpage_url_domain\"),\n    \"Unknown source\"\n)\n\nduration_raw = info.get(\"duration\") or 0\ntry:\n    duration = max(0.0, float(duration_raw))\nexcept (TypeError, ValueError):\n    duration = 0.0\n\nif duration:\n    total = int(round(duration))\n    h, rem = divmod(total, 3600)\n    m, s = divmod(rem, 60)\n    duration_text = f\"{h}:{m:02d}:{s:02d}\" if h else f\"{m}:{s:02d}\"\nelse:\n    duration_text = \"Live / unknown\"\n\nformats = info.get(\"formats\") or []\nheights = []\n\nfor fmt in formats:\n    if fmt.get(\"vcodec\") in (None, \"none\"):\n        continue\n\n    try:\n        height = int(fmt.get(\"height\") or 0)\n    except (TypeError, ValueError):\n        height = 0\n\n    if height > 0:\n        heights.append(height)\n\nmax_height = max(heights, default=0)\nmax_height_text = f\"{max_height}p\" if max_height else \"Unknown\"\n\nquality = [(\"Best available\", \"best\")]\n\nfor height, label in [\n    (4320, \"Up to 4320p (8K)\"),\n    (2160, \"Up to 2160p (4K)\"),\n    (1440, \"Up to 1440p\"),\n    (1080, \"Up to 1080p\"),\n    (720, \"Up to 720p\"),\n    (480, \"Up to 480p\"),\n    (360, \"Up to 360p\")\n]:\n    if max_height >= height:\n        quality.append((label, str(height)))\n\nquality_options = \",\".join(\n    f\"{option_label(label)}={value}\"\n    for label, value in quality\n)\n\nif max_height >= 1080:\n    quality_default = \"1080\"\nelif max_height >= 720:\n    quality_default = \"720\"\nelif max_height >= 480:\n    quality_default = \"480\"\nelse:\n    quality_default = \"best\"\n\nsubtitle_options = [(\"None\", \"none\")]\nmanual = info.get(\"subtitles\") or {}\nautomatic = info.get(\"automatic_captions\") or {}\n\ndef subtitle_name(code, entries):\n    if isinstance(entries, list):\n        for entry in entries:\n            if isinstance(entry, dict) and entry.get(\"name\"):\n                return clean(entry[\"name\"], code)\n    return code\n\ndef language_priority(code):\n    lowered = code.lower()\n    if lowered == \"en\":\n        return (0, lowered)\n    if lowered.startswith(\"en-\"):\n        return (1, lowered)\n    return (2, lowered)\n\nfor raw_code in sorted(manual.keys(), key=language_priority):\n    code = safe_code(raw_code)\n    if not code or code == \"live_chat\":\n        continue\n\n    label = subtitle_name(code, manual.get(raw_code))\n    subtitle_options.append(\n        (f\"{label} [{code}] - manual\", f\"manual|{code}\")\n    )\n\nauto_codes = [\n    code\n    for code in sorted(automatic.keys(), key=language_priority)\n    if code not in manual\n]\n\nfor raw_code in auto_codes[:30]:\n    code = safe_code(raw_code)\n    if not code or code == \"live_chat\":\n        continue\n\n    label = subtitle_name(code, automatic.get(raw_code))\n    subtitle_options.append(\n        (f\"{label} [{code}] - auto\", f\"auto|{code}\")\n    )\n\nsubtitle_options_value = \",\".join(\n    f\"{option_label(label)}={value}\"\n    for label, value in subtitle_options\n)\n\nif duration >= 2:\n    duration_seconds = max(2, int(math.ceil(duration)))\n    clip_options = \"Full media=full,Choose a clip=clip\"\n    trim_start_range = f\"0,0,{duration_seconds}\"\n    trim_end_range = f\"0,{duration_seconds},{duration_seconds}\"\nelse:\n    clip_options = \"Full media=full\"\n    trim_start_range = \"0,0,1\"\n    trim_end_range = \"0,1,1\"\n\nexport(\"MEDIA_TITLE\", title)\nexport(\"MEDIA_UPLOADER\", uploader)\nexport(\"MEDIA_SOURCE\", source)\nexport(\"MEDIA_DURATION_TEXT\", duration_text)\nexport(\"MEDIA_MAX_HEIGHT_TEXT\", max_height_text)\nexport(\"QUALITY_OPTIONS\", quality_options)\nexport(\"QUALITY_DEFAULT\", quality_default)\nexport(\"SUBTITLE_OPTIONS\", subtitle_options_value)\nexport(\"CLIP_OPTIONS\", clip_options)\nexport(\"TRIM_START_RANGE\", trim_start_range)\nexport(\"TRIM_END_RANGE\", trim_end_range)\nPYINFO\n)\"\n\nprintf 'Found: %s\\nUploader: %s\\nSource: %s\\nDuration: %s\\nMax video: %s\\n' \\\n  \"$MEDIA_TITLE\" \\\n  \"$MEDIA_UPLOADER\" \\\n  \"$MEDIA_SOURCE\" \\\n  \"$MEDIA_DURATION_TEXT\" \\\n  \"$MEDIA_MAX_HEIGHT_TEXT\""
+      command: |-
+        set -euo pipefail
+
+        command -v yt-dlp >/dev/null 2>&1 || {
+          echo "yt-dlp is not installed. Run: pip install -U yt-dlp"
+          exit 1
+        }
+
+        command -v ffmpeg >/dev/null 2>&1 || {
+          echo "ffmpeg is not installed. Run: pkg install ffmpeg"
+          exit 1
+        }
+
+        export SOURCE_URL="$INPUT_URL"
+        export WORK_ROOT="$HOME/.cache/autopie-smart-ytdlp-$RAND"
+        mkdir -p "$WORK_ROOT"
+
+        COOKIE_ARGS=()
+
+        if [[ -n "${USE_COOKIE_JAR:-}" ]]; then
+          COOKIE_ARGS=(--cookies "$COOKIE_JAR")
+        fi
+
+        INFO_JSON="$WORK_ROOT/info.json"
+
+        yt-dlp \
+          --ignore-config \
+          "${COOKIE_ARGS[@]}" \
+          --dump-single-json \
+          --no-playlist \
+          --no-warnings \
+          "$SOURCE_URL" > "$INFO_JSON"
+
+        eval "$(
+        python - "$INFO_JSON" <<'PYINFO'
+        import json
+        import math
+        import re
+        import shlex
+        import sys
+
+        path = sys.argv[1]
+        with open(path, "r", encoding="utf-8") as f:
+            info = json.load(f)
+
+        def clean(value, fallback="Unknown"):
+            value = str(value or fallback)
+            value = value.replace("\n", " ").replace("\r", " ")
+            value = re.sub(r"\s+", " ", value).strip()
+            return value or fallback
+
+        def option_label(value):
+            return clean(value).replace(",", " ").replace("=", "-")
+
+        def safe_code(value):
+            value = str(value or "")
+            return value if re.fullmatch(r"[A-Za-z0-9._-]+", value) else ""
+
+        def export(name, value):
+            print(f"export {name}={shlex.quote(str(value))}")
+
+        title = clean(info.get("title"), "Untitled media")
+        uploader = clean(
+            info.get("uploader")
+            or info.get("channel")
+            or info.get("creator"),
+            "Unknown uploader"
+        )
+        source = clean(
+            info.get("extractor_key")
+            or info.get("extractor")
+            or info.get("webpage_url_domain"),
+            "Unknown source"
+        )
+
+        duration_raw = info.get("duration") or 0
+        try:
+            duration = max(0.0, float(duration_raw))
+        except (TypeError, ValueError):
+            duration = 0.0
+
+        if duration:
+            total = int(round(duration))
+            h, rem = divmod(total, 3600)
+            m, s = divmod(rem, 60)
+            duration_text = f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
+        else:
+            duration_text = "Live / unknown"
+
+        formats = info.get("formats") or []
+        heights = []
+
+        for fmt in formats:
+            if fmt.get("vcodec") in (None, "none"):
+                continue
+
+            try:
+                height = int(fmt.get("height") or 0)
+            except (TypeError, ValueError):
+                height = 0
+
+            if height > 0:
+                heights.append(height)
+
+        max_height = max(heights, default=0)
+        max_height_text = f"{max_height}p" if max_height else "Unknown"
+
+        quality = [("Best available", "best")]
+
+        for height, label in [
+            (4320, "Up to 4320p (8K)"),
+            (2160, "Up to 2160p (4K)"),
+            (1440, "Up to 1440p"),
+            (1080, "Up to 1080p"),
+            (720, "Up to 720p"),
+            (480, "Up to 480p"),
+            (360, "Up to 360p")
+        ]:
+            if max_height >= height:
+                quality.append((label, str(height)))
+
+        quality_options = ",".join(
+            f"{option_label(label)}={value}"
+            for label, value in quality
+        )
+
+        if max_height >= 1080:
+            quality_default = "1080"
+        elif max_height >= 720:
+            quality_default = "720"
+        elif max_height >= 480:
+            quality_default = "480"
+        else:
+            quality_default = "best"
+
+        subtitle_options = [("None", "none")]
+        manual = info.get("subtitles") or {}
+        automatic = info.get("automatic_captions") or {}
+
+        def subtitle_name(code, entries):
+            if isinstance(entries, list):
+                for entry in entries:
+                    if isinstance(entry, dict) and entry.get("name"):
+                        return clean(entry["name"], code)
+            return code
+
+        def language_priority(code):
+            lowered = code.lower()
+            if lowered == "en":
+                return (0, lowered)
+            if lowered.startswith("en-"):
+                return (1, lowered)
+            return (2, lowered)
+
+        for raw_code in sorted(manual.keys(), key=language_priority):
+            code = safe_code(raw_code)
+            if not code or code == "live_chat":
+                continue
+
+            label = subtitle_name(code, manual.get(raw_code))
+            subtitle_options.append(
+                (f"{label} [{code}] - manual", f"manual|{code}")
+            )
+
+        auto_codes = [
+            code
+            for code in sorted(automatic.keys(), key=language_priority)
+            if code not in manual
+        ]
+
+        for raw_code in auto_codes[:30]:
+            code = safe_code(raw_code)
+            if not code or code == "live_chat":
+                continue
+
+            label = subtitle_name(code, automatic.get(raw_code))
+            subtitle_options.append(
+                (f"{label} [{code}] - auto", f"auto|{code}")
+            )
+
+        subtitle_options_value = ",".join(
+            f"{option_label(label)}={value}"
+            for label, value in subtitle_options
+        )
+
+        if duration >= 2:
+            duration_seconds = max(2, int(math.ceil(duration)))
+            clip_options = "Full media=full,Choose a clip=clip"
+            trim_start_range = f"0,0,{duration_seconds}"
+            trim_end_range = f"0,{duration_seconds},{duration_seconds}"
+        else:
+            clip_options = "Full media=full"
+            trim_start_range = "0,0,1"
+            trim_end_range = "0,1,1"
+
+        export("MEDIA_TITLE", title)
+        export("MEDIA_UPLOADER", uploader)
+        export("MEDIA_SOURCE", source)
+        export("MEDIA_DURATION_TEXT", duration_text)
+        export("MEDIA_MAX_HEIGHT_TEXT", max_height_text)
+        export("QUALITY_OPTIONS", quality_options)
+        export("QUALITY_DEFAULT", quality_default)
+        export("SUBTITLE_OPTIONS", subtitle_options_value)
+        export("CLIP_OPTIONS", clip_options)
+        export("TRIM_START_RANGE", trim_start_range)
+        export("TRIM_END_RANGE", trim_end_range)
+        PYINFO
+        )"
+
+        printf 'Found: %s\nUploader: %s\nSource: %s\nDuration: %s\nMax video: %s\n' \
+          "$MEDIA_TITLE" \
+          "$MEDIA_UPLOADER" \
+          "$MEDIA_SOURCE" \
+          "$MEDIA_DURATION_TEXT" \
+          "$MEDIA_MAX_HEIGHT_TEXT"
+      extras:
+        - id: "use_cookie_jar"
+          name: "USE_COOKIE_JAR"
+          type: "FLAG"
+          default: "false"
+          defaultBoolean: false
+          description: "Use AutoPie's browser cookie jar for inspection and download."
     - id: "download"
       path: "Download"
-      command: "set -euo pipefail\n\nmkdir -p \"$OUTPUT_FOLDER\"\n\nCOMMON_ARGS=(\n  --ignore-config\n  --no-playlist\n  --no-overwrites\n  --newline\n  --no-simulate\n  -o \"$OUTPUT_FOLDER/%(title).180B [%(id)s].%(ext)s\"\n)\n\nFORMAT_ARGS=()\n\nif [[ \"$DOWNLOAD_TYPE\" == \"video\" ]]; then\n  if [[ \"$QUALITY\" == \"best\" ]]; then\n    case \"$VIDEO_CONTAINER\" in\n      mp4)\n        FORMAT_SELECTOR='bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best'\n        ;;\n      webm)\n        FORMAT_SELECTOR='bestvideo[ext=webm]+bestaudio[ext=webm]/bestvideo+bestaudio/best'\n        ;;\n      mkv)\n        FORMAT_SELECTOR='bestvideo+bestaudio/best'\n        ;;\n      *)\n        echo \"Unsupported video container: $VIDEO_CONTAINER\"\n        exit 1\n        ;;\n    esac\n  else\n    case \"$VIDEO_CONTAINER\" in\n      mp4)\n        FORMAT_SELECTOR=\"bestvideo[ext=mp4][height<=$QUALITY]+bestaudio[ext=m4a]/bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]\"\n        ;;\n      webm)\n        FORMAT_SELECTOR=\"bestvideo[ext=webm][height<=$QUALITY]+bestaudio[ext=webm]/bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]\"\n        ;;\n      mkv)\n        FORMAT_SELECTOR=\"bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]\"\n        ;;\n      *)\n        echo \"Unsupported video container: $VIDEO_CONTAINER\"\n        exit 1\n        ;;\n    esac\n  fi\n\n  FORMAT_ARGS=(\n    -f \"$FORMAT_SELECTOR\"\n    --merge-output-format \"$VIDEO_CONTAINER\"\n  )\nelse\n  FORMAT_ARGS=(\n    -f \"bestaudio/best\"\n    -x\n    --audio-format \"$AUDIO_FORMAT\"\n  )\n\n  if [[ \"$AUDIO_FORMAT\" != \"flac\" ]]; then\n    FORMAT_ARGS+=(--audio-quality \"$AUDIO_QUALITY\")\n  fi\nfi\n\nSUBTITLE_ARGS=()\n\nif [[ \"$DOWNLOAD_TYPE\" == \"video\" && \"$SUBTITLE_CHOICE\" != \"none\" ]]; then\n  SUB_KIND=\"${SUBTITLE_CHOICE%%|*}\"\n  SUB_LANG=\"${SUBTITLE_CHOICE#*|}\"\n\n  if [[ \"$SUB_KIND\" == \"manual\" ]]; then\n    SUBTITLE_ARGS=(\n      --write-subs\n      --sub-langs \"$SUB_LANG\"\n      --sub-format \"srt/best\"\n      --embed-subs\n    )\n  elif [[ \"$SUB_KIND\" == \"auto\" ]]; then\n    SUBTITLE_ARGS=(\n      --write-auto-subs\n      --sub-langs \"$SUB_LANG\"\n      --sub-format \"srt/best\"\n      --embed-subs\n    )\n  fi\nfi\n\nCLIP_ARGS=()\n\nif [[ \"$CLIP_MODE\" == \"clip\" ]]; then\n  if (( CLIP_END <= CLIP_START )); then\n    echo \"Clip End must be greater than Clip Start.\"\n    exit 1\n  fi\n\n  CLIP_ARGS=(\n    --download-sections \"*${CLIP_START}-${CLIP_END}\"\n  )\nfi\n\nPOST_ARGS=()\n\nif [[ -n \"$EMBED_METADATA\" ]]; then\n  POST_ARGS+=(\"$EMBED_METADATA\")\nfi\n\nif [[ -n \"$EMBED_THUMBNAIL\" ]]; then\n  POST_ARGS+=(\"$EMBED_THUMBNAIL\")\nfi\n\nif [[ -n \"$EMBED_CHAPTERS\" ]]; then\n  POST_ARGS+=(\"$EMBED_CHAPTERS\")\nfi\n\nif [[ -n \"$REMOVE_SPONSORS\" ]]; then\n  POST_ARGS+=(--sponsorblock-remove \"$REMOVE_SPONSORS\")\nfi\n\nPATH_FILE=\"$WORK_ROOT/final-path.txt\"\nrm -f -- \"$PATH_FILE\"\n\nyt-dlp \\\n  \"${COMMON_ARGS[@]}\" \\\n  \"${FORMAT_ARGS[@]}\" \\\n  \"${SUBTITLE_ARGS[@]}\" \\\n  \"${CLIP_ARGS[@]}\" \\\n  \"${POST_ARGS[@]}\" \\\n  --print-to-file \"after_move:filepath\" \"$PATH_FILE\" \\\n  \"$SOURCE_URL\"\n\n[[ -s \"$PATH_FILE\" ]] || {\n  echo \"Download completed but the output path could not be determined.\"\n  exit 1\n}\n\nDOWNLOADED_FILE=\"$(tail -n 1 \"$PATH_FILE\")\"\n\n[[ -f \"$DOWNLOADED_FILE\" ]] || {\n  echo \"Downloaded file not found: $DOWNLOADED_FILE\"\n  exit 1\n}\n\nexport OUTPUT=\"$DOWNLOADED_FILE\"\n\nprintf 'Downloaded successfully\\nTitle: %s\\nUploader: %s\\nSaved: %s\\n' \\\n  \"$MEDIA_TITLE\" \\\n  \"$MEDIA_UPLOADER\" \\\n  \"$OUTPUT\"\n\nrm -rf -- \"$WORK_ROOT\""
+      command: |-
+        set -euo pipefail
+
+        mkdir -p "$OUTPUT_FOLDER"
+
+        COMMON_ARGS=(
+          --ignore-config
+          --no-playlist
+          --no-overwrites
+          --newline
+          --no-simulate
+          -o "$OUTPUT_FOLDER/%(title).180B [%(id)s].%(ext)s"
+        )
+
+        FORMAT_ARGS=()
+
+        if [[ "$DOWNLOAD_TYPE" == "video" ]]; then
+          if [[ "$QUALITY" == "best" ]]; then
+            case "$VIDEO_CONTAINER" in
+              mp4)
+                FORMAT_SELECTOR='bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best'
+                ;;
+              webm)
+                FORMAT_SELECTOR='bestvideo[ext=webm]+bestaudio[ext=webm]/bestvideo+bestaudio/best'
+                ;;
+              mkv)
+                FORMAT_SELECTOR='bestvideo+bestaudio/best'
+                ;;
+              *)
+                echo "Unsupported video container: $VIDEO_CONTAINER"
+                exit 1
+                ;;
+            esac
+          else
+            case "$VIDEO_CONTAINER" in
+              mp4)
+                FORMAT_SELECTOR="bestvideo[ext=mp4][height<=$QUALITY]+bestaudio[ext=m4a]/bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]"
+                ;;
+              webm)
+                FORMAT_SELECTOR="bestvideo[ext=webm][height<=$QUALITY]+bestaudio[ext=webm]/bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]"
+                ;;
+              mkv)
+                FORMAT_SELECTOR="bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]"
+                ;;
+              *)
+                echo "Unsupported video container: $VIDEO_CONTAINER"
+                exit 1
+                ;;
+            esac
+          fi
+
+          FORMAT_ARGS=(
+            -f "$FORMAT_SELECTOR"
+            --merge-output-format "$VIDEO_CONTAINER"
+          )
+        else
+          FORMAT_ARGS=(
+            -f "bestaudio/best"
+            -x
+            --audio-format "$AUDIO_FORMAT"
+          )
+
+          if [[ "$AUDIO_FORMAT" != "flac" ]]; then
+            FORMAT_ARGS+=(--audio-quality "$AUDIO_QUALITY")
+          fi
+        fi
+
+        SUBTITLE_ARGS=()
+
+        if [[ "$DOWNLOAD_TYPE" == "video" && "$SUBTITLE_CHOICE" != "none" ]]; then
+          SUB_KIND="${SUBTITLE_CHOICE%%|*}"
+          SUB_LANG="${SUBTITLE_CHOICE#*|}"
+
+          if [[ "$SUB_KIND" == "manual" ]]; then
+            SUBTITLE_ARGS=(
+              --write-subs
+              --sub-langs "$SUB_LANG"
+              --sub-format "srt/best"
+              --embed-subs
+            )
+          elif [[ "$SUB_KIND" == "auto" ]]; then
+            SUBTITLE_ARGS=(
+              --write-auto-subs
+              --sub-langs "$SUB_LANG"
+              --sub-format "srt/best"
+              --embed-subs
+            )
+          fi
+        fi
+
+        CLIP_ARGS=()
+
+        if [[ "$CLIP_MODE" == "clip" ]]; then
+          if (( CLIP_END <= CLIP_START )); then
+            echo "Clip End must be greater than Clip Start."
+            exit 1
+          fi
+
+          CLIP_ARGS=(
+            --download-sections "*${CLIP_START}-${CLIP_END}"
+          )
+        fi
+
+        POST_ARGS=()
+
+        if [[ -n "$EMBED_METADATA" ]]; then
+          POST_ARGS+=("$EMBED_METADATA")
+        fi
+
+        if [[ -n "$EMBED_THUMBNAIL" ]]; then
+          POST_ARGS+=("$EMBED_THUMBNAIL")
+        fi
+
+        if [[ -n "$EMBED_CHAPTERS" ]]; then
+          POST_ARGS+=("$EMBED_CHAPTERS")
+        fi
+
+        if [[ -n "$REMOVE_SPONSORS" ]]; then
+          POST_ARGS+=(--sponsorblock-remove "$REMOVE_SPONSORS")
+        fi
+
+        PATH_FILE="$WORK_ROOT/final-path.txt"
+        rm -f -- "$PATH_FILE"
+
+        yt-dlp \
+          "${COMMON_ARGS[@]}" \
+          "${COOKIE_ARGS[@]}" \
+          "${FORMAT_ARGS[@]}" \
+          "${SUBTITLE_ARGS[@]}" \
+          "${CLIP_ARGS[@]}" \
+          "${POST_ARGS[@]}" \
+          --print-to-file "after_move:filepath" "$PATH_FILE" \
+          "$SOURCE_URL"
+
+        [[ -s "$PATH_FILE" ]] || {
+          echo "Download completed but the output path could not be determined."
+          exit 1
+        }
+
+        DOWNLOADED_FILE="$(tail -n 1 "$PATH_FILE")"
+
+        [[ -f "$DOWNLOADED_FILE" ]] || {
+          echo "Downloaded file not found: $DOWNLOADED_FILE"
+          exit 1
+        }
+
+        export OUTPUT="$DOWNLOADED_FILE"
+
+        printf 'Downloaded successfully\nTitle: %s\nUploader: %s\nSaved: %s\n' \
+          "$MEDIA_TITLE" \
+          "$MEDIA_UPLOADER" \
+          "$OUTPUT"
+
+        rm -rf -- "$WORK_ROOT"
       extras:
         - id: "output_folder"
           name: "OUTPUT_FOLDER"

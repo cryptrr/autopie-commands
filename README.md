@@ -2,6 +2,29 @@
 
 Create a PR with the Commands you would like to add to the AutoPie repositories.
 
+## Repository tooling
+
+The manifest generators and validators require Python 3.11 or newer and use
+PyYAML for complete YAML support, including multiline block scalars. Install
+[uv](https://docs.astral.sh/uv/), then run the tools through the managed
+environment:
+
+```sh
+uv sync
+uv run python tools/validate-manifests.py
+uv run python tools/build_default_commands.py
+uv run python tools/build_readmes.py
+uv run python tools/build_catalog.py
+```
+
+Use YAML block scalars for multiline commands:
+
+```yaml
+command: |-
+  set -euo pipefail
+  printf 'Input: %s\n' "$INPUT"
+```
+
 ## Format
 
 ```json
