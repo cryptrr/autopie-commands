@@ -1,15 +1,90 @@
 schemaVersion: "2026.6.1"
-version: "1.0.1"
+version: "1.1.0"
 id: "autopie.shutdown-remote-server"
 namespace: "autopie"
 name: "Shutdown Remote Server"
 commandSlug: "openssh"
-summary: "AutoPie command for Shutdown Remote Server"
+summary: "Shut down a remote server using SSH password or private-key authentication."
 type: "PACKAGE"
 tags: ["openssh"]
 runtime:
   path: ""
-  command: "sshpass -p \"$PASSWORD\" \\\nssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"echo '$PASSWORD' | sudo -S /sbin/shutdown -h now\""
+  command: |-
+    set -euo pipefail
+
+    command -v ssh >/dev/null 2>&1 || {
+      echo "OpenSSH is not installed."
+      exit 1
+    }
+
+    [[ "$SSH_PORT" =~ ^[0-9]+$ ]] || {
+      echo "Invalid SSH port: $SSH_PORT"
+      exit 1
+    }
+
+    SSH_ARGS=(
+      ssh
+      -T
+      -p "$SSH_PORT"
+      -o ConnectTimeout=10
+      -o StrictHostKeyChecking=accept-new
+    )
+
+    case "$AUTH_METHOD" in
+      password)
+        command -v sshpass >/dev/null 2>&1 || {
+          echo "sshpass is required for password authentication."
+          exit 1
+        }
+
+        [[ -n "$PASSWORD" ]] || {
+          echo "An SSH password is required for password authentication."
+          exit 1
+        }
+        ;;
+
+      key)
+        SSH_KEY_RESOLVED="${SSH_KEY_PATH/#\~/$HOME}"
+
+        [[ -r "$SSH_KEY_RESOLVED" ]] || {
+          echo "SSH private key is not readable: $SSH_KEY_RESOLVED"
+          exit 1
+        }
+
+        SSH_ARGS+=(
+          -o BatchMode=yes
+          -o IdentitiesOnly=yes
+          -i "$SSH_KEY_RESOLVED"
+        )
+        ;;
+
+      *)
+        echo "Unsupported authentication method: $AUTH_METHOD"
+        exit 1
+        ;;
+    esac
+
+    remote_ssh() {
+      if [[ "$AUTH_METHOD" == "password" ]]; then
+        SSHPASS="$PASSWORD" sshpass -e "${SSH_ARGS[@]}" \
+          "$USER@$HOST" "$@"
+      else
+        "${SSH_ARGS[@]}" "$USER@$HOST" "$@"
+      fi
+    }
+
+    ELEVATION_PASSWORD="$SUDO_PASSWORD"
+    if [[ -z "$ELEVATION_PASSWORD" && "$AUTH_METHOD" == "password" ]]; then
+      ELEVATION_PASSWORD="$PASSWORD"
+    fi
+
+    if [[ -n "$ELEVATION_PASSWORD" ]]; then
+      printf '%s\n' "$ELEVATION_PASSWORD" | remote_ssh \
+        'if [ "$(id -u)" -eq 0 ]; then /sbin/shutdown -h now; else sudo -S -p "" /sbin/shutdown -h now; fi'
+    else
+      remote_ssh \
+        'if [ "$(id -u)" -eq 0 ]; then /sbin/shutdown -h now; else sudo -n /sbin/shutdown -h now; fi'
+    fi
   extras:
     - id: "735279"
       name: "USER"
@@ -20,20 +95,51 @@ runtime:
       flags: ["--internal-config"]
     - id: "486044"
       name: "HOST"
-      type: "SELECTABLE"
+      type: "SELECTABLE_FLAT"
       default: "server.local"
       description: "The SSH host to connect to."
       required: true
       flags: []
       selectableOptions:
         { "server.local": "server.local", "workstation.lan": "workstation.lan" }
+    - id: "ssh_port"
+      name: "SSH_PORT"
+      type: "STRING"
+      default: "22"
+      description: "SSH port on the remote server."
+      required: true
+      flags: ["--internal-config"]
+    - id: "auth_method"
+      name: "AUTH_METHOD"
+      type: "SELECTABLE"
+      default: "password"
+      description: "Authentication method used to connect to the remote server."
+      required: true
+      flags: ["--internal-config"]
+      selectableOptions: { "Password": "password", "SSH key": "key" }
     - id: "829258"
       name: "PASSWORD"
       type: "STRING"
       default: ""
-      description: "SSH password."
+      description: "SSH password. It is also used for sudo when no separate sudo password is set."
       required: true
-      flags: ["--password", "--internal-config"]
+      flags: ["--secret", "--internal-config"]
+      visibleWhen: { "extraId": "auth_method", "equals": "password" }
+    - id: "ssh_key_path"
+      name: "SSH_KEY_PATH"
+      type: "STRING"
+      default: "~/.ssh/id_ed25519"
+      description: "Private SSH key inside AutoPie's Linux environment."
+      required: true
+      flags: ["--internal-config"]
+      visibleWhen: { "extraId": "auth_method", "equals": "key" }
+    - id: "sudo_password"
+      name: "SUDO_PASSWORD"
+      type: "STRING"
+      default: ""
+      description: "Optional sudo password. Leave blank for root or passwordless sudo."
+      required: false
+      flags: ["--secret", "--internal-config"]
 install:
   primaryPackage: "openssh"
   extraPackages: ["sshpass"]

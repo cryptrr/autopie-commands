@@ -1,8 +1,8 @@
 {
   "Change Volume on Mac": {
     "path": "",
-    "exec": "openssh",
     "command": "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"set volume output volume ${VOLUME}\\\"\"",
+    "exec": "openssh",
     "extras": [
       {
         "default": "",
@@ -10,7 +10,9 @@
         "id": "735279",
         "name": "USER",
         "required": true,
-        "flags": ["--internal-config"],
+        "flags": [
+          "--internal-config"
+        ],
         "type": "STRING"
       },
       {
@@ -19,7 +21,9 @@
         "id": "486044",
         "name": "HOST",
         "required": true,
-        "flags": ["--internal-config"],
+        "flags": [
+          "--internal-config"
+        ],
         "type": "STRING"
       },
       {
@@ -28,7 +32,10 @@
         "id": "829258",
         "name": "PASSWORD",
         "required": true,
-        "flags": ["--password", "--internal-config"],
+        "flags": [
+          "--password",
+          "--internal-config"
+        ],
         "type": "STRING"
       },
       {
@@ -37,7 +44,10 @@
         "id": "574538",
         "name": "VOLUME",
         "required": true,
-        "flags": ["--int", "--realtime"],
+        "flags": [
+          "--int",
+          "--realtime"
+        ],
         "type": "SLIDER"
       }
     ],
@@ -49,8 +59,8 @@
     "steps": [
       {
         "path": "",
-        "exec": "openssh",
         "command": "CURRENT_VOLUME=$(sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"output volume of (get volume settings)\\\"\")\nexport CURRENT_VOLUME\nexport SLIDER_OPTIONS=0,\"$CURRENT_VOLUME\",100",
+        "exec": "openssh",
         "extras": [
           {
             "default": "",
@@ -58,7 +68,9 @@
             "id": "735279",
             "name": "USER",
             "required": true,
-            "flags": ["--internal-config"],
+            "flags": [
+              "--internal-config"
+            ],
             "type": "STRING"
           },
           {
@@ -67,7 +79,9 @@
             "id": "486044",
             "name": "HOST",
             "required": true,
-            "flags": ["--internal-config"],
+            "flags": [
+              "--internal-config"
+            ],
             "type": "STRING"
           },
           {
@@ -76,15 +90,18 @@
             "id": "829258",
             "name": "PASSWORD",
             "required": true,
-            "flags": ["--internal-config", "--password"],
+            "flags": [
+              "--internal-config",
+              "--password"
+            ],
             "type": "STRING"
           }
         ]
       },
       {
         "path": "",
-        "exec": "openssh",
         "command": "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"osascript -e \\\"set volume output volume ${VOLUME}\\\"\"",
+        "exec": "openssh",
         "extras": [
           {
             "default": "$$SLIDER_OPTIONS",
@@ -92,7 +109,10 @@
             "id": "574538",
             "name": "VOLUME",
             "required": true,
-            "flags": ["--int", "--realtime"],
+            "flags": [
+              "--int",
+              "--realtime"
+            ],
             "type": "SLIDER"
           }
         ]
@@ -101,26 +121,26 @@
   },
   "Check Exif Data": {
     "path": "",
-    "exec": "exiftool",
     "command": "#@OPEN_LOGS\nexiftool \"${INPUT_FILE}\"",
+    "exec": "exiftool",
     "id": "autopie.check-exif-data"
   },
   "Check Internet Archive": {
     "path": "",
-    "exec": "",
     "command": "#@PYTHON\n#@OPEN_LOGS\n\nimport os\nimport sys\nimport subprocess\nimport json\nimport urllib.parse\nimport urllib.request\n\ndef latest_wayback_snapshot(url: str) -> str | None:\n    api = \"https://archive.org/wayback/available\"\n    query = urllib.parse.urlencode({\"url\": url})\n    api_url = f\"{api}?{query}\"\n\n    with urllib.request.urlopen(api_url, timeout=20) as r:\n        data = json.loads(r.read().decode(\"utf-8\"))\n\n    snapshot = data.get(\"archived_snapshots\", {}).get(\"closest\")\n    if snapshot and snapshot.get(\"available\"):\n        return snapshot.get(\"url\")\n\n    return None\n\n\n\ndef main():\n    \n    url = os.getenv(\"INPUT_URL\")\n    print(\"CHECKING...\", flush=True)\n    snapshot_url = latest_wayback_snapshot(url)\n\n    if snapshot_url:\n        print(snapshot_url)\n        subprocess.run([\n            \"am\",\n            \"start\",\n            \"-a\",\n            \"android.intent.action.VIEW\",\n            \"-d\",\n            snapshot_url,\n        ], stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,check=True)\n    else:\n        print(\"No snapshot found\", file=sys.stderr)\n        sys.exit(2)\n\n\nif __name__ == \"__main__\":\n    main()\n",
+    "exec": "",
     "id": "autopie.check-internet-archive"
   },
   "Check Media Info": {
     "path": "",
-    "exec": "",
     "command": "#@OPEN_LOGS\nmediainfo \"${INPUT_FILE}\"",
+    "exec": "",
     "id": "autopie.check-media-info"
   },
   "Combine Gifs Vertically": {
     "path": "",
-    "exec": "magick",
     "command": "magick \"${INPUT_FILES_ARR[@]}\" -resize ${QUALITY}x -append \"${INPUT_FILE}.vert.gif\"",
+    "exec": "magick",
     "extras": [
       {
         "default": "720x",
@@ -129,15 +149,19 @@
         "name": "QUALITY",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": ["720x", "480x", "1080x"]
+        "selectableOptions": [
+          "720x",
+          "480x",
+          "1080x"
+        ]
       }
     ],
     "id": "autopie.combine-gifs-vertically"
   },
   "Combine Images Horizontally": {
     "path": "",
-    "exec": "magick",
     "command": "magick \"${INPUT_FILES_ARR[@]}\" -resize x${QUALITY} +append \"${INPUT_FILE}.horiz-${RAND}.jpeg\"",
+    "exec": "magick",
     "extras": [
       {
         "default": "720x",
@@ -157,8 +181,8 @@
   },
   "Combine Images into PDF": {
     "path": "",
-    "exec": "magick",
     "command": "magick \"${INPUT_FILES_ARR[@]}\" -resize ${QUALITY} -gravity center -extent ${QUALITY} \"${INPUT_FILE}.pdf\"",
+    "exec": "magick",
     "extras": [
       {
         "default": "720x",
@@ -167,15 +191,19 @@
         "name": "QUALITY",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": ["720x", "480x", "1080x"]
+        "selectableOptions": [
+          "720x",
+          "480x",
+          "1080x"
+        ]
       }
     ],
     "id": "autopie.combine-images-into-pdf"
   },
   "Combine Images to GIF": {
     "path": "",
-    "exec": "magick",
     "command": "magick -delay ${DELAY} -loop 0 ${INPUT_FILES} -gravity center \"${INPUT_FILE}-${RAND}.gif\"",
+    "exec": "magick",
     "extras": [
       {
         "default": "100",
@@ -190,8 +218,8 @@
   },
   "Combine Images Vertically": {
     "path": "",
-    "exec": "magick",
     "command": "magick \"${INPUT_FILES_ARR[@]}\" -resize ${QUALITY}x -append \"${INPUT_FILE}.vert.jpeg\"",
+    "exec": "magick",
     "extras": [
       {
         "default": "720x",
@@ -200,33 +228,37 @@
         "name": "QUALITY",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": ["720x", "480x", "1080x"]
+        "selectableOptions": [
+          "720x",
+          "480x",
+          "1080x"
+        ]
       }
     ],
     "id": "autopie.combine-images-vertically"
   },
   "Compress ZIP (High) : Folder": {
     "path": "",
-    "exec": "7z",
     "command": "7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILE}/* -mfb=258 -mpass=15",
+    "exec": "7z",
     "id": "autopie.compress-zip-high-folder"
   },
   "Compress ZIP (High) : Multi File": {
     "path": "",
-    "exec": "7z",
     "command": "7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILES_ARR[@]} -mfb=258 -mpass=15",
+    "exec": "7z",
     "id": "autopie.compress-zip-high-multi-file"
   },
   "Convert to Animated WebP": {
     "path": "",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -vf \"fps=15,scale=600:-1:flags=lanczos\" -c:v libwebp -loop 0 -an -preset default -quality 80 \"${INPUT_FILE}-anim.webp\"",
+    "exec": "ffmpeg",
     "id": "autopie.convert-to-animated-webp"
   },
   "Convert to GIF": {
     "path": "",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -ss ${START} ${END:+-t $END} -vf \"fps=15,scale=480:-1:flags=lanczos\" -c:v gif \"${INPUT_FILE}.gif\"",
+    "exec": "ffmpeg",
     "extras": [
       {
         "default": "00:00:00",
@@ -249,8 +281,8 @@
   },
   "Convert To WebM": {
     "path": "Downloads",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libvpx-vp9 -crf 24 \"${INPUT_FILE}.webm\"",
+    "exec": "ffmpeg",
     "extras": [
       {
         "default": "1M",
@@ -267,7 +299,10 @@
         "name": "CODEC",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": ["libvpx-vp9", "libvpx"]
+        "selectableOptions": [
+          "libvpx-vp9",
+          "libvpx"
+        ]
       },
       {
         "default": "24",
@@ -282,8 +317,8 @@
   },
   "Convert To WEBP": {
     "path": "",
-    "exec": "magick",
     "command": "magick \"${INPUT_FILE}\" -quality ${QUALITY} -define webp:method=${METHOD} \"${INPUT_FILE}.webp\"",
+    "exec": "magick",
     "extras": [
       {
         "default": "99",
@@ -300,21 +335,29 @@
         "name": "METHOD",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": ["6", "0", "1", "2", "3", "4", "5"]
+        "selectableOptions": [
+          "6",
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
       }
     ],
     "id": "autopie.convert-to-webp"
   },
   "Convert video to AV1": {
     "path": "",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libaom-av1 -crf 18 -b:v 0 \"${INPUT_FILE}.mkv\"",
+    "exec": "ffmpeg",
     "id": "autopie.convert-video-to-av1"
   },
   "Crop Image/GIF": {
     "path": "",
-    "exec": "magick",
     "command": "magick \"${INPUT_FILE}\" -coalesce -gravity ${POSITION} -crop '%[fx:w]x%[fx:w*${RATIO_HEIGHT}/${RATIO_WIDTH}]+0+0' +repage \"${INPUT_FILE}-cropped-${RAND}.${FILE_EXT}\"",
+    "exec": "magick",
     "extras": [
       {
         "default": "5",
@@ -339,15 +382,21 @@
         "name": "POSITION",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": ["center", "north", "south", "east", "west"]
+        "selectableOptions": [
+          "center",
+          "north",
+          "south",
+          "east",
+          "west"
+        ]
       }
     ],
     "id": "autopie.crop-image-gif"
   },
   "Crop Video to Mobile Dimensions": {
     "path": "",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -vf \\\"crop=${WIDTH}/${HEIGHT}*in_h:in_h\\\" -c:a copy \"${INPUT_FILE}.cropped.mp4\"",
+    "exec": "ffmpeg",
     "extras": [
       {
         "default": "9",
@@ -370,8 +419,8 @@
   },
   "Extract Audio from File": {
     "path": "",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -b:a ${BITRATE} -vn \"${INPUT_FILE}.$FORMAT\"",
+    "exec": "ffmpeg",
     "extras": [
       {
         "default": "195K",
@@ -403,8 +452,8 @@
   },
   "Extract Audio from URL": {
     "path": "Mp3",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_URL}\" -b:a ${BITRATE} -vn \"${FILE_NAME:-$FILENAME}.mp3\"",
+    "exec": "ffmpeg",
     "extras": [
       {
         "default": "195K",
@@ -427,20 +476,20 @@
   },
   "Extract Images from PDF": {
     "path": "",
-    "exec": "magick",
     "command": "magick \"${INPUT_FILE}\" \"${INPUT_FILE}_%03d.png\"",
+    "exec": "magick",
     "id": "autopie.extract-images-from-pdf"
   },
   "FFMPEG: Convert to HEVC": {
     "path": "",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libx264 -crf 24 -preset medium \"${INPUT_FILE}-x265.mp4\"",
+    "exec": "ffmpeg",
     "id": "autopie.ffmpeg-convert-to-hevc"
   },
   "FFMPEG: Cut Video": {
     "path": "Download",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -ss ${START} ${END:+-t $END} \"${INPUT_FILE}-cut-${RAND}.mp4\"",
+    "exec": "ffmpeg",
     "extras": [
       {
         "default": "00:00:00",
@@ -463,27 +512,29 @@
   },
   "FFMPEG: Optimize Video": {
     "path": "/storage/emulated/0/",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -c:v libx264 -preset slow -crf 23 -c:a aac -b:a 128k -movflags +faststart \"${INPUT_FILE}-optim.mp4\"",
+    "exec": "ffmpeg",
     "id": "autopie.ffmpeg-optimize-video"
   },
   "Flip/Mirror Video": {
     "path": "",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -vf \"hflip\" \"${INPUT_FILE}-mirrored.mp4\"",
+    "exec": "ffmpeg",
     "id": "autopie.flip-mirror-video"
   },
   "GalleryDL Download ": {
     "path": "",
-    "exec": "gallery-dl",
     "command": "gallery-dl \"${INPUT_URL}\"",
+    "exec": "gallery-dl",
     "id": "autopie.gallerydl-download"
   },
   "Open in Video Player": {
     "path": "",
-    "exec": "am",
     "command": "url=$(yt-dlp --no-warnings -q -g -f \"${FORMAT}\" \"${INPUT_URL}\")\nam start \\\n    -a android.intent.action.SEND \\\n    -t text/plain \\\n    --es android.intent.extra.TEXT $url",
-    "flags": ["--show-loading-screen"],
+    "exec": "am",
+    "flags": [
+      "--show-loading-screen"
+    ],
     "extras": [
       {
         "default": "b",
@@ -500,10 +551,237 @@
     ],
     "id": "autopie.open-in-video-player"
   },
+  "OpenWRT Device Manager": {
+    "id": "autopie.openwrt-device-manager",
+    "multiStage": true,
+    "steps": [
+      {
+        "path": "Download",
+        "command": "set -eo pipefail\n\ncommand -v ssh >/dev/null 2>&1 || {\n  echo \"OpenSSH is not installed.\"\n  exit 1\n}\n\nif [[ ! \"$ROUTER_PORT\" =~ ^[0-9]+$ ]]; then\n  echo \"Invalid SSH port.\"\n  exit 1\nfi\n\nif [[ ! \"$FIREWALL_SRC_ZONE\" =~ ^[A-Za-z0-9_-]+$ ]] || [[ ! \"$FIREWALL_DEST_ZONE\" =~ ^[A-Za-z0-9_-]+$ ]]; then\n  echo \"Invalid firewall zone name.\"\n  exit 1\nfi\n\nif [[ \"$AUTH_METHOD\" == \"password\" ]] && ! command -v sshpass >/dev/null 2>&1; then\n  echo \"sshpass is required for password authentication.\"\n  exit 1\nfi\n\nexport SSH_KEY_RESOLVED=\"${SSH_KEY_PATH/#\\~/$HOME}\"\n\nif [[ \"$AUTH_METHOD\" == \"key\" && ! -r \"$SSH_KEY_RESOLVED\" ]]; then\n  echo \"SSH private key is not readable: $SSH_KEY_RESOLVED\"\n  exit 1\nfi\n\nSSH_BASE=(\n  ssh\n  -p \"$ROUTER_PORT\"\n  -o ConnectTimeout=7\n  -o ServerAliveInterval=10\n  -o StrictHostKeyChecking=accept-new\n)\n\nrouter_ssh() {\n  if [[ \"$AUTH_METHOD\" == \"password\" ]]; then\n    SSHPASS=\"$ROUTER_PASSWORD\" sshpass -e \"${SSH_BASE[@]}\" \\\n      \"$ROUTER_USER@$ROUTER_HOST\" \"$@\"\n  else\n    \"${SSH_BASE[@]}\" \\\n      -o BatchMode=yes \\\n      -i \"$SSH_KEY_RESOLVED\" \\\n      \"$ROUTER_USER@$ROUTER_HOST\" \"$@\"\n  fi\n}\n\nrouter_ssh \"printf 'AUTOPIE_OPENWRT_OK\\\\n'\" | grep -q '^AUTOPIE_OPENWRT_OK$' || {\n  echo \"Could not connect to the OpenWrt router.\"\n  exit 1\n}\n\nCLIENT_RAW=\"$(\n  router_ssh 'sh -s' <<'REMOTE'\nif [ -r /tmp/dhcp.leases ]; then\n  awk '{\n    host=$4\n    if (host==\"\" || host==\"*\") host=\"Unknown\"\n    printf \"LEASE\\t%s\\t%s\\t%s\\n\", tolower($2), $3, host\n  }' /tmp/dhcp.leases\nfi\n\nip neigh show 2>/dev/null | awk '{\n  ip=$1\n  mac=\"\"\n  state=$NF\n\n  for (i=1; i<=NF; i++) {\n    if ($i==\"lladdr\" && i<NF) mac=tolower($(i+1))\n  }\n\n  if (mac!=\"\")\n    printf \"NEIGH\\t%s\\t%s\\t%s\\n\", mac, ip, state\n}'\n\nfor obj in $(ubus list 'hostapd.*' 2>/dev/null); do\n  ubus call \"$obj\" get_clients 2>/dev/null |\n    grep -Eio '([0-9a-f]{2}:){5}[0-9a-f]{2}' |\n    tr 'A-F' 'a-f' |\n    sort -u |\n    while IFS= read -r mac; do\n      [ -n \"$mac\" ] && printf \"WIFI\\t%s\\t%s\\n\" \"$mac\" \"$obj\"\n    done\ndone\nREMOTE\n)\"\n\nexport CLIENT_RAW\n\neval \"$(\n  CLIENT_RAW=\"$CLIENT_RAW\" CLIENT_SCOPE=\"$CLIENT_SCOPE\" python - <<'PYCLIENTS'\nimport os\nimport re\nimport shlex\n\nrecords = os.environ.get(\"CLIENT_RAW\", \"\").splitlines()\nscope = os.environ.get(\"CLIENT_SCOPE\", \"online\")\ndevices = {}\n\nmac_re = re.compile(r\"^(?:[0-9a-f]{2}:){5}[0-9a-f]{2}$\", re.I)\n\n\ndef get_device(mac):\n    mac = mac.lower()\n    return devices.setdefault(mac, {\n        \"mac\": mac,\n        \"ip\": \"\",\n        \"hostname\": \"Unknown\",\n        \"online\": False,\n        \"wifi_object\": \"\"\n    })\n\n\nfor line in records:\n    parts = line.split(\"\\t\")\n    if not parts:\n        continue\n\n    kind = parts[0]\n\n    if kind == \"LEASE\" and len(parts) >= 4:\n        mac = parts[1].lower()\n        if not mac_re.match(mac):\n            continue\n\n        d = get_device(mac)\n        d[\"ip\"] = parts[2]\n\n        if parts[3] and parts[3] != \"*\":\n            d[\"hostname\"] = parts[3]\n\n    elif kind == \"NEIGH\" and len(parts) >= 4:\n        mac = parts[1].lower()\n        if not mac_re.match(mac):\n            continue\n\n        d = get_device(mac)\n\n        if not d[\"ip\"]:\n            d[\"ip\"] = parts[2]\n\n        state = parts[3].upper()\n        if state not in {\"FAILED\", \"INCOMPLETE\", \"NONE\"}:\n            d[\"online\"] = True\n\n    elif kind == \"WIFI\" and len(parts) >= 3:\n        mac = parts[1].lower()\n        if not mac_re.match(mac):\n            continue\n\n        d = get_device(mac)\n        d[\"wifi_object\"] = parts[2]\n        d[\"online\"] = True\n\n\ndef include(d):\n    if scope == \"all\":\n        return True\n    if scope == \"wifi\":\n        return bool(d[\"wifi_object\"])\n    if scope == \"wired\":\n        return d[\"online\"] and not d[\"wifi_object\"]\n    return d[\"online\"]\n\n\nselected = [d for d in devices.values() if include(d)]\n\nselected.sort(key=lambda d: (\n    not d[\"online\"],\n    d[\"hostname\"].lower(),\n    d[\"ip\"],\n    d[\"mac\"]\n))\n\nif not selected:\n    raise SystemExit(\n        f\"No clients matched scope '{scope}'. \"\n        \"Try All known clients if the device is offline.\"\n    )\n\n\ndef clean(value):\n    value = re.sub(r\"\\s+\", \" \", str(value)).strip()\n    return value.replace(\",\", \" \").replace(\"=\", \"-\")\n\n\noptions = []\n\nfor d in selected:\n    if d[\"wifi_object\"]:\n        connection = \"Wi-Fi\"\n    elif d[\"online\"]:\n        connection = \"LAN\"\n    else:\n        connection = \"Offline\"\n\n    label = (\n        f\"{clean(d['hostname'])} — \"\n        f\"{clean(d['ip'] or 'No IP')} — \"\n        f\"{connection} — {d['mac']}\"\n    )\n\n    options.append(f\"{label}={d['mac']}\")\n\nprint(\"export CLIENT_OPTIONS=\" + shlex.quote(\",\".join(options)))\nprint(\"export CLIENT_DEFAULT=\" + shlex.quote(selected[0][\"mac\"]))\nprint(\"export CLIENT_COUNT=\" + shlex.quote(str(len(selected))))\nPYCLIENTS\n)\"\n\nprintf 'Router: %s\\nDiscovered clients: %s\\n\\nChoose a device in the next step.\\n' \\\n  \"$ROUTER_HOST\" \\\n  \"$CLIENT_COUNT\"",
+        "id": "discover_clients",
+        "extras": [
+          {
+            "default": "192.168.1.1",
+            "description": "OpenWrt router hostname or IP address.",
+            "id": "router_host",
+            "name": "ROUTER_HOST",
+            "required": true,
+            "flags": [
+              "--internal-config"
+            ],
+            "type": "STRING"
+          },
+          {
+            "default": "22",
+            "description": "SSH port.",
+            "id": "router_port",
+            "name": "ROUTER_PORT",
+            "required": true,
+            "flags": [
+              "--internal-config"
+            ],
+            "type": "STRING"
+          },
+          {
+            "default": "root",
+            "description": "SSH username.",
+            "id": "router_user",
+            "name": "ROUTER_USER",
+            "required": true,
+            "flags": [
+              "--internal-config"
+            ],
+            "type": "STRING"
+          },
+          {
+            "default": "password",
+            "description": "Authentication method used to connect to OpenWrt.",
+            "id": "auth_method",
+            "name": "AUTH_METHOD",
+            "flags": [
+              "--internal-config"
+            ],
+            "type": "SELECTABLE",
+            "selectableOptions": {
+              "Password": "password",
+              "SSH key": "key"
+            }
+          },
+          {
+            "default": "",
+            "description": "SSH password. Stored in AutoPie's encrypted private preferences.",
+            "id": "router_password",
+            "name": "ROUTER_PASSWORD",
+            "required": true,
+            "flags": [
+              "--secret",
+              "--internal-config"
+            ],
+            "type": "STRING",
+            "visibleWhen": {
+              "extraId": "auth_method",
+              "equals": "password"
+            }
+          },
+          {
+            "default": "~/.ssh/id_ed25519",
+            "description": "Private SSH key inside AutoPie's Linux environment.",
+            "id": "ssh_key_path",
+            "name": "SSH_KEY_PATH",
+            "required": true,
+            "flags": [
+              "--internal-config"
+            ],
+            "type": "STRING",
+            "visibleWhen": {
+              "extraId": "auth_method",
+              "equals": "key"
+            }
+          },
+          {
+            "default": "lan",
+            "description": "Source firewall zone used when blocking a device.",
+            "id": "firewall_src_zone",
+            "name": "FIREWALL_SRC_ZONE",
+            "required": true,
+            "flags": [
+              "--internal-config"
+            ],
+            "type": "STRING"
+          },
+          {
+            "default": "wan",
+            "description": "Destination firewall zone used when blocking a device.",
+            "id": "firewall_dest_zone",
+            "name": "FIREWALL_DEST_ZONE",
+            "required": true,
+            "flags": [
+              "--internal-config"
+            ],
+            "type": "STRING"
+          },
+          {
+            "default": "online",
+            "description": "Which devices should be discovered.",
+            "id": "client_scope",
+            "name": "CLIENT_SCOPE",
+            "type": "SELECTABLE",
+            "selectableOptions": {
+              "Online clients": "online",
+              "Wi-Fi clients": "wifi",
+              "Wired clients": "wired",
+              "All known clients": "all"
+            }
+          }
+        ]
+      },
+      {
+        "path": "Download",
+        "command": "set -eo pipefail\n\nexport DEVICE_MAC=\"$(printf '%s' \"$DEVICE_MAC\" | tr 'A-F' 'a-f')\"\n\nDEVICE_RAW=\"$(\n  router_ssh \"MAC='$DEVICE_MAC' sh -s\" <<'REMOTE'\nmac=\"$(printf '%s' \"$MAC\" | tr 'A-F' 'a-f')\"\n\nlease_line=\"$(\n  awk -v wanted=\"$mac\" '\n    tolower($2)==wanted {\n      host=$4\n      if (host==\"\" || host==\"*\") host=\"Unknown\"\n      print $3 \"\\t\" host\n      exit\n    }\n  ' /tmp/dhcp.leases 2>/dev/null\n)\"\n\nip=\"$(printf '%s' \"$lease_line\" | cut -f1)\"\nhostname=\"$(printf '%s' \"$lease_line\" | cut -f2-)\"\n\nif [ -z \"$ip\" ]; then\n  ip=\"$(\n    ip neigh show 2>/dev/null |\n      awk -v wanted=\"$mac\" '\n        {\n          found=\"\"\n          for (i=1; i<=NF; i++) {\n            if ($i==\"lladdr\" && i<NF)\n              found=tolower($(i+1))\n          }\n\n          if (found==wanted) {\n            print $1\n            exit\n          }\n        }\n      '\n  )\"\nfi\n\n[ -n \"$hostname\" ] || hostname=\"Unknown\"\n\nwifi_obj=\"\"\n\nfor obj in $(ubus list 'hostapd.*' 2>/dev/null); do\n  if ubus call \"$obj\" get_clients 2>/dev/null | grep -qi \"\\\"$mac\\\"\"; then\n    wifi_obj=\"$obj\"\n    break\n  fi\ndone\n\nreachable=\"no\"\n\nif [ -n \"$ip\" ] && ping -c 1 -W 1 \"$ip\" >/dev/null 2>&1; then\n  reachable=\"yes\"\nfi\n\nblock_name=\"AutoPie Block $mac\"\n\nblock_ref=\"$(\n  uci show firewall 2>/dev/null |\n    grep -F \".name='$block_name'\" |\n    head -n 1 |\n    sed 's/\\.name=.*//'\n)\"\n\nmanaged_lease_name=\"AutoPie Lease $mac\"\n\nmanaged_lease_ref=\"$(\n  uci show dhcp 2>/dev/null |\n    grep -F \".name='$managed_lease_name'\" |\n    head -n 1 |\n    sed 's/\\.name=.*//'\n)\"\n\nany_lease_ref=\"$(\n  uci show dhcp 2>/dev/null |\n    grep -Fi \".mac='$mac'\" |\n    head -n 1 |\n    sed 's/\\.mac=.*//'\n)\"\n\nprintf 'IP=%s\\n' \"$ip\"\nprintf 'HOSTNAME=%s\\n' \"$hostname\"\nprintf 'WIFI_OBJECT=%s\\n' \"$wifi_obj\"\nprintf 'REACHABLE=%s\\n' \"$reachable\"\nprintf 'BLOCKED=%s\\n' \"$([ -n \"$block_ref\" ] && echo yes || echo no)\"\n\nif [ -n \"$managed_lease_ref\" ]; then\n  printf 'RESERVATION=managed\\n'\nelif [ -n \"$any_lease_ref\" ]; then\n  printf 'RESERVATION=existing\\n'\nelse\n  printf 'RESERVATION=none\\n'\nfi\nREMOTE\n)\"\n\nexport DEVICE_RAW\n\neval \"$(\n  DEVICE_RAW=\"$DEVICE_RAW\" DEVICE_MAC=\"$DEVICE_MAC\" python - <<'PYDEVICE'\nimport os\nimport re\nimport shlex\n\ndata = {}\n\nfor line in os.environ.get(\"DEVICE_RAW\", \"\").splitlines():\n    if \"=\" in line:\n        key, value = line.split(\"=\", 1)\n        data[key] = value\n\nmac = os.environ[\"DEVICE_MAC\"]\nhostname = data.get(\"HOSTNAME\") or \"Unknown\"\nip = data.get(\"IP\") or \"\"\nwifi_object = data.get(\"WIFI_OBJECT\") or \"\"\nreachable = data.get(\"REACHABLE\") == \"yes\"\nblocked = data.get(\"BLOCKED\") == \"yes\"\nreservation = data.get(\"RESERVATION\", \"none\")\n\nactions = []\n\nif ip:\n    actions.append((\"Ping device\", \"ping\"))\n\nif blocked:\n    actions.append((\"Unblock internet\", \"unblock\"))\nelse:\n    actions.append((\"Block internet\", \"block\"))\n\nif wifi_object:\n    actions.append((\"Disconnect from Wi-Fi\", \"kick\"))\n\nif reservation == \"managed\":\n    actions.append((\"Remove AutoPie static DHCP lease\", \"unreserve\"))\nelif reservation == \"none\" and ip:\n    actions.append((\"Reserve current IP with DHCP\", \"reserve\"))\n\n\ndef clean(value):\n    return (\n        re.sub(r\"\\s+\", \" \", str(value))\n        .replace(\",\", \" \")\n        .replace(\"=\", \"-\")\n        .strip()\n    )\n\n\noptions = \",\".join(\n    f\"{clean(label)}={value}\"\n    for label, value in actions\n)\n\ndefault = \"ping\" if ip else (\"unblock\" if blocked else \"block\")\nconnection = \"Wi-Fi\" if wifi_object else \"LAN / unknown\"\n\nexports = {\n    \"DEVICE_HOSTNAME\": hostname,\n    \"DEVICE_IP\": ip,\n    \"DEVICE_WIFI_OBJECT\": wifi_object,\n    \"DEVICE_REACHABLE\": \"yes\" if reachable else \"no\",\n    \"DEVICE_BLOCKED\": \"yes\" if blocked else \"no\",\n    \"DEVICE_RESERVATION\": reservation,\n    \"DEVICE_CONNECTION\": connection,\n    \"ACTION_OPTIONS\": options,\n    \"ACTION_DEFAULT\": default\n}\n\nfor key, value in exports.items():\n    print(f\"export {key}={shlex.quote(str(value))}\")\nPYDEVICE\n)\"\n\nprintf 'Device: %s\\nIP: %s\\nMAC: %s\\nConnection: %s\\nReachable now: %s\\nInternet blocked by AutoPie: %s\\nDHCP reservation: %s\\n' \\\n  \"$DEVICE_HOSTNAME\" \\\n  \"${DEVICE_IP:-Unknown}\" \\\n  \"$DEVICE_MAC\" \\\n  \"$DEVICE_CONNECTION\" \\\n  \"$DEVICE_REACHABLE\" \\\n  \"$DEVICE_BLOCKED\" \\\n  \"$DEVICE_RESERVATION\"",
+        "id": "inspect_device",
+        "extras": [
+          {
+            "default": "$$CLIENT_DEFAULT",
+            "description": "Clients discovered live from DHCP leases, neighbour state and Wi-Fi associations.",
+            "id": "device_mac",
+            "name": "DEVICE_MAC",
+            "required": true,
+            "flags": [
+              "--large"
+            ],
+            "type": "SELECTABLE",
+            "selectableOptions": {
+              "Discovered devices": "$$CLIENT_OPTIONS"
+            }
+          }
+        ]
+      },
+      {
+        "path": "Download",
+        "command": "set -eo pipefail\n\ncase \"$ACTION\" in\n  ping)\n    [[ -n \"$DEVICE_IP\" ]] || {\n      echo \"This device does not currently have a known IP address.\"\n      exit 1\n    }\n\n    router_ssh \"ping -c '$PING_COUNT' '$DEVICE_IP'\"\n    ;;\n\n  block)\n    router_ssh \\\n      \"MAC='$DEVICE_MAC' SRC_ZONE='$FIREWALL_SRC_ZONE' DEST_ZONE='$FIREWALL_DEST_ZONE' TARGET='$BLOCK_TARGET' sh -s\" <<'REMOTE'\nname=\"AutoPie Block $MAC\"\n\nif uci show firewall 2>/dev/null | grep -Fq \".name='$name'\"; then\n  echo \"Device is already blocked by AutoPie.\"\n  exit 0\nfi\n\nsection=\"$(uci add firewall rule)\"\n\nuci set \"firewall.$section.name=$name\"\nuci set \"firewall.$section.src=$SRC_ZONE\"\nuci set \"firewall.$section.dest=$DEST_ZONE\"\nuci set \"firewall.$section.src_mac=$MAC\"\nuci set \"firewall.$section.proto=all\"\nuci set \"firewall.$section.target=$TARGET\"\nuci commit firewall\n/etc/init.d/firewall reload\n\necho \"Internet access blocked for $MAC.\"\nREMOTE\n    ;;\n\n  unblock)\n    router_ssh \"MAC='$DEVICE_MAC' sh -s\" <<'REMOTE'\nname=\"AutoPie Block $MAC\"\nremoved=0\n\nwhile :; do\n  ref=\"$(\n    uci show firewall 2>/dev/null |\n      grep -F \".name='$name'\" |\n      head -n 1 |\n      sed 's/\\.name=.*//'\n  )\"\n\n  [ -n \"$ref\" ] || break\n\n  uci delete \"$ref\"\n  removed=1\ndone\n\nif [ \"$removed\" -eq 1 ]; then\n  uci commit firewall\n  /etc/init.d/firewall reload\n  echo \"Internet access restored for $MAC.\"\nelse\n  echo \"No AutoPie block rule exists for $MAC.\"\nfi\nREMOTE\n    ;;\n\n  kick)\n    [[ -n \"$DEVICE_WIFI_OBJECT\" ]] || {\n      echo \"The selected client is not currently associated with Wi-Fi.\"\n      exit 1\n    }\n\n    router_ssh \\\n      \"MAC='$DEVICE_MAC' OBJ='$DEVICE_WIFI_OBJECT' BAN_MS='$BAN_TIME_MS' sh -s\" <<'REMOTE'\nubus call \"$OBJ\" del_client \\\n  \"{\\\"addr\\\":\\\"$MAC\\\",\\\"reason\\\":5,\\\"deauth\\\":true,\\\"ban_time\\\":$BAN_MS}\"\n\necho \"Disconnected $MAC from $OBJ.\"\nREMOTE\n    ;;\n\n  reserve)\n    [[ \"$RESERVED_IP\" =~ ^[0-9]{1,3}(\\.[0-9]{1,3}){3}$ ]] || {\n      echo \"Enter a valid IPv4 address.\"\n      exit 1\n    }\n\n    router_ssh \"MAC='$DEVICE_MAC' IP='$RESERVED_IP' sh -s\" <<'REMOTE'\nif uci show dhcp 2>/dev/null | grep -Fiq \".mac='$MAC'\"; then\n  echo \"A static DHCP lease already exists for $MAC.\"\n  exit 1\nfi\n\nname=\"AutoPie Lease $MAC\"\nsection=\"$(uci add dhcp host)\"\n\nuci set \"dhcp.$section.name=$name\"\nuci set \"dhcp.$section.mac=$MAC\"\nuci set \"dhcp.$section.ip=$IP\"\nuci commit dhcp\n/etc/init.d/dnsmasq restart\n\necho \"Reserved $IP for $MAC.\"\nREMOTE\n    ;;\n\n  unreserve)\n    router_ssh \"MAC='$DEVICE_MAC' sh -s\" <<'REMOTE'\nname=\"AutoPie Lease $MAC\"\nremoved=0\n\nwhile :; do\n  ref=\"$(\n    uci show dhcp 2>/dev/null |\n      grep -F \".name='$name'\" |\n      head -n 1 |\n      sed 's/\\.name=.*//'\n  )\"\n\n  [ -n \"$ref\" ] || break\n\n  uci delete \"$ref\"\n  removed=1\ndone\n\nif [ \"$removed\" -eq 1 ]; then\n  uci commit dhcp\n  /etc/init.d/dnsmasq restart\n  echo \"Removed AutoPie static DHCP lease for $MAC.\"\nelse\n  echo \"No AutoPie-managed DHCP lease exists for $MAC.\"\nfi\nREMOTE\n    ;;\n\n  *)\n    echo \"Unsupported action: $ACTION\"\n    exit 1\n    ;;\nesac",
+        "id": "manage_device",
+        "extras": [
+          {
+            "default": "$$ACTION_DEFAULT",
+            "description": "Actions are generated from the selected device's current state.",
+            "id": "action",
+            "name": "ACTION",
+            "required": true,
+            "flags": [
+              "--large"
+            ],
+            "type": "SELECTABLE",
+            "selectableOptions": {
+              "Available actions": "$$ACTION_OPTIONS"
+            }
+          },
+          {
+            "default": "REJECT",
+            "description": "How the firewall should deny this device's WAN traffic.",
+            "id": "block_target",
+            "name": "BLOCK_TARGET",
+            "type": "SELECTABLE",
+            "visibleWhen": {
+              "extraId": "action",
+              "equals": "block"
+            },
+            "selectableOptions": {
+              "Reject immediately": "REJECT",
+              "Drop silently": "DROP"
+            }
+          },
+          {
+            "default": "10000",
+            "description": "How long the Wi-Fi client should be prevented from immediately reconnecting.",
+            "id": "ban_time_ms",
+            "name": "BAN_TIME_MS",
+            "type": "SELECTABLE",
+            "visibleWhen": {
+              "extraId": "action",
+              "equals": "kick"
+            },
+            "selectableOptions": {
+              "Disconnect only": "0",
+              "10 seconds": "10000",
+              "1 minute": "60000",
+              "5 minutes": "300000"
+            }
+          },
+          {
+            "default": "$$DEVICE_IP",
+            "description": "IPv4 address to reserve for this MAC address.",
+            "id": "reserved_ip",
+            "name": "RESERVED_IP",
+            "required": true,
+            "type": "STRING",
+            "visibleWhen": {
+              "extraId": "action",
+              "equals": "reserve"
+            }
+          },
+          {
+            "default": "1,3,10",
+            "description": "Number of ICMP probes to send from the router.",
+            "id": "ping_count",
+            "name": "PING_COUNT",
+            "flags": [
+              "--int"
+            ],
+            "type": "SLIDER",
+            "visibleWhen": {
+              "extraId": "action",
+              "equals": "ping"
+            }
+          }
+        ]
+      }
+    ],
+    "type": "SHARE"
+  },
   "OpenWRT Router Automations": {
     "path": "",
-    "exec": "openssh",
     "command": "sshpass -p \"$PASSWORD\" ssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"$REMOTE_COMMAND\"",
+    "exec": "openssh",
     "extras": [
       {
         "default": "root",
@@ -511,7 +789,9 @@
         "id": "735279",
         "name": "USER",
         "required": true,
-        "flags": ["--internal-config"],
+        "flags": [
+          "--internal-config"
+        ],
         "type": "STRING"
       },
       {
@@ -520,7 +800,9 @@
         "id": "486044",
         "name": "HOST",
         "required": true,
-        "flags": ["--internal-config"],
+        "flags": [
+          "--internal-config"
+        ],
         "type": "STRING"
       },
       {
@@ -529,7 +811,10 @@
         "id": "829258",
         "name": "PASSWORD",
         "required": true,
-        "flags": ["--password", "--internal-config"],
+        "flags": [
+          "--password",
+          "--internal-config"
+        ],
         "type": "STRING"
       },
       {
@@ -555,14 +840,14 @@
   },
   "Remove Audio": {
     "path": "",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -an -c:v copy \"${INPUT_FILE}-noaud.mp4\"",
+    "exec": "ffmpeg",
     "id": "autopie.remove-audio"
   },
   "Remove Image Borders": {
     "path": "",
-    "exec": "magick",
     "command": "magick \"${INPUT_FILE}\" -fuzz ${FUZZ}% -trim \"${INPUT_FILE}-trim.jpg\"",
+    "exec": "magick",
     "extras": [
       {
         "default": "50",
@@ -577,8 +862,8 @@
   },
   "Resize Video": {
     "path": "",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -vf \"scale=${HEIGHT}:${WIDTH}\" -c:a copy \"${INPUT_FILE}-resized-${RAND}.mp4\"",
+    "exec": "ffmpeg",
     "extras": [
       {
         "default": "1280",
@@ -601,8 +886,8 @@
   },
   "Rotate Video": {
     "path": "",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i ${INPUT_FILE} -vf \"$( \\\n    case $ROTATE in \\\n        90) echo 'transpose=1';; \\\n        180) echo 'transpose=2,transpose=2';; \\\n        270) echo 'transpose=3';; \\\n    esac)\" -c:a copy ${INPUT_FILE}.rotated.mp4",
+    "exec": "ffmpeg",
     "extras": [
       {
         "default": "90",
@@ -611,15 +896,19 @@
         "name": "ROTATE",
         "required": true,
         "type": "SELECTABLE",
-        "selectableOptions": ["90", "180", "270"]
+        "selectableOptions": [
+          "90",
+          "180",
+          "270"
+        ]
       }
     ],
     "id": "autopie.rotate-video"
   },
   "RSYNC: Backup Pics to PC": {
     "path": "",
-    "exec": "rsync",
     "command": "rsync -avz \"${FOLDER_FROM}\" \"${FOLDER_TO}\"",
+    "exec": "rsync",
     "extras": [
       {
         "default": "",
@@ -627,7 +916,10 @@
         "id": "093901",
         "name": "RSYNC_PASSWORD",
         "required": true,
-        "flags": ["--password", "--internal-config"],
+        "flags": [
+          "--password",
+          "--internal-config"
+        ],
         "type": "STRING"
       },
       {
@@ -636,7 +928,9 @@
         "id": "557719",
         "name": "FOLDER_TO",
         "required": false,
-        "flags": ["--internal-config"],
+        "flags": [
+          "--internal-config"
+        ],
         "type": "STRING"
       },
       {
@@ -645,7 +939,9 @@
         "id": "267285",
         "name": "FOLDER_FROM",
         "required": false,
-        "flags": ["--internal-config"],
+        "flags": [
+          "--internal-config"
+        ],
         "type": "STRING"
       }
     ],
@@ -653,8 +949,8 @@
   },
   "RSYNC: Sync Pics - PC ➡️ Mob": {
     "path": "",
-    "exec": "rsync",
     "command": "rsync -avz \"${FOLDER_FROM}\" \"${FOLDER_TO}\"",
+    "exec": "rsync",
     "extras": [
       {
         "default": "",
@@ -662,7 +958,10 @@
         "id": "093901",
         "name": "RSYNC_PASSWORD",
         "required": true,
-        "flags": ["--password", "--internal-config"],
+        "flags": [
+          "--password",
+          "--internal-config"
+        ],
         "type": "STRING"
       },
       {
@@ -671,7 +970,9 @@
         "id": "557719",
         "name": "FOLDER_FROM",
         "required": false,
-        "flags": ["--internal-config"],
+        "flags": [
+          "--internal-config"
+        ],
         "type": "STRING"
       },
       {
@@ -680,7 +981,9 @@
         "id": "267285",
         "name": "FOLDER_TO",
         "required": false,
-        "flags": ["--internal-config"],
+        "flags": [
+          "--internal-config"
+        ],
         "type": "STRING"
       }
     ],
@@ -688,20 +991,61 @@
   },
   "Set file modified date to now.": {
     "path": "",
-    "exec": "",
     "command": "touch \"${INPUT_FILE}\"",
+    "exec": "",
     "id": "autopie.set-file-modified-date-to-now"
   },
   "SHA-256 Hash Check": {
     "path": "",
-    "exec": "",
     "command": "#@OPEN_LOGS\nsha256sum \"${INPUT_FILE}\"",
+    "exec": "",
     "id": "autopie.sha-256-hash-check"
+  },
+  "Share file/folder over LAN": {
+    "path": "",
+    "command": "#@PYTHON\nimport functools\nimport http.server\nimport os\nimport re\nimport shutil\nimport signal\nimport socket\nimport subprocess\nimport tempfile\nimport time\nfrom pathlib import Path\nfrom urllib.parse import quote\n\n\ndef die(message):\n    print(f\"Error: {message}\", flush=True)\n    raise SystemExit(1)\n\n\ndef command_output(*args):\n    try:\n        return subprocess.check_output(\n            args,\n            text=True,\n            stderr=subprocess.DEVNULL,\n            timeout=2,\n        ).strip()\n    except Exception:\n        return \"\"\n\n\ndef get_lan_ip():\n    # Prefer actual LAN interfaces so VPN/cellular routes don't win.\n    for iface in (\"wlan0\", \"wlan1\", \"eth0\"):\n        text = command_output(\n            \"ip\", \"-4\", \"-o\", \"addr\", \"show\", \"dev\", iface\n        )\n        match = re.search(r\"\\binet\\s+(\\d+\\.\\d+\\.\\d+\\.\\d+)/\", text)\n        if match:\n            return match.group(1)\n\n    # Routing-table fallback.\n    text = command_output(\"ip\", \"-4\", \"route\", \"get\", \"1.1.1.1\")\n    match = re.search(r\"\\bsrc\\s+(\\d+\\.\\d+\\.\\d+\\.\\d+)\", text)\n    if match:\n        return match.group(1)\n\n    # Socket fallback.\n    for remote in (\"192.0.2.1\", \"1.1.1.1\", \"8.8.8.8\"):\n        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)\n        try:\n            sock.connect((remote, 80))\n            ip = sock.getsockname()[0]\n            if ip and not ip.startswith(\"127.\"):\n                return ip\n        except OSError:\n            pass\n        finally:\n            sock.close()\n\n    return None\n\n\ndef normalize_lan_hostname(value):\n    value = (value or \"\").strip().lower().rstrip(\".\")\n\n    if not value or value in {\n        \"localhost\",\n        \"localhost.localdomain\",\n        \"(none)\",\n        \"null\",\n    }:\n        return None\n\n    if value.endswith(\".lan\"):\n        value = value[:-4]\n\n    value = re.sub(r\"[^a-z0-9.-]+\", \"-\", value)\n    value = re.sub(r\"-+\", \"-\", value).strip(\"-.\")\n\n    if not value:\n        return None\n\n    return f\"{value}.lan\"\n\n\ndef resolves_to(host, ip):\n    try:\n        addresses = {\n            item[4][0]\n            for item in socket.getaddrinfo(\n                host,\n                None,\n                socket.AF_INET,\n            )\n        }\n        return ip in addresses\n    except OSError:\n        return False\n\n\ndef find_lan_hostname(ip):\n    candidates = []\n\n    # OpenWrt/dnsmasq PTR record is the preferred source.\n    try:\n        candidates.append(socket.gethostbyaddr(ip)[0])\n    except OSError:\n        pass\n\n    candidates.extend([\n        command_output(\"getprop\", \"net.hostname\"),\n        command_output(\"hostname\"),\n        command_output(\"getprop\", \"persist.sys.device_name\"),\n        command_output(\"settings\", \"get\", \"global\", \"device_name\"),\n        socket.gethostname(),\n    ])\n\n    seen = set()\n\n    for candidate in candidates:\n        hostname = normalize_lan_hostname(candidate)\n\n        if not hostname or hostname in seen:\n            continue\n\n        seen.add(hostname)\n\n        # Don't publish a hostname that doesn't resolve to this phone.\n        if resolves_to(hostname, ip):\n            return hostname\n\n    return None\n\n\n# ---------------------------------------------------------------------\n# Input\n# ---------------------------------------------------------------------\n\ntarget_value = os.environ.get(\"INPUT\", \"\").strip()\nif not target_value:\n    die(\"No file or folder received\")\n\ntarget = Path(target_value)\nif not target.exists():\n    die(f\"Input does not exist: {target}\")\n\ntry:\n    expiry_seconds = int(os.environ.get(\"EXPIRY\", \"300\"))\nexcept ValueError:\n    die(\"Invalid expiry\")\n\nif expiry_seconds <= 0:\n    die(\"Expiry must be greater than zero\")\n\nurl_mode = os.environ.get(\"URL_MODE\", \"hostname\").strip().lower()\n\n\n# ---------------------------------------------------------------------\n# Network\n# ---------------------------------------------------------------------\n\nlan_ip = get_lan_ip()\nif not lan_ip:\n    die(\"Could not determine LAN IPv4 address\")\n\nhostname = None\n\nif url_mode == \"hostname\":\n    hostname = find_lan_hostname(lan_ip)\n\n    if hostname:\n        url_host = hostname\n    else:\n        print(\"Hostname unavailable; falling back to IP\", flush=True)\n        url_host = lan_ip\nelse:\n    url_host = lan_ip\n\n\n# ---------------------------------------------------------------------\n# Isolated share root\n# ---------------------------------------------------------------------\n\nstate_dir = Path.home() / \".cache\" / \"autopie-lan-share\"\nstate_dir.mkdir(parents=True, exist_ok=True)\n\nshare_root = Path(\n    tempfile.mkdtemp(\n        prefix=\"share-\",\n        dir=state_dir,\n    )\n)\n\nname = target.name or \"shared\"\nshare_path = share_root / name\n\ntry:\n    share_path.symlink_to(\n        target.resolve(),\n        target_is_directory=target.is_dir(),\n    )\nexcept Exception as exc:\n    shutil.rmtree(share_root, ignore_errors=True)\n    die(f\"Could not prepare share: {exc}\")\n\n\n# ---------------------------------------------------------------------\n# HTTP handler with byte-range support\n# ---------------------------------------------------------------------\n\nclass RangeRequestHandler(http.server.SimpleHTTPRequestHandler):\n    protocol_version = \"HTTP/1.1\"\n\n    def log_message(self, fmt, *args):\n        print(\n            f\"[{self.client_address[0]}] {fmt % args}\",\n            flush=True,\n        )\n\n    def send_head(self):\n        path = self.translate_path(self.path)\n\n        # Let SimpleHTTPRequestHandler handle directories, redirects,\n        # directory listings and errors normally.\n        if not os.path.isfile(path):\n            return super().send_head()\n\n        try:\n            file = open(path, \"rb\")\n        except OSError:\n            self.send_error(404, \"File not found\")\n            return None\n\n        try:\n            stat = os.fstat(file.fileno())\n            size = stat.st_size\n            content_type = self.guess_type(path)\n\n            range_header = self.headers.get(\"Range\")\n            start = 0\n            end = size - 1\n            partial = False\n\n            if range_header:\n                match = re.fullmatch(\n                    r\"bytes=(\\d*)-(\\d*)\",\n                    range_header.strip(),\n                )\n\n                if not match:\n                    file.close()\n                    self.send_error(416, \"Invalid Range\")\n                    return None\n\n                start_text, end_text = match.groups()\n\n                if not start_text and not end_text:\n                    file.close()\n                    self.send_error(416, \"Invalid Range\")\n                    return None\n\n                if start_text:\n                    start = int(start_text)\n\n                    if end_text:\n                        end = int(end_text)\n                    else:\n                        end = size - 1\n                else:\n                    # Suffix range: bytes=-500\n                    suffix_length = int(end_text)\n\n                    if suffix_length <= 0:\n                        file.close()\n                        self.send_error(416, \"Invalid Range\")\n                        return None\n\n                    suffix_length = min(suffix_length, size)\n                    start = size - suffix_length\n                    end = size - 1\n\n                if start >= size or start < 0 or end < start:\n                    file.close()\n                    self.send_response(416)\n                    self.send_header(\"Content-Range\", f\"bytes */{size}\")\n                    self.send_header(\"Content-Length\", \"0\")\n                    self.end_headers()\n                    return None\n\n                end = min(end, size - 1)\n                partial = True\n\n            self._range_start = start\n            self._range_end = end\n\n            if partial:\n                self.send_response(206)\n                self.send_header(\n                    \"Content-Range\",\n                    f\"bytes {start}-{end}/{size}\",\n                )\n                content_length = end - start + 1\n            else:\n                self.send_response(200)\n                content_length = size\n\n            self.send_header(\"Content-Type\", content_type)\n            self.send_header(\"Content-Length\", str(content_length))\n            self.send_header(\"Accept-Ranges\", \"bytes\")\n            self.send_header(\n                \"Last-Modified\",\n                self.date_time_string(stat.st_mtime),\n            )\n            self.end_headers()\n\n            file.seek(start)\n            return file\n\n        except Exception:\n            file.close()\n            raise\n\n    def copyfile(self, source, outputfile):\n        start = getattr(self, \"_range_start\", 0)\n        end = getattr(self, \"_range_end\", None)\n\n        if end is None:\n            return super().copyfile(source, outputfile)\n\n        remaining = end - start + 1\n        buffer_size = 1024 * 1024\n\n        while remaining > 0:\n            chunk = source.read(min(buffer_size, remaining))\n\n            if not chunk:\n                break\n\n            try:\n                outputfile.write(chunk)\n            except (BrokenPipeError, ConnectionResetError):\n                # Normal when mpv/VLC closes a probe/range request early.\n                break\n\n            remaining -= len(chunk)\n\n\nclass LANServer(http.server.ThreadingHTTPServer):\n    daemon_threads = True\n    allow_reuse_address = True\n\n\nhandler = functools.partial(\n    RangeRequestHandler,\n    directory=str(share_root),\n)\n\ntry:\n    # Port 0 asks the kernel to assign a free port atomically.\n    server = LANServer((lan_ip, 0), handler)\nexcept OSError as exc:\n    shutil.rmtree(share_root, ignore_errors=True)\n    die(f\"Could not start LAN server: {exc}\")\n\nport = server.server_address[1]\n\n\n# ---------------------------------------------------------------------\n# URL\n# ---------------------------------------------------------------------\n\nurl = f\"http://{url_host}:{port}/{quote(name, safe='')}\"\n\nif target.is_dir():\n    url += \"/\"\n\nprint(f\"Sharing: {target}\", flush=True)\nprint(f\"URL: {url}\", flush=True)\nprint(f\"LAN IP: {lan_ip}\", flush=True)\n\nif hostname:\n    print(f\"Hostname: {hostname}\", flush=True)\n\nprint(f\"Expires in: {expiry_seconds // 60} minute(s)\", flush=True)\nprint(\"Server running...\", flush=True)\n\n\n# ---------------------------------------------------------------------\n# Android share sheet\n# ---------------------------------------------------------------------\n\nsubprocess.run(\n    [\n        \"am\",\n        \"start\",\n        \"-a\",\n        \"android.intent.action.SEND\",\n        \"-t\",\n        \"text/plain\",\n        \"--es\",\n        \"android.intent.extra.TEXT\",\n        url,\n    ],\n    stdout=subprocess.DEVNULL,\n    stderr=subprocess.DEVNULL,\n    check=False,\n)\n\n\n# ---------------------------------------------------------------------\n# Keep this AutoPie command alive until expiry / cancellation\n# ---------------------------------------------------------------------\n\nserver.timeout = 1.0\nexpires_at = time.monotonic() + expiry_seconds\nstopping = False\n\n\ndef stop_server(signum=None, frame=None):\n    global stopping\n    stopping = True\n\n\nsignal.signal(signal.SIGTERM, stop_server)\nsignal.signal(signal.SIGINT, stop_server)\n\ntry:\n    while not stopping and time.monotonic() < expires_at:\n        server.handle_request()\nfinally:\n    server.server_close()\n    shutil.rmtree(share_root, ignore_errors=True)\n\nprint(\"LAN share stopped\", flush=True)\n",
+    "exec": "share",
+    "flags": [
+      "--show-loading-screen-small"
+    ],
+    "extras": [
+      {
+        "default": "300",
+        "description": "How long the LAN link should remain active.",
+        "id": "expiry",
+        "name": "EXPIRY",
+        "required": true,
+        "type": "SELECTABLE",
+        "selectableOptions": {
+          "5 minutes": "300",
+          "15 minutes": "900",
+          "30 minutes": "1800",
+          "1 hour": "3600",
+          "2 hours": "7200",
+          "4 hours": "14400",
+          "12 hours": "43200",
+          "24 hours": "86400"
+        }
+      },
+      {
+        "default": "hostname",
+        "description": "Choose the address used in the shared link.",
+        "id": "url_mode",
+        "name": "URL_MODE",
+        "required": true,
+        "type": "SELECTABLE",
+        "selectableOptions": {
+          "Hostname (.lan)": "hostname",
+          "IP address": "ip"
+        }
+      }
+    ],
+    "id": "autopie.share-file-folder-lan"
   },
   "Shutdown Remote Server": {
     "path": "",
+    "command": "set -euo pipefail\n\ncommand -v ssh >/dev/null 2>&1 || {\n  echo \"OpenSSH is not installed.\"\n  exit 1\n}\n\n[[ \"$SSH_PORT\" =~ ^[0-9]+$ ]] || {\n  echo \"Invalid SSH port: $SSH_PORT\"\n  exit 1\n}\n\nSSH_ARGS=(\n  ssh\n  -T\n  -p \"$SSH_PORT\"\n  -o ConnectTimeout=10\n  -o StrictHostKeyChecking=accept-new\n)\n\ncase \"$AUTH_METHOD\" in\n  password)\n    command -v sshpass >/dev/null 2>&1 || {\n      echo \"sshpass is required for password authentication.\"\n      exit 1\n    }\n\n    [[ -n \"$PASSWORD\" ]] || {\n      echo \"An SSH password is required for password authentication.\"\n      exit 1\n    }\n    ;;\n\n  key)\n    SSH_KEY_RESOLVED=\"${SSH_KEY_PATH/#\\~/$HOME}\"\n\n    [[ -r \"$SSH_KEY_RESOLVED\" ]] || {\n      echo \"SSH private key is not readable: $SSH_KEY_RESOLVED\"\n      exit 1\n    }\n\n    SSH_ARGS+=(\n      -o BatchMode=yes\n      -o IdentitiesOnly=yes\n      -i \"$SSH_KEY_RESOLVED\"\n    )\n    ;;\n\n  *)\n    echo \"Unsupported authentication method: $AUTH_METHOD\"\n    exit 1\n    ;;\nesac\n\nremote_ssh() {\n  if [[ \"$AUTH_METHOD\" == \"password\" ]]; then\n    SSHPASS=\"$PASSWORD\" sshpass -e \"${SSH_ARGS[@]}\" \\\n      \"$USER@$HOST\" \"$@\"\n  else\n    \"${SSH_ARGS[@]}\" \"$USER@$HOST\" \"$@\"\n  fi\n}\n\nELEVATION_PASSWORD=\"$SUDO_PASSWORD\"\nif [[ -z \"$ELEVATION_PASSWORD\" && \"$AUTH_METHOD\" == \"password\" ]]; then\n  ELEVATION_PASSWORD=\"$PASSWORD\"\nfi\n\nif [[ -n \"$ELEVATION_PASSWORD\" ]]; then\n  printf '%s\\n' \"$ELEVATION_PASSWORD\" | remote_ssh \\\n    'if [ \"$(id -u)\" -eq 0 ]; then /sbin/shutdown -h now; else sudo -S -p \"\" /sbin/shutdown -h now; fi'\nelse\n  remote_ssh \\\n    'if [ \"$(id -u)\" -eq 0 ]; then /sbin/shutdown -h now; else sudo -n /sbin/shutdown -h now; fi'\nfi",
     "exec": "openssh",
-    "command": "sshpass -p \"$PASSWORD\" \\\nssh -nT \\\n-o StrictHostKeyChecking=no \\\n\"$USER@$HOST\" \\\n\"echo '$PASSWORD' | sudo -S /sbin/shutdown -h now\"",
     "extras": [
       {
         "default": "",
@@ -709,7 +1053,9 @@
         "id": "735279",
         "name": "USER",
         "required": true,
-        "flags": ["--internal-config"],
+        "flags": [
+          "--internal-config"
+        ],
         "type": "STRING"
       },
       {
@@ -718,7 +1064,7 @@
         "id": "486044",
         "name": "HOST",
         "required": true,
-        "flags": ["--internal-config"],
+        "flags": [],
         "type": "SELECTABLE",
         "selectableOptions": {
           "server.local": "server.local",
@@ -726,12 +1072,72 @@
         }
       },
       {
+        "default": "22",
+        "description": "SSH port on the remote server.",
+        "id": "ssh_port",
+        "name": "SSH_PORT",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "password",
+        "description": "Authentication method used to connect to the remote server.",
+        "id": "auth_method",
+        "name": "AUTH_METHOD",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "SELECTABLE",
+        "selectableOptions": {
+          "Password": "password",
+          "SSH key": "key"
+        }
+      },
+      {
         "default": "",
-        "description": "SSH password.",
+        "description": "SSH password. It is also used for sudo when no separate sudo password is set.",
         "id": "829258",
         "name": "PASSWORD",
         "required": true,
-        "flags": ["--password", "--internal-config"],
+        "flags": [
+          "--secret",
+          "--internal-config"
+        ],
+        "type": "STRING",
+        "visibleWhen": {
+          "extraId": "auth_method",
+          "equals": "password"
+        }
+      },
+      {
+        "default": "~/.ssh/id_ed25519",
+        "description": "Private SSH key inside AutoPie's Linux environment.",
+        "id": "ssh_key_path",
+        "name": "SSH_KEY_PATH",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING",
+        "visibleWhen": {
+          "extraId": "auth_method",
+          "equals": "key"
+        }
+      },
+      {
+        "default": "",
+        "description": "Optional sudo password. Leave blank for root or passwordless sudo.",
+        "id": "sudo_password",
+        "name": "SUDO_PASSWORD",
+        "required": false,
+        "flags": [
+          "--secret",
+          "--internal-config"
+        ],
         "type": "STRING"
       }
     ],
@@ -739,108 +1145,103 @@
   },
   "Smart YT-DLP Downloader": {
     "id": "autopie.smart-ytdlp-downloader",
-    "type": "SHARE",
     "multiStage": true,
-    "flags": ["--show-loading-screen"],
     "steps": [
       {
-        "id": "inspect",
         "path": "Download",
         "command": "set -euo pipefail\n\ncommand -v yt-dlp >/dev/null 2>&1 || {\n  echo \"yt-dlp is not installed. Run: pip install -U yt-dlp\"\n  exit 1\n}\n\ncommand -v ffmpeg >/dev/null 2>&1 || {\n  echo \"ffmpeg is not installed. Run: pkg install ffmpeg\"\n  exit 1\n}\n\nexport SOURCE_URL=\"$INPUT_URL\"\nexport WORK_ROOT=\"$HOME/.cache/autopie-smart-ytdlp-$RAND\"\nmkdir -p \"$WORK_ROOT\"\n\nCOOKIE_ARGS=()\n\nif [[ -n \"${USE_COOKIE_JAR:-}\" ]]; then\n  COOKIE_ARGS=(--cookies \"$COOKIE_JAR\")\nfi\n\nINFO_JSON=\"$WORK_ROOT/info.json\"\n\nyt-dlp \\\n  --ignore-config \\\n  \"${COOKIE_ARGS[@]}\" \\\n  --dump-single-json \\\n  --no-playlist \\\n  --no-warnings \\\n  \"$SOURCE_URL\" > \"$INFO_JSON\"\n\neval \"$(\npython - \"$INFO_JSON\" <<'PYINFO'\nimport json\nimport math\nimport re\nimport shlex\nimport sys\n\npath = sys.argv[1]\nwith open(path, \"r\", encoding=\"utf-8\") as f:\n    info = json.load(f)\n\ndef clean(value, fallback=\"Unknown\"):\n    value = str(value or fallback)\n    value = value.replace(\"\\n\", \" \").replace(\"\\r\", \" \")\n    value = re.sub(r\"\\s+\", \" \", value).strip()\n    return value or fallback\n\ndef option_label(value):\n    return clean(value).replace(\",\", \" \").replace(\"=\", \"-\")\n\ndef safe_code(value):\n    value = str(value or \"\")\n    return value if re.fullmatch(r\"[A-Za-z0-9._-]+\", value) else \"\"\n\ndef export(name, value):\n    print(f\"export {name}={shlex.quote(str(value))}\")\n\ntitle = clean(info.get(\"title\"), \"Untitled media\")\nuploader = clean(\n    info.get(\"uploader\")\n    or info.get(\"channel\")\n    or info.get(\"creator\"),\n    \"Unknown uploader\"\n)\nsource = clean(\n    info.get(\"extractor_key\")\n    or info.get(\"extractor\")\n    or info.get(\"webpage_url_domain\"),\n    \"Unknown source\"\n)\n\nduration_raw = info.get(\"duration\") or 0\ntry:\n    duration = max(0.0, float(duration_raw))\nexcept (TypeError, ValueError):\n    duration = 0.0\n\nif duration:\n    total = int(round(duration))\n    h, rem = divmod(total, 3600)\n    m, s = divmod(rem, 60)\n    duration_text = f\"{h}:{m:02d}:{s:02d}\" if h else f\"{m}:{s:02d}\"\nelse:\n    duration_text = \"Live / unknown\"\n\nformats = info.get(\"formats\") or []\nheights = []\n\nfor fmt in formats:\n    if fmt.get(\"vcodec\") in (None, \"none\"):\n        continue\n\n    try:\n        height = int(fmt.get(\"height\") or 0)\n    except (TypeError, ValueError):\n        height = 0\n\n    if height > 0:\n        heights.append(height)\n\nmax_height = max(heights, default=0)\nmax_height_text = f\"{max_height}p\" if max_height else \"Unknown\"\n\nquality = [(\"Best available\", \"best\")]\n\nfor height, label in [\n    (4320, \"Up to 4320p (8K)\"),\n    (2160, \"Up to 2160p (4K)\"),\n    (1440, \"Up to 1440p\"),\n    (1080, \"Up to 1080p\"),\n    (720, \"Up to 720p\"),\n    (480, \"Up to 480p\"),\n    (360, \"Up to 360p\")\n]:\n    if max_height >= height:\n        quality.append((label, str(height)))\n\nquality_options = \",\".join(\n    f\"{option_label(label)}={value}\"\n    for label, value in quality\n)\n\nif max_height >= 1080:\n    quality_default = \"1080\"\nelif max_height >= 720:\n    quality_default = \"720\"\nelif max_height >= 480:\n    quality_default = \"480\"\nelse:\n    quality_default = \"best\"\n\nsubtitle_options = [(\"None\", \"none\")]\nmanual = info.get(\"subtitles\") or {}\nautomatic = info.get(\"automatic_captions\") or {}\n\ndef subtitle_name(code, entries):\n    if isinstance(entries, list):\n        for entry in entries:\n            if isinstance(entry, dict) and entry.get(\"name\"):\n                return clean(entry[\"name\"], code)\n    return code\n\ndef language_priority(code):\n    lowered = code.lower()\n    if lowered == \"en\":\n        return (0, lowered)\n    if lowered.startswith(\"en-\"):\n        return (1, lowered)\n    return (2, lowered)\n\nfor raw_code in sorted(manual.keys(), key=language_priority):\n    code = safe_code(raw_code)\n    if not code or code == \"live_chat\":\n        continue\n\n    label = subtitle_name(code, manual.get(raw_code))\n    subtitle_options.append(\n        (f\"{label} [{code}] - manual\", f\"manual|{code}\")\n    )\n\nauto_codes = [\n    code\n    for code in sorted(automatic.keys(), key=language_priority)\n    if code not in manual\n]\n\nfor raw_code in auto_codes[:30]:\n    code = safe_code(raw_code)\n    if not code or code == \"live_chat\":\n        continue\n\n    label = subtitle_name(code, automatic.get(raw_code))\n    subtitle_options.append(\n        (f\"{label} [{code}] - auto\", f\"auto|{code}\")\n    )\n\nsubtitle_options_value = \",\".join(\n    f\"{option_label(label)}={value}\"\n    for label, value in subtitle_options\n)\n\nif duration >= 2:\n    duration_seconds = max(2, int(math.ceil(duration)))\n    clip_options = \"Full media=full,Choose a clip=clip\"\n    trim_start_range = f\"0,0,{duration_seconds}\"\n    trim_end_range = f\"0,{duration_seconds},{duration_seconds}\"\nelse:\n    clip_options = \"Full media=full\"\n    trim_start_range = \"0,0,1\"\n    trim_end_range = \"0,1,1\"\n\nexport(\"MEDIA_TITLE\", title)\nexport(\"MEDIA_UPLOADER\", uploader)\nexport(\"MEDIA_SOURCE\", source)\nexport(\"MEDIA_DURATION_TEXT\", duration_text)\nexport(\"MEDIA_MAX_HEIGHT_TEXT\", max_height_text)\nexport(\"QUALITY_OPTIONS\", quality_options)\nexport(\"QUALITY_DEFAULT\", quality_default)\nexport(\"SUBTITLE_OPTIONS\", subtitle_options_value)\nexport(\"CLIP_OPTIONS\", clip_options)\nexport(\"TRIM_START_RANGE\", trim_start_range)\nexport(\"TRIM_END_RANGE\", trim_end_range)\nPYINFO\n)\"\n\nprintf 'Found: %s\\nUploader: %s\\nSource: %s\\nDuration: %s\\nMax video: %s\\n' \\\n  \"$MEDIA_TITLE\" \\\n  \"$MEDIA_UPLOADER\" \\\n  \"$MEDIA_SOURCE\" \\\n  \"$MEDIA_DURATION_TEXT\" \\\n  \"$MEDIA_MAX_HEIGHT_TEXT\"",
+        "id": "inspect",
         "extras": [
           {
+            "default": "false",
+            "defaultBoolean": false,
+            "description": "Use AutoPie's browser cookie jar for inspection and download.",
             "id": "use_cookie_jar",
             "name": "USE_COOKIE_JAR",
-            "type": "FLAG",
-            "default": "true",
-            "defaultBoolean": false,
-            "description": "Use AutoPie's browser cookie jar for inspection and download."
+            "type": "FLAG"
           }
         ]
       },
       {
-        "id": "download",
         "path": "Download",
-        "flags": ["--show-loading-screen"],
         "command": "set -euo pipefail\n\nmkdir -p \"$OUTPUT_FOLDER\"\n\nCOMMON_ARGS=(\n  --ignore-config\n  --no-playlist\n  --no-overwrites\n  --newline\n  --no-simulate\n  -o \"$OUTPUT_FOLDER/%(title).180B [%(id)s].%(ext)s\"\n)\n\nFORMAT_ARGS=()\n\nif [[ \"$DOWNLOAD_TYPE\" == \"video\" ]]; then\n  if [[ \"$QUALITY\" == \"best\" ]]; then\n    case \"$VIDEO_CONTAINER\" in\n      mp4)\n        FORMAT_SELECTOR='bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best'\n        ;;\n      webm)\n        FORMAT_SELECTOR='bestvideo[ext=webm]+bestaudio[ext=webm]/bestvideo+bestaudio/best'\n        ;;\n      mkv)\n        FORMAT_SELECTOR='bestvideo+bestaudio/best'\n        ;;\n      *)\n        echo \"Unsupported video container: $VIDEO_CONTAINER\"\n        exit 1\n        ;;\n    esac\n  else\n    case \"$VIDEO_CONTAINER\" in\n      mp4)\n        FORMAT_SELECTOR=\"bestvideo[ext=mp4][height<=$QUALITY]+bestaudio[ext=m4a]/bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]\"\n        ;;\n      webm)\n        FORMAT_SELECTOR=\"bestvideo[ext=webm][height<=$QUALITY]+bestaudio[ext=webm]/bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]\"\n        ;;\n      mkv)\n        FORMAT_SELECTOR=\"bestvideo[height<=$QUALITY]+bestaudio/best[height<=$QUALITY]\"\n        ;;\n      *)\n        echo \"Unsupported video container: $VIDEO_CONTAINER\"\n        exit 1\n        ;;\n    esac\n  fi\n\n  FORMAT_ARGS=(\n    -f \"$FORMAT_SELECTOR\"\n    --merge-output-format \"$VIDEO_CONTAINER\"\n  )\nelse\n  FORMAT_ARGS=(\n    -f \"bestaudio/best\"\n    -x\n    --audio-format \"$AUDIO_FORMAT\"\n  )\n\n  if [[ \"$AUDIO_FORMAT\" != \"flac\" ]]; then\n    FORMAT_ARGS+=(--audio-quality \"$AUDIO_QUALITY\")\n  fi\nfi\n\nSUBTITLE_ARGS=()\n\nif [[ \"$DOWNLOAD_TYPE\" == \"video\" && \"$SUBTITLE_CHOICE\" != \"none\" ]]; then\n  SUB_KIND=\"${SUBTITLE_CHOICE%%|*}\"\n  SUB_LANG=\"${SUBTITLE_CHOICE#*|}\"\n\n  if [[ \"$SUB_KIND\" == \"manual\" ]]; then\n    SUBTITLE_ARGS=(\n      --write-subs\n      --sub-langs \"$SUB_LANG\"\n      --sub-format \"srt/best\"\n      --embed-subs\n    )\n  elif [[ \"$SUB_KIND\" == \"auto\" ]]; then\n    SUBTITLE_ARGS=(\n      --write-auto-subs\n      --sub-langs \"$SUB_LANG\"\n      --sub-format \"srt/best\"\n      --embed-subs\n    )\n  fi\nfi\n\nCLIP_ARGS=()\n\nif [[ \"$CLIP_MODE\" == \"clip\" ]]; then\n  if (( CLIP_END <= CLIP_START )); then\n    echo \"Clip End must be greater than Clip Start.\"\n    exit 1\n  fi\n\n  CLIP_ARGS=(\n    --download-sections \"*${CLIP_START}-${CLIP_END}\"\n  )\nfi\n\nPOST_ARGS=()\n\nif [[ -n \"$EMBED_METADATA\" ]]; then\n  POST_ARGS+=(\"$EMBED_METADATA\")\nfi\n\nif [[ -n \"$EMBED_THUMBNAIL\" ]]; then\n  POST_ARGS+=(\"$EMBED_THUMBNAIL\")\nfi\n\nif [[ -n \"$EMBED_CHAPTERS\" ]]; then\n  POST_ARGS+=(\"$EMBED_CHAPTERS\")\nfi\n\nif [[ -n \"$REMOVE_SPONSORS\" ]]; then\n  POST_ARGS+=(--sponsorblock-remove \"$REMOVE_SPONSORS\")\nfi\n\nPATH_FILE=\"$WORK_ROOT/final-path.txt\"\nrm -f -- \"$PATH_FILE\"\n\nyt-dlp \\\n  \"${COMMON_ARGS[@]}\" \\\n  \"${COOKIE_ARGS[@]}\" \\\n  \"${FORMAT_ARGS[@]}\" \\\n  \"${SUBTITLE_ARGS[@]}\" \\\n  \"${CLIP_ARGS[@]}\" \\\n  \"${POST_ARGS[@]}\" \\\n  --print-to-file \"after_move:filepath\" \"$PATH_FILE\" \\\n  \"$SOURCE_URL\"\n\n[[ -s \"$PATH_FILE\" ]] || {\n  echo \"Download completed but the output path could not be determined.\"\n  exit 1\n}\n\nDOWNLOADED_FILE=\"$(tail -n 1 \"$PATH_FILE\")\"\n\n[[ -f \"$DOWNLOADED_FILE\" ]] || {\n  echo \"Downloaded file not found: $DOWNLOADED_FILE\"\n  exit 1\n}\n\nexport OUTPUT=\"$DOWNLOADED_FILE\"\n\nprintf 'Downloaded successfully\\nTitle: %s\\nUploader: %s\\nSaved: %s\\n' \\\n  \"$MEDIA_TITLE\" \\\n  \"$MEDIA_UPLOADER\" \\\n  \"$OUTPUT\"\n\nrm -rf -- \"$WORK_ROOT\"",
+        "id": "download",
         "extras": [
           {
+            "default": "Download",
+            "description": "Folder where the downloaded media will be saved.",
             "id": "output_folder",
             "name": "OUTPUT_FOLDER",
-            "type": "STRING",
-            "default": "Download/AutoPie",
-            "description": "Folder where the downloaded media will be saved.",
-            "flags": ["--internal-config", "--folder-picker"]
+            "flags": [
+              "--internal-config",
+              "--folder-picker"
+            ],
+            "type": "STRING"
           },
           {
+            "default": "video",
+            "description": "Download as video or extract audio only.",
             "id": "download_type",
             "name": "DOWNLOAD_TYPE",
             "type": "SELECTABLE",
-            "default": "video",
-            "description": "Download as video or extract audio only.",
             "selectableOptions": {
               "Video": "video",
               "Audio only": "audio"
             }
           },
           {
+            "default": "$$QUALITY_DEFAULT",
+            "description": "Resolution choices are generated from the inspected media.",
             "id": "quality",
             "name": "QUALITY",
             "type": "SELECTABLE",
-            "default": "$$QUALITY_DEFAULT",
-            "description": "Resolution choices are generated from the inspected media.",
-            "selectableOptions": {
-              "Available resolutions": "$$QUALITY_OPTIONS"
-            },
             "visibleWhen": {
               "extraId": "download_type",
               "equals": "video"
+            },
+            "selectableOptions": {
+              "Available resolutions": "$$QUALITY_OPTIONS"
             }
           },
           {
+            "default": "mp4",
+            "description": "MP4 gives the widest compatibility. MKV accepts almost any source streams.",
             "id": "video_container",
             "name": "VIDEO_CONTAINER",
             "type": "SELECTABLE",
-            "default": "mp4",
-            "description": "MP4 gives the widest compatibility. MKV accepts almost any source streams.",
+            "visibleWhen": {
+              "extraId": "download_type",
+              "equals": "video"
+            },
             "selectableOptions": {
               "MP4": "mp4",
               "MKV": "mkv",
               "WebM": "webm"
-            },
-            "visibleWhen": {
-              "extraId": "download_type",
-              "equals": "video"
             }
           },
           {
+            "default": "mp3",
+            "description": "Output format for audio-only downloads.",
             "id": "audio_format",
             "name": "AUDIO_FORMAT",
             "type": "SELECTABLE",
-            "default": "mp3",
-            "description": "Output format for audio-only downloads.",
+            "visibleWhen": {
+              "extraId": "download_type",
+              "equals": "audio"
+            },
             "selectableOptions": {
               "MP3": "mp3",
               "M4A / AAC": "m4a",
               "Opus": "opus",
               "FLAC": "flac"
-            },
-            "visibleWhen": {
-              "extraId": "download_type",
-              "equals": "audio"
             }
           },
           {
+            "default": "192K",
+            "description": "Target bitrate for lossy audio formats.",
             "id": "audio_quality",
             "name": "AUDIO_QUALITY",
             "type": "SELECTABLE",
-            "default": "192K",
-            "description": "Target bitrate for lossy audio formats.",
-            "selectableOptions": {
-              "128 kbps": "128K",
-              "192 kbps": "192K",
-              "320 kbps": "320K"
-            },
             "visibleWhen": {
               "all": [
                 {
@@ -852,103 +1253,120 @@
                   "notEquals": "flac"
                 }
               ]
+            },
+            "selectableOptions": {
+              "128 kbps": "128K",
+              "192 kbps": "192K",
+              "320 kbps": "320K"
             }
           },
           {
+            "default": "none",
+            "description": "Manual and automatic subtitle languages are discovered from the URL.",
             "id": "subtitle_choice",
             "name": "SUBTITLE_CHOICE",
             "type": "SELECTABLE",
-            "default": "none",
-            "description": "Manual and automatic subtitle languages are discovered from the URL.",
-            "selectableOptions": {
-              "Available subtitles": "$$SUBTITLE_OPTIONS"
-            },
             "visibleWhen": {
               "extraId": "download_type",
               "equals": "video"
+            },
+            "selectableOptions": {
+              "Available subtitles": "$$SUBTITLE_OPTIONS"
             }
           },
           {
+            "default": "full",
+            "description": "Download the full media or only a selected section.",
             "id": "clip_mode",
             "name": "CLIP_MODE",
             "type": "SELECTABLE",
-            "default": "full",
-            "description": "Download the full media or only a selected section.",
             "selectableOptions": {
               "Available clip modes": "$$CLIP_OPTIONS"
             }
           },
           {
-            "id": "clip_start",
-            "name": "CLIP_START",
-            "type": "SLIDER",
             "default": "$$TRIM_START_RANGE",
             "description": "Clip start position in seconds.",
-            "flags": ["--int", "--large"],
+            "id": "clip_start",
+            "name": "CLIP_START",
+            "flags": [
+              "--int",
+              "--large"
+            ],
+            "type": "SLIDER",
             "visibleWhen": {
               "extraId": "clip_mode",
               "equals": "clip"
             }
           },
           {
-            "id": "clip_end",
-            "name": "CLIP_END",
-            "type": "SLIDER",
             "default": "$$TRIM_END_RANGE",
             "description": "Clip end position in seconds.",
-            "flags": ["--int", "--large"],
+            "id": "clip_end",
+            "name": "CLIP_END",
+            "flags": [
+              "--int",
+              "--large"
+            ],
+            "type": "SLIDER",
             "visibleWhen": {
               "extraId": "clip_mode",
               "equals": "clip"
             }
           },
           {
+            "default": "--embed-metadata",
+            "description": "Embed title, uploader and other available metadata.",
             "id": "embed_metadata",
             "name": "EMBED_METADATA",
-            "type": "FLAG",
-            "default": "--embed-metadata",
-            "description": "Embed title, uploader and other available metadata."
+            "type": "FLAG"
           },
           {
+            "default": "--embed-thumbnail",
+            "description": "Embed the source thumbnail as cover art when supported.",
             "id": "embed_thumbnail",
             "name": "EMBED_THUMBNAIL",
-            "type": "FLAG",
-            "default": "--embed-thumbnail",
-            "description": "Embed the source thumbnail as cover art when supported."
+            "type": "FLAG"
           },
           {
+            "default": "--embed-chapters",
+            "description": "Preserve chapter markers when the source provides them.",
             "id": "embed_chapters",
             "name": "EMBED_CHAPTERS",
             "type": "FLAG",
-            "default": "--embed-chapters",
-            "description": "Preserve chapter markers when the source provides them.",
             "visibleWhen": {
               "extraId": "download_type",
               "equals": "video"
             }
           },
           {
+            "default": "default",
+            "description": "Remove SponsorBlock segments on supported sites.",
             "id": "remove_sponsors",
             "name": "REMOVE_SPONSORS",
-            "type": "FLAG",
-            "default": "default",
-            "description": "Remove SponsorBlock segments on supported sites."
+            "type": "FLAG"
           }
         ]
       }
-    ]
+    ],
+    "flags": [
+      "--show-loading-screen-small"
+    ],
+    "type": "SHARE"
   },
   "Virus Check (VirusTotal)": {
     "path": "",
-    "exec": "",
     "command": "#@SHELL\nset -euo pipefail\n\nif [[ ! -f \"$INPUT_FILE\" ]]; then\n    echo \"Usage: $0 <file>\"\n    exit 1\nfi\n\nHASH=$(sha256sum \"$INPUT_FILE\" | awk '{print $1}')\nURL=\"https://www.virustotal.com/gui/file/$HASH\"\n\necho \"SHA-256: $HASH\"\necho \"Opening: $URL\"\n\nam start \\\n    -a android.intent.action.VIEW \\\n    -d \"$URL\"",
-    "flags": ["--show-loading-screen"],
+    "exec": "",
+    "flags": [
+      "--show-loading-screen"
+    ],
     "id": "autopie.virus-check-virustotal"
   },
   "Watermark Video": {
     "path": "",
-    "exec": "ffmpeg",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -i \"${WATERMARK_FILE}\" -filter_complex \"overlay=$( \\\n    case $POSITION in \\\n        TOP_LEFT) echo '10:10';; \\\n        TOP_RIGHT) echo 'W-w-10:10';; \\\n        BOTTOM_LEFT) echo '10:H-h-10';; \\\n        BOTTOM_RIGHT) echo 'W-w-10:H-h-10';; \\\n        CENTER) echo '(W-w)/2:(H-h)/2';; \\\n        *) echo 'W-w-10:10';; \\\n    esac)\" -codec:a copy \"${INPUT_FILE}-watermarked-${RAND}.mp4\"",
+    "exec": "ffmpeg",
     "extras": [
       {
         "default": "",
@@ -978,8 +1396,8 @@
   },
   "wCurl Download": {
     "path": "Download",
-    "exec": "wcurl",
     "command": "wcurl \\\n  $NO_REMOTE_TIME \\\n  ${FILE_NAME_EXTRA:+-o \"$FILE_NAME_EXTRA\"} \\\n  \"$INPUT_URL\"",
+    "exec": "wcurl",
     "extras": [
       {
         "default": "--curl-options=--no-remote-time",
@@ -987,7 +1405,6 @@
         "description": "Use the download time instead of the server-provided modification time.",
         "id": "no_remote_time",
         "name": "NO_REMOTE_TIME",
-        "required": false,
         "type": "FLAG"
       },
       {
@@ -1003,8 +1420,8 @@
   },
   "YT-DLP Download": {
     "path": "Download",
-    "exec": "yt-dlp",
     "command": "yt-dlp \\\n  -o \"%(title).200B-${RAND}.%(ext)s\" \\\n  --no-mtime \\\n  -f \"bestvideo[height<=${MAX_QUALITY}]+bestaudio/best[height<=${MAX_QUALITY}]/best\" \\\n  ${COOKIE_JAR:+--cookies \"$COOKIE_JAR\"} \\\n  ${START_TIME:+--download-sections \"*${START_TIME}-${END_TIME:-inf}\"} \\\n  \"$INPUT_URL\"",
+    "exec": "yt-dlp",
     "extras": [
       {
         "default": "1920",
@@ -1043,8 +1460,8 @@
   },
   "YT-DLP: Download as Audio": {
     "path": "Download",
-    "exec": "yt-dlp",
     "command": "yt-dlp --no-mtime -x --audio-format ${FORMAT} \"${INPUT_URL}\"",
+    "exec": "yt-dlp",
     "extras": [
       {
         "default": "mp3",
@@ -1068,20 +1485,8 @@
   },
   "YT-DLP Get Direct URL": {
     "path": "",
-    "exec": "yt-dlp",
     "command": "#@OPEN_LOGS\nyt-dlp -g \"${INPUT_URL}\"",
-    "id": "autopie.yt-dlp-get-direct-url"
-  },
-  "Community ImageTools Applet for AutoPie": {
-    "path": "",
-    "exec": "magick",
-    "command": "magick ${input.url}",
-    "id": "community.image-tools"
-  },
-  "Community Video Downloader Applet for AutoPie": {
-    "path": "",
     "exec": "yt-dlp",
-    "command": "yt-dlp ${input.url}",
-    "id": "community.video-downloader"
+    "id": "autopie.yt-dlp-get-direct-url"
   }
 }
