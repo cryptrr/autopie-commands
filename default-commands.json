@@ -528,6 +528,41 @@
     "exec": "gallery-dl",
     "id": "autopie.gallerydl-download"
   },
+  "GitHub Repo Monitor": {
+    "path": "",
+    "command": "#@PYTHON\nimport os\nimport json\nimport urllib.request\nimport urllib.parse\nfrom datetime import datetime\n\nrepo = os.environ.get(\"REPO\", \"cryptrr/AutoPie\").strip()\ntoken = os.environ.get(\"GITHUB_TOKEN\", \"\").strip()\n\nheaders = {\n    \"Accept\": \"application/vnd.github+json\",\n    \"X-GitHub-Api-Version\": \"2022-11-28\",\n    \"User-Agent\": \"AutoPie-GitHub-Monitor\"\n}\n\nif token:\n    headers[\"Authorization\"] = f\"Bearer {token}\"\n\n\ndef get_json(url):\n    req = urllib.request.Request(url, headers=headers)\n    with urllib.request.urlopen(req, timeout=15) as response:\n        return json.load(response)\n\n\nrepo_data = get_json(f\"https://api.github.com/repos/{repo}\")\n\nissue_query = urllib.parse.quote(f\"repo:{repo} is:issue is:open\")\npr_query = urllib.parse.quote(f\"repo:{repo} is:pr is:open\")\n\nissue_data = get_json(\n    f\"https://api.github.com/search/issues?q={issue_query}&per_page=1\"\n)\n\npr_data = get_json(\n    f\"https://api.github.com/search/issues?q={pr_query}&per_page=1\"\n)\n\nruns_data = get_json(\n    f\"https://api.github.com/repos/{repo}/actions/runs?per_page=1\"\n)\n\nruns = runs_data.get(\"workflow_runs\", [])\n\nif runs:\n    run = runs[0]\n    ci = {\n        \"name\": run.get(\"name\"),\n        \"status\": run.get(\"status\"),\n        \"conclusion\": run.get(\"conclusion\"),\n        \"branch\": run.get(\"head_branch\"),\n        \"event\": run.get(\"event\")\n    }\nelse:\n    ci = None\n\nresult = {\n    \"repo\": repo,\n    \"stars\": repo_data.get(\"stargazers_count\", 0),\n    \"forks\": repo_data.get(\"forks_count\", 0),\n    \"open_issues\": issue_data.get(\"total_count\", 0),\n    \"open_prs\": pr_data.get(\"total_count\", 0),\n    \"checked\": datetime.now().strftime(\"%H:%M:%S\"),\n    \"ci\": ci\n}\n\noutput = json.dumps(result, separators=(\",\", \":\"))\n\nprint(f'#@AUTOPIE {{\"type\":\"output\",\"value\":{output}}}')\n\nos.environ[\"OUTPUT\"] = output",
+    "exec": "",
+    "type": "CRON",
+    "cronInterval": "15m",
+    "extras": [
+      {
+        "default": "cryptrr/AutoPie",
+        "defaultBoolean": true,
+        "description": "GitHub repository in owner/repo format",
+        "id": "repo",
+        "name": "REPO",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "",
+        "defaultBoolean": true,
+        "description": "Optional GitHub token for higher API limits and private repositories",
+        "id": "github_token",
+        "name": "GITHUB_TOKEN",
+        "required": true,
+        "flags": [
+          "--password",
+          "--internal-config"
+        ],
+        "type": "STRING"
+      }
+    ],
+    "id": "autopie.github-repo-monitor"
+  },
   "Open in Video Player": {
     "path": "",
     "command": "url=$(yt-dlp --no-warnings -q -g -f \"${FORMAT}\" \"${INPUT_URL}\")\nam start \\\n    -a android.intent.action.SEND \\\n    -t text/plain \\\n    --es android.intent.extra.TEXT $url",
@@ -1008,6 +1043,7 @@
     "flags": [
       "--show-loading-screen-small"
     ],
+    "type": "SHARE",
     "extras": [
       {
         "default": "300",

@@ -272,6 +272,19 @@
       ],
       "version": "1.0.0"
     },
+    "autopie.github-repo-monitor": {
+      "name": "GitHub Repo Monitor",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "A 15-minute GitHub repository monitor cron designed for display as an Android widget.",
+      "tags": [
+        "python",
+        "github",
+        "cron",
+        "widget"
+      ],
+      "version": "1.0.0"
+    },
     "autopie.open-in-video-player": {
       "name": "Open in Video Player",
       "namespace": "autopie",
@@ -479,6 +492,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-09-10T05:44:37Z",
+  "generatedAt": "2026-09-13T23:11:27Z",
   "schemaVersion": "2026.6.1"
 }

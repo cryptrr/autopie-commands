@@ -76,6 +76,10 @@ def convert_runtime_block(block: dict[str, Any], fallback_exec: str | None) -> d
     if "flags" in block:
         converted["flags"] = block["flags"]
 
+    for key in ("type", "cronInterval"):
+        if key in block:
+            converted[key] = block[key]
+
     extras = block.get("extras")
     if extras:
         converted["extras"] = [convert_extra(extra) for extra in extras]

@@ -77,11 +77,15 @@ def command_block_markdown(
     lines = [
         f"- Path: `{path or 'default'}`",
         f"- Command slug: `{command_slug}`",
-        "",
-        "```sh",
-        command_text(block),
-        "```",
     ]
+
+    if block.get("type"):
+        lines.append(f"- Type: `{block['type']}`")
+
+    if block.get("cronInterval"):
+        lines.append(f"- Cron interval: `{block['cronInterval']}`")
+
+    lines.extend(["", "```sh", command_text(block), "```"])
 
     if block.get("flags"):
         lines.extend(["", f"- Flags: `{', '.join(block['flags'])}`"])

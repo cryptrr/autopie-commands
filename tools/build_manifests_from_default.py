@@ -146,6 +146,10 @@ def emit_runtime_block(
     if "flags" in block:
         lines.append(f"{prefix}flags: {json_scalar(block['flags'])}")
 
+    for key in ("type", "cronInterval"):
+        if key in block:
+            lines.append(f"{prefix}{key}: {json_scalar(block[key])}")
+
     emit_extras(lines, indent, block.get("extras", []))
 
 
