@@ -101,6 +101,19 @@
       ],
       "version": "1.0.0"
     },
+    "autopie.compress-7zip": {
+      "name": "Compress with 7-Zip",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Compress files or a folder into a configurable 7z or ZIP archive.",
+      "tags": [
+        "7zip",
+        "compression",
+        "archive",
+        "share"
+      ],
+      "version": "1.0.0"
+    },
     "autopie.compress-zip-high-folder": {
       "name": "Compress ZIP (High) : Folder",
       "namespace": "autopie",
@@ -435,7 +448,7 @@
       "name": "SSH Login Monitor",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "Designed to send notifications when SSH logins or failures are detected.",
+      "summary": "Sends notifications when SSH logins or failures are detected.",
       "tags": [
         "python",
         "openssh",
@@ -506,6 +519,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-09-13T23:38:35Z",
+  "generatedAt": "2026-09-13T23:54:32Z",
   "schemaVersion": "2026.6.1"
 }

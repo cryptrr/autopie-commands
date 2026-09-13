@@ -10,7 +10,7 @@ from manifest_io import find_manifest_files, load_manifest
 
 COMMANDS_DIR = Path("commands")
 OUTPUT_FILE = Path("default-commands.json")
-SELECTABLE_TYPES = {"SELECTABLE", "MULTI_SELECTABLE"}
+SELECTABLE_TYPES = {"SELECTABLE", "SELECTABLE_FLAT", "MULTI_SELECTABLE"}
 
 
 def parse_default_boolean(value: Any) -> bool:

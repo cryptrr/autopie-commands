@@ -14,7 +14,7 @@ SCHEMA_VERSION = "2026.6.1"
 VERSION = "1.0.0"
 INSTALLER_VERSION = 1
 MAINTAINERS = ["cryptrr"]
-SELECTABLE_TYPES = {"SELECTABLE", "MULTI_SELECTABLE"}
+SELECTABLE_TYPES = {"SELECTABLE", "SELECTABLE_FLAT", "MULTI_SELECTABLE"}
 
 EXISTING_TARGETS = {
     "Extract Audio from File": "extract-audio",
@@ -23,7 +23,7 @@ EXISTING_TARGETS = {
 }
 
 PACKAGE_MAP = {
-    "7z": ["p7zip"],
+    "7z": ["7zip"],
     "am": ["yt-dlp"],
     "exiftool": ["exiftool"],
     "ffmpeg": ["ffmpeg"],

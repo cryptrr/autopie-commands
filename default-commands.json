@@ -237,6 +237,133 @@
     ],
     "id": "autopie.combine-images-vertically"
   },
+  "Compress with 7-Zip": {
+    "id": "autopie.compress-7zip",
+    "multiStage": true,
+    "steps": [
+      {
+        "path": "",
+        "command": "set -e\n\nif [[ -d \"$INPUT\" ]]; then\n  IS_FOLDER=true\n  SOURCE_COUNT=1\n  SOURCE_PARENT=\"$(dirname \"$INPUT\")\"\n  BASE_NAME=\"$(basename \"$INPUT\")\"\nelse\n  IS_FOLDER=false\n  SOURCE_COUNT=\"${#INPUT_FILES_ARR[@]}\"\n\n  if [[ \"$SOURCE_COUNT\" -eq 0 ]]; then\n    echo \"No files or folder provided\"\n    exit 1\n  fi\n\n  SOURCE_PARENT=\"$(dirname \"${INPUT_FILES_ARR[0]}\")\"\n  BASE_NAME=\"$FILENAME_NO_EXT\"\nfi\n\nexport IS_FOLDER\nexport SOURCE_COUNT\nexport SOURCE_PARENT\nexport ARCHIVE_BASENAME=\"$BASE_NAME\"\n\necho \"Ready to compress $SOURCE_COUNT item(s)\"\n\nif [[ \"$IS_FOLDER\" == \"true\" ]]; then\n  echo \" • $INPUT\"\nelse\n  printf ' • %s\\n' \"${INPUT_FILES_ARR[@]}\"\nfi",
+        "id": "prepare"
+      },
+      {
+        "path": "",
+        "command": "set -e\n\ncase \"$FORMAT\" in\n  7z)\n    EXT=\"7z\"\n    ;;\n  zip)\n    EXT=\"zip\"\n    ;;\n  *)\n    echo \"Unsupported archive format: $FORMAT\"\n    exit 1\n    ;;\nesac\n\nOUTPUT_DIR=\"${OUTPUT_FOLDER:-$SOURCE_PARENT}\"\nmkdir -p \"$OUTPUT_DIR\"\n\nFINAL_NAME=\"$ARCHIVE_NAME\"\n\ncase \"$FINAL_NAME\" in\n  *.$EXT) ;;\n  *) FINAL_NAME=\"$FINAL_NAME.$EXT\" ;;\nesac\n\nARCHIVE_PATH=\"$OUTPUT_DIR/$FINAL_NAME\"\n\nif [[ -e \"$ARCHIVE_PATH\" ]]; then\n  ARCHIVE_PATH=\"$OUTPUT_DIR/${FINAL_NAME%.$EXT}-${RAND}.$EXT\"\nfi\n\nARGS=(a -t\"$FORMAT\" -mx=\"$LEVEL\" -y)\n\nif [[ \"$ENABLE_ENCRYPTION\" == \"true\" ]]; then\n  if [[ -z \"$PASSWORD\" ]]; then\n    echo \"Encryption enabled but no password provided\"\n    exit 1\n  fi\n\n  ARGS+=(\"-p$PASSWORD\")\n\n  if [[ \"$FORMAT\" == \"7z\" && \"$ENCRYPT_FILENAMES\" == \"true\" ]]; then\n    ARGS+=(-mhe=on)\n  fi\nfi\n\nif [[ -n \"$SPLIT_SIZE\" ]]; then\n  ARGS+=(\"-v$SPLIT_SIZE\")\nfi\n\necho \"Compressing $SOURCE_COUNT item(s)...\"\necho \"Output: $ARCHIVE_PATH\"\n\nif [[ \"$IS_FOLDER\" == \"true\" ]]; then\n  7z \"${ARGS[@]}\" \"$ARCHIVE_PATH\" \"$INPUT\"\nelse\n  7z \"${ARGS[@]}\" \"$ARCHIVE_PATH\" \"${INPUT_FILES_ARR[@]}\"\nfi\n\nexport OUTPUT=\"$ARCHIVE_PATH\"\n\necho\necho \"Created: $ARCHIVE_PATH\"\nprintf '#@AUTOPIE {\"type\":\"output\",\"value\":\"%s\"}\\n' \"$ARCHIVE_PATH\"",
+        "id": "compress",
+        "extras": [
+          {
+            "default": "7z",
+            "description": "Archive format",
+            "id": "format",
+            "name": "FORMAT",
+            "type": "SELECTABLE_FLAT",
+            "selectableOptions": {
+              "7z — Best compression": "7z",
+              "ZIP — Maximum compatibility": "zip"
+            }
+          },
+          {
+            "default": "5",
+            "description": "Compression level",
+            "id": "level",
+            "name": "LEVEL",
+            "type": "SELECTABLE",
+            "selectableOptions": {
+              "Store — No compression": "0",
+              "Fastest": "1",
+              "Fast": "3",
+              "Normal": "5",
+              "Maximum": "7",
+              "Ultra": "9"
+            }
+          },
+          {
+            "default": "$$ARCHIVE_BASENAME",
+            "description": "Archive filename. Extension is added automatically.",
+            "id": "archive_name",
+            "name": "ARCHIVE_NAME",
+            "required": true,
+            "flags": [
+              "--large"
+            ],
+            "type": "STRING"
+          },
+          {
+            "defaultBoolean": false,
+            "description": "Password protect the archive",
+            "id": "enable_encryption",
+            "name": "ENABLE_ENCRYPTION",
+            "type": "BOOLEAN"
+          },
+          {
+            "default": "",
+            "description": "Archive password",
+            "id": "password",
+            "name": "PASSWORD",
+            "required": true,
+            "flags": [
+              "--password"
+            ],
+            "type": "STRING",
+            "visibleWhen": {
+              "extraId": "enable_encryption",
+              "equals": true
+            }
+          },
+          {
+            "defaultBoolean": true,
+            "description": "Encrypt filenames inside the archive",
+            "id": "encrypt_filenames",
+            "name": "ENCRYPT_FILENAMES",
+            "type": "BOOLEAN",
+            "visibleWhen": {
+              "all": [
+                {
+                  "extraId": "enable_encryption",
+                  "equals": true
+                },
+                {
+                  "extraId": "format",
+                  "equals": "7z"
+                }
+              ]
+            }
+          },
+          {
+            "default": "",
+            "description": "Optionally split the archive into volumes",
+            "id": "split_size",
+            "name": "SPLIT_SIZE",
+            "type": "SELECTABLE",
+            "selectableOptions": {
+              "No splitting": "",
+              "10 MB": "10m",
+              "50 MB": "50m",
+              "100 MB": "100m",
+              "500 MB": "500m",
+              "1 GB": "1g",
+              "2 GB": "2g",
+              "4 GB": "4g"
+            }
+          },
+          {
+            "default": "",
+            "description": "Leave empty to save next to the selected file/folder.",
+            "id": "output_folder",
+            "name": "OUTPUT_FOLDER",
+            "flags": [
+              "--folder-picker"
+            ],
+            "type": "STRING"
+          }
+        ]
+      }
+    ],
+    "flags": [
+      "--show-loading-screen-small"
+    ],
+    "type": "SHARE"
+  },
   "Compress ZIP (High) : Folder": {
     "path": "",
     "command": "7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILE}/* -mfb=258 -mpass=15",
@@ -1101,7 +1228,7 @@
         "name": "HOST",
         "required": true,
         "flags": [],
-        "type": "SELECTABLE",
+        "type": "SELECTABLE_FLAT",
         "selectableOptions": {
           "server.local": "server.local",
           "workstation.lan": "workstation.lan"

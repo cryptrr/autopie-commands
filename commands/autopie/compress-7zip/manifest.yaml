@@ -1,0 +1,212 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.compress-7zip"
+namespace: "autopie"
+name: "Compress with 7-Zip"
+commandSlug: "7z"
+summary: "Compress files or a folder into a configurable 7z or ZIP archive."
+type: "PACKAGE"
+tags: ["7zip", "compression", "archive", "share"]
+runtime:
+  multiStage: true
+  type: "SHARE"
+  flags: ["--show-loading-screen-small"]
+  steps:
+    - id: "prepare"
+      path: ""
+      command: |-
+        set -e
+
+        if [[ -d "$INPUT" ]]; then
+          IS_FOLDER=true
+          SOURCE_COUNT=1
+          SOURCE_PARENT="$(dirname "$INPUT")"
+          BASE_NAME="$(basename "$INPUT")"
+        else
+          IS_FOLDER=false
+          SOURCE_COUNT="${#INPUT_FILES_ARR[@]}"
+
+          if [[ "$SOURCE_COUNT" -eq 0 ]]; then
+            echo "No files or folder provided"
+            exit 1
+          fi
+
+          SOURCE_PARENT="$(dirname "${INPUT_FILES_ARR[0]}")"
+          BASE_NAME="$FILENAME_NO_EXT"
+        fi
+
+        export IS_FOLDER
+        export SOURCE_COUNT
+        export SOURCE_PARENT
+        export ARCHIVE_BASENAME="$BASE_NAME"
+
+        echo "Ready to compress $SOURCE_COUNT item(s)"
+
+        if [[ "$IS_FOLDER" == "true" ]]; then
+          echo " • $INPUT"
+        else
+          printf ' • %s\n' "${INPUT_FILES_ARR[@]}"
+        fi
+    - id: "compress"
+      path: ""
+      command: |-
+        set -e
+
+        case "$FORMAT" in
+          7z)
+            EXT="7z"
+            ;;
+          zip)
+            EXT="zip"
+            ;;
+          *)
+            echo "Unsupported archive format: $FORMAT"
+            exit 1
+            ;;
+        esac
+
+        OUTPUT_DIR="${OUTPUT_FOLDER:-$SOURCE_PARENT}"
+        mkdir -p "$OUTPUT_DIR"
+
+        FINAL_NAME="$ARCHIVE_NAME"
+
+        case "$FINAL_NAME" in
+          *.$EXT) ;;
+          *) FINAL_NAME="$FINAL_NAME.$EXT" ;;
+        esac
+
+        ARCHIVE_PATH="$OUTPUT_DIR/$FINAL_NAME"
+
+        if [[ -e "$ARCHIVE_PATH" ]]; then
+          ARCHIVE_PATH="$OUTPUT_DIR/${FINAL_NAME%.$EXT}-${RAND}.$EXT"
+        fi
+
+        ARGS=(a -t"$FORMAT" -mx="$LEVEL" -y)
+
+        if [[ "$ENABLE_ENCRYPTION" == "true" ]]; then
+          if [[ -z "$PASSWORD" ]]; then
+            echo "Encryption enabled but no password provided"
+            exit 1
+          fi
+
+          ARGS+=("-p$PASSWORD")
+
+          if [[ "$FORMAT" == "7z" && "$ENCRYPT_FILENAMES" == "true" ]]; then
+            ARGS+=(-mhe=on)
+          fi
+        fi
+
+        if [[ -n "$SPLIT_SIZE" ]]; then
+          ARGS+=("-v$SPLIT_SIZE")
+        fi
+
+        echo "Compressing $SOURCE_COUNT item(s)..."
+        echo "Output: $ARCHIVE_PATH"
+
+        if [[ "$IS_FOLDER" == "true" ]]; then
+          7z "${ARGS[@]}" "$ARCHIVE_PATH" "$INPUT"
+        else
+          7z "${ARGS[@]}" "$ARCHIVE_PATH" "${INPUT_FILES_ARR[@]}"
+        fi
+
+        export OUTPUT="$ARCHIVE_PATH"
+
+        echo
+        echo "Created: $ARCHIVE_PATH"
+        printf '#@AUTOPIE {"type":"output","value":"%s"}\n' "$ARCHIVE_PATH"
+      extras:
+        - id: "format"
+          name: "FORMAT"
+          type: "SELECTABLE_FLAT"
+          default: "7z"
+          description: "Archive format"
+          selectableOptions:
+            {
+              "7z — Best compression": "7z",
+              "ZIP — Maximum compatibility": "zip",
+            }
+        - id: "level"
+          name: "LEVEL"
+          type: "SELECTABLE"
+          default: "5"
+          description: "Compression level"
+          selectableOptions:
+            {
+              "Store — No compression": "0",
+              "Fastest": "1",
+              "Fast": "3",
+              "Normal": "5",
+              "Maximum": "7",
+              "Ultra": "9",
+            }
+        - id: "archive_name"
+          name: "ARCHIVE_NAME"
+          type: "STRING"
+          default: "$$ARCHIVE_BASENAME"
+          description: "Archive filename. Extension is added automatically."
+          required: true
+          flags: ["--large"]
+        - id: "enable_encryption"
+          name: "ENABLE_ENCRYPTION"
+          type: "BOOLEAN"
+          defaultBoolean: false
+          description: "Password protect the archive"
+        - id: "password"
+          name: "PASSWORD"
+          type: "STRING"
+          default: ""
+          description: "Archive password"
+          required: true
+          flags: ["--password"]
+          visibleWhen: { "extraId": "enable_encryption", "equals": true }
+        - id: "encrypt_filenames"
+          name: "ENCRYPT_FILENAMES"
+          type: "BOOLEAN"
+          defaultBoolean: true
+          description: "Encrypt filenames inside the archive"
+          visibleWhen:
+            {
+              "all":
+                [
+                  { "extraId": "enable_encryption", "equals": true },
+                  { "extraId": "format", "equals": "7z" },
+                ],
+            }
+        - id: "split_size"
+          name: "SPLIT_SIZE"
+          type: "SELECTABLE"
+          default: ""
+          description: "Optionally split the archive into volumes"
+          selectableOptions:
+            {
+              "No splitting": "",
+              "10 MB": "10m",
+              "50 MB": "50m",
+              "100 MB": "100m",
+              "500 MB": "500m",
+              "1 GB": "1g",
+              "2 GB": "2g",
+              "4 GB": "4g",
+            }
+        - id: "output_folder"
+          name: "OUTPUT_FOLDER"
+          type: "STRING"
+          default: ""
+          description: "Leave empty to save next to the selected file/folder."
+          flags: ["--folder-picker"]
+install:
+  primaryPackage: "7zip"
+  extraPackages: []
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]
