@@ -1390,6 +1390,101 @@
     ],
     "type": "SHARE"
   },
+  "SSH Login Monitor": {
+    "path": "",
+    "command": "#@PYTHON\nimport os\nimport json\nimport hashlib\nimport subprocess\nfrom pathlib import Path\n\nHOST = os.environ.get(\"SSH_HOST\", \"\").strip()\nUSER = os.environ.get(\"SSH_USER\", \"\").strip()\nPORT = os.environ.get(\"SSH_PORT\", \"22\").strip()\nAUTH_MODE = os.environ.get(\"SSH_AUTH_MODE\", \"key\").strip()\nPASSWORD = os.environ.get(\"SSH_PASSWORD\", \"\")\nKEY = os.path.expanduser(os.environ.get(\"SSH_KEY\", \"~/.ssh/id_ed25519\").strip())\n\nif not HOST or not USER:\n    raise SystemExit(\"SSH_HOST and SSH_USER are required\")\n\nTARGET = f\"{USER}@{HOST}\"\n\nstate_dir = Path.home() / \".cache\" / \"autopie\" / \"ssh-login-monitor\"\nstate_dir.mkdir(parents=True, exist_ok=True)\n\nserver_id = hashlib.sha256(\n    f\"{TARGET}:{PORT}\".encode()\n).hexdigest()[:16]\n\nstate_file = state_dir / f\"{server_id}.json\"\n\nremote_command = r'''printf '__AUTOPIE_CONNECTION__ %s\\n' \"$SSH_CONNECTION\"\n\njournalctl _COMM=sshd \\\n    --no-pager \\\n    -n 1000 \\\n    -o short-iso \\\n    -q 2>/dev/null |\ngrep -E 'Accepted (password|publickey|keyboard-interactive)|Failed (password|publickey|keyboard-interactive)|Invalid user|authentication failure' || true\n'''\n\nssh_args = [\n    \"ssh\",\n    \"-p\", PORT,\n    \"-o\", \"ConnectTimeout=10\",\n    \"-o\", \"ConnectionAttempts=1\",\n    \"-o\", \"ServerAliveInterval=10\",\n    \"-o\", \"ServerAliveCountMax=1\",\n    \"-o\", \"StrictHostKeyChecking=accept-new\",\n]\n\nrun_env = os.environ.copy()\n\nif AUTH_MODE == \"password\":\n    if not PASSWORD:\n        raise SystemExit(\"SSH_PASSWORD is required\")\n\n    run_env[\"SSHPASS\"] = PASSWORD\n\n    cmd = [\n        \"sshpass\", \"-e\",\n        *ssh_args,\n        \"-o\", \"PreferredAuthentications=password,keyboard-interactive\",\n        \"-o\", \"PubkeyAuthentication=no\",\n        TARGET,\n        remote_command,\n    ]\nelse:\n    cmd = [\n        *ssh_args,\n        \"-i\", KEY,\n        \"-o\", \"BatchMode=yes\",\n        \"-o\", \"PreferredAuthentications=publickey\",\n        TARGET,\n        remote_command,\n    ]\n\ntry:\n    result = subprocess.run(\n        cmd,\n        capture_output=True,\n        text=True,\n        timeout=30,\n        env=run_env,\n    )\nexcept subprocess.TimeoutExpired:\n    print(f\"SSH monitor timed out connecting to {TARGET}\")\n    raise SystemExit(1)\nexcept Exception as e:\n    print(f\"SSH monitor error: {e}\")\n    raise SystemExit(1)\n\nif result.returncode != 0:\n    print(result.stderr.strip() or \"SSH connection failed\")\n    raise SystemExit(result.returncode)\n\nraw_lines = [\n    line.strip()\n    for line in result.stdout.splitlines()\n    if line.strip()\n]\n\nconnection_line = None\njournal_lines = []\n\nfor line in raw_lines:\n    if line.startswith(\"__AUTOPIE_CONNECTION__ \"):\n        connection_line = line\n    else:\n        journal_lines.append(line)\n\nif not connection_line:\n    raise SystemExit(\"Could not determine SSH client IP\")\n\nparts = connection_line.split()\n\n# __AUTOPIE_CONNECTION__ client_ip client_port server_ip server_port\nif len(parts) < 5:\n    raise SystemExit(f\"Invalid SSH_CONNECTION: {connection_line}\")\n\nclient_ip = parts[1]\n\n# ---------------------------------------------------------\n# Ignore ALL SSH authentication events from AutoPie's IP.\n# ---------------------------------------------------------\nfiltered_lines = []\n\nfor line in journal_lines:\n    if f\"from {client_ip} \" in line:\n        continue\n\n    filtered_lines.append(line)\n\n\ndef event_hash(line):\n    return hashlib.sha256(line.encode(\"utf-8\")).hexdigest()\n\n\ncurrent_events = [\n    {\n        \"id\": event_hash(line),\n        \"line\": line,\n    }\n    for line in filtered_lines\n]\n\n# First run establishes baseline.\nif not state_file.exists():\n    initial_ids = [event[\"id\"] for event in current_events]\n\n    state_file.write_text(json.dumps({\n        \"seen\": initial_ids[-2000:]\n    }))\n\n    print(\n        f\"SSH monitor initialized for {TARGET}. \"\n        f\"Ignoring SSH events from {client_ip}.\"\n    )\n    raise SystemExit(0)\n\ntry:\n    state = json.loads(state_file.read_text())\n    seen_list = state.get(\"seen\", [])\n    seen = set(seen_list)\nexcept Exception:\n    seen_list = []\n    seen = set()\n\nnew_events = [\n    event\n    for event in current_events\n    if event[\"id\"] not in seen\n]\n\nupdated_seen = list(seen_list)\nupdated_set = set(updated_seen)\n\nfor event in current_events:\n    if event[\"id\"] not in updated_set:\n        updated_seen.append(event[\"id\"])\n        updated_set.add(event[\"id\"])\n\nupdated_seen = updated_seen[-2000:]\n\nstate_file.write_text(json.dumps({\n    \"seen\": updated_seen\n}))\n\nif not new_events:\n    print(\n        f\"No new SSH login attempts on {HOST} \"\n        f\"(ignoring {client_ip})\"\n    )\n    raise SystemExit(0)\n\nsuccessful = []\nfailed = []\n\nfor event in new_events:\n    line = event[\"line\"]\n\n    if \"Accepted \" in line:\n        successful.append(line)\n    else:\n        failed.append(line)\n\n\ndef notify(title, body):\n    print(\"#@AUTOPIE \" + json.dumps({\n        \"type\": \"notification\",\n        \"title\": title,\n        \"body\": body,\n    }))\n\n\nif successful:\n    body = \"\\n\".join(successful[-5:])\n\n    if len(successful) > 5:\n        body += f\"\\n\\n+{len(successful) - 5} more successful logins\"\n\n    notify(\n        f\"SSH Login • {HOST}\",\n        body,\n    )\n\nif failed:\n    body = \"\\n\".join(failed[-5:])\n\n    if len(failed) > 5:\n        body += f\"\\n\\n+{len(failed) - 5} more failed attempts\"\n\n    notify(\n        f\"SSH Login Failed • {HOST}\",\n        body,\n    )\n\nprint(\n    f\"{TARGET}: {len(successful)} successful, \"\n    f\"{len(failed)} failed new SSH events. \"\n    f\"Ignoring source IP {client_ip}.\"\n)",
+    "exec": "",
+    "type": "CRON",
+    "cronInterval": "15m",
+    "extras": [
+      {
+        "default": "192.168.1.132",
+        "defaultBoolean": true,
+        "description": "Server hostname or IP address",
+        "id": "ssh_host",
+        "name": "SSH_HOST",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "amal",
+        "defaultBoolean": true,
+        "description": "SSH user AutoPie uses to connect",
+        "id": "ssh_user",
+        "name": "SSH_USER",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "22",
+        "defaultBoolean": true,
+        "description": "SSH server port",
+        "id": "ssh_port",
+        "name": "SSH_PORT",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      },
+      {
+        "default": "password",
+        "defaultBoolean": true,
+        "description": "Authentication method",
+        "id": "ssh_auth_mode",
+        "name": "SSH_AUTH_MODE",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "SELECTABLE",
+        "selectableOptions": {
+          "SSH Key": "key",
+          "Password": "password"
+        }
+      },
+      {
+        "default": "~/.ssh/id_ed25519",
+        "defaultBoolean": true,
+        "description": "Private key path",
+        "id": "ssh_key",
+        "name": "SSH_KEY",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING",
+        "visibleWhen": {
+          "equals": "key",
+          "extraId": "ssh_auth_mode"
+        }
+      },
+      {
+        "default": "",
+        "defaultBoolean": true,
+        "description": "SSH password",
+        "id": "ssh_password",
+        "name": "SSH_PASSWORD",
+        "required": true,
+        "flags": [
+          "--secret",
+          "--internal-config"
+        ],
+        "type": "STRING",
+        "visibleWhen": {
+          "equals": "password",
+          "extraId": "ssh_auth_mode"
+        }
+      }
+    ],
+    "id": "autopie.ssh-login-monitor"
+  },
   "Virus Check (VirusTotal)": {
     "path": "",
     "command": "#@SHELL\nset -euo pipefail\n\nif [[ ! -f \"$INPUT_FILE\" ]]; then\n    echo \"Usage: $0 <file>\"\n    exit 1\nfi\n\nHASH=$(sha256sum \"$INPUT_FILE\" | awk '{print $1}')\nURL=\"https://www.virustotal.com/gui/file/$HASH\"\n\necho \"SHA-256: $HASH\"\necho \"Opening: $URL\"\n\nam start \\\n    -a android.intent.action.VIEW \\\n    -d \"$URL\"",
