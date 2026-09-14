@@ -10,6 +10,7 @@ summary: "Cut a video to a specified start time and optional duration using FFmp
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:
+  type: "SHARE"
   path: "Download"
   command: 'ffmpeg -i "${INPUT_FILE}" -ss ${START} ${END:+-t $END} "${INPUT_FILE}-cut-${RAND}.mp4"'
   extras:

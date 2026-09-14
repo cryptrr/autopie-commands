@@ -10,6 +10,7 @@ summary: "Transcode a video to AV1 in an MKV container using high-quality settin
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'ffmpeg -i "${INPUT_FILE}" -c:v libaom-av1 -crf 18 -b:v 0 "${INPUT_FILE}.mkv"'
 install:

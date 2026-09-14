@@ -10,6 +10,7 @@ summary: "Extract an MP3 audio track from a media URL with a custom bitrate and 
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:
+  type: "SHARE"
   path: "Mp3"
   command: 'ffmpeg -i "${INPUT_URL}" -b:a ${BITRATE} -vn "${FILE_NAME:-$FILENAME}.mp3"'
   extras:

@@ -6,6 +6,7 @@ Crop a video to a configurable portrait aspect ratio while preserving its audio.
 
 - Path: `default`
 - Command slug: `ffmpeg`
+- Type: `SHARE`
 
 ```sh
 ffmpeg -i "${INPUT_FILE}" -vf \"crop=${WIDTH}/${HEIGHT}*in_h:in_h\" -c:a copy "${INPUT_FILE}.cropped.mp4"

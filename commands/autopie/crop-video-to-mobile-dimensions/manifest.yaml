@@ -10,6 +10,7 @@ summary: "Crop a video to a configurable portrait aspect ratio while preserving 
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:
+  type: "SHARE"
   path: ""
   command: "ffmpeg -i \"${INPUT_FILE}\" -vf \\\"crop=${WIDTH}/${HEIGHT}*in_h:in_h\\\" -c:a copy \"${INPUT_FILE}.cropped.mp4\""
   extras:

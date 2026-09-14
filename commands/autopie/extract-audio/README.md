@@ -6,6 +6,7 @@ Extract audio from a media file in a selected format and bitrate.
 
 - Path: `default`
 - Command slug: `ffmpeg`
+- Type: `SHARE`
 
 ```sh
 ffmpeg -i "${INPUT_FILE}" -b:a ${BITRATE} -vn "${INPUT_FILE}.$FORMAT"

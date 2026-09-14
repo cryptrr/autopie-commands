@@ -6,6 +6,7 @@ Overlay a watermark image at a selected corner of a video.
 
 - Path: `default`
 - Command slug: `ffmpeg`
+- Type: `SHARE`
 
 ```sh
 ffmpeg -i "${INPUT_FILE}" -i "${WATERMARK_FILE}" -filter_complex "overlay=$( \

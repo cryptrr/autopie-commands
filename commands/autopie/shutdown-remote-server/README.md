@@ -6,6 +6,7 @@ Shut down a remote server using SSH password or private-key authentication.
 
 - Path: `default`
 - Command slug: `openssh`
+- Type: `SHARE`
 
 ```sh
 set -euo pipefail

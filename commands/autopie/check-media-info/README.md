@@ -6,6 +6,7 @@ Display detailed format, codec, stream, and metadata information for a media fil
 
 - Path: `default`
 - Command slug: ``
+- Type: `SHARE`
 
 ```sh
 #@OPEN_LOGS

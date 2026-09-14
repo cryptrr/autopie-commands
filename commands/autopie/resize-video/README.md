@@ -6,6 +6,7 @@ Resize a video to custom dimensions while copying its existing audio stream.
 
 - Path: `default`
 - Command slug: `ffmpeg`
+- Type: `SHARE`
 
 ```sh
 ffmpeg -i "${INPUT_FILE}" -vf "scale=${HEIGHT}:${WIDTH}" -c:a copy "${INPUT_FILE}-resized-${RAND}.mp4"

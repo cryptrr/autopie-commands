@@ -6,6 +6,7 @@ Resize and arrange multiple images side by side in a single JPEG.
 
 - Path: `default`
 - Command slug: `magick`
+- Type: `SHARE`
 
 ```sh
 magick "${INPUT_FILES_ARR[@]}" -resize x${QUALITY} +append "${INPUT_FILE}.horiz-${RAND}.jpeg"

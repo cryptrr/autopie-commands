@@ -10,6 +10,7 @@ summary: "Crop an image or GIF to a chosen aspect ratio and anchor position."
 kind: "APP"
 tags: ["imagemagick"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'magick "${INPUT_FILE}" -coalesce -gravity ${POSITION} -crop ''%[fx:w]x%[fx:w*${RATIO_HEIGHT}/${RATIO_WIDTH}]+0+0'' +repage "${INPUT_FILE}-cropped-${RAND}.${FILE_EXT}"'
   extras:

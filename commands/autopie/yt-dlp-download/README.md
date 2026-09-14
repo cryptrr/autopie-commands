@@ -6,6 +6,7 @@ Download a video or selected time range at a chosen maximum resolution with yt-d
 
 - Path: `Download`
 - Command slug: `yt-dlp`
+- Type: `SHARE`
 
 ```sh
 yt-dlp \

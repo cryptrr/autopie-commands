@@ -10,6 +10,7 @@ summary: "Download image galleries and media collections from a supported URL wi
 kind: "APP"
 tags: ["gallery-dl", "downloader"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'gallery-dl "${INPUT_URL}"'
 install:

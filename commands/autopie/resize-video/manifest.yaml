@@ -10,6 +10,7 @@ summary: "Resize a video to custom dimensions while copying its existing audio s
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'ffmpeg -i "${INPUT_FILE}" -vf "scale=${HEIGHT}:${WIDTH}" -c:a copy "${INPUT_FILE}-resized-${RAND}.mp4"'
   extras:

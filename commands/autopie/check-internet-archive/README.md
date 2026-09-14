@@ -6,6 +6,7 @@ Find and open the closest available Wayback Machine snapshot of a URL.
 
 - Path: `default`
 - Command slug: ``
+- Type: `SHARE`
 
 ```sh
 #@PYTHON

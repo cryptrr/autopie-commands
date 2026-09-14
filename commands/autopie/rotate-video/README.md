@@ -6,6 +6,7 @@ Rotate a video clockwise by 90, 180, or 270 degrees while preserving its audio.
 
 - Path: `default`
 - Command slug: `ffmpeg`
+- Type: `SHARE`
 
 ```sh
 ffmpeg -i ${INPUT_FILE} -vf "$( \

@@ -10,6 +10,7 @@ summary: "Download a video or selected time range at a chosen maximum resolution
 kind: "APP"
 tags: ["yt-dlp"]
 runtime:
+  type: "SHARE"
   path: "Download"
   command: "yt-dlp \\\n  -o \"%(title).200B-${RAND}.%(ext)s\" \\\n  --no-mtime \\\n  -f \"bestvideo[height<=${MAX_QUALITY}]+bestaudio/best[height<=${MAX_QUALITY}]/best\" \\\n  ${COOKIE_JAR:+--cookies \"$COOKIE_JAR\"} \\\n  ${START_TIME:+--download-sections \"*${START_TIME}-${END_TIME:-inf}\"} \\\n  \"$INPUT_URL\""
   extras:

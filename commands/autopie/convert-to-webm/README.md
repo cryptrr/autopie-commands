@@ -6,6 +6,7 @@ Transcode a video to WebM with configurable codec, bitrate, and quality.
 
 - Path: `Downloads`
 - Command slug: `ffmpeg`
+- Type: `SHARE`
 
 ```sh
 ffmpeg -i "${INPUT_FILE}" -c:v libvpx-vp9 -crf 24 "${INPUT_FILE}.webm"

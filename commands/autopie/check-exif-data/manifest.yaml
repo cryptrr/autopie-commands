@@ -10,6 +10,7 @@ summary: "Display the EXIF metadata embedded in a selected file."
 kind: "APP"
 tags: ["exiftool"]
 runtime:
+  type: "SHARE"
   path: ""
   command: "#@OPEN_LOGS\nexiftool \"${INPUT_FILE}\""
 install:

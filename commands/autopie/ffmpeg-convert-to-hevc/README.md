@@ -6,6 +6,7 @@ Transcode a video to an H.264 MP4 at CRF 24 using FFmpeg.
 
 - Path: `default`
 - Command slug: `ffmpeg`
+- Type: `SHARE`
 
 ```sh
 ffmpeg -i "${INPUT_FILE}" -c:v libx264 -crf 24 -preset medium "${INPUT_FILE}-x265.mp4"

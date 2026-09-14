@@ -10,6 +10,7 @@ summary: "Overlay a watermark image at a selected corner of a video."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:
+  type: "SHARE"
   path: ""
   command: "ffmpeg -i \"${INPUT_FILE}\" -i \"${WATERMARK_FILE}\" -filter_complex \"overlay=$( \\\n    case $POSITION in \\\n        TOP_LEFT) echo '10:10';; \\\n        TOP_RIGHT) echo 'W-w-10:10';; \\\n        BOTTOM_LEFT) echo '10:H-h-10';; \\\n        BOTTOM_RIGHT) echo 'W-w-10:H-h-10';; \\\n        CENTER) echo '(W-w)/2:(H-h)/2';; \\\n        *) echo 'W-w-10:10';; \\\n    esac)\" -codec:a copy \"${INPUT_FILE}-watermarked-${RAND}.mp4\""
   extras:

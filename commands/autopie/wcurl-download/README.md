@@ -6,6 +6,7 @@ Download a URL with wcurl using an optional filename and timestamp behavior.
 
 - Path: `Download`
 - Command slug: `wcurl`
+- Type: `SHARE`
 
 ```sh
 wcurl \

@@ -10,6 +10,7 @@ summary: "Convert an image to WebP with configurable quality and compression eff
 kind: "APP"
 tags: ["imagemagick"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'magick "${INPUT_FILE}" -quality ${QUALITY} -define webp:method=${METHOD} "${INPUT_FILE}.webp"'
   extras:

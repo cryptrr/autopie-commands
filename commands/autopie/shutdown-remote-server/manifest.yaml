@@ -10,6 +10,7 @@ summary: "Shut down a remote server using SSH password or private-key authentica
 kind: "APP"
 tags: ["openssh"]
 runtime:
+  type: "SHARE"
   path: ""
   command: |-
     set -euo pipefail

@@ -6,6 +6,7 @@ Convert a selected portion of a video into a scaled 15 FPS GIF.
 
 - Path: `default`
 - Command slug: `ffmpeg`
+- Type: `SHARE`
 
 ```sh
 ffmpeg -i "${INPUT_FILE}" -ss ${START} ${END:+-t $END} -vf "fps=15,scale=480:-1:flags=lanczos" -c:v gif "${INPUT_FILE}.gif"

@@ -6,6 +6,7 @@ Mirror a video horizontally while preserving it as an MP4.
 
 - Path: `default`
 - Command slug: `ffmpeg`
+- Type: `SHARE`
 
 ```sh
 ffmpeg -i "${INPUT_FILE}" -vf "hflip" "${INPUT_FILE}-mirrored.mp4"

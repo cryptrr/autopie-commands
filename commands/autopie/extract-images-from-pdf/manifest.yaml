@@ -10,6 +10,7 @@ summary: "Render every page of a PDF as a numbered PNG image."
 kind: "APP"
 tags: ["imagemagick"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'magick "${INPUT_FILE}" "${INPUT_FILE}_%03d.png"'
 install:

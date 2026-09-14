@@ -6,6 +6,7 @@ Cut a video to a specified start time and optional duration using FFmpeg.
 
 - Path: `Download`
 - Command slug: `ffmpeg`
+- Type: `SHARE`
 
 ```sh
 ffmpeg -i "${INPUT_FILE}" -ss ${START} ${END:+-t $END} "${INPUT_FILE}-cut-${RAND}.mp4"

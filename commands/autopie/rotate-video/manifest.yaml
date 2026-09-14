@@ -10,6 +10,7 @@ summary: "Rotate a video clockwise by 90, 180, or 270 degrees while preserving i
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:
+  type: "SHARE"
   path: ""
   command: "ffmpeg -i ${INPUT_FILE} -vf \"$( \\\n    case $ROTATE in \\\n        90) echo 'transpose=1';; \\\n        180) echo 'transpose=2,transpose=2';; \\\n        270) echo 'transpose=3';; \\\n    esac)\" -c:a copy ${INPUT_FILE}.rotated.mp4"
   extras:

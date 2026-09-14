@@ -10,6 +10,7 @@
       "tags": [
         "openssh"
       ],
+      "type": "MANUAL",
       "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.0"
     },
@@ -22,6 +23,7 @@
       "tags": [
         "openssh"
       ],
+      "type": "MANUAL",
       "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.1"
     },
@@ -34,6 +36,7 @@
       "tags": [
         "exiftool"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
@@ -46,6 +49,7 @@
       "tags": [
         "python"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -58,6 +62,7 @@
       "tags": [
         "mediainfo"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -70,6 +75,7 @@
       "tags": [
         "imagemagick"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -82,6 +88,7 @@
       "tags": [
         "imagemagick"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -94,6 +101,7 @@
       "tags": [
         "imagemagick"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -106,6 +114,7 @@
       "tags": [
         "imagemagick"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -118,6 +127,7 @@
       "tags": [
         "imagemagick"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -133,6 +143,7 @@
         "archive",
         "share"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-09-13T23:56:43Z",
       "version": "1.0.0"
     },
@@ -145,6 +156,7 @@
       "tags": [
         "p7zip"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
@@ -157,6 +169,7 @@
       "tags": [
         "p7zip"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -169,6 +182,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -181,6 +195,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -193,6 +208,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -205,6 +221,7 @@
       "tags": [
         "imagemagick"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -217,6 +234,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -229,6 +247,7 @@
       "tags": [
         "imagemagick"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -241,6 +260,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -253,6 +273,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -265,6 +286,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -277,6 +299,7 @@
       "tags": [
         "imagemagick"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -289,6 +312,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
@@ -301,6 +325,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -313,6 +338,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
@@ -325,6 +351,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
@@ -338,6 +365,7 @@
         "gallery-dl",
         "downloader"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-16T20:21:36Z",
       "version": "1.0.0"
     },
@@ -353,6 +381,7 @@
         "cron",
         "widget"
       ],
+      "type": "CRON",
       "updatedAt": "2026-09-13T23:18:02Z",
       "version": "1.0.0"
     },
@@ -369,6 +398,7 @@
         "notification",
         "monitoring"
       ],
+      "type": "CRON",
       "updatedAt": "2026-09-14T00:25:39Z",
       "version": "1.0.0"
     },
@@ -385,6 +415,7 @@
         "widget",
         "monitoring"
       ],
+      "type": "CRON",
       "updatedAt": "2026-09-14T00:25:39Z",
       "version": "1.0.0"
     },
@@ -397,6 +428,7 @@
       "tags": [
         "yt-dlp"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -411,6 +443,7 @@
         "openwrt",
         "network"
       ],
+      "type": "MANUAL",
       "updatedAt": "2026-08-28T18:22:50Z",
       "version": "1.0.0"
     },
@@ -423,6 +456,7 @@
       "tags": [
         "openssh"
       ],
+      "type": "MANUAL",
       "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.0"
     },
@@ -435,6 +469,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
@@ -447,6 +482,7 @@
       "tags": [
         "imagemagick"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -459,6 +495,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -471,6 +508,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -483,6 +521,7 @@
       "tags": [
         "rsync"
       ],
+      "type": "MANUAL",
       "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.0"
     },
@@ -495,6 +534,7 @@
       "tags": [
         "rsync"
       ],
+      "type": "MANUAL",
       "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.0"
     },
@@ -511,6 +551,7 @@
         "web",
         "share"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-09-14T00:36:20Z",
       "version": "1.0.0"
     },
@@ -523,6 +564,7 @@
       "tags": [
         "coreutils"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -535,6 +577,7 @@
       "tags": [
         "coreutils"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -549,6 +592,7 @@
         "network",
         "sharing"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-09-04T20:52:25Z",
       "version": "1.0.1"
     },
@@ -561,6 +605,7 @@
       "tags": [
         "openssh"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-09-10T05:50:14Z",
       "version": "1.1.0"
     },
@@ -575,6 +620,7 @@
         "ffmpeg",
         "media"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-09-08T22:17:31Z",
       "version": "1.0.2"
     },
@@ -591,6 +637,7 @@
         "notifications",
         "security"
       ],
+      "type": "CRON",
       "updatedAt": "2026-09-13T23:43:11Z",
       "version": "1.0.0"
     },
@@ -607,6 +654,7 @@
         "privacy",
         "share"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-09-14T00:55:21Z",
       "version": "1.0.0"
     },
@@ -619,6 +667,7 @@
       "tags": [
         "coreutils"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
@@ -631,6 +680,7 @@
       "tags": [
         "ffmpeg"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -643,6 +693,7 @@
       "tags": [
         "wcurl"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-08-31T23:23:42Z",
       "version": "1.0.1"
     },
@@ -655,6 +706,7 @@
       "tags": [
         "yt-dlp"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -667,6 +719,7 @@
       "tags": [
         "yt-dlp"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
@@ -679,10 +732,11 @@
       "tags": [
         "yt-dlp"
       ],
+      "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-09-14T13:39:04Z",
+  "generatedAt": "2026-09-14T14:55:39Z",
   "schemaVersion": "2026.6.1"
 }

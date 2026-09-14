@@ -10,6 +10,7 @@ summary: "Automatically trim uniform borders from an image with configurable col
 kind: "APP"
 tags: ["imagemagick"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'magick "${INPUT_FILE}" -fuzz ${FUZZ}% -trim "${INPUT_FILE}-trim.jpg"'
   extras:

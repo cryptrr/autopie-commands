@@ -10,6 +10,7 @@ summary: "Download media from a URL and extract it in a selected audio format."
 kind: "APP"
 tags: ["yt-dlp"]
 runtime:
+  type: "SHARE"
   path: "Download"
   command: 'yt-dlp --no-mtime -x --audio-format ${FORMAT} "${INPUT_URL}"'
   extras:

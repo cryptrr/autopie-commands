@@ -6,6 +6,7 @@ Combine selected images into a consistently sized, multi-page PDF.
 
 - Path: `default`
 - Command slug: `magick`
+- Type: `SHARE`
 
 ```sh
 magick "${INPUT_FILES_ARR[@]}" -resize ${QUALITY} -gravity center -extent ${QUALITY} "${INPUT_FILE}.pdf"

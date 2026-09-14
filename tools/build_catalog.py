@@ -32,8 +32,9 @@ def build_catalog() -> dict:
         manifest = load_manifest(manifest_file)
 
         command_id = manifest["id"]
+        runtime_type = manifest.get("runtime", {}).get("type")
 
-        catalog["commands"][command_id] = {
+        command = {
             "addedAt": manifest["addedAt"],
             "updatedAt": manifest["updatedAt"],
             "version": manifest["version"],
@@ -43,6 +44,11 @@ def build_catalog() -> dict:
             "status": manifest["status"],
             "tags": manifest.get("tags", [])
         }
+
+        if runtime_type is not None:
+            command["type"] = runtime_type
+
+        catalog["commands"][command_id] = command
 
     return catalog
 

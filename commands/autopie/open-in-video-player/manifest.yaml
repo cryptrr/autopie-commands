@@ -10,6 +10,7 @@ summary: "Resolve a direct media URL with yt-dlp and send it to an Android video
 kind: "APP"
 tags: ["yt-dlp"]
 runtime:
+  type: "SHARE"
   path: ""
   command: "url=$(yt-dlp --no-warnings -q -g -f \"${FORMAT}\" \"${INPUT_URL}\")\nam start \\\n    -a android.intent.action.SEND \\\n    -t text/plain \\\n    --es android.intent.extra.TEXT $url"
   flags: ["--show-loading-screen"]

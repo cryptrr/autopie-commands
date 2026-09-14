@@ -6,6 +6,7 @@ Calculate a file's SHA-256 hash and open its existing VirusTotal report.
 
 - Path: `default`
 - Command slug: ``
+- Type: `SHARE`
 
 ```sh
 #@SHELL

@@ -10,6 +10,7 @@ summary: "Turn a sequence of images into a looping GIF with a configurable frame
 kind: "APP"
 tags: ["imagemagick"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'magick -delay ${DELAY} -loop 0 ${INPUT_FILES} -gravity center "${INPUT_FILE}-${RAND}.gif"'
   extras:

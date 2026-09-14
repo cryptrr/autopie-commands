@@ -10,6 +10,7 @@ summary: "Remove all audio streams from a video without re-encoding the video."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'ffmpeg -i "${INPUT_FILE}" -an -c:v copy "${INPUT_FILE}-noaud.mp4"'
 install:

@@ -10,6 +10,7 @@ summary: "Resolve and display the direct media URL for a supported page with yt-
 kind: "APP"
 tags: ["yt-dlp"]
 runtime:
+  type: "SHARE"
   path: ""
   command: "#@OPEN_LOGS\nyt-dlp -g \"${INPUT_URL}\""
 install:

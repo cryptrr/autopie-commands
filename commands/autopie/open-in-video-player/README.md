@@ -6,6 +6,7 @@ Resolve a direct media URL with yt-dlp and send it to an Android video player.
 
 - Path: `default`
 - Command slug: `am`
+- Type: `SHARE`
 
 ```sh
 url=$(yt-dlp --no-warnings -q -g -f "${FORMAT}" "${INPUT_URL}")

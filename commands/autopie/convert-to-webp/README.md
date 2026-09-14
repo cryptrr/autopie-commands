@@ -6,6 +6,7 @@ Convert an image to WebP with configurable quality and compression effort.
 
 - Path: `default`
 - Command slug: `magick`
+- Type: `SHARE`
 
 ```sh
 magick "${INPUT_FILE}" -quality ${QUALITY} -define webp:method=${METHOD} "${INPUT_FILE}.webp"

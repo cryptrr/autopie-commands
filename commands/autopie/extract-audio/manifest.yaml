@@ -10,6 +10,7 @@ summary: "Extract audio from a media file in a selected format and bitrate."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'ffmpeg -i "${INPUT_FILE}" -b:a ${BITRATE} -vn "${INPUT_FILE}.$FORMAT"'
   extras:

@@ -10,6 +10,7 @@ summary: "Transcode a video to an H.264 MP4 at CRF 24 using FFmpeg."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'ffmpeg -i "${INPUT_FILE}" -c:v libx264 -crf 24 -preset medium "${INPUT_FILE}-x265.mp4"'
 install:

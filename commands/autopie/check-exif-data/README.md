@@ -6,6 +6,7 @@ Display the EXIF metadata embedded in a selected file.
 
 - Path: `default`
 - Command slug: `exiftool`
+- Type: `SHARE`
 
 ```sh
 #@OPEN_LOGS

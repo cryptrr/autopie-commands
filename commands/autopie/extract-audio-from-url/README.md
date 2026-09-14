@@ -6,6 +6,7 @@ Extract an MP3 audio track from a media URL with a custom bitrate and filename.
 
 - Path: `Mp3`
 - Command slug: `ffmpeg`
+- Type: `SHARE`
 
 ```sh
 ffmpeg -i "${INPUT_URL}" -b:a ${BITRATE} -vn "${FILE_NAME:-$FILENAME}.mp3"

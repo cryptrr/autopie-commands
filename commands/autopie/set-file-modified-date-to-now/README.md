@@ -6,6 +6,7 @@ Set a selected file's modification timestamp to the current time.
 
 - Path: `default`
 - Command slug: ``
+- Type: `SHARE`
 
 ```sh
 touch "${INPUT_FILE}"

@@ -6,6 +6,7 @@ Download media from a URL and extract it in a selected audio format.
 
 - Path: `Download`
 - Command slug: `yt-dlp`
+- Type: `SHARE`
 
 ```sh
 yt-dlp --no-mtime -x --audio-format ${FORMAT} "${INPUT_URL}"

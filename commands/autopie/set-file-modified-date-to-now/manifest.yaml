@@ -10,6 +10,7 @@ summary: "Set a selected file's modification timestamp to the current time."
 kind: "APP"
 tags: ["coreutils"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'touch "${INPUT_FILE}"'
 install:

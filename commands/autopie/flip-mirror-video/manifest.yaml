@@ -10,6 +10,7 @@ summary: "Mirror a video horizontally while preserving it as an MP4."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'ffmpeg -i "${INPUT_FILE}" -vf "hflip" "${INPUT_FILE}-mirrored.mp4"'
 install:

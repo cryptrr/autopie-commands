@@ -6,6 +6,7 @@ Render every page of a PDF as a numbered PNG image.
 
 - Path: `default`
 - Command slug: `magick`
+- Type: `SHARE`
 
 ```sh
 magick "${INPUT_FILE}" "${INPUT_FILE}_%03d.png"

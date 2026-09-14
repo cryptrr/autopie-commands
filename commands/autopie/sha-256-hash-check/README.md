@@ -6,6 +6,7 @@ Calculate and display the SHA-256 checksum of a selected file.
 
 - Path: `default`
 - Command slug: ``
+- Type: `SHARE`
 
 ```sh
 #@OPEN_LOGS

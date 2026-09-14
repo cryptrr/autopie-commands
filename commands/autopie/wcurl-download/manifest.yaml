@@ -10,6 +10,7 @@ summary: "Download a URL with wcurl using an optional filename and timestamp beh
 kind: "APP"
 tags: ["wcurl"]
 runtime:
+  type: "SHARE"
   path: "Download"
   command: "wcurl \\\n  $NO_REMOTE_TIME \\\n  ${FILE_NAME_EXTRA:+-o \"$FILE_NAME_EXTRA\"} \\\n  \"$INPUT_URL\""
   extras:

@@ -10,6 +10,7 @@ summary: "Calculate and display the SHA-256 checksum of a selected file."
 kind: "APP"
 tags: ["coreutils"]
 runtime:
+  type: "SHARE"
   path: ""
   command: "#@OPEN_LOGS\nsha256sum \"${INPUT_FILE}\""
 install:

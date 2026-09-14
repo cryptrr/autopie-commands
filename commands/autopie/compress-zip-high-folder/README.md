@@ -6,6 +6,7 @@ Create a high-compression ZIP archive from the contents of a folder.
 
 - Path: `default`
 - Command slug: `7z`
+- Type: `SHARE`
 
 ```sh
 7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILE}/* -mfb=258 -mpass=15

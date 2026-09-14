@@ -10,6 +10,7 @@ summary: "Resize and stack multiple GIFs vertically into a single animated GIF."
 kind: "APP"
 tags: ["imagemagick"]
 runtime:
+  type: "SHARE"
   path: ""
   command: 'magick "${INPUT_FILES_ARR[@]}" -resize ${QUALITY}x -append "${INPUT_FILE}.vert.gif"'
   extras:
