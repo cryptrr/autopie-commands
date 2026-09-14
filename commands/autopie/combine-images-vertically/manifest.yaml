@@ -6,7 +6,7 @@ id: "autopie.combine-images-vertically"
 namespace: "autopie"
 name: "Combine Images Vertically"
 commandSlug: "magick"
-summary: "AutoPie command for Combine Images Vertically"
+summary: "Resize and stack multiple images vertically in a single JPEG."
 kind: "APP"
 tags: ["imagemagick"]
 runtime:

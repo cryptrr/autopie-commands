@@ -1,6 +1,6 @@
 ### Resize Video
 
-AutoPie command for Resize Video
+Resize a video to custom dimensions while copying its existing audio stream.
 
 #### Command
 

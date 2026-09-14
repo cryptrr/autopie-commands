@@ -6,7 +6,7 @@ id: "autopie.rotate-video"
 namespace: "autopie"
 name: "Rotate Video"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for Rotate Video"
+summary: "Rotate a video clockwise by 90, 180, or 270 degrees while preserving its audio."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

@@ -6,7 +6,7 @@ id: "autopie.wcurl-download"
 namespace: "autopie"
 name: "wCurl Download"
 commandSlug: "wcurl"
-summary: "AutoPie command for wCurl Download"
+summary: "Download a URL with wcurl using an optional filename and timestamp behavior."
 kind: "APP"
 tags: ["wcurl"]
 runtime:

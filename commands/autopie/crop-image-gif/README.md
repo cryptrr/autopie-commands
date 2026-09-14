@@ -1,6 +1,6 @@
 ### Crop Image/GIF
 
-AutoPie command for Crop Image/GIF
+Crop an image or GIF to a chosen aspect ratio and anchor position.
 
 #### Command
 

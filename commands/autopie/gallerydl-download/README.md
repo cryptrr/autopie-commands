@@ -1,6 +1,6 @@
 ### GalleryDL Download 
 
-AutoPie command for GalleryDL Download 
+Download image galleries and media collections from a supported URL with gallery-dl.
 
 #### Command
 

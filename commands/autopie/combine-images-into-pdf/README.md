@@ -1,6 +1,6 @@
 ### Combine Images into PDF
 
-AutoPie command for Combine Images into PDF
+Combine selected images into a consistently sized, multi-page PDF.
 
 #### Command
 

@@ -1,6 +1,6 @@
 ### YT-DLP: Download as Audio
 
-AutoPie command for YT-DLP: Download as Audio
+Download media from a URL and extract it in a selected audio format.
 
 #### Command
 

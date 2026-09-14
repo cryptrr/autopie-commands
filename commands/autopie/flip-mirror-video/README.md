@@ -1,6 +1,6 @@
 ### Flip/Mirror Video
 
-AutoPie command for Flip/Mirror Video
+Mirror a video horizontally while preserving it as an MP4.
 
 #### Command
 

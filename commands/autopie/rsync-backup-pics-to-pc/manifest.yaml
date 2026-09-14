@@ -6,7 +6,7 @@ id: "autopie.rsync-backup-pics-to-pc"
 namespace: "autopie"
 name: "RSYNC: Backup Pics to PC"
 commandSlug: "rsync"
-summary: "AutoPie command for RSYNC: Backup Pics to PC"
+summary: "Back up a local pictures folder to a remote rsync server."
 kind: "APP"
 tags: ["rsync"]
 runtime:

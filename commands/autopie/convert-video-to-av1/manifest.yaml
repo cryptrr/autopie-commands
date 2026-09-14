@@ -6,7 +6,7 @@ id: "autopie.convert-video-to-av1"
 namespace: "autopie"
 name: "Convert video to AV1"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for Convert video to AV1"
+summary: "Transcode a video to AV1 in an MKV container using high-quality settings."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

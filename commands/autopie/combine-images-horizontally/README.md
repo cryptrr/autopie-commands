@@ -1,6 +1,6 @@
 ### Combine Images Horizontally
 
-AutoPie command for Combine Images Horizontally
+Resize and arrange multiple images side by side in a single JPEG.
 
 #### Command
 

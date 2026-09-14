@@ -6,7 +6,7 @@ id: "autopie.watermark-video"
 namespace: "autopie"
 name: "Watermark Video"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for Watermark Video"
+summary: "Overlay a watermark image at a selected corner of a video."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

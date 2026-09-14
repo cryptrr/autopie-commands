@@ -6,7 +6,7 @@ id: "autopie.crop-image-gif"
 namespace: "autopie"
 name: "Crop Image/GIF"
 commandSlug: "magick"
-summary: "AutoPie command for Crop Image/GIF"
+summary: "Crop an image or GIF to a chosen aspect ratio and anchor position."
 kind: "APP"
 tags: ["imagemagick"]
 runtime:

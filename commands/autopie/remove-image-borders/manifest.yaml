@@ -6,7 +6,7 @@ id: "autopie.remove-image-borders"
 namespace: "autopie"
 name: "Remove Image Borders"
 commandSlug: "magick"
-summary: "AutoPie command for Remove Image Borders"
+summary: "Automatically trim uniform borders from an image with configurable color tolerance."
 kind: "APP"
 tags: ["imagemagick"]
 runtime:

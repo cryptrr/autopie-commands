@@ -6,7 +6,7 @@ id: "autopie.gallerydl-download"
 namespace: "autopie"
 name: "GalleryDL Download "
 commandSlug: "gallery-dl"
-summary: "AutoPie command for GalleryDL Download "
+summary: "Download image galleries and media collections from a supported URL with gallery-dl."
 kind: "APP"
 tags: ["gallery-dl", "downloader"]
 runtime:

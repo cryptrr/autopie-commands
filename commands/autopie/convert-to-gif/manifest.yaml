@@ -6,7 +6,7 @@ id: "autopie.convert-to-gif"
 namespace: "autopie"
 name: "Convert to GIF"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for Convert to GIF"
+summary: "Convert a selected portion of a video into a scaled 15 FPS GIF."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

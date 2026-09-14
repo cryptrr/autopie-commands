@@ -6,7 +6,7 @@ id: "autopie.convert-to-webm"
 namespace: "autopie"
 name: "Convert To WebM"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for Convert To WebM"
+summary: "Transcode a video to WebM with configurable codec, bitrate, and quality."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

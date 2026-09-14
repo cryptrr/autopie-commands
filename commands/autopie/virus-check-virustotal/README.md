@@ -1,6 +1,6 @@
 ### Virus Check (VirusTotal)
 
-AutoPie command for Virus Check (VirusTotal)
+Calculate a file's SHA-256 hash and open its existing VirusTotal report.
 
 #### Command
 

@@ -1,6 +1,6 @@
 ### Combine Images to GIF
 
-AutoPie command for Combine Images to GIF
+Turn a sequence of images into a looping GIF with a configurable frame delay.
 
 #### Command
 

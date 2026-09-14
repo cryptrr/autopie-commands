@@ -1,6 +1,6 @@
 ### Convert video to AV1
 
-AutoPie command for Convert video to AV1
+Transcode a video to AV1 in an MKV container using high-quality settings.
 
 #### Command
 

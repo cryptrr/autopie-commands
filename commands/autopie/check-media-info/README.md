@@ -1,6 +1,6 @@
 ### Check Media Info
 
-AutoPie command for Check Media Info
+Display detailed format, codec, stream, and metadata information for a media file.
 
 #### Command
 

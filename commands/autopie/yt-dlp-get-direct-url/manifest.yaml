@@ -6,7 +6,7 @@ id: "autopie.yt-dlp-get-direct-url"
 namespace: "autopie"
 name: "YT-DLP Get Direct URL"
 commandSlug: "yt-dlp"
-summary: "AutoPie command for YT-DLP Get Direct URL"
+summary: "Resolve and display the direct media URL for a supported page with yt-dlp."
 kind: "APP"
 tags: ["yt-dlp"]
 runtime:

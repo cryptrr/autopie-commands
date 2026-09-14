@@ -1,6 +1,6 @@
 ### Remove Image Borders
 
-AutoPie command for Remove Image Borders
+Automatically trim uniform borders from an image with configurable color tolerance.
 
 #### Command
 

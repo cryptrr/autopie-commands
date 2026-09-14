@@ -1,6 +1,6 @@
 ### Compress ZIP (High) : Folder
 
-AutoPie command for Compress ZIP (High) : Folder
+Create a high-compression ZIP archive from the contents of a folder.
 
 #### Command
 

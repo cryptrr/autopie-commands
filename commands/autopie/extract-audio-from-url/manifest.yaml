@@ -6,7 +6,7 @@ id: "autopie.extract-audio-from-url"
 namespace: "autopie"
 name: "Extract Audio from URL"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for Extract Audio from URL"
+summary: "Extract an MP3 audio track from a media URL with a custom bitrate and filename."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

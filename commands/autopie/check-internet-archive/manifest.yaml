@@ -6,7 +6,7 @@ id: "autopie.check-internet-archive"
 namespace: "autopie"
 name: "Check Internet Archive"
 commandSlug: ""
-summary: "AutoPie command for Check Internet Archive"
+summary: "Find and open the closest available Wayback Machine snapshot of a URL."
 kind: "APP"
 tags: ["python"]
 runtime:

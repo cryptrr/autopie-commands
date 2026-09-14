@@ -1,6 +1,6 @@
 ### RSYNC: Sync Pics - PC ➡️ Mob
 
-AutoPie command for RSYNC: Sync Pics - PC ➡️ Mob
+Synchronize pictures from a remote rsync server to a folder on the device.
 
 #### Command
 

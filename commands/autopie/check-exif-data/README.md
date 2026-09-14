@@ -1,6 +1,6 @@
 ### Check Exif Data
 
-AutoPie command for Check Exif Data
+Display the EXIF metadata embedded in a selected file.
 
 #### Command
 

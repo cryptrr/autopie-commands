@@ -6,7 +6,7 @@ id: "autopie.combine-images-into-pdf"
 namespace: "autopie"
 name: "Combine Images into PDF"
 commandSlug: "magick"
-summary: "AutoPie command for Combine Images into PDF"
+summary: "Combine selected images into a consistently sized, multi-page PDF."
 kind: "APP"
 tags: ["imagemagick"]
 runtime:

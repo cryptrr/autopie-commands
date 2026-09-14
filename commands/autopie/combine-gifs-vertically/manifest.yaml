@@ -6,7 +6,7 @@ id: "autopie.combine-gifs-vertically"
 namespace: "autopie"
 name: "Combine Gifs Vertically"
 commandSlug: "magick"
-summary: "AutoPie command for Combine Gifs Vertically"
+summary: "Resize and stack multiple GIFs vertically into a single animated GIF."
 kind: "APP"
 tags: ["imagemagick"]
 runtime:

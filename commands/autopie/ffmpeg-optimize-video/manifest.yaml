@@ -6,7 +6,7 @@ id: "autopie.ffmpeg-optimize-video"
 namespace: "autopie"
 name: "FFMPEG: Optimize Video"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for FFMPEG: Optimize Video"
+summary: "Compress a video to H.264 and AAC MP4 with fast-start playback enabled."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

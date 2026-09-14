@@ -6,7 +6,7 @@ id: "autopie.yt-dlp-download"
 namespace: "autopie"
 name: "YT-DLP Download"
 commandSlug: "yt-dlp"
-summary: "AutoPie command for YT-DLP Download"
+summary: "Download a video or selected time range at a chosen maximum resolution with yt-dlp."
 kind: "APP"
 tags: ["yt-dlp"]
 runtime:

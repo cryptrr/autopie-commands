@@ -1,6 +1,6 @@
 ### Convert to Animated WebP
 
-AutoPie command for Convert to Animated WebP
+Convert a video or animation into a looping 15 FPS animated WebP.
 
 #### Command
 

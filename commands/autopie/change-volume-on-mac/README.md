@@ -1,6 +1,6 @@
 ### Change Volume on Mac
 
-AutoPie command for Change Volume on Mac
+Set a Mac's output volume remotely over SSH.
 
 #### Command
 

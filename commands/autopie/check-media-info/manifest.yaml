@@ -6,7 +6,7 @@ id: "autopie.check-media-info"
 namespace: "autopie"
 name: "Check Media Info"
 commandSlug: ""
-summary: "AutoPie command for Check Media Info"
+summary: "Display detailed format, codec, stream, and metadata information for a media file."
 kind: "APP"
 tags: ["mediainfo"]
 runtime:

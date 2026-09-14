@@ -1,6 +1,6 @@
 ### Extract Images from PDF
 
-AutoPie command for Extract Images from PDF
+Render every page of a PDF as a numbered PNG image.
 
 #### Command
 

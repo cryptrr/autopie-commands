@@ -1,6 +1,6 @@
 ### FFMPEG: Optimize Video
 
-AutoPie command for FFMPEG: Optimize Video
+Compress a video to H.264 and AAC MP4 with fast-start playback enabled.
 
 #### Command
 

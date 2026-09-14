@@ -6,7 +6,7 @@ id: "autopie.ffmpeg-cut-video"
 namespace: "autopie"
 name: "FFMPEG: Cut Video"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for FFMPEG: Cut Video"
+summary: "Cut a video to a specified start time and optional duration using FFmpeg."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

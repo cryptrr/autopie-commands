@@ -1,6 +1,6 @@
 ### Combine Images Vertically
 
-AutoPie command for Combine Images Vertically
+Resize and stack multiple images vertically in a single JPEG.
 
 #### Command
 

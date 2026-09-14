@@ -6,7 +6,7 @@ id: "autopie.ffmpeg-convert-to-hevc"
 namespace: "autopie"
 name: "FFMPEG: Convert to HEVC"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for FFMPEG: Convert to HEVC"
+summary: "Transcode a video to an H.264 MP4 at CRF 24 using FFmpeg."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

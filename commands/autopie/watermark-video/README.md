@@ -1,6 +1,6 @@
 ### Watermark Video
 
-AutoPie command for Watermark Video
+Overlay a watermark image at a selected corner of a video.
 
 #### Command
 

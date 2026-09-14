@@ -1,6 +1,6 @@
 ### Extract Audio from URL
 
-AutoPie command for Extract Audio from URL
+Extract an MP3 audio track from a media URL with a custom bitrate and filename.
 
 #### Command
 

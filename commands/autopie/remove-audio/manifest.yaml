@@ -6,7 +6,7 @@ id: "autopie.remove-audio"
 namespace: "autopie"
 name: "Remove Audio"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for Remove Audio"
+summary: "Remove all audio streams from a video without re-encoding the video."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

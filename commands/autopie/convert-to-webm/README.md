@@ -1,6 +1,6 @@
 ### Convert To WebM
 
-AutoPie command for Convert To WebM
+Transcode a video to WebM with configurable codec, bitrate, and quality.
 
 #### Command
 

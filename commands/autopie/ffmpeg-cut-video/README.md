@@ -1,6 +1,6 @@
 ### FFMPEG: Cut Video
 
-AutoPie command for FFMPEG: Cut Video
+Cut a video to a specified start time and optional duration using FFmpeg.
 
 #### Command
 

@@ -6,7 +6,7 @@ id: "autopie.extract-audio"
 namespace: "autopie"
 name: "Extract Audio from File"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for Extract Audio from File"
+summary: "Extract audio from a media file in a selected format and bitrate."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

@@ -1,6 +1,6 @@
 ### Extract Audio from File
 
-AutoPie command for Extract Audio from File
+Extract audio from a media file in a selected format and bitrate.
 
 #### Command
 

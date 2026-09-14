@@ -1,6 +1,6 @@
 ### Change Volume on Mac - AutoFetch
 
-AutoPie command for Change Volume on Mac - AutoFetch
+Fetch a Mac's current volume over SSH, then adjust it with a slider.
 
 #### Steps
 

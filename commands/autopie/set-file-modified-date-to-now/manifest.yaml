@@ -6,7 +6,7 @@ id: "autopie.set-file-modified-date-to-now"
 namespace: "autopie"
 name: "Set file modified date to now."
 commandSlug: ""
-summary: "AutoPie command for Set file modified date to now."
+summary: "Set a selected file's modification timestamp to the current time."
 kind: "APP"
 tags: ["coreutils"]
 runtime:

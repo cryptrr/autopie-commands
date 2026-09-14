@@ -1,6 +1,6 @@
 ### Compress ZIP (High) : Multi File
 
-AutoPie command for Compress ZIP (High) : Multi File
+Create a high-compression ZIP archive from multiple selected files.
 
 #### Command
 

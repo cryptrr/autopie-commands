@@ -6,7 +6,7 @@ id: "autopie.virus-check-virustotal"
 namespace: "autopie"
 name: "Virus Check (VirusTotal)"
 commandSlug: ""
-summary: "AutoPie command for Virus Check (VirusTotal)"
+summary: "Calculate a file's SHA-256 hash and open its existing VirusTotal report."
 kind: "APP"
 tags: ["coreutils"]
 runtime:

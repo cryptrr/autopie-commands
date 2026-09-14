@@ -6,7 +6,7 @@ id: "autopie.crop-video-to-mobile-dimensions"
 namespace: "autopie"
 name: "Crop Video to Mobile Dimensions"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for Crop Video to Mobile Dimensions"
+summary: "Crop a video to a configurable portrait aspect ratio while preserving its audio."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

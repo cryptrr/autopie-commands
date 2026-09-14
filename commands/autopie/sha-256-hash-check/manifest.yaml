@@ -6,7 +6,7 @@ id: "autopie.sha-256-hash-check"
 namespace: "autopie"
 name: "SHA-256 Hash Check"
 commandSlug: ""
-summary: "AutoPie command for SHA-256 Hash Check"
+summary: "Calculate and display the SHA-256 checksum of a selected file."
 kind: "APP"
 tags: ["coreutils"]
 runtime:

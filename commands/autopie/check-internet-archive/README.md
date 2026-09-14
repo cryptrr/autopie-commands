@@ -1,6 +1,6 @@
 ### Check Internet Archive
 
-AutoPie command for Check Internet Archive
+Find and open the closest available Wayback Machine snapshot of a URL.
 
 #### Command
 

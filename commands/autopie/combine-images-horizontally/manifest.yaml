@@ -6,7 +6,7 @@ id: "autopie.combine-images-horizontally"
 namespace: "autopie"
 name: "Combine Images Horizontally"
 commandSlug: "magick"
-summary: "AutoPie command for Combine Images Horizontally"
+summary: "Resize and arrange multiple images side by side in a single JPEG."
 kind: "APP"
 tags: ["imagemagick"]
 runtime:

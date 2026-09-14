@@ -1,6 +1,6 @@
 ### YT-DLP Get Direct URL
 
-AutoPie command for YT-DLP Get Direct URL
+Resolve and display the direct media URL for a supported page with yt-dlp.
 
 #### Command
 

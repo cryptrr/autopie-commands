@@ -6,7 +6,7 @@ id: "autopie.compress-zip-high-multi-file"
 namespace: "autopie"
 name: "Compress ZIP (High) : Multi File"
 commandSlug: "7z"
-summary: "AutoPie command for Compress ZIP (High) : Multi File"
+summary: "Create a high-compression ZIP archive from multiple selected files."
 kind: "APP"
 tags: ["p7zip"]
 runtime:

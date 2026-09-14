@@ -6,7 +6,7 @@ id: "autopie.check-exif-data"
 namespace: "autopie"
 name: "Check Exif Data"
 commandSlug: "exiftool"
-summary: "AutoPie command for Check Exif Data"
+summary: "Display the EXIF metadata embedded in a selected file."
 kind: "APP"
 tags: ["exiftool"]
 runtime:

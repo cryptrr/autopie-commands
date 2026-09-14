@@ -1,6 +1,6 @@
 ### Crop Video to Mobile Dimensions
 
-AutoPie command for Crop Video to Mobile Dimensions
+Crop a video to a configurable portrait aspect ratio while preserving its audio.
 
 #### Command
 

@@ -6,7 +6,7 @@ id: "autopie.yt-dlp-download-as-audio"
 namespace: "autopie"
 name: "YT-DLP: Download as Audio"
 commandSlug: "yt-dlp"
-summary: "AutoPie command for YT-DLP: Download as Audio"
+summary: "Download media from a URL and extract it in a selected audio format."
 kind: "APP"
 tags: ["yt-dlp"]
 runtime:

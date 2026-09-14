@@ -1,6 +1,6 @@
 ### Combine Gifs Vertically
 
-AutoPie command for Combine Gifs Vertically
+Resize and stack multiple GIFs vertically into a single animated GIF.
 
 #### Command
 

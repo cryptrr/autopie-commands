@@ -1,6 +1,6 @@
 ### SHA-256 Hash Check
 
-AutoPie command for SHA-256 Hash Check
+Calculate and display the SHA-256 checksum of a selected file.
 
 #### Command
 

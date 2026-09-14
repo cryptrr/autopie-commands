@@ -6,7 +6,7 @@ id: "autopie.open-in-video-player"
 namespace: "autopie"
 name: "Open in Video Player"
 commandSlug: "am"
-summary: "AutoPie command for Open in Video Player"
+summary: "Resolve a direct media URL with yt-dlp and send it to an Android video player."
 kind: "APP"
 tags: ["yt-dlp"]
 runtime:

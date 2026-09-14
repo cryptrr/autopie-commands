@@ -6,7 +6,7 @@ id: "autopie.change-volume-on-mac-autofetch"
 namespace: "autopie"
 name: "Change Volume on Mac - AutoFetch"
 commandSlug: "openssh"
-summary: "AutoPie command for Change Volume on Mac - AutoFetch"
+summary: "Fetch a Mac's current volume over SSH, then adjust it with a slider."
 kind: "APP"
 tags: ["openssh"]
 runtime:

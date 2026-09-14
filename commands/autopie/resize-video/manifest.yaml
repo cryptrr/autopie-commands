@@ -6,7 +6,7 @@ id: "autopie.resize-video"
 namespace: "autopie"
 name: "Resize Video"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for Resize Video"
+summary: "Resize a video to custom dimensions while copying its existing audio stream."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

@@ -1,6 +1,6 @@
 ### Convert To WEBP
 
-AutoPie command for Convert To WEBP
+Convert an image to WebP with configurable quality and compression effort.
 
 #### Command
 

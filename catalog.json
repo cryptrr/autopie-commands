@@ -6,7 +6,7 @@
       "name": "Change Volume on Mac",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Change Volume on Mac",
+      "summary": "Set a Mac's output volume remotely over SSH.",
       "tags": [
         "openssh"
       ],
@@ -18,7 +18,7 @@
       "name": "Change Volume on Mac - AutoFetch",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Change Volume on Mac - AutoFetch",
+      "summary": "Fetch a Mac's current volume over SSH, then adjust it with a slider.",
       "tags": [
         "openssh"
       ],
@@ -30,7 +30,7 @@
       "name": "Check Exif Data",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Check Exif Data",
+      "summary": "Display the EXIF metadata embedded in a selected file.",
       "tags": [
         "exiftool"
       ],
@@ -42,7 +42,7 @@
       "name": "Check Internet Archive",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Check Internet Archive",
+      "summary": "Find and open the closest available Wayback Machine snapshot of a URL.",
       "tags": [
         "python"
       ],
@@ -54,7 +54,7 @@
       "name": "Check Media Info",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Check Media Info",
+      "summary": "Display detailed format, codec, stream, and metadata information for a media file.",
       "tags": [
         "mediainfo"
       ],
@@ -66,7 +66,7 @@
       "name": "Combine Gifs Vertically",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Combine Gifs Vertically",
+      "summary": "Resize and stack multiple GIFs vertically into a single animated GIF.",
       "tags": [
         "imagemagick"
       ],
@@ -78,7 +78,7 @@
       "name": "Combine Images Horizontally",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Combine Images Horizontally",
+      "summary": "Resize and arrange multiple images side by side in a single JPEG.",
       "tags": [
         "imagemagick"
       ],
@@ -90,7 +90,7 @@
       "name": "Combine Images into PDF",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Combine Images into PDF",
+      "summary": "Combine selected images into a consistently sized, multi-page PDF.",
       "tags": [
         "imagemagick"
       ],
@@ -102,7 +102,7 @@
       "name": "Combine Images to GIF",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Combine Images to GIF",
+      "summary": "Turn a sequence of images into a looping GIF with a configurable frame delay.",
       "tags": [
         "imagemagick"
       ],
@@ -114,7 +114,7 @@
       "name": "Combine Images Vertically",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Combine Images Vertically",
+      "summary": "Resize and stack multiple images vertically in a single JPEG.",
       "tags": [
         "imagemagick"
       ],
@@ -141,7 +141,7 @@
       "name": "Compress ZIP (High) : Folder",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Compress ZIP (High) : Folder",
+      "summary": "Create a high-compression ZIP archive from the contents of a folder.",
       "tags": [
         "p7zip"
       ],
@@ -153,7 +153,7 @@
       "name": "Compress ZIP (High) : Multi File",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Compress ZIP (High) : Multi File",
+      "summary": "Create a high-compression ZIP archive from multiple selected files.",
       "tags": [
         "p7zip"
       ],
@@ -165,7 +165,7 @@
       "name": "Convert to Animated WebP",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Convert to Animated WebP",
+      "summary": "Convert a video or animation into a looping 15 FPS animated WebP.",
       "tags": [
         "ffmpeg"
       ],
@@ -177,7 +177,7 @@
       "name": "Convert to GIF",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Convert to GIF",
+      "summary": "Convert a selected portion of a video into a scaled 15 FPS GIF.",
       "tags": [
         "ffmpeg"
       ],
@@ -189,7 +189,7 @@
       "name": "Convert To WebM",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Convert To WebM",
+      "summary": "Transcode a video to WebM with configurable codec, bitrate, and quality.",
       "tags": [
         "ffmpeg"
       ],
@@ -201,7 +201,7 @@
       "name": "Convert To WEBP",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Convert To WEBP",
+      "summary": "Convert an image to WebP with configurable quality and compression effort.",
       "tags": [
         "imagemagick"
       ],
@@ -213,7 +213,7 @@
       "name": "Convert video to AV1",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Convert video to AV1",
+      "summary": "Transcode a video to AV1 in an MKV container using high-quality settings.",
       "tags": [
         "ffmpeg"
       ],
@@ -225,7 +225,7 @@
       "name": "Crop Image/GIF",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Crop Image/GIF",
+      "summary": "Crop an image or GIF to a chosen aspect ratio and anchor position.",
       "tags": [
         "imagemagick"
       ],
@@ -237,7 +237,7 @@
       "name": "Crop Video to Mobile Dimensions",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Crop Video to Mobile Dimensions",
+      "summary": "Crop a video to a configurable portrait aspect ratio while preserving its audio.",
       "tags": [
         "ffmpeg"
       ],
@@ -249,7 +249,7 @@
       "name": "Extract Audio from File",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Extract Audio from File",
+      "summary": "Extract audio from a media file in a selected format and bitrate.",
       "tags": [
         "ffmpeg"
       ],
@@ -261,7 +261,7 @@
       "name": "Extract Audio from URL",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Extract Audio from URL",
+      "summary": "Extract an MP3 audio track from a media URL with a custom bitrate and filename.",
       "tags": [
         "ffmpeg"
       ],
@@ -273,7 +273,7 @@
       "name": "Extract Images from PDF",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Extract Images from PDF",
+      "summary": "Render every page of a PDF as a numbered PNG image.",
       "tags": [
         "imagemagick"
       ],
@@ -285,7 +285,7 @@
       "name": "FFMPEG: Convert to HEVC",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for FFMPEG: Convert to HEVC",
+      "summary": "Transcode a video to an H.264 MP4 at CRF 24 using FFmpeg.",
       "tags": [
         "ffmpeg"
       ],
@@ -297,7 +297,7 @@
       "name": "FFMPEG: Cut Video",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for FFMPEG: Cut Video",
+      "summary": "Cut a video to a specified start time and optional duration using FFmpeg.",
       "tags": [
         "ffmpeg"
       ],
@@ -309,7 +309,7 @@
       "name": "FFMPEG: Optimize Video",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for FFMPEG: Optimize Video",
+      "summary": "Compress a video to H.264 and AAC MP4 with fast-start playback enabled.",
       "tags": [
         "ffmpeg"
       ],
@@ -321,7 +321,7 @@
       "name": "Flip/Mirror Video",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Flip/Mirror Video",
+      "summary": "Mirror a video horizontally while preserving it as an MP4.",
       "tags": [
         "ffmpeg"
       ],
@@ -333,7 +333,7 @@
       "name": "GalleryDL Download ",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for GalleryDL Download ",
+      "summary": "Download image galleries and media collections from a supported URL with gallery-dl.",
       "tags": [
         "gallery-dl",
         "downloader"
@@ -393,7 +393,7 @@
       "name": "Open in Video Player",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Open in Video Player",
+      "summary": "Resolve a direct media URL with yt-dlp and send it to an Android video player.",
       "tags": [
         "yt-dlp"
       ],
@@ -419,7 +419,7 @@
       "name": "OpenWRT Router Automations",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for OpenWRT Router Automations",
+      "summary": "Run common Wi-Fi, network, reboot, and wake-on-LAN actions on an OpenWrt router over SSH.",
       "tags": [
         "openssh"
       ],
@@ -431,7 +431,7 @@
       "name": "Remove Audio",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Remove Audio",
+      "summary": "Remove all audio streams from a video without re-encoding the video.",
       "tags": [
         "ffmpeg"
       ],
@@ -443,7 +443,7 @@
       "name": "Remove Image Borders",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Remove Image Borders",
+      "summary": "Automatically trim uniform borders from an image with configurable color tolerance.",
       "tags": [
         "imagemagick"
       ],
@@ -455,7 +455,7 @@
       "name": "Resize Video",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Resize Video",
+      "summary": "Resize a video to custom dimensions while copying its existing audio stream.",
       "tags": [
         "ffmpeg"
       ],
@@ -467,7 +467,7 @@
       "name": "Rotate Video",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Rotate Video",
+      "summary": "Rotate a video clockwise by 90, 180, or 270 degrees while preserving its audio.",
       "tags": [
         "ffmpeg"
       ],
@@ -479,7 +479,7 @@
       "name": "RSYNC: Backup Pics to PC",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for RSYNC: Backup Pics to PC",
+      "summary": "Back up a local pictures folder to a remote rsync server.",
       "tags": [
         "rsync"
       ],
@@ -491,7 +491,7 @@
       "name": "RSYNC: Sync Pics - PC ➡️ Mob",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for RSYNC: Sync Pics - PC ➡️ Mob",
+      "summary": "Synchronize pictures from a remote rsync server to a folder on the device.",
       "tags": [
         "rsync"
       ],
@@ -519,7 +519,7 @@
       "name": "Set file modified date to now.",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Set file modified date to now.",
+      "summary": "Set a selected file's modification timestamp to the current time.",
       "tags": [
         "coreutils"
       ],
@@ -531,7 +531,7 @@
       "name": "SHA-256 Hash Check",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for SHA-256 Hash Check",
+      "summary": "Calculate and display the SHA-256 checksum of a selected file.",
       "tags": [
         "coreutils"
       ],
@@ -615,7 +615,7 @@
       "name": "Virus Check (VirusTotal)",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Virus Check (VirusTotal)",
+      "summary": "Calculate a file's SHA-256 hash and open its existing VirusTotal report.",
       "tags": [
         "coreutils"
       ],
@@ -627,7 +627,7 @@
       "name": "Watermark Video",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for Watermark Video",
+      "summary": "Overlay a watermark image at a selected corner of a video.",
       "tags": [
         "ffmpeg"
       ],
@@ -639,7 +639,7 @@
       "name": "wCurl Download",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for wCurl Download",
+      "summary": "Download a URL with wcurl using an optional filename and timestamp behavior.",
       "tags": [
         "wcurl"
       ],
@@ -651,7 +651,7 @@
       "name": "YT-DLP Download",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for YT-DLP Download",
+      "summary": "Download a video or selected time range at a chosen maximum resolution with yt-dlp.",
       "tags": [
         "yt-dlp"
       ],
@@ -663,7 +663,7 @@
       "name": "YT-DLP: Download as Audio",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for YT-DLP: Download as Audio",
+      "summary": "Download media from a URL and extract it in a selected audio format.",
       "tags": [
         "yt-dlp"
       ],
@@ -675,7 +675,7 @@
       "name": "YT-DLP Get Direct URL",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "AutoPie command for YT-DLP Get Direct URL",
+      "summary": "Resolve and display the direct media URL for a supported page with yt-dlp.",
       "tags": [
         "yt-dlp"
       ],
@@ -683,6 +683,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-09-14T10:41:44Z",
+  "generatedAt": "2026-09-14T13:39:04Z",
   "schemaVersion": "2026.6.1"
 }

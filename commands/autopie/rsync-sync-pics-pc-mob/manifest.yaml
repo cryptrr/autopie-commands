@@ -6,7 +6,7 @@ id: "autopie.rsync-sync-pics-pc-mob"
 namespace: "autopie"
 name: "RSYNC: Sync Pics - PC \u27a1\ufe0f Mob"
 commandSlug: "rsync"
-summary: "AutoPie command for RSYNC: Sync Pics - PC \u27a1\ufe0f Mob"
+summary: "Synchronize pictures from a remote rsync server to a folder on the device."
 kind: "APP"
 tags: ["rsync"]
 runtime:

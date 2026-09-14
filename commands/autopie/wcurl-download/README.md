@@ -1,6 +1,6 @@
 ### wCurl Download
 
-AutoPie command for wCurl Download
+Download a URL with wcurl using an optional filename and timestamp behavior.
 
 #### Command
 

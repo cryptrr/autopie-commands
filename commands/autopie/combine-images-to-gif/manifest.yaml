@@ -6,7 +6,7 @@ id: "autopie.combine-images-to-gif"
 namespace: "autopie"
 name: "Combine Images to GIF"
 commandSlug: "magick"
-summary: "AutoPie command for Combine Images to GIF"
+summary: "Turn a sequence of images into a looping GIF with a configurable frame delay."
 kind: "APP"
 tags: ["imagemagick"]
 runtime:

@@ -1,6 +1,6 @@
 ### Open in Video Player
 
-AutoPie command for Open in Video Player
+Resolve a direct media URL with yt-dlp and send it to an Android video player.
 
 #### Command
 

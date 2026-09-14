@@ -6,7 +6,7 @@ id: "autopie.compress-zip-high-folder"
 namespace: "autopie"
 name: "Compress ZIP (High) : Folder"
 commandSlug: "7z"
-summary: "AutoPie command for Compress ZIP (High) : Folder"
+summary: "Create a high-compression ZIP archive from the contents of a folder."
 kind: "APP"
 tags: ["p7zip"]
 runtime:

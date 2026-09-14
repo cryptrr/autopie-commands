@@ -1,6 +1,6 @@
 ### Set file modified date to now.
 
-AutoPie command for Set file modified date to now.
+Set a selected file's modification timestamp to the current time.
 
 #### Command
 

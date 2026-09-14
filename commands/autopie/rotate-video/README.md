@@ -1,6 +1,6 @@
 ### Rotate Video
 
-AutoPie command for Rotate Video
+Rotate a video clockwise by 90, 180, or 270 degrees while preserving its audio.
 
 #### Command
 

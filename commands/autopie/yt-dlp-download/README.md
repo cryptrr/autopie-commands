@@ -1,6 +1,6 @@
 ### YT-DLP Download
 
-AutoPie command for YT-DLP Download
+Download a video or selected time range at a chosen maximum resolution with yt-dlp.
 
 #### Command
 

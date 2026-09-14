@@ -1,6 +1,6 @@
 ### RSYNC: Backup Pics to PC
 
-AutoPie command for RSYNC: Backup Pics to PC
+Back up a local pictures folder to a remote rsync server.
 
 #### Command
 

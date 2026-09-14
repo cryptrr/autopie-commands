@@ -1,6 +1,6 @@
 ### Remove Audio
 
-AutoPie command for Remove Audio
+Remove all audio streams from a video without re-encoding the video.
 
 #### Command
 

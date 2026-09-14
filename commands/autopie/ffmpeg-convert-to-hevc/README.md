@@ -1,6 +1,6 @@
 ### FFMPEG: Convert to HEVC
 
-AutoPie command for FFMPEG: Convert to HEVC
+Transcode a video to an H.264 MP4 at CRF 24 using FFmpeg.
 
 #### Command
 

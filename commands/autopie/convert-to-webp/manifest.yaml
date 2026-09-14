@@ -6,7 +6,7 @@ id: "autopie.convert-to-webp"
 namespace: "autopie"
 name: "Convert To WEBP"
 commandSlug: "magick"
-summary: "AutoPie command for Convert To WEBP"
+summary: "Convert an image to WebP with configurable quality and compression effort."
 kind: "APP"
 tags: ["imagemagick"]
 runtime:

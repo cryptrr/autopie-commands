@@ -1,6 +1,6 @@
 ### OpenWRT Router Automations
 
-AutoPie command for OpenWRT Router Automations
+Run common Wi-Fi, network, reboot, and wake-on-LAN actions on an OpenWrt router over SSH.
 
 #### Command
 

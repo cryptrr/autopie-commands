@@ -6,7 +6,7 @@ id: "autopie.convert-to-animated-webp"
 namespace: "autopie"
 name: "Convert to Animated WebP"
 commandSlug: "ffmpeg"
-summary: "AutoPie command for Convert to Animated WebP"
+summary: "Convert a video or animation into a looping 15 FPS animated WebP."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:

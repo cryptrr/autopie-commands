@@ -6,7 +6,7 @@ id: "autopie.change-volume-on-mac"
 namespace: "autopie"
 name: "Change Volume on Mac"
 commandSlug: "openssh"
-summary: "AutoPie command for Change Volume on Mac"
+summary: "Set a Mac's output volume remotely over SSH."
 kind: "APP"
 tags: ["openssh"]
 runtime:

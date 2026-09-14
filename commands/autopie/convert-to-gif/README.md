@@ -1,6 +1,6 @@
 ### Convert to GIF
 
-AutoPie command for Convert to GIF
+Convert a selected portion of a video into a scaled 15 FPS GIF.
 
 #### Command
 
