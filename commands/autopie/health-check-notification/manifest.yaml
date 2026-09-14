@@ -2,9 +2,9 @@ schemaVersion: "2026.6.1"
 version: "1.0.0"
 id: "autopie.health-check-notification"
 namespace: "autopie"
-name: "Health Check Notification (REST)"
+name: "Health Check Notification"
 commandSlug: ""
-summary: "Check a URL every 15 minutes and send an Android notification only when a failure is detected."
+summary: "Check a URL every 15 minutes and send an Android notification when a failure is detected."
 type: "PACKAGE"
 tags: ["curl", "python", "cron", "notification", "monitoring"]
 runtime:
