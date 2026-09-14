@@ -17,8 +17,19 @@ uv run python tools/build_readmes.py
 uv run python tools/build_catalog.py
 ```
 
-Existing manifests can be given approximate UTC catalog timestamps from their
-Git history. Existing timestamp fields are preserved unless `--force` is used:
+Every new command manifest must contain matching UTC timestamps when it is
+created. `addedAt` remains unchanged for the life of the command; change
+`updatedAt` when releasing an updated command:
+
+```yaml
+addedAt: "2026-09-14T12:00:00Z"
+updatedAt: "2026-09-14T12:00:00Z"
+```
+
+The manifest generator includes these fields automatically. For a manually
+created command, run the date tool after creating its manifest. New or untracked
+manifests receive the current UTC time, while existing timestamp fields are
+preserved. Older manifests use approximate Git history unless `--force` is used:
 
 ```sh
 uv run python tools/backfill_catalog_dates.py

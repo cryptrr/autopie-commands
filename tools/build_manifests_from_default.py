@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import re
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -44,6 +45,15 @@ COMMAND_PACKAGE_HINTS = (
     ("sha256sum", ["coreutils"]),
     ("touch ", ["coreutils"]),
 )
+
+
+def utc_timestamp() -> str:
+    return (
+        datetime.now(UTC)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z")
+    )
 
 
 def json_scalar(value: Any) -> str:
@@ -174,7 +184,12 @@ def emit_runtime_step(lines: list[str], indent: int, block: dict[str, Any]) -> N
     emit_extras(lines, indent + 2, block.get("extras", []))
 
 
-def manifest_text(name: str, slug: str, command: dict[str, Any]) -> str:
+def manifest_text(
+    name: str,
+    slug: str,
+    command: dict[str, Any],
+    timestamp: str,
+) -> str:
     packages = packages_for_command(command)
     primary_package = packages[0]
     extra_packages = packages[1:]
@@ -184,6 +199,8 @@ def manifest_text(name: str, slug: str, command: dict[str, Any]) -> str:
 
     lines = [
         f"schemaVersion: {json_scalar(SCHEMA_VERSION)}",
+        f"addedAt: {json_scalar(timestamp)}",
+        f"updatedAt: {json_scalar(timestamp)}",
         f"version: {json_scalar(VERSION)}",
         f"id: {json_scalar(f'{NAMESPACE}.{slug}')}",
         f"namespace: {json_scalar(NAMESPACE)}",
@@ -263,6 +280,7 @@ def main() -> None:
         commands: dict[str, dict[str, Any]] = json.load(f)
 
     used_slugs: set[str] = set()
+    timestamp = utc_timestamp()
 
     for name, command in commands.items():
         base_slug = EXISTING_TARGETS.get(name, slugify(name))
@@ -278,7 +296,7 @@ def main() -> None:
 
         packages = packages_for_command(command)
         (command_dir / "manifest.yaml").write_text(
-            manifest_text(name, slug, command),
+            manifest_text(name, slug, command, timestamp),
             encoding="utf-8",
         )
         (command_dir / "README.md").write_text(
