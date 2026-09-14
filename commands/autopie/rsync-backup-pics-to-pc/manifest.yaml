@@ -11,6 +11,7 @@ kind: "APP"
 tags: ["rsync"]
 runtime:
   path: ""
+  type: "MANUAL"
   command: 'rsync -avz "${FOLDER_FROM}" "${FOLDER_TO}"'
   extras:
     - id: "093901"

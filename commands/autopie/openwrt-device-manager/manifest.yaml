@@ -11,7 +11,7 @@ kind: "APP"
 tags: ["openssh", "openwrt", "network"]
 runtime:
   multiStage: true
-  type: "SHARE"
+  type: "MANUAL"
   steps:
     - id: "discover_clients"
       path: "Download"
