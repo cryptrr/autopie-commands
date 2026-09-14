@@ -690,6 +690,28 @@
     ],
     "id": "autopie.github-repo-monitor"
   },
+  "Health Check Widget": {
+    "path": "",
+    "command": "RESPONSE_FILE=\"$HOME/.cache/autopie-health-response.txt\"\nmkdir -p \"$(dirname \"$RESPONSE_FILE\")\"\n\nMETRICS=\"$(\n  curl -sS \\\n    -o \"$RESPONSE_FILE\" \\\n    -w '%{http_code}|%{time_total}|%{time_connect}|%{time_starttransfer}|%{size_download}' \\\n    --max-time 10 \\\n    \"$URL\"\n)\"\nCURL_STATUS=$?\n\nIFS='|' read -r HTTP_CODE TIME_TOTAL TIME_CONNECT TIME_TTFB SIZE_DOWNLOAD <<< \"$METRICS\"\n\nif [[ \"$CURL_STATUS\" -ne 0 ]]; then\n  HTTP_CODE=\"000\"\nfi\n\nLATENCY_MS=$(awk \"BEGIN {printf \\\"%.0f\\\", ${TIME_TOTAL:-0} * 1000}\")\nCONNECT_MS=$(awk \"BEGIN {printf \\\"%.0f\\\", ${TIME_CONNECT:-0} * 1000}\")\nTTFB_MS=$(awk \"BEGIN {printf \\\"%.0f\\\", ${TIME_TTFB:-0} * 1000}\")\nCURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')\n\nif [[ \"$HTTP_CODE\" == \"200\" ]]; then\n  STATUS=\"healthy\"\nelse\n  STATUS=\"unhealthy\"\nfi\n\nRESPONSE=\"\"\nif [[ \"$HTTP_CODE\" != \"200\" ]]; then\n  RESPONSE=\"$(cat \"$RESPONSE_FILE\" 2>/dev/null || true)\"\nfi\n\nOUTPUT=\"$(\n  STATUS=\"$STATUS\" \\\n  HTTP_CODE=\"$HTTP_CODE\" \\\n  LATENCY_MS=\"$LATENCY_MS\" \\\n  CONNECT_MS=\"$CONNECT_MS\" \\\n  TTFB_MS=\"$TTFB_MS\" \\\n  CURRENT_TIME=\"$CURRENT_TIME\" \\\n  RESPONSE=\"$RESPONSE\" \\\n  python -c '\nimport json, os\n\nprint(json.dumps({\n    \"status\": os.environ[\"STATUS\"],\n    \"status_code\": int(os.environ[\"HTTP_CODE\"]) if os.environ[\"HTTP_CODE\"].isdigit() else 0,\n    \"latency_ms\": int(os.environ[\"LATENCY_MS\"]),\n    \"connect_ms\": int(os.environ[\"CONNECT_MS\"]),\n    \"ttfb_ms\": int(os.environ[\"TTFB_MS\"]),\n    \"current_time\": os.environ[\"CURRENT_TIME\"],\n    \"response\": os.environ[\"RESPONSE\"] or None\n}, separators=(\",\", \":\")))\n'\n)\"\n\nexport OUTPUT\nprintf '%s\\n' \"$OUTPUT\"",
+    "exec": "",
+    "type": "CRON",
+    "cronInterval": "15m",
+    "extras": [
+      {
+        "default": "",
+        "defaultBoolean": true,
+        "description": "The URL to check health.",
+        "id": "044793",
+        "name": "URL",
+        "required": true,
+        "flags": [
+          "--internal-config"
+        ],
+        "type": "STRING"
+      }
+    ],
+    "id": "autopie.health-check-widget"
+  },
   "Open in Video Player": {
     "path": "",
     "command": "url=$(yt-dlp --no-warnings -q -g -f \"${FORMAT}\" \"${INPUT_URL}\")\nam start \\\n    -a android.intent.action.SEND \\\n    -t text/plain \\\n    --es android.intent.extra.TEXT $url",

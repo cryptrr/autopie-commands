@@ -298,6 +298,20 @@
       ],
       "version": "1.0.0"
     },
+    "autopie.health-check-widget": {
+      "name": "Health Check Widget",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "A widget that checks a URL every 15 minutes and reports its health and response timings.",
+      "tags": [
+        "curl",
+        "python",
+        "cron",
+        "widget",
+        "monitoring"
+      ],
+      "version": "1.0.0"
+    },
     "autopie.open-in-video-player": {
       "name": "Open in Video Player",
       "namespace": "autopie",
@@ -519,6 +533,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-09-13T23:54:32Z",
+  "generatedAt": "2026-09-14T00:06:54Z",
   "schemaVersion": "2026.6.1"
 }
