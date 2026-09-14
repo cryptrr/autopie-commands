@@ -1,0 +1,173 @@
+### Strip Image Metadata & Share
+
+Remove metadata from a shared image without changing the original, then open the Android share sheet.
+
+#### Command
+
+- Path: `default`
+- Command slug: ``
+- Type: `SHARE`
+
+```sh
+#@PYTHON
+import mimetypes
+import os
+import shutil
+import subprocess
+import time
+import uuid
+from pathlib import Path
+from urllib.parse import quote
+
+
+def die(message):
+    print(f"Error: {message}", flush=True)
+    raise SystemExit(1)
+
+
+# ------------------------------------------------------------
+# Validate input
+# ------------------------------------------------------------
+
+input_value = os.environ.get("INPUT_FILE", "").strip()
+
+if not input_value:
+    die("No image received")
+
+source = Path(input_value)
+
+if not source.is_file():
+    die(f"Input is not a file: {source}")
+
+if shutil.which("exiftool") is None:
+    die("ExifTool is not installed. Run: pkg install exiftool")
+
+
+# ------------------------------------------------------------
+# AutoPie cache directory
+# ------------------------------------------------------------
+
+prefix = Path(os.environ.get("PREFIX", "/data/data/com.autopi/files/usr"))
+app_root = prefix.parent.parent
+cache_root = app_root / "cache"
+output_dir = cache_root / "metadata-clean"
+output_dir.mkdir(parents=True, exist_ok=True)
+
+# Remove stale cleaned files from previous runs after 24 hours.
+cutoff = time.time() - (24 * 60 * 60)
+
+for old_file in output_dir.iterdir():
+    try:
+        if old_file.is_file() and old_file.stat().st_mtime < cutoff:
+            old_file.unlink()
+    except OSError:
+        pass
+
+
+# ------------------------------------------------------------
+# Create output name
+# ------------------------------------------------------------
+
+suffix = source.suffix
+stem = source.stem or "image"
+unique = uuid.uuid4().hex[:6]
+
+output = output_dir / f"{stem}-clean-{unique}{suffix}"
+
+
+# ------------------------------------------------------------
+# Strip metadata
+#
+# -all= removes all deletable metadata.
+# -o creates a new file, leaving the original untouched.
+# ------------------------------------------------------------
+
+result = subprocess.run(
+    [
+        "exiftool",
+        "-all=",
+        "-o",
+        str(output),
+        str(source),
+    ],
+    stdout=subprocess.PIPE,
+    stderr=subprocess.STDOUT,
+    text=True,
+)
+
+if result.returncode != 0 or not output.exists():
+    if output.exists():
+        output.unlink(missing_ok=True)
+
+    print(result.stdout, flush=True)
+    die("ExifTool failed to create cleaned image")
+
+
+# ------------------------------------------------------------
+# Build AutoPie FileProvider URI
+#
+# file_paths.xml exposes:
+#   <cache-path name="cache" path="." />
+#
+# Output is:
+#   cache/metadata-clean/filename.ext
+# ------------------------------------------------------------
+
+relative = output.relative_to(cache_root)
+encoded_path = "/".join(
+    quote(part, safe="")
+    for part in relative.parts
+)
+
+uri = f"content://com.autopi.fileprovider/cache/{encoded_path}"
+
+
+# ------------------------------------------------------------
+# MIME type
+# ------------------------------------------------------------
+
+mime, _ = mimetypes.guess_type(output.name)
+
+if not mime or not mime.startswith("image/"):
+    mime = "image/*"
+
+
+# ------------------------------------------------------------
+# Share cleaned image
+# ------------------------------------------------------------
+
+print(f"Cleaned: {source.name}", flush=True)
+print(f"Output: {output}", flush=True)
+
+share = subprocess.run(
+    [
+        "am",
+        "start",
+        "--grant-read-uri-permission",
+        "-a",
+        "android.intent.action.SEND",
+        "-c",
+        "android.intent.category.DEFAULT",
+        "-t",
+        mime,
+        "--eu",
+        "android.intent.extra.STREAM",
+        uri,
+    ],
+    stdout=subprocess.PIPE,
+    stderr=subprocess.STDOUT,
+    text=True,
+)
+
+if share.returncode != 0:
+    print(share.stdout, flush=True)
+    die("Could not open Android share sheet")
+
+print("Metadata removed. Share sheet opened.", flush=True)
+```
+
+- Flags: `--show-loading-screen-small`
+
+#### Extras
+
+No extras.

@@ -289,6 +289,14 @@
       "tags": ["imagemagick"],
       "version": "1.0.0"
     },
+    "autopie.remove-image-metadata-share": {
+      "name": "Strip Image Metadata & Share",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Remove metadata from a shared image without changing the original, then open the Android share sheet.",
+      "tags": ["python", "exiftool", "image", "privacy", "share"],
+      "version": "1.0.0"
+    },
     "autopie.resize-video": {
       "name": "Resize Video",
       "namespace": "autopie",
@@ -426,6 +434,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-09-14T00:32:15Z",
+  "generatedAt": "2026-09-14T00:39:40Z",
   "schemaVersion": "2026.6.1"
 }
