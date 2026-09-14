@@ -1195,6 +1195,14 @@
     ],
     "id": "autopie.rsync-sync-pics-pc-mob"
   },
+  "Save Webpage as Single HTML": {
+    "path": "Download",
+    "command": "TITLE=$(\n  curl -Ls --max-time 15 \"$INPUT_URL\" |\n    python -c 'import sys,re,html; s=sys.stdin.read(); m=re.search(r\"<title[^>]*>(.*?)</title>\", s, re.I|re.S); print(html.unescape(re.sub(r\"\\s+\", \" \", m.group(1))).strip() if m else \"\")'\n)\n\n[ -n \"$TITLE\" ] || TITLE=\"webpage\"\n\nFILENAME=$(\n  printf '%s' \"$TITLE\" |\n    sed 's#[/:*?\"<>|]#-#g; s/[[:space:]][[:space:]]*/ /g; s/^ *//; s/ *$//' |\n    cut -c1-120\n)\n\n[ -n \"$FILENAME\" ] || FILENAME=\"webpage\"\n\nOUTPUT_FILE=\"$FILENAME.html\"\nmonolith \"$INPUT_URL\" -o \"$OUTPUT_FILE\"\n\nOUTPUT=\"$OUTPUT_FILE\"\nexport OUTPUT\nprintf '%s\\n' \"$OUTPUT_FILE\"",
+    "exec": "",
+    "flags": [],
+    "type": "SHARE",
+    "id": "autopie.save-webpage-single-html"
+  },
   "Set file modified date to now.": {
     "path": "",
     "command": "touch \"${INPUT_FILE}\"",

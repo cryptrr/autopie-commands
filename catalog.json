@@ -321,6 +321,14 @@
       "tags": ["rsync"],
       "version": "1.0.0"
     },
+    "autopie.save-webpage-single-html": {
+      "name": "Save Webpage as Single HTML",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Save a shared webpage and its assets as one portable HTML file named from the page title.",
+      "tags": ["monolith", "curl", "html", "web", "share"],
+      "version": "1.0.0"
+    },
     "autopie.set-file-modified-date-to-now": {
       "name": "Set file modified date to now.",
       "namespace": "autopie",
@@ -418,6 +426,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-09-14T00:18:22Z",
+  "generatedAt": "2026-09-14T00:32:15Z",
   "schemaVersion": "2026.6.1"
 }

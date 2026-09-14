@@ -39,6 +39,7 @@ PACKAGE_MAP = {
 
 COMMAND_PACKAGE_HINTS = (
     ("#@PYTHON", ["python"]),
+    ("monolith ", ["monolith", "curl", "python", "sed", "coreutils"]),
     ("mediainfo", ["mediainfo"]),
     ("sha256sum", ["coreutils"]),
     ("touch ", ["coreutils"]),

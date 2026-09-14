@@ -1,0 +1,51 @@
+schemaVersion: "2026.6.1"
+version: "1.0.0"
+id: "autopie.save-webpage-single-html"
+namespace: "autopie"
+name: "Save Webpage as Single HTML"
+commandSlug: ""
+summary: "Save a shared webpage and its assets as one portable HTML file named from the page title."
+type: "PACKAGE"
+tags: ["monolith", "curl", "html", "web", "share"]
+runtime:
+  path: "Download"
+  type: "SHARE"
+  flags: []
+  command: |-
+    TITLE=$(
+      curl -Ls --max-time 15 "$INPUT_URL" |
+        python -c 'import sys,re,html; s=sys.stdin.read(); m=re.search(r"<title[^>]*>(.*?)</title>", s, re.I|re.S); print(html.unescape(re.sub(r"\s+", " ", m.group(1))).strip() if m else "")'
+    )
+
+    [ -n "$TITLE" ] || TITLE="webpage"
+
+    FILENAME=$(
+      printf '%s' "$TITLE" |
+        sed 's#[/:*?"<>|]#-#g; s/[[:space:]][[:space:]]*/ /g; s/^ *//; s/ *$//' |
+        cut -c1-120
+    )
+
+    [ -n "$FILENAME" ] || FILENAME="webpage"
+
+    OUTPUT_FILE="$FILENAME.html"
+    monolith "$INPUT_URL" -o "$OUTPUT_FILE"
+
+    OUTPUT="$OUTPUT_FILE"
+    export OUTPUT
+    printf '%s\n' "$OUTPUT_FILE"
+install:
+  primaryPackage: "monolith"
+  extraPackages: ["curl", "python", "sed", "coreutils"]
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+uninstall:
+  script: "uninstall.sh"
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]
