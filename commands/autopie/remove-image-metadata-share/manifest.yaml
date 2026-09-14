@@ -1,6 +1,6 @@
 schemaVersion: "2026.6.1"
 version: "1.0.0"
-id: "autopie.remove-image-metadata-share"
+id: "autopie.strip-image-metadata-share"
 namespace: "autopie"
 name: "Strip Image Metadata & Share"
 commandSlug: ""

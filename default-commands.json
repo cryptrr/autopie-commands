@@ -10,9 +10,7 @@
         "id": "735279",
         "name": "USER",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -21,9 +19,7 @@
         "id": "486044",
         "name": "HOST",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -32,10 +28,7 @@
         "id": "829258",
         "name": "PASSWORD",
         "required": true,
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
+        "flags": ["--password", "--internal-config"],
         "type": "STRING"
       },
       {
@@ -44,10 +37,7 @@
         "id": "574538",
         "name": "VOLUME",
         "required": true,
-        "flags": [
-          "--int",
-          "--realtime"
-        ],
+        "flags": ["--int", "--realtime"],
         "type": "SLIDER"
       }
     ],
@@ -68,9 +58,7 @@
             "id": "735279",
             "name": "USER",
             "required": true,
-            "flags": [
-              "--internal-config"
-            ],
+            "flags": ["--internal-config"],
             "type": "STRING"
           },
           {
@@ -79,9 +67,7 @@
             "id": "486044",
             "name": "HOST",
             "required": true,
-            "flags": [
-              "--internal-config"
-            ],
+            "flags": ["--internal-config"],
             "type": "STRING"
           },
           {
@@ -90,10 +76,7 @@
             "id": "829258",
             "name": "PASSWORD",
             "required": true,
-            "flags": [
-              "--internal-config",
-              "--password"
-            ],
+            "flags": ["--internal-config", "--password"],
             "type": "STRING"
           }
         ]
@@ -109,10 +92,7 @@
             "id": "574538",
             "name": "VOLUME",
             "required": true,
-            "flags": [
-              "--int",
-              "--realtime"
-            ],
+            "flags": ["--int", "--realtime"],
             "type": "SLIDER"
           }
         ]
@@ -149,11 +129,7 @@
         "name": "QUALITY",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "720x",
-          "480x",
-          "1080x"
-        ]
+        "selectableOptions": ["720x", "480x", "1080x"]
       }
     ],
     "id": "autopie.combine-gifs-vertically"
@@ -191,11 +167,7 @@
         "name": "QUALITY",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "720x",
-          "480x",
-          "1080x"
-        ]
+        "selectableOptions": ["720x", "480x", "1080x"]
       }
     ],
     "id": "autopie.combine-images-into-pdf"
@@ -228,11 +200,7 @@
         "name": "QUALITY",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "720x",
-          "480x",
-          "1080x"
-        ]
+        "selectableOptions": ["720x", "480x", "1080x"]
       }
     ],
     "id": "autopie.combine-images-vertically"
@@ -283,9 +251,7 @@
             "id": "archive_name",
             "name": "ARCHIVE_NAME",
             "required": true,
-            "flags": [
-              "--large"
-            ],
+            "flags": ["--large"],
             "type": "STRING"
           },
           {
@@ -301,9 +267,7 @@
             "id": "password",
             "name": "PASSWORD",
             "required": true,
-            "flags": [
-              "--password"
-            ],
+            "flags": ["--password"],
             "type": "STRING",
             "visibleWhen": {
               "extraId": "enable_encryption",
@@ -351,17 +315,13 @@
             "description": "Leave empty to save next to the selected file/folder.",
             "id": "output_folder",
             "name": "OUTPUT_FOLDER",
-            "flags": [
-              "--folder-picker"
-            ],
+            "flags": ["--folder-picker"],
             "type": "STRING"
           }
         ]
       }
     ],
-    "flags": [
-      "--show-loading-screen-small"
-    ],
+    "flags": ["--show-loading-screen-small"],
     "type": "SHARE"
   },
   "Compress ZIP (High) : Folder": {
@@ -426,10 +386,7 @@
         "name": "CODEC",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "libvpx-vp9",
-          "libvpx"
-        ]
+        "selectableOptions": ["libvpx-vp9", "libvpx"]
       },
       {
         "default": "24",
@@ -462,15 +419,7 @@
         "name": "METHOD",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "6",
-          "0",
-          "1",
-          "2",
-          "3",
-          "4",
-          "5"
-        ]
+        "selectableOptions": ["6", "0", "1", "2", "3", "4", "5"]
       }
     ],
     "id": "autopie.convert-to-webp"
@@ -509,13 +458,7 @@
         "name": "POSITION",
         "required": false,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "center",
-          "north",
-          "south",
-          "east",
-          "west"
-        ]
+        "selectableOptions": ["center", "north", "south", "east", "west"]
       }
     ],
     "id": "autopie.crop-image-gif"
@@ -669,9 +612,7 @@
         "id": "repo",
         "name": "REPO",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -681,10 +622,7 @@
         "id": "github_token",
         "name": "GITHUB_TOKEN",
         "required": true,
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
+        "flags": ["--password", "--internal-config"],
         "type": "STRING"
       }
     ],
@@ -704,9 +642,7 @@
         "id": "extra-url",
         "name": "URL",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       }
     ],
@@ -726,9 +662,7 @@
         "id": "044793",
         "name": "URL",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       }
     ],
@@ -738,9 +672,7 @@
     "path": "",
     "command": "url=$(yt-dlp --no-warnings -q -g -f \"${FORMAT}\" \"${INPUT_URL}\")\nam start \\\n    -a android.intent.action.SEND \\\n    -t text/plain \\\n    --es android.intent.extra.TEXT $url",
     "exec": "am",
-    "flags": [
-      "--show-loading-screen"
-    ],
+    "flags": ["--show-loading-screen"],
     "extras": [
       {
         "default": "b",
@@ -772,9 +704,7 @@
             "id": "router_host",
             "name": "ROUTER_HOST",
             "required": true,
-            "flags": [
-              "--internal-config"
-            ],
+            "flags": ["--internal-config"],
             "type": "STRING"
           },
           {
@@ -783,9 +713,7 @@
             "id": "router_port",
             "name": "ROUTER_PORT",
             "required": true,
-            "flags": [
-              "--internal-config"
-            ],
+            "flags": ["--internal-config"],
             "type": "STRING"
           },
           {
@@ -794,9 +722,7 @@
             "id": "router_user",
             "name": "ROUTER_USER",
             "required": true,
-            "flags": [
-              "--internal-config"
-            ],
+            "flags": ["--internal-config"],
             "type": "STRING"
           },
           {
@@ -804,9 +730,7 @@
             "description": "Authentication method used to connect to OpenWrt.",
             "id": "auth_method",
             "name": "AUTH_METHOD",
-            "flags": [
-              "--internal-config"
-            ],
+            "flags": ["--internal-config"],
             "type": "SELECTABLE",
             "selectableOptions": {
               "Password": "password",
@@ -819,10 +743,7 @@
             "id": "router_password",
             "name": "ROUTER_PASSWORD",
             "required": true,
-            "flags": [
-              "--secret",
-              "--internal-config"
-            ],
+            "flags": ["--secret", "--internal-config"],
             "type": "STRING",
             "visibleWhen": {
               "extraId": "auth_method",
@@ -835,9 +756,7 @@
             "id": "ssh_key_path",
             "name": "SSH_KEY_PATH",
             "required": true,
-            "flags": [
-              "--internal-config"
-            ],
+            "flags": ["--internal-config"],
             "type": "STRING",
             "visibleWhen": {
               "extraId": "auth_method",
@@ -850,9 +769,7 @@
             "id": "firewall_src_zone",
             "name": "FIREWALL_SRC_ZONE",
             "required": true,
-            "flags": [
-              "--internal-config"
-            ],
+            "flags": ["--internal-config"],
             "type": "STRING"
           },
           {
@@ -861,9 +778,7 @@
             "id": "firewall_dest_zone",
             "name": "FIREWALL_DEST_ZONE",
             "required": true,
-            "flags": [
-              "--internal-config"
-            ],
+            "flags": ["--internal-config"],
             "type": "STRING"
           },
           {
@@ -892,9 +807,7 @@
             "id": "device_mac",
             "name": "DEVICE_MAC",
             "required": true,
-            "flags": [
-              "--large"
-            ],
+            "flags": ["--large"],
             "type": "SELECTABLE",
             "selectableOptions": {
               "Discovered devices": "$$CLIENT_OPTIONS"
@@ -913,9 +826,7 @@
             "id": "action",
             "name": "ACTION",
             "required": true,
-            "flags": [
-              "--large"
-            ],
+            "flags": ["--large"],
             "type": "SELECTABLE",
             "selectableOptions": {
               "Available actions": "$$ACTION_OPTIONS"
@@ -970,9 +881,7 @@
             "description": "Number of ICMP probes to send from the router.",
             "id": "ping_count",
             "name": "PING_COUNT",
-            "flags": [
-              "--int"
-            ],
+            "flags": ["--int"],
             "type": "SLIDER",
             "visibleWhen": {
               "extraId": "action",
@@ -995,9 +904,7 @@
         "id": "735279",
         "name": "USER",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -1006,9 +913,7 @@
         "id": "486044",
         "name": "HOST",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -1017,10 +922,7 @@
         "id": "829258",
         "name": "PASSWORD",
         "required": true,
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
+        "flags": ["--password", "--internal-config"],
         "type": "STRING"
       },
       {
@@ -1070,11 +972,9 @@
     "path": "",
     "command": "#@PYTHON\nimport mimetypes\nimport os\nimport shutil\nimport subprocess\nimport time\nimport uuid\nfrom pathlib import Path\nfrom urllib.parse import quote\n\n\ndef die(message):\n    print(f\"Error: {message}\", flush=True)\n    raise SystemExit(1)\n\n\n# ------------------------------------------------------------\n# Validate input\n# ------------------------------------------------------------\n\ninput_value = os.environ.get(\"INPUT_FILE\", \"\").strip()\n\nif not input_value:\n    die(\"No image received\")\n\nsource = Path(input_value)\n\nif not source.is_file():\n    die(f\"Input is not a file: {source}\")\n\nif shutil.which(\"exiftool\") is None:\n    die(\"ExifTool is not installed. Run: pkg install exiftool\")\n\n\n# ------------------------------------------------------------\n# AutoPie cache directory\n# ------------------------------------------------------------\n\nprefix = Path(os.environ.get(\"PREFIX\", \"/data/data/com.autopi/files/usr\"))\napp_root = prefix.parent.parent\ncache_root = app_root / \"cache\"\noutput_dir = cache_root / \"metadata-clean\"\noutput_dir.mkdir(parents=True, exist_ok=True)\n\n# Remove stale cleaned files from previous runs after 24 hours.\ncutoff = time.time() - (24 * 60 * 60)\n\nfor old_file in output_dir.iterdir():\n    try:\n        if old_file.is_file() and old_file.stat().st_mtime < cutoff:\n            old_file.unlink()\n    except OSError:\n        pass\n\n\n# ------------------------------------------------------------\n# Create output name\n# ------------------------------------------------------------\n\nsuffix = source.suffix\nstem = source.stem or \"image\"\nunique = uuid.uuid4().hex[:6]\n\noutput = output_dir / f\"{stem}-clean-{unique}{suffix}\"\n\n\n# ------------------------------------------------------------\n# Strip metadata\n#\n# -all= removes all deletable metadata.\n# -o creates a new file, leaving the original untouched.\n# ------------------------------------------------------------\n\nresult = subprocess.run(\n    [\n        \"exiftool\",\n        \"-all=\",\n        \"-o\",\n        str(output),\n        str(source),\n    ],\n    stdout=subprocess.PIPE,\n    stderr=subprocess.STDOUT,\n    text=True,\n)\n\nif result.returncode != 0 or not output.exists():\n    if output.exists():\n        output.unlink(missing_ok=True)\n\n    print(result.stdout, flush=True)\n    die(\"ExifTool failed to create cleaned image\")\n\n\n# ------------------------------------------------------------\n# Build AutoPie FileProvider URI\n#\n# file_paths.xml exposes:\n#   <cache-path name=\"cache\" path=\".\" />\n#\n# Output is:\n#   cache/metadata-clean/filename.ext\n# ------------------------------------------------------------\n\nrelative = output.relative_to(cache_root)\nencoded_path = \"/\".join(\n    quote(part, safe=\"\")\n    for part in relative.parts\n)\n\nuri = f\"content://com.autopi.fileprovider/cache/{encoded_path}\"\n\n\n# ------------------------------------------------------------\n# MIME type\n# ------------------------------------------------------------\n\nmime, _ = mimetypes.guess_type(output.name)\n\nif not mime or not mime.startswith(\"image/\"):\n    mime = \"image/*\"\n\n\n# ------------------------------------------------------------\n# Share cleaned image\n# ------------------------------------------------------------\n\nprint(f\"Cleaned: {source.name}\", flush=True)\nprint(f\"Output: {output}\", flush=True)\n\nshare = subprocess.run(\n    [\n        \"am\",\n        \"start\",\n        \"--grant-read-uri-permission\",\n        \"-a\",\n        \"android.intent.action.SEND\",\n        \"-c\",\n        \"android.intent.category.DEFAULT\",\n        \"-t\",\n        mime,\n        \"--eu\",\n        \"android.intent.extra.STREAM\",\n        uri,\n    ],\n    stdout=subprocess.PIPE,\n    stderr=subprocess.STDOUT,\n    text=True,\n)\n\nif share.returncode != 0:\n    print(share.stdout, flush=True)\n    die(\"Could not open Android share sheet\")\n\nprint(\"Metadata removed. Share sheet opened.\", flush=True)",
     "exec": "",
-    "flags": [
-      "--show-loading-screen-small"
-    ],
+    "flags": ["--show-loading-screen-small"],
     "type": "SHARE",
-    "id": "autopie.remove-image-metadata-share"
+    "id": "autopie.strip-image-metadata-share"
   },
   "Resize Video": {
     "path": "",
@@ -1112,11 +1012,7 @@
         "name": "ROTATE",
         "required": true,
         "type": "SELECTABLE",
-        "selectableOptions": [
-          "90",
-          "180",
-          "270"
-        ]
+        "selectableOptions": ["90", "180", "270"]
       }
     ],
     "id": "autopie.rotate-video"
@@ -1132,10 +1028,7 @@
         "id": "093901",
         "name": "RSYNC_PASSWORD",
         "required": true,
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
+        "flags": ["--password", "--internal-config"],
         "type": "STRING"
       },
       {
@@ -1144,9 +1037,7 @@
         "id": "557719",
         "name": "FOLDER_TO",
         "required": false,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -1155,9 +1046,7 @@
         "id": "267285",
         "name": "FOLDER_FROM",
         "required": false,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       }
     ],
@@ -1174,10 +1063,7 @@
         "id": "093901",
         "name": "RSYNC_PASSWORD",
         "required": true,
-        "flags": [
-          "--password",
-          "--internal-config"
-        ],
+        "flags": ["--password", "--internal-config"],
         "type": "STRING"
       },
       {
@@ -1186,9 +1072,7 @@
         "id": "557719",
         "name": "FOLDER_FROM",
         "required": false,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -1197,9 +1081,7 @@
         "id": "267285",
         "name": "FOLDER_TO",
         "required": false,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       }
     ],
@@ -1229,9 +1111,7 @@
     "path": "",
     "command": "#@PYTHON\nimport functools\nimport http.server\nimport os\nimport re\nimport shutil\nimport signal\nimport socket\nimport subprocess\nimport tempfile\nimport time\nfrom pathlib import Path\nfrom urllib.parse import quote\n\n\ndef die(message):\n    print(f\"Error: {message}\", flush=True)\n    raise SystemExit(1)\n\n\ndef command_output(*args):\n    try:\n        return subprocess.check_output(\n            args,\n            text=True,\n            stderr=subprocess.DEVNULL,\n            timeout=2,\n        ).strip()\n    except Exception:\n        return \"\"\n\n\ndef get_lan_ip():\n    # Prefer actual LAN interfaces so VPN/cellular routes don't win.\n    for iface in (\"wlan0\", \"wlan1\", \"eth0\"):\n        text = command_output(\n            \"ip\", \"-4\", \"-o\", \"addr\", \"show\", \"dev\", iface\n        )\n        match = re.search(r\"\\binet\\s+(\\d+\\.\\d+\\.\\d+\\.\\d+)/\", text)\n        if match:\n            return match.group(1)\n\n    # Routing-table fallback.\n    text = command_output(\"ip\", \"-4\", \"route\", \"get\", \"1.1.1.1\")\n    match = re.search(r\"\\bsrc\\s+(\\d+\\.\\d+\\.\\d+\\.\\d+)\", text)\n    if match:\n        return match.group(1)\n\n    # Socket fallback.\n    for remote in (\"192.0.2.1\", \"1.1.1.1\", \"8.8.8.8\"):\n        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)\n        try:\n            sock.connect((remote, 80))\n            ip = sock.getsockname()[0]\n            if ip and not ip.startswith(\"127.\"):\n                return ip\n        except OSError:\n            pass\n        finally:\n            sock.close()\n\n    return None\n\n\ndef normalize_lan_hostname(value):\n    value = (value or \"\").strip().lower().rstrip(\".\")\n\n    if not value or value in {\n        \"localhost\",\n        \"localhost.localdomain\",\n        \"(none)\",\n        \"null\",\n    }:\n        return None\n\n    if value.endswith(\".lan\"):\n        value = value[:-4]\n\n    value = re.sub(r\"[^a-z0-9.-]+\", \"-\", value)\n    value = re.sub(r\"-+\", \"-\", value).strip(\"-.\")\n\n    if not value:\n        return None\n\n    return f\"{value}.lan\"\n\n\ndef resolves_to(host, ip):\n    try:\n        addresses = {\n            item[4][0]\n            for item in socket.getaddrinfo(\n                host,\n                None,\n                socket.AF_INET,\n            )\n        }\n        return ip in addresses\n    except OSError:\n        return False\n\n\ndef find_lan_hostname(ip):\n    candidates = []\n\n    # OpenWrt/dnsmasq PTR record is the preferred source.\n    try:\n        candidates.append(socket.gethostbyaddr(ip)[0])\n    except OSError:\n        pass\n\n    candidates.extend([\n        command_output(\"getprop\", \"net.hostname\"),\n        command_output(\"hostname\"),\n        command_output(\"getprop\", \"persist.sys.device_name\"),\n        command_output(\"settings\", \"get\", \"global\", \"device_name\"),\n        socket.gethostname(),\n    ])\n\n    seen = set()\n\n    for candidate in candidates:\n        hostname = normalize_lan_hostname(candidate)\n\n        if not hostname or hostname in seen:\n            continue\n\n        seen.add(hostname)\n\n        # Don't publish a hostname that doesn't resolve to this phone.\n        if resolves_to(hostname, ip):\n            return hostname\n\n    return None\n\n\n# ---------------------------------------------------------------------\n# Input\n# ---------------------------------------------------------------------\n\ntarget_value = os.environ.get(\"INPUT\", \"\").strip()\nif not target_value:\n    die(\"No file or folder received\")\n\ntarget = Path(target_value)\nif not target.exists():\n    die(f\"Input does not exist: {target}\")\n\ntry:\n    expiry_seconds = int(os.environ.get(\"EXPIRY\", \"300\"))\nexcept ValueError:\n    die(\"Invalid expiry\")\n\nif expiry_seconds <= 0:\n    die(\"Expiry must be greater than zero\")\n\nurl_mode = os.environ.get(\"URL_MODE\", \"hostname\").strip().lower()\n\n\n# ---------------------------------------------------------------------\n# Network\n# ---------------------------------------------------------------------\n\nlan_ip = get_lan_ip()\nif not lan_ip:\n    die(\"Could not determine LAN IPv4 address\")\n\nhostname = None\n\nif url_mode == \"hostname\":\n    hostname = find_lan_hostname(lan_ip)\n\n    if hostname:\n        url_host = hostname\n    else:\n        print(\"Hostname unavailable; falling back to IP\", flush=True)\n        url_host = lan_ip\nelse:\n    url_host = lan_ip\n\n\n# ---------------------------------------------------------------------\n# Isolated share root\n# ---------------------------------------------------------------------\n\nstate_dir = Path.home() / \".cache\" / \"autopie-lan-share\"\nstate_dir.mkdir(parents=True, exist_ok=True)\n\nshare_root = Path(\n    tempfile.mkdtemp(\n        prefix=\"share-\",\n        dir=state_dir,\n    )\n)\n\nname = target.name or \"shared\"\nshare_path = share_root / name\n\ntry:\n    share_path.symlink_to(\n        target.resolve(),\n        target_is_directory=target.is_dir(),\n    )\nexcept Exception as exc:\n    shutil.rmtree(share_root, ignore_errors=True)\n    die(f\"Could not prepare share: {exc}\")\n\n\n# ---------------------------------------------------------------------\n# HTTP handler with byte-range support\n# ---------------------------------------------------------------------\n\nclass RangeRequestHandler(http.server.SimpleHTTPRequestHandler):\n    protocol_version = \"HTTP/1.1\"\n\n    def log_message(self, fmt, *args):\n        print(\n            f\"[{self.client_address[0]}] {fmt % args}\",\n            flush=True,\n        )\n\n    def send_head(self):\n        path = self.translate_path(self.path)\n\n        # Let SimpleHTTPRequestHandler handle directories, redirects,\n        # directory listings and errors normally.\n        if not os.path.isfile(path):\n            return super().send_head()\n\n        try:\n            file = open(path, \"rb\")\n        except OSError:\n            self.send_error(404, \"File not found\")\n            return None\n\n        try:\n            stat = os.fstat(file.fileno())\n            size = stat.st_size\n            content_type = self.guess_type(path)\n\n            range_header = self.headers.get(\"Range\")\n            start = 0\n            end = size - 1\n            partial = False\n\n            if range_header:\n                match = re.fullmatch(\n                    r\"bytes=(\\d*)-(\\d*)\",\n                    range_header.strip(),\n                )\n\n                if not match:\n                    file.close()\n                    self.send_error(416, \"Invalid Range\")\n                    return None\n\n                start_text, end_text = match.groups()\n\n                if not start_text and not end_text:\n                    file.close()\n                    self.send_error(416, \"Invalid Range\")\n                    return None\n\n                if start_text:\n                    start = int(start_text)\n\n                    if end_text:\n                        end = int(end_text)\n                    else:\n                        end = size - 1\n                else:\n                    # Suffix range: bytes=-500\n                    suffix_length = int(end_text)\n\n                    if suffix_length <= 0:\n                        file.close()\n                        self.send_error(416, \"Invalid Range\")\n                        return None\n\n                    suffix_length = min(suffix_length, size)\n                    start = size - suffix_length\n                    end = size - 1\n\n                if start >= size or start < 0 or end < start:\n                    file.close()\n                    self.send_response(416)\n                    self.send_header(\"Content-Range\", f\"bytes */{size}\")\n                    self.send_header(\"Content-Length\", \"0\")\n                    self.end_headers()\n                    return None\n\n                end = min(end, size - 1)\n                partial = True\n\n            self._range_start = start\n            self._range_end = end\n\n            if partial:\n                self.send_response(206)\n                self.send_header(\n                    \"Content-Range\",\n                    f\"bytes {start}-{end}/{size}\",\n                )\n                content_length = end - start + 1\n            else:\n                self.send_response(200)\n                content_length = size\n\n            self.send_header(\"Content-Type\", content_type)\n            self.send_header(\"Content-Length\", str(content_length))\n            self.send_header(\"Accept-Ranges\", \"bytes\")\n            self.send_header(\n                \"Last-Modified\",\n                self.date_time_string(stat.st_mtime),\n            )\n            self.end_headers()\n\n            file.seek(start)\n            return file\n\n        except Exception:\n            file.close()\n            raise\n\n    def copyfile(self, source, outputfile):\n        start = getattr(self, \"_range_start\", 0)\n        end = getattr(self, \"_range_end\", None)\n\n        if end is None:\n            return super().copyfile(source, outputfile)\n\n        remaining = end - start + 1\n        buffer_size = 1024 * 1024\n\n        while remaining > 0:\n            chunk = source.read(min(buffer_size, remaining))\n\n            if not chunk:\n                break\n\n            try:\n                outputfile.write(chunk)\n            except (BrokenPipeError, ConnectionResetError):\n                # Normal when mpv/VLC closes a probe/range request early.\n                break\n\n            remaining -= len(chunk)\n\n\nclass LANServer(http.server.ThreadingHTTPServer):\n    daemon_threads = True\n    allow_reuse_address = True\n\n\nhandler = functools.partial(\n    RangeRequestHandler,\n    directory=str(share_root),\n)\n\ntry:\n    # Port 0 asks the kernel to assign a free port atomically.\n    server = LANServer((lan_ip, 0), handler)\nexcept OSError as exc:\n    shutil.rmtree(share_root, ignore_errors=True)\n    die(f\"Could not start LAN server: {exc}\")\n\nport = server.server_address[1]\n\n\n# ---------------------------------------------------------------------\n# URL\n# ---------------------------------------------------------------------\n\nurl = f\"http://{url_host}:{port}/{quote(name, safe='')}\"\n\nif target.is_dir():\n    url += \"/\"\n\nprint(f\"Sharing: {target}\", flush=True)\nprint(f\"URL: {url}\", flush=True)\nprint(f\"LAN IP: {lan_ip}\", flush=True)\n\nif hostname:\n    print(f\"Hostname: {hostname}\", flush=True)\n\nprint(f\"Expires in: {expiry_seconds // 60} minute(s)\", flush=True)\nprint(\"Server running...\", flush=True)\n\n\n# ---------------------------------------------------------------------\n# Android share sheet\n# ---------------------------------------------------------------------\n\nsubprocess.run(\n    [\n        \"am\",\n        \"start\",\n        \"-a\",\n        \"android.intent.action.SEND\",\n        \"-t\",\n        \"text/plain\",\n        \"--es\",\n        \"android.intent.extra.TEXT\",\n        url,\n    ],\n    stdout=subprocess.DEVNULL,\n    stderr=subprocess.DEVNULL,\n    check=False,\n)\n\n\n# ---------------------------------------------------------------------\n# Keep this AutoPie command alive until expiry / cancellation\n# ---------------------------------------------------------------------\n\nserver.timeout = 1.0\nexpires_at = time.monotonic() + expiry_seconds\nstopping = False\n\n\ndef stop_server(signum=None, frame=None):\n    global stopping\n    stopping = True\n\n\nsignal.signal(signal.SIGTERM, stop_server)\nsignal.signal(signal.SIGINT, stop_server)\n\ntry:\n    while not stopping and time.monotonic() < expires_at:\n        server.handle_request()\nfinally:\n    server.server_close()\n    shutil.rmtree(share_root, ignore_errors=True)\n\nprint(\"LAN share stopped\", flush=True)\n",
     "exec": "share",
-    "flags": [
-      "--show-loading-screen-small"
-    ],
+    "flags": ["--show-loading-screen-small"],
     "type": "SHARE",
     "extras": [
       {
@@ -1278,9 +1158,7 @@
         "id": "735279",
         "name": "USER",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -1302,9 +1180,7 @@
         "id": "ssh_port",
         "name": "SSH_PORT",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -1313,9 +1189,7 @@
         "id": "auth_method",
         "name": "AUTH_METHOD",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "SELECTABLE",
         "selectableOptions": {
           "Password": "password",
@@ -1328,10 +1202,7 @@
         "id": "829258",
         "name": "PASSWORD",
         "required": true,
-        "flags": [
-          "--secret",
-          "--internal-config"
-        ],
+        "flags": ["--secret", "--internal-config"],
         "type": "STRING",
         "visibleWhen": {
           "extraId": "auth_method",
@@ -1344,9 +1215,7 @@
         "id": "ssh_key_path",
         "name": "SSH_KEY_PATH",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING",
         "visibleWhen": {
           "extraId": "auth_method",
@@ -1359,10 +1228,7 @@
         "id": "sudo_password",
         "name": "SUDO_PASSWORD",
         "required": false,
-        "flags": [
-          "--secret",
-          "--internal-config"
-        ],
+        "flags": ["--secret", "--internal-config"],
         "type": "STRING"
       }
     ],
@@ -1397,10 +1263,7 @@
             "description": "Folder where the downloaded media will be saved.",
             "id": "output_folder",
             "name": "OUTPUT_FOLDER",
-            "flags": [
-              "--internal-config",
-              "--folder-picker"
-            ],
+            "flags": ["--internal-config", "--folder-picker"],
             "type": "STRING"
           },
           {
@@ -1514,10 +1377,7 @@
             "description": "Clip start position in seconds.",
             "id": "clip_start",
             "name": "CLIP_START",
-            "flags": [
-              "--int",
-              "--large"
-            ],
+            "flags": ["--int", "--large"],
             "type": "SLIDER",
             "visibleWhen": {
               "extraId": "clip_mode",
@@ -1529,10 +1389,7 @@
             "description": "Clip end position in seconds.",
             "id": "clip_end",
             "name": "CLIP_END",
-            "flags": [
-              "--int",
-              "--large"
-            ],
+            "flags": ["--int", "--large"],
             "type": "SLIDER",
             "visibleWhen": {
               "extraId": "clip_mode",
@@ -1574,9 +1431,7 @@
         ]
       }
     ],
-    "flags": [
-      "--show-loading-screen-small"
-    ],
+    "flags": ["--show-loading-screen-small"],
     "type": "SHARE"
   },
   "SSH Login Monitor": {
@@ -1593,9 +1448,7 @@
         "id": "ssh_host",
         "name": "SSH_HOST",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -1605,9 +1458,7 @@
         "id": "ssh_user",
         "name": "SSH_USER",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -1617,9 +1468,7 @@
         "id": "ssh_port",
         "name": "SSH_PORT",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING"
       },
       {
@@ -1629,9 +1478,7 @@
         "id": "ssh_auth_mode",
         "name": "SSH_AUTH_MODE",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "SELECTABLE",
         "selectableOptions": {
           "SSH Key": "key",
@@ -1645,9 +1492,7 @@
         "id": "ssh_key",
         "name": "SSH_KEY",
         "required": true,
-        "flags": [
-          "--internal-config"
-        ],
+        "flags": ["--internal-config"],
         "type": "STRING",
         "visibleWhen": {
           "equals": "key",
@@ -1661,10 +1506,7 @@
         "id": "ssh_password",
         "name": "SSH_PASSWORD",
         "required": true,
-        "flags": [
-          "--secret",
-          "--internal-config"
-        ],
+        "flags": ["--secret", "--internal-config"],
         "type": "STRING",
         "visibleWhen": {
           "equals": "password",
@@ -1678,9 +1520,7 @@
     "path": "",
     "command": "#@SHELL\nset -euo pipefail\n\nif [[ ! -f \"$INPUT_FILE\" ]]; then\n    echo \"Usage: $0 <file>\"\n    exit 1\nfi\n\nHASH=$(sha256sum \"$INPUT_FILE\" | awk '{print $1}')\nURL=\"https://www.virustotal.com/gui/file/$HASH\"\n\necho \"SHA-256: $HASH\"\necho \"Opening: $URL\"\n\nam start \\\n    -a android.intent.action.VIEW \\\n    -d \"$URL\"",
     "exec": "",
-    "flags": [
-      "--show-loading-screen"
-    ],
+    "flags": ["--show-loading-screen"],
     "id": "autopie.virus-check-virustotal"
   },
   "Watermark Video": {

@@ -289,7 +289,7 @@
       "tags": ["imagemagick"],
       "version": "1.0.0"
     },
-    "autopie.remove-image-metadata-share": {
+    "autopie.strip-image-metadata-share": {
       "name": "Strip Image Metadata & Share",
       "namespace": "autopie",
       "status": "stable",
