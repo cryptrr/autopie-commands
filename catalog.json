@@ -298,6 +298,20 @@
       ],
       "version": "1.0.0"
     },
+    "autopie.health-check-notification": {
+      "name": "Health Check Notification",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Check a URL every 15 minutes and send an Android notification only when a failure is detected.",
+      "tags": [
+        "curl",
+        "python",
+        "cron",
+        "notification",
+        "monitoring"
+      ],
+      "version": "1.0.0"
+    },
     "autopie.health-check-widget": {
       "name": "Health Check Widget",
       "namespace": "autopie",
@@ -533,6 +547,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-09-14T00:06:54Z",
+  "generatedAt": "2026-09-14T00:18:22Z",
   "schemaVersion": "2026.6.1"
 }
