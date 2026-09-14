@@ -1,4 +1,6 @@
 schemaVersion: "2026.6.1"
+addedAt: "2026-09-13T23:43:11Z"
+updatedAt: "2026-09-13T23:43:11Z"
 version: "1.0.0"
 id: "autopie.ssh-login-monitor"
 namespace: "autopie"

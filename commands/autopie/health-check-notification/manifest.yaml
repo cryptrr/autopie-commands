@@ -1,4 +1,6 @@
 schemaVersion: "2026.6.1"
+addedAt: "2026-09-14T00:21:00Z"
+updatedAt: "2026-09-14T00:25:39Z"
 version: "1.0.0"
 id: "autopie.health-check-notification"
 namespace: "autopie"

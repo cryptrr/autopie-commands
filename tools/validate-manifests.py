@@ -1,9 +1,11 @@
 from pathlib import Path
+from datetime import UTC, datetime
 import re
 
 from manifest_io import find_manifest_files, load_manifest
 
 ID_RE = re.compile(r"^[a-z][a-z0-9_-]*\.[a-z][a-z0-9_-]*$")
+UTC_TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
 
 seen_ids = set()
 
@@ -27,6 +29,21 @@ for manifest_file in find_manifest_files(Path("commands")):
         )
 
     seen_ids.add(manifest["id"])
+
+    timestamps = {}
+    for field in ("addedAt", "updatedAt"):
+        value = manifest.get(field)
+        if not isinstance(value, str) or not UTC_TIMESTAMP_RE.fullmatch(value):
+            raise Exception(
+                f"{manifest_file}: {field} must be a UTC timestamp "
+                "formatted as YYYY-MM-DDTHH:MM:SSZ"
+            )
+        timestamps[field] = datetime.fromisoformat(value).astimezone(UTC)
+
+    if timestamps["updatedAt"] < timestamps["addedAt"]:
+        raise Exception(
+            f"{manifest_file}: updatedAt must not be earlier than addedAt"
+        )
 
     readme = command_dir / manifest["docs"]["readme"]
     if not readme.exists():

@@ -1,4 +1,6 @@
 schemaVersion: "2026.6.1"
+addedAt: "2026-07-14T11:24:14Z"
+updatedAt: "2026-09-10T05:50:14Z"
 version: "1.1.0"
 id: "autopie.shutdown-remote-server"
 namespace: "autopie"

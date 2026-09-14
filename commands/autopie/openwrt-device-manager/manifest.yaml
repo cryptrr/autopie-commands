@@ -1,4 +1,6 @@
 schemaVersion: "2026.6.1"
+addedAt: "2026-08-28T18:17:51Z"
+updatedAt: "2026-08-28T18:22:50Z"
 version: "1.0.0"
 id: "autopie.openwrt-device-manager"
 namespace: "autopie"

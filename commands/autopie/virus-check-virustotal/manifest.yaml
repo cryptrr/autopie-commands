@@ -1,4 +1,6 @@
 schemaVersion: "2026.6.1"
+addedAt: "2026-07-14T11:24:14Z"
+updatedAt: "2026-07-15T20:52:09Z"
 version: "1.0.0"
 id: "autopie.virus-check-virustotal"
 namespace: "autopie"

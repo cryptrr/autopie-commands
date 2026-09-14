@@ -17,6 +17,13 @@ uv run python tools/build_readmes.py
 uv run python tools/build_catalog.py
 ```
 
+Existing manifests can be given approximate UTC catalog timestamps from their
+Git history. Existing timestamp fields are preserved unless `--force` is used:
+
+```sh
+uv run python tools/backfill_catalog_dates.py
+```
+
 Use YAML block scalars for multiline commands:
 
 ```yaml

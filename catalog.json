@@ -2,438 +2,687 @@
   "$schema": "schema/2026.6.1/catalog.schema.json",
   "commands": {
     "autopie.change-volume-on-mac": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Change Volume on Mac",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Change Volume on Mac",
-      "tags": ["openssh"],
+      "tags": [
+        "openssh"
+      ],
+      "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.0"
     },
     "autopie.change-volume-on-mac-autofetch": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Change Volume on Mac - AutoFetch",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Change Volume on Mac - AutoFetch",
-      "tags": ["openssh"],
+      "tags": [
+        "openssh"
+      ],
+      "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.1"
     },
     "autopie.check-exif-data": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Check Exif Data",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Check Exif Data",
-      "tags": ["exiftool"],
+      "tags": [
+        "exiftool"
+      ],
+      "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
     "autopie.check-internet-archive": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Check Internet Archive",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Check Internet Archive",
-      "tags": ["python"],
+      "tags": [
+        "python"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.check-media-info": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Check Media Info",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Check Media Info",
-      "tags": ["mediainfo"],
+      "tags": [
+        "mediainfo"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.combine-gifs-vertically": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Combine Gifs Vertically",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Combine Gifs Vertically",
-      "tags": ["imagemagick"],
+      "tags": [
+        "imagemagick"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.combine-images-horizontally": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Combine Images Horizontally",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Combine Images Horizontally",
-      "tags": ["imagemagick"],
+      "tags": [
+        "imagemagick"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.combine-images-into-pdf": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Combine Images into PDF",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Combine Images into PDF",
-      "tags": ["imagemagick"],
+      "tags": [
+        "imagemagick"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.combine-images-to-gif": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Combine Images to GIF",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Combine Images to GIF",
-      "tags": ["imagemagick"],
+      "tags": [
+        "imagemagick"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.combine-images-vertically": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Combine Images Vertically",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Combine Images Vertically",
-      "tags": ["imagemagick"],
+      "tags": [
+        "imagemagick"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.compress-7zip": {
+      "addedAt": "2026-09-13T23:56:43Z",
       "name": "Compress with 7-Zip",
       "namespace": "autopie",
       "status": "stable",
       "summary": "Compress files or a folder into a configurable 7z or ZIP archive.",
-      "tags": ["7zip", "compression", "archive", "share"],
+      "tags": [
+        "7zip",
+        "compression",
+        "archive",
+        "share"
+      ],
+      "updatedAt": "2026-09-13T23:56:43Z",
       "version": "1.0.0"
     },
     "autopie.compress-zip-high-folder": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Compress ZIP (High) : Folder",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Compress ZIP (High) : Folder",
-      "tags": ["p7zip"],
+      "tags": [
+        "p7zip"
+      ],
+      "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
     "autopie.compress-zip-high-multi-file": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Compress ZIP (High) : Multi File",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Compress ZIP (High) : Multi File",
-      "tags": ["p7zip"],
+      "tags": [
+        "p7zip"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.convert-to-animated-webp": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Convert to Animated WebP",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Convert to Animated WebP",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.convert-to-gif": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Convert to GIF",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Convert to GIF",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.convert-to-webm": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Convert To WebM",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Convert To WebM",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.convert-to-webp": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Convert To WEBP",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Convert To WEBP",
-      "tags": ["imagemagick"],
+      "tags": [
+        "imagemagick"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.convert-video-to-av1": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Convert video to AV1",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Convert video to AV1",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.crop-image-gif": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Crop Image/GIF",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Crop Image/GIF",
-      "tags": ["imagemagick"],
+      "tags": [
+        "imagemagick"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.crop-video-to-mobile-dimensions": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Crop Video to Mobile Dimensions",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Crop Video to Mobile Dimensions",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.extract-audio": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Extract Audio from File",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Extract Audio from File",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.extract-audio-from-url": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Extract Audio from URL",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Extract Audio from URL",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.extract-images-from-pdf": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Extract Images from PDF",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Extract Images from PDF",
-      "tags": ["imagemagick"],
+      "tags": [
+        "imagemagick"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.ffmpeg-convert-to-hevc": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "FFMPEG: Convert to HEVC",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for FFMPEG: Convert to HEVC",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
     "autopie.ffmpeg-cut-video": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "FFMPEG: Cut Video",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for FFMPEG: Cut Video",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.ffmpeg-optimize-video": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "FFMPEG: Optimize Video",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for FFMPEG: Optimize Video",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
     "autopie.flip-mirror-video": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Flip/Mirror Video",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Flip/Mirror Video",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
     "autopie.gallerydl-download": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "GalleryDL Download ",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for GalleryDL Download ",
-      "tags": ["gallery-dl", "downloader"],
+      "tags": [
+        "gallery-dl",
+        "downloader"
+      ],
+      "updatedAt": "2026-07-16T20:21:36Z",
       "version": "1.0.0"
     },
     "autopie.github-repo-monitor": {
+      "addedAt": "2026-09-13T23:18:02Z",
       "name": "GitHub Repo Monitor",
       "namespace": "autopie",
       "status": "stable",
       "summary": "A 15-minute GitHub repository monitor cron designed for display as an Android widget.",
-      "tags": ["python", "github", "cron", "widget"],
+      "tags": [
+        "python",
+        "github",
+        "cron",
+        "widget"
+      ],
+      "updatedAt": "2026-09-13T23:18:02Z",
       "version": "1.0.0"
     },
     "autopie.health-check-notification": {
+      "addedAt": "2026-09-14T00:21:00Z",
       "name": "Health Check Notification",
       "namespace": "autopie",
       "status": "stable",
       "summary": "Check a URL every 15 minutes and send an Android notification when a failure is detected.",
-      "tags": ["curl", "python", "cron", "notification", "monitoring"],
+      "tags": [
+        "curl",
+        "python",
+        "cron",
+        "notification",
+        "monitoring"
+      ],
+      "updatedAt": "2026-09-14T00:25:39Z",
       "version": "1.0.0"
     },
     "autopie.health-check-widget": {
+      "addedAt": "2026-09-14T00:14:38Z",
       "name": "Health Check Widget",
       "namespace": "autopie",
       "status": "stable",
       "summary": "A widget that checks a URL every 15 minutes and reports its health and response timings.",
-      "tags": ["curl", "python", "cron", "widget", "monitoring"],
+      "tags": [
+        "curl",
+        "python",
+        "cron",
+        "widget",
+        "monitoring"
+      ],
+      "updatedAt": "2026-09-14T00:25:39Z",
       "version": "1.0.0"
     },
     "autopie.open-in-video-player": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Open in Video Player",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Open in Video Player",
-      "tags": ["yt-dlp"],
+      "tags": [
+        "yt-dlp"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.openwrt-device-manager": {
+      "addedAt": "2026-08-28T18:17:51Z",
       "name": "OpenWRT Device Manager",
       "namespace": "autopie",
       "status": "stable",
       "summary": "Discover and manage OpenWrt network clients over SSH.",
-      "tags": ["openssh", "openwrt", "network"],
+      "tags": [
+        "openssh",
+        "openwrt",
+        "network"
+      ],
+      "updatedAt": "2026-08-28T18:22:50Z",
       "version": "1.0.0"
     },
     "autopie.openwrt-router-automations": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "OpenWRT Router Automations",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for OpenWRT Router Automations",
-      "tags": ["openssh"],
+      "tags": [
+        "openssh"
+      ],
+      "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.0"
     },
     "autopie.remove-audio": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Remove Audio",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Remove Audio",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
     "autopie.remove-image-borders": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Remove Image Borders",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Remove Image Borders",
-      "tags": ["imagemagick"],
-      "version": "1.0.0"
-    },
-    "autopie.strip-image-metadata-share": {
-      "name": "Strip Image Metadata & Share",
-      "namespace": "autopie",
-      "status": "stable",
-      "summary": "Remove metadata from a shared image without changing the original, then open the Android share sheet.",
-      "tags": ["python", "exiftool", "image", "privacy", "share"],
+      "tags": [
+        "imagemagick"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.resize-video": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Resize Video",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Resize Video",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.rotate-video": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Rotate Video",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Rotate Video",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.rsync-backup-pics-to-pc": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "RSYNC: Backup Pics to PC",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for RSYNC: Backup Pics to PC",
-      "tags": ["rsync"],
+      "tags": [
+        "rsync"
+      ],
+      "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.0"
     },
     "autopie.rsync-sync-pics-pc-mob": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "RSYNC: Sync Pics - PC ➡️ Mob",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for RSYNC: Sync Pics - PC ➡️ Mob",
-      "tags": ["rsync"],
+      "tags": [
+        "rsync"
+      ],
+      "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.0"
     },
     "autopie.save-webpage-single-html": {
+      "addedAt": "2026-09-14T00:36:20Z",
       "name": "Save Webpage as Single HTML",
       "namespace": "autopie",
       "status": "stable",
       "summary": "Save a shared webpage and its assets as one portable HTML file named from the page title.",
-      "tags": ["monolith", "curl", "html", "web", "share"],
+      "tags": [
+        "monolith",
+        "curl",
+        "html",
+        "web",
+        "share"
+      ],
+      "updatedAt": "2026-09-14T00:36:20Z",
       "version": "1.0.0"
     },
     "autopie.set-file-modified-date-to-now": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Set file modified date to now.",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Set file modified date to now.",
-      "tags": ["coreutils"],
+      "tags": [
+        "coreutils"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.sha-256-hash-check": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "SHA-256 Hash Check",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for SHA-256 Hash Check",
-      "tags": ["coreutils"],
+      "tags": [
+        "coreutils"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.share-file-folder-lan": {
+      "addedAt": "2026-08-29T15:43:45Z",
       "name": "Share file/folder over LAN",
       "namespace": "autopie",
       "status": "stable",
       "summary": "Temporarily share a file or folder over the local network with an expiring HTTP link.",
-      "tags": ["python", "network", "sharing"],
+      "tags": [
+        "python",
+        "network",
+        "sharing"
+      ],
+      "updatedAt": "2026-09-04T20:52:25Z",
       "version": "1.0.1"
     },
     "autopie.shutdown-remote-server": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Shutdown Remote Server",
       "namespace": "autopie",
       "status": "stable",
       "summary": "Shut down a remote server using SSH password or private-key authentication.",
-      "tags": ["openssh"],
+      "tags": [
+        "openssh"
+      ],
+      "updatedAt": "2026-09-10T05:50:14Z",
       "version": "1.1.0"
     },
     "autopie.smart-ytdlp-downloader": {
+      "addedAt": "2026-08-27T05:01:17Z",
       "name": "Smart YT-DLP Downloader",
       "namespace": "autopie",
       "status": "stable",
       "summary": "Inspect a shared media URL, then download video, audio, subtitles, or a selected clip.",
-      "tags": ["yt-dlp", "ffmpeg", "media"],
+      "tags": [
+        "yt-dlp",
+        "ffmpeg",
+        "media"
+      ],
+      "updatedAt": "2026-09-08T22:17:31Z",
       "version": "1.0.2"
     },
     "autopie.ssh-login-monitor": {
+      "addedAt": "2026-09-13T23:43:11Z",
       "name": "SSH Login Monitor",
       "namespace": "autopie",
       "status": "stable",
       "summary": "Sends notifications when SSH logins or failures are detected.",
-      "tags": ["python", "openssh", "cron", "notifications", "security"],
+      "tags": [
+        "python",
+        "openssh",
+        "cron",
+        "notifications",
+        "security"
+      ],
+      "updatedAt": "2026-09-13T23:43:11Z",
+      "version": "1.0.0"
+    },
+    "autopie.strip-image-metadata-share": {
+      "addedAt": "2026-09-14T00:42:20Z",
+      "name": "Strip Image Metadata & Share",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Remove metadata from a shared image without changing the original, then open the Android share sheet.",
+      "tags": [
+        "python",
+        "exiftool",
+        "image",
+        "privacy",
+        "share"
+      ],
+      "updatedAt": "2026-09-14T00:55:21Z",
       "version": "1.0.0"
     },
     "autopie.virus-check-virustotal": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Virus Check (VirusTotal)",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Virus Check (VirusTotal)",
-      "tags": ["coreutils"],
+      "tags": [
+        "coreutils"
+      ],
+      "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     },
     "autopie.watermark-video": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "Watermark Video",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for Watermark Video",
-      "tags": ["ffmpeg"],
+      "tags": [
+        "ffmpeg"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.wcurl-download": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "wCurl Download",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for wCurl Download",
-      "tags": ["wcurl"],
+      "tags": [
+        "wcurl"
+      ],
+      "updatedAt": "2026-08-31T23:23:42Z",
       "version": "1.0.1"
     },
     "autopie.yt-dlp-download": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "YT-DLP Download",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for YT-DLP Download",
-      "tags": ["yt-dlp"],
+      "tags": [
+        "yt-dlp"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.yt-dlp-download-as-audio": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "YT-DLP: Download as Audio",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for YT-DLP: Download as Audio",
-      "tags": ["yt-dlp"],
+      "tags": [
+        "yt-dlp"
+      ],
+      "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
     "autopie.yt-dlp-get-direct-url": {
+      "addedAt": "2026-07-14T11:24:14Z",
       "name": "YT-DLP Get Direct URL",
       "namespace": "autopie",
       "status": "stable",
       "summary": "AutoPie command for YT-DLP Get Direct URL",
-      "tags": ["yt-dlp"],
+      "tags": [
+        "yt-dlp"
+      ],
+      "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-09-14T00:39:40Z",
+  "generatedAt": "2026-09-14T10:41:44Z",
   "schemaVersion": "2026.6.1"
 }

@@ -34,6 +34,8 @@ def build_catalog() -> dict:
         command_id = manifest["id"]
 
         catalog["commands"][command_id] = {
+            "addedAt": manifest["addedAt"],
+            "updatedAt": manifest["updatedAt"],
             "version": manifest["version"],
             "name": manifest["name"],
             "summary": manifest["summary"],
