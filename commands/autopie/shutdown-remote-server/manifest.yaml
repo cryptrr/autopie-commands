@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "Shutdown Remote Server"
 commandSlug: "openssh"
 summary: "Shut down a remote server using SSH password or private-key authentication."
-type: "PACKAGE"
+kind: "APP"
 tags: ["openssh"]
 runtime:
   path: ""

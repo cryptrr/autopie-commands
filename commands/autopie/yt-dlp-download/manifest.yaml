@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "YT-DLP Download"
 commandSlug: "yt-dlp"
 summary: "AutoPie command for YT-DLP Download"
-type: "PACKAGE"
+kind: "APP"
 tags: ["yt-dlp"]
 runtime:
   path: "Download"
@@ -19,7 +19,15 @@ runtime:
       default: "1920"
       description: ""
       required: true
-      selectableOptions: {"1920": "1920", "1080": "1080", "720": "720", "480": "480", "2160": "2160", "1440": "1440"}
+      selectableOptions:
+        {
+          "1920": "1920",
+          "1080": "1080",
+          "720": "720",
+          "480": "480",
+          "2160": "2160",
+          "1440": "1440",
+        }
     - id: "599983"
       name: "START_TIME"
       type: "STRING"

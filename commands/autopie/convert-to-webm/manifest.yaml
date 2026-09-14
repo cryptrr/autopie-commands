@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Convert To WebM"
 commandSlug: "ffmpeg"
 summary: "AutoPie command for Convert To WebM"
-type: "PACKAGE"
+kind: "APP"
 tags: ["ffmpeg"]
 runtime:
   path: "Downloads"
-  command: "ffmpeg -i \"${INPUT_FILE}\" -c:v libvpx-vp9 -crf 24 \"${INPUT_FILE}.webm\""
+  command: 'ffmpeg -i "${INPUT_FILE}" -c:v libvpx-vp9 -crf 24 "${INPUT_FILE}.webm"'
   extras:
     - id: "138558"
       name: "BITRATE"

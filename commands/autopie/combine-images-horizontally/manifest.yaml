@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Combine Images Horizontally"
 commandSlug: "magick"
 summary: "AutoPie command for Combine Images Horizontally"
-type: "PACKAGE"
+kind: "APP"
 tags: ["imagemagick"]
 runtime:
   path: ""
-  command: "magick \"${INPUT_FILES_ARR[@]}\" -resize x${QUALITY} +append \"${INPUT_FILE}.horiz-${RAND}.jpeg\""
+  command: 'magick "${INPUT_FILES_ARR[@]}" -resize x${QUALITY} +append "${INPUT_FILE}.horiz-${RAND}.jpeg"'
   extras:
     - id: "738502"
       name: "QUALITY"
@@ -19,7 +19,7 @@ runtime:
       default: "720x"
       description: ""
       required: false
-      selectableOptions: {"720x": "720x", "480x": "480x", "1080x": "1080x"}
+      selectableOptions: { "720x": "720x", "480x": "480x", "1080x": "1080x" }
 install:
   primaryPackage: "imagemagick"
   extraPackages: []

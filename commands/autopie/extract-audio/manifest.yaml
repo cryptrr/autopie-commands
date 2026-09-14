@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Extract Audio from File"
 commandSlug: "ffmpeg"
 summary: "AutoPie command for Extract Audio from File"
-type: "PACKAGE"
+kind: "APP"
 tags: ["ffmpeg"]
 runtime:
   path: ""
-  command: "ffmpeg -i \"${INPUT_FILE}\" -b:a ${BITRATE} -vn \"${INPUT_FILE}.$FORMAT\""
+  command: 'ffmpeg -i "${INPUT_FILE}" -b:a ${BITRATE} -vn "${INPUT_FILE}.$FORMAT"'
   extras:
     - id: "715336"
       name: "BITRATE"

@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Set file modified date to now."
 commandSlug: ""
 summary: "AutoPie command for Set file modified date to now."
-type: "PACKAGE"
+kind: "APP"
 tags: ["coreutils"]
 runtime:
   path: ""
-  command: "touch \"${INPUT_FILE}\""
+  command: 'touch "${INPUT_FILE}"'
 install:
   primaryPackage: "coreutils"
   extraPackages: []

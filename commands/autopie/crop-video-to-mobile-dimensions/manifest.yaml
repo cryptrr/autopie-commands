@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "Crop Video to Mobile Dimensions"
 commandSlug: "ffmpeg"
 summary: "AutoPie command for Crop Video to Mobile Dimensions"
-type: "PACKAGE"
+kind: "APP"
 tags: ["ffmpeg"]
 runtime:
   path: ""

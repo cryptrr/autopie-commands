@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "YT-DLP: Download as Audio"
 commandSlug: "yt-dlp"
 summary: "AutoPie command for YT-DLP: Download as Audio"
-type: "PACKAGE"
+kind: "APP"
 tags: ["yt-dlp"]
 runtime:
   path: "Download"
-  command: "yt-dlp --no-mtime -x --audio-format ${FORMAT} \"${INPUT_URL}\""
+  command: 'yt-dlp --no-mtime -x --audio-format ${FORMAT} "${INPUT_URL}"'
   extras:
     - id: "745322"
       name: "FORMAT"

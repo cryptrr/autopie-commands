@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "OpenWRT Router Automations"
 commandSlug: "openssh"
 summary: "AutoPie command for OpenWRT Router Automations"
-type: "PACKAGE"
+kind: "APP"
 tags: ["openssh"]
 runtime:
   path: ""
@@ -40,7 +40,17 @@ runtime:
       default: "uci set wireless.radio0.disabled=0 && uci commit wireless && wifi reload"
       description: "The command to run after sshing into the remote server."
       required: true
-      selectableOptions: {"Enable 5GHz": "uci set wireless.radio0.disabled=0 && uci commit wireless && wifi reload", "Disable 5GHz": "uci set wireless.radio0.disabled=1 && uci commit wireless && wifi reload", "/etc/init.d/network restart": "/etc/init.d/network restart", "reboot": "reboot", "logread": "logread", "ifdown wan && ifup wan": "ifdown wan && ifup wan", "wifi reload": "wifi reload", "etherwake -i br-lan AA:BB:CC:DD:EE:FF": "etherwake -i br-lan AA:BB:CC:DD:EE:FF"}
+      selectableOptions:
+        {
+          "Enable 5GHz": "uci set wireless.radio0.disabled=0 && uci commit wireless && wifi reload",
+          "Disable 5GHz": "uci set wireless.radio0.disabled=1 && uci commit wireless && wifi reload",
+          "/etc/init.d/network restart": "/etc/init.d/network restart",
+          "reboot": "reboot",
+          "logread": "logread",
+          "ifdown wan && ifup wan": "ifdown wan && ifup wan",
+          "wifi reload": "wifi reload",
+          "etherwake -i br-lan AA:BB:CC:DD:EE:FF": "etherwake -i br-lan AA:BB:CC:DD:EE:FF",
+        }
 install:
   primaryPackage: "openssh"
   extraPackages: ["sshpass"]

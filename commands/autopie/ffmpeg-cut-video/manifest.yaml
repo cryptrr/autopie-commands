@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "FFMPEG: Cut Video"
 commandSlug: "ffmpeg"
 summary: "AutoPie command for FFMPEG: Cut Video"
-type: "PACKAGE"
+kind: "APP"
 tags: ["ffmpeg"]
 runtime:
   path: "Download"
-  command: "ffmpeg -i \"${INPUT_FILE}\" -ss ${START} ${END:+-t $END} \"${INPUT_FILE}-cut-${RAND}.mp4\""
+  command: 'ffmpeg -i "${INPUT_FILE}" -ss ${START} ${END:+-t $END} "${INPUT_FILE}-cut-${RAND}.mp4"'
   extras:
     - id: "368102"
       name: "START"

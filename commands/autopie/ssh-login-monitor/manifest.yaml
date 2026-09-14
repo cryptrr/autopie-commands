@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "SSH Login Monitor"
 commandSlug: ""
 summary: "Sends notifications when SSH logins or failures are detected."
-type: "PACKAGE"
+kind: "MONITOR"
 tags: ["python", "openssh", "cron", "notifications", "security"]
 runtime:
   path: ""

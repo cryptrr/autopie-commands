@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "Health Check Notification"
 commandSlug: ""
 summary: "Check a URL every 15 minutes and send an Android notification when a failure is detected."
-type: "PACKAGE"
+kind: "MONITOR"
 tags: ["curl", "python", "cron", "notification", "monitoring"]
 runtime:
   path: ""

@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Remove Audio"
 commandSlug: "ffmpeg"
 summary: "AutoPie command for Remove Audio"
-type: "PACKAGE"
+kind: "APP"
 tags: ["ffmpeg"]
 runtime:
   path: ""
-  command: "ffmpeg -i \"${INPUT_FILE}\" -an -c:v copy \"${INPUT_FILE}-noaud.mp4\""
+  command: 'ffmpeg -i "${INPUT_FILE}" -an -c:v copy "${INPUT_FILE}-noaud.mp4"'
 install:
   primaryPackage: "ffmpeg"
   extraPackages: []

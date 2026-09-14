@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Convert video to AV1"
 commandSlug: "ffmpeg"
 summary: "AutoPie command for Convert video to AV1"
-type: "PACKAGE"
+kind: "APP"
 tags: ["ffmpeg"]
 runtime:
   path: ""
-  command: "ffmpeg -i \"${INPUT_FILE}\" -c:v libaom-av1 -crf 18 -b:v 0 \"${INPUT_FILE}.mkv\""
+  command: 'ffmpeg -i "${INPUT_FILE}" -c:v libaom-av1 -crf 18 -b:v 0 "${INPUT_FILE}.mkv"'
 install:
   primaryPackage: "ffmpeg"
   extraPackages: []

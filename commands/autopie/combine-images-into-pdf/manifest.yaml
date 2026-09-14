@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Combine Images into PDF"
 commandSlug: "magick"
 summary: "AutoPie command for Combine Images into PDF"
-type: "PACKAGE"
+kind: "APP"
 tags: ["imagemagick"]
 runtime:
   path: ""
-  command: "magick \"${INPUT_FILES_ARR[@]}\" -resize ${QUALITY} -gravity center -extent ${QUALITY} \"${INPUT_FILE}.pdf\""
+  command: 'magick "${INPUT_FILES_ARR[@]}" -resize ${QUALITY} -gravity center -extent ${QUALITY} "${INPUT_FILE}.pdf"'
   extras:
     - id: "771088"
       name: "QUALITY"

@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "GitHub Repo Monitor"
 commandSlug: ""
 summary: "A 15-minute GitHub repository monitor cron designed for display as an Android widget."
-type: "PACKAGE"
+kind: "MONITOR"
 tags: ["python", "github", "cron", "widget"]
 runtime:
   path: ""

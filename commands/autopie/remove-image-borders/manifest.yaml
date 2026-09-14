@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Remove Image Borders"
 commandSlug: "magick"
 summary: "AutoPie command for Remove Image Borders"
-type: "PACKAGE"
+kind: "APP"
 tags: ["imagemagick"]
 runtime:
   path: ""
-  command: "magick \"${INPUT_FILE}\" -fuzz ${FUZZ}% -trim \"${INPUT_FILE}-trim.jpg\""
+  command: 'magick "${INPUT_FILE}" -fuzz ${FUZZ}% -trim "${INPUT_FILE}-trim.jpg"'
   extras:
     - id: "131124"
       name: "FUZZ"

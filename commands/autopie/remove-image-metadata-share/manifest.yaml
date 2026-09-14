@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "Strip Image Metadata & Share"
 commandSlug: ""
 summary: "Remove metadata from a shared image without changing the original, then open the Android share sheet."
-type: "PACKAGE"
+kind: "APP"
 tags: ["python", "exiftool", "image", "privacy", "share"]
 runtime:
   path: ""

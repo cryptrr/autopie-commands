@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "Watermark Video"
 commandSlug: "ffmpeg"
 summary: "AutoPie command for Watermark Video"
-type: "PACKAGE"
+kind: "APP"
 tags: ["ffmpeg"]
 runtime:
   path: ""
@@ -25,7 +25,8 @@ runtime:
       default: "BOTTOM_RIGHT"
       description: "Choose the position where you want to put the watermark."
       required: true
-      selectableOptions: ["BOTTOM_RIGHT", "TOP_RIGHT", "TOP_LEFT", "BOTTOM_LEFT", "CENTER"]
+      selectableOptions:
+        ["BOTTOM_RIGHT", "TOP_RIGHT", "TOP_LEFT", "BOTTOM_LEFT", "CENTER"]
 install:
   primaryPackage: "ffmpeg"
   extraPackages: []

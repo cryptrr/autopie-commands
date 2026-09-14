@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Convert To WEBP"
 commandSlug: "magick"
 summary: "AutoPie command for Convert To WEBP"
-type: "PACKAGE"
+kind: "APP"
 tags: ["imagemagick"]
 runtime:
   path: ""
-  command: "magick \"${INPUT_FILE}\" -quality ${QUALITY} -define webp:method=${METHOD} \"${INPUT_FILE}.webp\""
+  command: 'magick "${INPUT_FILE}" -quality ${QUALITY} -define webp:method=${METHOD} "${INPUT_FILE}.webp"'
   extras:
     - id: "148663"
       name: "QUALITY"

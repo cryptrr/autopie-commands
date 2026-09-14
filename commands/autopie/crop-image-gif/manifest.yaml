@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Crop Image/GIF"
 commandSlug: "magick"
 summary: "AutoPie command for Crop Image/GIF"
-type: "PACKAGE"
+kind: "APP"
 tags: ["imagemagick"]
 runtime:
   path: ""
-  command: "magick \"${INPUT_FILE}\" -coalesce -gravity ${POSITION} -crop '%[fx:w]x%[fx:w*${RATIO_HEIGHT}/${RATIO_WIDTH}]+0+0' +repage \"${INPUT_FILE}-cropped-${RAND}.${FILE_EXT}\""
+  command: 'magick "${INPUT_FILE}" -coalesce -gravity ${POSITION} -crop ''%[fx:w]x%[fx:w*${RATIO_HEIGHT}/${RATIO_WIDTH}]+0+0'' +repage "${INPUT_FILE}-cropped-${RAND}.${FILE_EXT}"'
   extras:
     - id: "283266"
       name: "RATIO_HEIGHT"

@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "Save Webpage as Single HTML"
 commandSlug: ""
 summary: "Save a shared webpage and its assets as one portable HTML file named from the page title."
-type: "PACKAGE"
+kind: "APP"
 tags: ["monolith", "curl", "html", "web", "share"]
 runtime:
   path: "Download"

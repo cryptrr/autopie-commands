@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Flip/Mirror Video"
 commandSlug: "ffmpeg"
 summary: "AutoPie command for Flip/Mirror Video"
-type: "PACKAGE"
+kind: "APP"
 tags: ["ffmpeg"]
 runtime:
   path: ""
-  command: "ffmpeg -i \"${INPUT_FILE}\" -vf \"hflip\" \"${INPUT_FILE}-mirrored.mp4\""
+  command: 'ffmpeg -i "${INPUT_FILE}" -vf "hflip" "${INPUT_FILE}-mirrored.mp4"'
 install:
   primaryPackage: "ffmpeg"
   extraPackages: []

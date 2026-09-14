@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "Health Check Widget"
 commandSlug: ""
 summary: "A widget that checks a URL every 15 minutes and reports its health and response timings."
-type: "PACKAGE"
+kind: "MONITOR"
 tags: ["curl", "python", "cron", "widget", "monitoring"]
 runtime:
   path: ""

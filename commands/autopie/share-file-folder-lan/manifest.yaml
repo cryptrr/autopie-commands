@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "Share file/folder over LAN"
 commandSlug: "share"
 summary: "Temporarily share a file or folder over the local network with an expiring HTTP link."
-type: "PACKAGE"
+kind: "APP"
 tags: ["python", "network", "sharing"]
 runtime:
   path: ""

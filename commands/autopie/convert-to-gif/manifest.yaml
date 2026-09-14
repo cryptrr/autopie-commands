@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Convert to GIF"
 commandSlug: "ffmpeg"
 summary: "AutoPie command for Convert to GIF"
-type: "PACKAGE"
+kind: "APP"
 tags: ["ffmpeg"]
 runtime:
   path: ""
-  command: "ffmpeg -i \"${INPUT_FILE}\" -ss ${START} ${END:+-t $END} -vf \"fps=15,scale=480:-1:flags=lanczos\" -c:v gif \"${INPUT_FILE}.gif\""
+  command: 'ffmpeg -i "${INPUT_FILE}" -ss ${START} ${END:+-t $END} -vf "fps=15,scale=480:-1:flags=lanczos" -c:v gif "${INPUT_FILE}.gif"'
   extras:
     - id: "608647"
       name: "START"

@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "RSYNC: Sync Pics - PC \u27a1\ufe0f Mob"
 commandSlug: "rsync"
 summary: "AutoPie command for RSYNC: Sync Pics - PC \u27a1\ufe0f Mob"
-type: "PACKAGE"
+kind: "APP"
 tags: ["rsync"]
 runtime:
   path: ""
-  command: "rsync -avz \"${FOLDER_FROM}\" \"${FOLDER_TO}\""
+  command: 'rsync -avz "${FOLDER_FROM}" "${FOLDER_TO}"'
   extras:
     - id: "093901"
       name: "RSYNC_PASSWORD"

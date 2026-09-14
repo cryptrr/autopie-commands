@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Convert to Animated WebP"
 commandSlug: "ffmpeg"
 summary: "AutoPie command for Convert to Animated WebP"
-type: "PACKAGE"
+kind: "APP"
 tags: ["ffmpeg"]
 runtime:
   path: ""
-  command: "ffmpeg -i \"${INPUT_FILE}\" -vf \"fps=15,scale=600:-1:flags=lanczos\" -c:v libwebp -loop 0 -an -preset default -quality 80 \"${INPUT_FILE}-anim.webp\""
+  command: 'ffmpeg -i "${INPUT_FILE}" -vf "fps=15,scale=600:-1:flags=lanczos" -c:v libwebp -loop 0 -an -preset default -quality 80 "${INPUT_FILE}-anim.webp"'
 install:
   primaryPackage: "ffmpeg"
   extraPackages: []

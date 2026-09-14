@@ -7,11 +7,11 @@ namespace: "autopie"
 name: "Extract Images from PDF"
 commandSlug: "magick"
 summary: "AutoPie command for Extract Images from PDF"
-type: "PACKAGE"
+kind: "APP"
 tags: ["imagemagick"]
 runtime:
   path: ""
-  command: "magick \"${INPUT_FILE}\" \"${INPUT_FILE}_%03d.png\""
+  command: 'magick "${INPUT_FILE}" "${INPUT_FILE}_%03d.png"'
 install:
   primaryPackage: "imagemagick"
   extraPackages: []

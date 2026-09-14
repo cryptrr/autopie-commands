@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "Check Internet Archive"
 commandSlug: ""
 summary: "AutoPie command for Check Internet Archive"
-type: "PACKAGE"
+kind: "APP"
 tags: ["python"]
 runtime:
   path: ""

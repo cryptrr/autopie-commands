@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "wCurl Download"
 commandSlug: "wcurl"
 summary: "AutoPie command for wCurl Download"
-type: "PACKAGE"
+kind: "APP"
 tags: ["wcurl"]
 runtime:
   path: "Download"

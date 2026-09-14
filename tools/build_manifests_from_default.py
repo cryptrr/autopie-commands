@@ -207,7 +207,7 @@ def manifest_text(
         f"name: {json_scalar(name)}",
         f"commandSlug: {json_scalar(top_level_command_slug)}",
         f"summary: {json_scalar(f'AutoPie command for {name}')}",
-        'type: "PACKAGE"',
+        'kind: "APP"',
         f"tags: {json_scalar([primary_package])}",
         "runtime:",
     ]

@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "Compress ZIP (High) : Folder"
 commandSlug: "7z"
 summary: "AutoPie command for Compress ZIP (High) : Folder"
-type: "PACKAGE"
+kind: "APP"
 tags: ["p7zip"]
 runtime:
   path: ""

@@ -7,7 +7,7 @@ namespace: "autopie"
 name: "Open in Video Player"
 commandSlug: "am"
 summary: "AutoPie command for Open in Video Player"
-type: "PACKAGE"
+kind: "APP"
 tags: ["yt-dlp"]
 runtime:
   path: ""
@@ -20,7 +20,7 @@ runtime:
       default: "b"
       description: ""
       required: true
-      selectableOptions: {"b": "b", "bv*+ba/b": "bv*+ba/b"}
+      selectableOptions: { "b": "b", "bv*+ba/b": "bv*+ba/b" }
 install:
   primaryPackage: "yt-dlp"
   extraPackages: []
