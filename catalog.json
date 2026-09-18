@@ -221,6 +221,17 @@
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
+    "autopie.epub-to-text": {
+      "addedAt": "2026-09-18T11:10:12Z",
+      "name": "EPUB to Text",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Extract an EPUB's reading-order content into a UTF-8 text file beside the book.",
+      "tags": ["python", "epub", "text", "ebook", "beautifulsoup"],
+      "type": "SHARE",
+      "updatedAt": "2026-09-18T11:10:12Z",
+      "version": "1.0.0"
+    },
     "autopie.extract-audio": {
       "addedAt": "2026-07-14T11:24:14Z",
       "name": "Extract Audio from File",
