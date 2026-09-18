@@ -36,13 +36,12 @@ runtime:
     export OUTPUT
     printf '%s\n' "$OUTPUT_FILE"
 install:
+  dependencies:
+    pkg: ["monolith", "curl", "python", "sed", "coreutils"]
   primaryPackage: "monolith"
   extraPackages: ["curl", "python", "sed", "coreutils"]
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

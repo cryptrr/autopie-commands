@@ -14,13 +14,12 @@ runtime:
   path: ""
   command: 'magick "${INPUT_FILE}" "${INPUT_FILE}_%03d.png"'
 install:
+  dependencies:
+    pkg: ["imagemagick"]
   primaryPackage: "imagemagick"
   extraPackages: []
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

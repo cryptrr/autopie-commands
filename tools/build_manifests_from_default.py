@@ -227,13 +227,12 @@ def manifest_text(
     lines.extend(
         [
             "install:",
+            "  dependencies:",
+            f"    pkg: {json_scalar(packages)}",
             f"  primaryPackage: {json_scalar(primary_package)}",
             f"  extraPackages: {json_scalar(extra_packages)}",
             f"  installerVersion: {INSTALLER_VERSION}",
-            '  script: "install.sh"',
             '  sha256: "..."',
-            "uninstall:",
-            '  script: "uninstall.sh"',
             "docs:",
             '  readme: "README.md"',
             '  changelog: "CHANGELOG.md"',
@@ -249,15 +248,6 @@ def manifest_text(
     return "\n".join(lines)
 
 
-def install_script_text(packages: list[str]) -> str:
-    return (
-        "#!/usr/bin/env sh\n"
-        "set -eu\n"
-        "\n"
-        f"pkg install -y {' '.join(packages)}\n"
-    )
-
-
 def readme_text(name: str, command: dict[str, Any]) -> str:
     if command.get("multiStage"):
         details = "Multistage AutoPie command imported from `default.json`."
@@ -269,10 +259,6 @@ def readme_text(name: str, command: dict[str, Any]) -> str:
 
 def changelog_text() -> str:
     return "### Changelog\n\n#### 1.0.0\n\n- Initial manifest import from `default.json`.\n"
-
-
-def uninstall_script_text() -> str:
-    return "#!/usr/bin/env sh\nset -eu\n\n# No uninstall actions are required.\n"
 
 
 def main() -> None:
@@ -307,15 +293,6 @@ def main() -> None:
             changelog_text(),
             encoding="utf-8",
         )
-        (command_dir / "install.sh").write_text(
-            install_script_text(packages),
-            encoding="utf-8",
-        )
-        (command_dir / "uninstall.sh").write_text(
-            uninstall_script_text(),
-            encoding="utf-8",
-        )
-
     print(f"Generated {len(commands)} command manifest(s) in {COMMANDS_DIR}.")
 
 

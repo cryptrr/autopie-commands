@@ -51,8 +51,24 @@ for manifest_file in find_manifest_files(Path("commands")):
             f"Missing README: {readme}"
         )
 
-    install_script = command_dir / manifest["install"]["script"]
-    if not install_script.exists():
+    dependencies = manifest.get("install", {}).get("dependencies", {})
+    if not isinstance(dependencies, dict):
         raise Exception(
-            f"Missing install script: {install_script}"
+            f"{manifest_file}: install.dependencies must be a mapping"
         )
+
+    unknown_package_managers = dependencies.keys() - {"pkg", "pip"}
+    if unknown_package_managers:
+        raise Exception(
+            f"{manifest_file}: unsupported dependency package manager(s): "
+            f"{', '.join(sorted(unknown_package_managers))}"
+        )
+
+    for package_manager, packages in dependencies.items():
+        if not isinstance(packages, list) or not packages or not all(
+            isinstance(package, str) and package for package in packages
+        ):
+            raise Exception(
+                f"{manifest_file}: install.dependencies.{package_manager} "
+                "must be a non-empty array of package names"
+            )

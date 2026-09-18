@@ -14,13 +14,12 @@ runtime:
   path: ""
   command: 'ffmpeg -i "${INPUT_FILE}" -c:v libx264 -crf 24 -preset medium "${INPUT_FILE}-x265.mp4"'
 install:
+  dependencies:
+    pkg: ["ffmpeg"]
   primaryPackage: "ffmpeg"
   extraPackages: []
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

@@ -14,13 +14,12 @@ runtime:
   path: ""
   command: "7z a ${DIRECTORY}/${FILENAME}-pie.zip ${INPUT_FILES_ARR[@]} -mfb=258 -mpass=15"
 install:
+  dependencies:
+    pkg: ["p7zip"]
   primaryPackage: "p7zip"
   extraPackages: []
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

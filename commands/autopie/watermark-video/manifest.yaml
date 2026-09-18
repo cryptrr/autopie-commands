@@ -29,13 +29,12 @@ runtime:
       selectableOptions:
         ["BOTTOM_RIGHT", "TOP_RIGHT", "TOP_LEFT", "BOTTOM_LEFT", "CENTER"]
 install:
+  dependencies:
+    pkg: ["ffmpeg"]
   primaryPackage: "ffmpeg"
   extraPackages: []
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

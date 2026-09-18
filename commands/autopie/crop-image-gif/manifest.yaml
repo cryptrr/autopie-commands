@@ -34,13 +34,12 @@ runtime:
       required: false
       selectableOptions: ["center", "north", "south", "east", "west"]
 install:
+  dependencies:
+    pkg: ["imagemagick"]
   primaryPackage: "imagemagick"
   extraPackages: []
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

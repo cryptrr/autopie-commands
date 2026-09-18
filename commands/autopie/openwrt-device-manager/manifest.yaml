@@ -147,13 +147,12 @@ runtime:
           flags: ["--int"]
           visibleWhen: { "extraId": "action", "equals": "ping" }
 install:
+  dependencies:
+    pkg: ["openssh", "sshpass", "python"]
   primaryPackage: "openssh"
   extraPackages: ["sshpass", "python"]
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

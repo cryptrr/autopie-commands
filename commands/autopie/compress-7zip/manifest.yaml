@@ -197,13 +197,12 @@ runtime:
           description: "Leave empty to save next to the selected file/folder."
           flags: ["--folder-picker"]
 install:
+  dependencies:
+    pkg: ["7zip"]
   primaryPackage: "7zip"
   extraPackages: []
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

@@ -15,13 +15,12 @@ runtime:
   command: "#@SHELL\nset -euo pipefail\n\nif [[ ! -f \"$INPUT_FILE\" ]]; then\n    echo \"Usage: $0 <file>\"\n    exit 1\nfi\n\nHASH=$(sha256sum \"$INPUT_FILE\" | awk '{print $1}')\nURL=\"https://www.virustotal.com/gui/file/$HASH\"\n\necho \"SHA-256: $HASH\"\necho \"Opening: $URL\"\n\nam start \\\n    -a android.intent.action.VIEW \\\n    -d \"$URL\""
   flags: ["--show-loading-screen"]
 install:
+  dependencies:
+    pkg: ["coreutils"]
   primaryPackage: "coreutils"
   extraPackages: []
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

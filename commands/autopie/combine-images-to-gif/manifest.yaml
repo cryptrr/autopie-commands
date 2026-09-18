@@ -21,13 +21,12 @@ runtime:
       description: "Delay between frames in milliseconds."
       required: false
 install:
+  dependencies:
+    pkg: ["imagemagick"]
   primaryPackage: "imagemagick"
   extraPackages: []
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

@@ -306,13 +306,12 @@ runtime:
       flags: ["--secret", "--internal-config"]
       visibleWhen: { "equals": "password", "extraId": "ssh_auth_mode" }
 install:
+  dependencies:
+    pkg: ["python", "openssh", "sshpass"]
   primaryPackage: "python"
   extraPackages: ["openssh", "sshpass"]
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

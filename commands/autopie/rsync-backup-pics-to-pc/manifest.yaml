@@ -36,13 +36,12 @@ runtime:
       required: false
       flags: ["--internal-config"]
 install:
+  dependencies:
+    pkg: ["rsync"]
   primaryPackage: "rsync"
   extraPackages: []
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

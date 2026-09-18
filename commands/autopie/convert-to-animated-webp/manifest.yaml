@@ -14,13 +14,12 @@ runtime:
   path: ""
   command: 'ffmpeg -i "${INPUT_FILE}" -vf "fps=15,scale=600:-1:flags=lanczos" -c:v libwebp -loop 0 -an -preset default -quality 80 "${INPUT_FILE}-anim.webp"'
 install:
+  dependencies:
+    pkg: ["ffmpeg"]
   primaryPackage: "ffmpeg"
   extraPackages: []
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

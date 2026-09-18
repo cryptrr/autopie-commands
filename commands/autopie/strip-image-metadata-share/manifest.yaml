@@ -170,13 +170,12 @@ runtime:
 
     print("Metadata removed. Share sheet opened.", flush=True)
 install:
+  dependencies:
+    pkg: ["python", "exiftool"]
   primaryPackage: "python"
   extraPackages: ["exiftool"]
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

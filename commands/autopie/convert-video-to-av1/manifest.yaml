@@ -14,13 +14,12 @@ runtime:
   path: ""
   command: 'ffmpeg -i "${INPUT_FILE}" -c:v libaom-av1 -crf 18 -b:v 0 "${INPUT_FILE}.mkv"'
 install:
+  dependencies:
+    pkg: ["ffmpeg"]
   primaryPackage: "ffmpeg"
   extraPackages: []
   installerVersion: 1
-  script: "install.sh"
   sha256: "..."
-uninstall:
-  script: "uninstall.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"
