@@ -1073,6 +1073,16 @@
     ],
     "id": "autopie.openwrt-router-automations"
   },
+  "Send to Paste.rs": {
+    "path": "",
+    "command": "set -e\n\nif [[ -z \"$INPUT\" ]]; then\n  echo \"No text provided\"\n  exit 1\nfi\n\nRESPONSE_FILE=\"$(mktemp)\"\ntrap 'rm -f \"$RESPONSE_FILE\"' EXIT\n\nHTTP_CODE=$(printf '%s' \"$INPUT\" | curl -sS \\\n  -o \"$RESPONSE_FILE\" \\\n  -w '%{http_code}' \\\n  --data-binary @- \\\n  https://paste.rs/)\n\nif [[ \"$HTTP_CODE\" != \"201\" ]]; then\n  echo \"Paste upload failed (HTTP $HTTP_CODE)\"\n  cat \"$RESPONSE_FILE\"\n  exit 1\nfi\n\nURL=\"$(cat \"$RESPONSE_FILE\")\"\nexport OUTPUT=\"$URL\"\n\nam start \\\n  -a android.intent.action.SEND \\\n  -t 'text/plain' \\\n  --es android.intent.extra.TEXT \"$URL\"",
+    "exec": "",
+    "flags": [
+      "--show-loading-screen-small"
+    ],
+    "type": "SHARE",
+    "id": "autopie.paste-rs"
+  },
   "Remove Audio": {
     "path": "",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -an -c:v copy \"${INPUT_FILE}-noaud.mp4\"",

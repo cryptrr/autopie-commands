@@ -375,6 +375,17 @@
       "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.0"
     },
+    "autopie.paste-rs": {
+      "addedAt": "2026-09-18T10:11:12Z",
+      "name": "Send to Paste.rs",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Upload shared text to Paste.rs, then share the resulting URL through Android.",
+      "tags": ["curl", "paste", "text", "share"],
+      "type": "SHARE",
+      "updatedAt": "2026-09-18T10:11:12Z",
+      "version": "1.0.0"
+    },
     "autopie.remove-audio": {
       "addedAt": "2026-07-14T11:24:14Z",
       "name": "Remove Audio",

@@ -1,0 +1,60 @@
+schemaVersion: "2026.6.1"
+addedAt: "2026-09-18T10:11:12Z"
+updatedAt: "2026-09-18T10:11:12Z"
+version: "1.0.0"
+id: "autopie.paste-rs"
+namespace: "autopie"
+name: "Send to Paste.rs"
+commandSlug: ""
+summary: "Upload shared text to Paste.rs, then share the resulting URL through Android."
+kind: "APP"
+tags: ["curl", "paste", "text", "share"]
+runtime:
+  path: ""
+  type: "SHARE"
+  flags: ["--show-loading-screen-small"]
+  command: |-
+    set -e
+
+    if [[ -z "$INPUT" ]]; then
+      echo "No text provided"
+      exit 1
+    fi
+
+    RESPONSE_FILE="$(mktemp)"
+    trap 'rm -f "$RESPONSE_FILE"' EXIT
+
+    HTTP_CODE=$(printf '%s' "$INPUT" | curl -sS \
+      -o "$RESPONSE_FILE" \
+      -w '%{http_code}' \
+      --data-binary @- \
+      https://paste.rs/)
+
+    if [[ "$HTTP_CODE" != "201" ]]; then
+      echo "Paste upload failed (HTTP $HTTP_CODE)"
+      cat "$RESPONSE_FILE"
+      exit 1
+    fi
+
+    URL="$(cat "$RESPONSE_FILE")"
+    export OUTPUT="$URL"
+
+    am start \
+      -a android.intent.action.SEND \
+      -t 'text/plain' \
+      --es android.intent.extra.TEXT "$URL"
+install:
+  dependencies:
+    pkg: ["curl"]
+  primaryPackage: "curl"
+  extraPackages: []
+  installerVersion: 1
+  sha256: "..."
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]
