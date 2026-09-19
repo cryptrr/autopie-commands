@@ -1,0 +1,224 @@
+### GitHub Release Watcher
+
+Watch GitHub repositories for new releases and open the release page from the notification.
+
+#### Command
+
+- Path: `default`
+- Command slug: ``
+- Type: `CRON`
+- Cron interval: `1m`
+
+```sh
+#@PYTHON
+import json
+import os
+import re
+import urllib.error
+import urllib.request
+from pathlib import Path
+
+repos_raw = os.environ.get("REPOS", "").strip()
+channel = os.environ.get("RELEASE_CHANNEL", "stable").strip().lower()
+token = os.environ.get("GITHUB_TOKEN", "").strip()
+
+if not repos_raw:
+    raise SystemExit("REPOS is required")
+
+
+def normalize_repo(value):
+    repo = value.strip()
+
+    if repo.startswith("https://github.com/"):
+        repo = repo[len("https://github.com/"):]
+
+    repo = repo.strip("/")
+
+    if repo.endswith(".git"):
+        repo = repo[:-4]
+
+    return repo
+
+
+repos = []
+seen = set()
+
+for item in repos_raw.split(","):
+    repo = normalize_repo(item)
+
+    if not repo:
+        continue
+
+    if repo not in seen:
+        repos.append(repo)
+        seen.add(repo)
+
+
+headers = {
+    "Accept": "application/vnd.github+json",
+    "User-Agent": "AutoPie-GitHub-Release-Watcher",
+    "X-GitHub-Api-Version": "2022-11-28"
+}
+
+if token:
+    headers["Authorization"] = f"Bearer {token}"
+
+
+state_dir = Path.home() / ".cache" / "autopie" / "github-release-watcher"
+state_dir.mkdir(parents=True, exist_ok=True)
+
+results = []
+
+
+for repo in repos:
+    parts = repo.split("/")
+
+    if (
+        len(parts) != 2
+        or not parts[0]
+        or not parts[1]
+        or any(ch.isspace() for ch in repo)
+    ):
+        results.append({
+            "repo": repo,
+            "status": "invalid_repo"
+        })
+        continue
+
+    if channel == "all":
+        api_url = f"https://api.github.com/repos/{repo}/releases?per_page=10"
+    else:
+        api_url = f"https://api.github.com/repos/{repo}/releases/latest"
+
+    request = urllib.request.Request(api_url, headers=headers)
+
+    try:
+        with urllib.request.urlopen(request, timeout=20) as response:
+            payload = json.load(response)
+
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            results.append({
+                "repo": repo,
+                "status": "no_release"
+            })
+            continue
+
+        results.append({
+            "repo": repo,
+            "status": "error",
+            "error": f"HTTP {e.code}"
+        })
+        continue
+
+    except Exception as e:
+        results.append({
+            "repo": repo,
+            "status": "error",
+            "error": str(e)
+        })
+        continue
+
+    if channel == "all":
+        release = next(
+            (
+                item
+                for item in payload
+                if not item.get("draft", False)
+            ),
+            None
+        )
+
+        if release is None:
+            results.append({
+                "repo": repo,
+                "status": "no_release"
+            })
+            continue
+    else:
+        release = payload
+
+    release_id = str(release["id"])
+    tag = release.get("tag_name") or "unknown"
+    name = release.get("name") or tag
+    url = release.get("html_url") or f"https://github.com/{repo}/releases"
+    published_at = release.get("published_at")
+    prerelease = bool(release.get("prerelease", False))
+
+    safe_repo = re.sub(r"[^A-Za-z0-9._-]+", "_", repo)
+    state_file = state_dir / f"{safe_repo}-{channel}.json"
+
+    previous_id = None
+
+    if state_file.exists():
+        try:
+            previous_state = json.loads(state_file.read_text())
+            previous_id = str(previous_state.get("id"))
+        except Exception:
+            previous_id = None
+
+    is_first_run = previous_id is None
+    is_new_release = (
+        previous_id is not None
+        and previous_id != release_id
+    )
+
+    current_state = {
+        "id": release_id,
+        "tag": tag,
+        "name": name,
+        "url": url,
+        "published_at": published_at,
+        "prerelease": prerelease
+    }
+
+    tmp_file = state_file.with_suffix(".tmp")
+    tmp_file.write_text(json.dumps(current_state))
+    tmp_file.replace(state_file)
+
+    if is_new_release:
+        suffix = " (pre-release)" if prerelease else ""
+        body = f"{name} [{tag}]{suffix}\n{url}"
+
+        print("#@AUTOPIE " + json.dumps({
+            "type": "notification",
+            "title": f"New GitHub release: {repo}",
+            "body": body,
+            "action": {
+                "type": "open_url",
+                "url": url
+            }
+        }))
+
+    status = (
+        "baseline"
+        if is_first_run
+        else "new_release"
+        if is_new_release
+        else "unchanged"
+    )
+
+    results.append({
+        "repo": repo,
+        "status": status,
+        "tag": tag,
+        "name": name,
+        "url": url,
+        "published_at": published_at,
+        "prerelease": prerelease
+    })
+
+
+print("#@AUTOPIE " + json.dumps({
+    "type": "output",
+    "value": json.dumps(results)
+}))
+```
+
+#### Extras
+
+| Name            | Type       | Required | Default                      | Flags                       | Options     | Details                                                              |
+| --------------- | ---------- | -------- | ---------------------------- | --------------------------- | ----------- | -------------------------------------------------------------------- |
+| REPOS           | STRING     | yes      | cryptrr/AutoPie,astral-sh/uv | --internal-config           | -           | Comma-separated GitHub repositories in owner/repo format.            |
+| RELEASE_CHANNEL | SELECTABLE | yes      | stable                       | --internal-config           | stable, all | Watch stable releases only, or include prereleases.                  |
+| GITHUB_TOKEN    | STRING     | no       | -                            | --secret, --internal-config | -           | Optional GitHub token for private repositories or higher API limits. |

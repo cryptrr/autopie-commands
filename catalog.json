@@ -320,6 +320,17 @@
       "updatedAt": "2026-07-16T20:21:36Z",
       "version": "1.0.0"
     },
+    "autopie.github-release-watcher": {
+      "addedAt": "2026-09-19T02:25:25Z",
+      "name": "GitHub Release Watcher",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Watch GitHub repositories for new releases and open the release page from the notification.",
+      "tags": ["python", "github", "cron", "notification", "releases"],
+      "type": "CRON",
+      "updatedAt": "2026-09-19T02:25:25Z",
+      "version": "1.0.0"
+    },
     "autopie.github-repo-monitor": {
       "addedAt": "2026-09-13T23:18:02Z",
       "name": "GitHub Repo Monitor",
@@ -618,6 +629,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-09-14T14:55:39Z",
+  "generatedAt": "2026-09-19T02:28:14Z",
   "schemaVersion": "2026.6.1"
 }
