@@ -48,6 +48,7 @@ install:
   primaryPackage: "yt-dlp"
   extraPackages: []
   installerVersion: 1
+  script: "install.sh"
   sha256: "..."
 
 docs:

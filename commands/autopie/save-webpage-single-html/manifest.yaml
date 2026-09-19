@@ -41,6 +41,7 @@ install:
   primaryPackage: "monolith"
   extraPackages: ["curl", "python", "sed", "coreutils"]
   installerVersion: 1
+  script: "install.sh"
   sha256: "..."
 docs:
   readme: "README.md"

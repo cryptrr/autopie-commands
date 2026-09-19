@@ -266,6 +266,7 @@ install:
   primaryPackage: "python"
   extraPackages: ["beautifulsoup4"]
   installerVersion: 1
+  script: "install.sh"
   sha256: "..."
 docs:
   readme: "README.md"

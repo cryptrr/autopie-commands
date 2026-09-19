@@ -232,6 +232,7 @@ def manifest_text(
             f"  primaryPackage: {json_scalar(primary_package)}",
             f"  extraPackages: {json_scalar(extra_packages)}",
             f"  installerVersion: {INSTALLER_VERSION}",
+            '  script: "install.sh"',
             '  sha256: "..."',
             "docs:",
             '  readme: "README.md"',
@@ -246,6 +247,15 @@ def manifest_text(
     )
 
     return "\n".join(lines)
+
+
+def install_script_text(packages: list[str]) -> str:
+    return (
+        "#!/usr/bin/env sh\n"
+        "set -eu\n"
+        "\n"
+        f"pkg install -y {' '.join(packages)}\n"
+    )
 
 
 def readme_text(name: str, command: dict[str, Any]) -> str:
@@ -291,6 +301,10 @@ def main() -> None:
         )
         (command_dir / "CHANGELOG.md").write_text(
             changelog_text(),
+            encoding="utf-8",
+        )
+        (command_dir / "install.sh").write_text(
+            install_script_text(packages),
             encoding="utf-8",
         )
     print(f"Generated {len(commands)} command manifest(s) in {COMMANDS_DIR}.")

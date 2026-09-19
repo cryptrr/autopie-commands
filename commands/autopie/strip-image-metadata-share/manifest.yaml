@@ -175,6 +175,7 @@ install:
   primaryPackage: "python"
   extraPackages: ["exiftool"]
   installerVersion: 1
+  script: "install.sh"
   sha256: "..."
 docs:
   readme: "README.md"

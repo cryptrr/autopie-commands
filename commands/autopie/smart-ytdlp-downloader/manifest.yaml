@@ -499,6 +499,7 @@ install:
   primaryPackage: "yt-dlp"
   extraPackages: ["ffmpeg"]
   installerVersion: 2
+  script: "install.sh"
 docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"

@@ -72,3 +72,15 @@ for manifest_file in find_manifest_files(Path("commands")):
                 f"{manifest_file}: install.dependencies.{package_manager} "
                 "must be a non-empty array of package names"
             )
+
+    install_script_name = manifest.get("install", {}).get("script")
+    if not isinstance(install_script_name, str) or not install_script_name:
+        raise Exception(
+            f"{manifest_file}: install.script must name a compatibility script"
+        )
+
+    install_script = command_dir / install_script_name
+    if not install_script.is_file():
+        raise Exception(
+            f"Missing install script: {install_script}"
+        )
