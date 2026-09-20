@@ -61,6 +61,9 @@ Every deployment reads the current head of both branches and publishes both
 channels together. The Pages artifact contains `catalog.json` and `commands/`
 from each branch without changing their paths or contents.
 
+Before the first deployment, enable GitHub Pages in the repository settings and
+select **GitHub Actions** as the build and deployment source.
+
 The path and identity fields must agree:
 
 - `namespace` equals the namespace directory.
