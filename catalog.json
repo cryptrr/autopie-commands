@@ -472,7 +472,7 @@
       "tags": ["python", "rss", "atom", "cron", "notification"],
       "type": "CRON",
       "updatedAt": "2026-09-20T11:03:07Z",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "autopie.rsync-backup-pics-to-pc": {
       "addedAt": "2026-07-14T11:24:14Z",
