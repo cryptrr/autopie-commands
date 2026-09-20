@@ -452,6 +452,17 @@
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
+    "autopie.rss-feed-watcher": {
+      "addedAt": "2026-09-20T11:03:07Z",
+      "name": "RSS Feed Watcher",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Watch RSS and Atom feeds for new entries and send filtered notifications that open the article.",
+      "tags": ["python", "rss", "atom", "cron", "notification"],
+      "type": "CRON",
+      "updatedAt": "2026-09-20T11:03:07Z",
+      "version": "1.0.0"
+    },
     "autopie.rsync-backup-pics-to-pc": {
       "addedAt": "2026-07-14T11:24:14Z",
       "name": "RSYNC: Backup Pics to PC",
@@ -629,6 +640,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-09-19T02:28:14Z",
+  "generatedAt": "2026-09-20T11:04:37Z",
   "schemaVersion": "2026.6.1"
 }
