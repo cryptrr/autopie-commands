@@ -320,6 +320,17 @@
       "updatedAt": "2026-07-16T20:21:36Z",
       "version": "1.0.0"
     },
+    "autopie.github-stars": {
+      "addedAt": "2026-09-20T11:08:45Z",
+      "name": "GitHub Stars",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Fetch a GitHub repository's star count every 15 minutes for display in an Android widget.",
+      "tags": ["curl", "python", "github", "cron", "widget"],
+      "type": "CRON",
+      "updatedAt": "2026-09-20T11:08:45Z",
+      "version": "1.0.0"
+    },
     "autopie.github-release-watcher": {
       "addedAt": "2026-09-19T02:25:25Z",
       "name": "GitHub Release Watcher",
@@ -640,6 +651,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-09-20T11:04:37Z",
+  "generatedAt": "2026-09-20T11:08:45Z",
   "schemaVersion": "2026.6.1"
 }

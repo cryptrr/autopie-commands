@@ -1,0 +1,44 @@
+schemaVersion: "2026.6.1"
+addedAt: "2026-09-20T11:08:45Z"
+updatedAt: "2026-09-20T11:08:45Z"
+version: "1.0.0"
+id: "autopie.github-stars"
+namespace: "autopie"
+name: "GitHub Stars"
+commandSlug: ""
+summary: "Fetch a GitHub repository's star count every 15 minutes for display in an Android widget."
+kind: "MONITOR"
+tags: ["curl", "python", "github", "cron", "widget"]
+runtime:
+  type: "CRON"
+  cronInterval: "15m"
+  path: ""
+  command: |-
+    OUTPUT=$(curl -fsSL --max-time 10 "https://api.github.com/repos/${REPO}" | python -c 'import sys, json; print(json.load(sys.stdin)["stargazers_count"])')
+    export OUTPUT
+    printf '%s\n' "$OUTPUT"
+  extras:
+    - id: "repo"
+      name: "REPO"
+      type: "STRING"
+      default: "cryptrr/AutoPie"
+      defaultBoolean: true
+      description: "GitHub repository in owner/repo format"
+      required: true
+      flags: ["--internal-config"]
+install:
+  dependencies:
+    pkg: ["curl", "python"]
+  primaryPackage: "curl"
+  extraPackages: ["python"]
+  installerVersion: 1
+  script: "install.sh"
+  sha256: "..."
+docs:
+  readme: "README.md"
+  changelog: "CHANGELOG.md"
+compatibility:
+  autopieMinVersion: "0.x"
+  autopieMaxVersion: "0.x"
+status: "stable"
+maintainers: ["cryptrr"]
