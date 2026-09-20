@@ -1,0 +1,87 @@
+name: Deploy command repository to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          path: channels/main
+
+      - name: Check out dev
+        uses: actions/checkout@v6
+        with:
+          ref: dev
+          path: channels/dev
+
+      - name: Build Pages artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p site/main site/dev
+
+          for channel in main dev; do
+            source="channels/${channel}"
+            destination="site/${channel}"
+
+            test -f "${source}/catalog.json"
+            test -d "${source}/commands"
+
+            cp "${source}/catalog.json" "${destination}/catalog.json"
+            cp -R "${source}/commands" "${destination}/commands"
+          done
+
+          touch site/.nojekyll
+
+          cat > site/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <title>AutoPie Commands</title>
+            </head>
+            <body>
+              <h1>AutoPie Commands</h1>
+              <ul>
+                <li><a href="main/catalog.json">main catalog</a></li>
+                <li><a href="dev/catalog.json">dev catalog</a></li>
+              </ul>
+            </body>
+          </html>
+          EOF
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

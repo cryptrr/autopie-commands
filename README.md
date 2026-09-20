@@ -12,6 +12,7 @@ YAML.
 ## Contents
 
 - [Repository layout](#repository-layout)
+- [Hosted repository](#hosted-repository)
 - [Quick start](#quick-start)
 - [Complete single-stage example](#complete-single-stage-example)
 - [Manifest reference](#manifest-reference)
@@ -43,6 +44,22 @@ tools/
 
 For example, `autopie.remove-audio` lives in
 `commands/autopie/remove-audio/`.
+
+## Hosted repository
+
+The `main` and `dev` channels are published to GitHub Pages with the repository
+layout preserved beneath the channel name:
+
+```text
+https://cryptrr.github.io/autopie-commands/main/catalog.json
+https://cryptrr.github.io/autopie-commands/main/commands/<namespace>/<command-slug>/
+https://cryptrr.github.io/autopie-commands/dev/catalog.json
+https://cryptrr.github.io/autopie-commands/dev/commands/<namespace>/<command-slug>/
+```
+
+Every deployment reads the current head of both branches and publishes both
+channels together. The Pages artifact contains `catalog.json` and `commands/`
+from each branch without changing their paths or contents.
 
 The path and identity fields must agree:
 
