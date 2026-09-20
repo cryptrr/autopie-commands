@@ -384,7 +384,7 @@
       "tags": ["yt-dlp"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "autopie.openwrt-device-manager": {
       "addedAt": "2026-08-28T18:17:51Z",

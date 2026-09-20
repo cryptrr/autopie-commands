@@ -1,7 +1,7 @@
 schemaVersion: "2026.6.1"
 addedAt: "2026-07-14T11:24:14Z"
 updatedAt: "2026-07-14T11:24:14Z"
-version: "1.0.0"
+version: "1.0.1"
 id: "autopie.open-in-video-player"
 namespace: "autopie"
 name: "Open in Video Player"
@@ -18,13 +18,13 @@ runtime:
     - id: "370271"
       name: "FORMAT"
       type: "SELECTABLE"
-      default: "b"
+      default: "bv*+ba/b"
       description: ""
       required: true
       selectableOptions: { "b": "b", "bv*+ba/b": "bv*+ba/b" }
 install:
   dependencies:
-    pkg: ["yt-dlp"]
+    pip: ["yt-dlp"]
   primaryPackage: "yt-dlp"
   extraPackages: []
   installerVersion: 1
