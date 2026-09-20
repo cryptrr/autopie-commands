@@ -1,5 +1,9 @@
 ### Changelog
 
+#### 1.0.1
+
+- Multiline support for feeds field.
+
 #### 1.0.0
 
 - Added 15-minute RSS and Atom feed monitoring with tappable article notifications.

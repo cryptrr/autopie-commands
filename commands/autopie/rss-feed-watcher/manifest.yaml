@@ -1,7 +1,7 @@
 schemaVersion: "2026.6.1"
 addedAt: "2026-09-20T11:03:07Z"
 updatedAt: "2026-09-20T11:03:07Z"
-version: "1.0.0"
+version: "1.0.1"
 id: "autopie.rss-feed-watcher"
 namespace: "autopie"
 name: "RSS Feed Watcher"
@@ -293,7 +293,7 @@ runtime:
       default: ""
       required: true
       description: "RSS or Atom feed URLs. Separate multiple feeds with new lines or commas."
-      flags: ["--internal-config", "--large"]
+      flags: ["--internal-config", "--multiline", "--large"]
     - id: "include_keywords"
       name: "INCLUDE_KEYWORDS"
       type: "STRING"
