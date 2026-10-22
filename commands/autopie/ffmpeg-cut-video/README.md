@@ -1,6 +1,6 @@
 ### FFMPEG: Cut Video
 
-Cut a video to a specified start time and optional duration using FFmpeg.
+Cut a video to a specified start time and end time using FFmpeg.
 
 #### Command
 
@@ -14,7 +14,7 @@ ffmpeg -i "${INPUT_FILE}" -ss ${START} ${END:+-t $END} "${INPUT_FILE}-cut-${RAND
 
 #### Extras
 
-| Name | Type | Required | Default | Flags | Options | Details |
-| --- | --- | --- | --- | --- | --- | --- |
-| START | STRING | no | 00:00:00 | - | - | Start time |
-| END | STRING | no | - | - | - | End time  |
+| Name  | Type   | Required | Default  | Flags | Options | Details    |
+| ----- | ------ | -------- | -------- | ----- | ------- | ---------- |
+| START | STRING | no       | 00:00:00 | -     | -       | Start time |
+| END   | STRING | no       | -        | -     | -       | End time   |

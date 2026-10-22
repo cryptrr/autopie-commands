@@ -281,11 +281,11 @@
       "name": "FFMPEG: Cut Video",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "Cut a video to a specified start time and optional duration using FFmpeg.",
+      "summary": "Cut a video to a specified start time and optional end time using FFmpeg.",
       "tags": ["ffmpeg"],
       "type": "SHARE",
-      "updatedAt": "2026-07-14T11:24:14Z",
-      "version": "1.0.0"
+      "updatedAt": "2026-10-22T18:09:51Z",
+      "version": "1.0.1"
     },
     "autopie.ffmpeg-optimize-video": {
       "addedAt": "2026-07-14T11:24:14Z",
