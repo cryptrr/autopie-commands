@@ -1,18 +1,18 @@
 schemaVersion: "2026.6.1"
 addedAt: "2026-07-14T11:24:14Z"
 updatedAt: "2026-07-14T11:24:14Z"
-version: "1.0.0"
+version: "1.0.1"
 id: "autopie.ffmpeg-cut-video"
 namespace: "autopie"
 name: "FFMPEG: Cut Video"
 commandSlug: "ffmpeg"
-summary: "Cut a video to a specified start time and optional duration using FFmpeg."
+summary: "Cut a video to a specified start time and end time using FFmpeg."
 kind: "APP"
 tags: ["ffmpeg"]
 runtime:
   type: "SHARE"
   path: "Download"
-  command: 'ffmpeg -i "${INPUT_FILE}" -ss ${START} ${END:+-t $END} "${INPUT_FILE}-cut-${RAND}.mp4"'
+  command: 'ffmpeg -ss "${START:-00:00:00}" ${END:+-to "$END"} -i "${INPUT_FILE}" -c:v libx264 -c:a aac "${INPUT_FILE}-cut-${RAND}.mp4"'
   extras:
     - id: "368102"
       name: "START"
