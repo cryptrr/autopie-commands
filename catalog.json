@@ -393,7 +393,7 @@
       "status": "stable",
       "summary": "Control Music playback, adjust volume, open Safari, or sleep a Mac's display over SSH.",
       "tags": ["openssh", "macos"],
-      "type": "SHARE",
+      "type": "MANUAL",
       "updatedAt": "2026-11-12T08:16:16Z",
       "version": "1.0.1"
     },
@@ -602,7 +602,7 @@
       "status": "stable",
       "summary": "Start a local aria2 RPC server for Android downloads and open AriaNg in the browser.",
       "tags": ["aria2", "curl", "torrents"],
-      "type": "SHARE",
+      "type": "MANUAL",
       "updatedAt": "2026-11-12T09:30:00Z",
       "version": "1.0.0"
     },

@@ -10,7 +10,7 @@ summary: "Start a local aria2 RPC server for Android downloads and open AriaNg i
 kind: "APP"
 tags: ["aria2", "curl", "torrents"]
 runtime:
-  type: "SHARE"
+  type: "MANUAL"
   path: ""
   command: |-
     #@SHELL

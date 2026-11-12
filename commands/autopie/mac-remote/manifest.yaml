@@ -10,7 +10,7 @@ summary: "Control Music playback, adjust volume, open Safari, or sleep a Mac's d
 kind: "APP"
 tags: ["openssh", "macos"]
 runtime:
-  type: "SHARE"
+  type: "MANUAL"
   path: ""
   command: |-
     mkdir -p "$HOME/.ssh"
