@@ -88,5 +88,5 @@ os.environ["OUTPUT"] = output
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |
-| REPO | STRING | yes | cryptrr/AutoPie | --internal-config | - | GitHub repository in owner/repo format |
-| GITHUB_TOKEN | STRING | yes | - | --password, --internal-config | - | Optional GitHub token for higher API limits and private repositories |
+| REPO | STRING | yes | - | --internal-config | - | GitHub repository in owner/repo format |
+| GITHUB_TOKEN | STRING | yes | - | --secret, --internal-config | - | Optional GitHub token for higher API limits and private repositories |

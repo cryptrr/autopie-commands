@@ -16,10 +16,10 @@ am start \
     --es android.intent.extra.TEXT $url
 ```
 
-- Flags: `--show-loading-screen`
+- Flags: `--show-loading-screen-small`
 
 #### Extras
 
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |
-| FORMAT | SELECTABLE | yes | b | - | b, bv*+ba/b | - |
+| FORMAT | SELECTABLE | yes | bv*+ba/b | - | b, bv*+ba/b | - |

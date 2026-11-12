@@ -2,8 +2,6 @@
 
 Fetch a GitHub repository's star count every 15 minutes for display in an Android widget.
 
-The command prints the current star count as a plain number so it can be used directly as the widget value.
-
 #### Command
 
 - Path: `default`

@@ -6,6 +6,7 @@ Run common Wi-Fi, network, reboot, and wake-on-LAN actions on an OpenWrt router 
 
 - Path: `default`
 - Command slug: `openssh`
+- Type: `MANUAL`
 
 ```sh
 sshpass -p "$PASSWORD" ssh -nT \

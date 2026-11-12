@@ -118,13 +118,13 @@ printf '#@AUTOPIE {"type":"output","value":"%s"}\n' "$ARCHIVE_PATH"
 
 #### Extras
 
-| Step   | Name              | Type            | Required | Default            | Flags           | Options                                                                                  | Details                                               |
-| ------ | ----------------- | --------------- | -------- | ------------------ | --------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| Step 2 | FORMAT            | SELECTABLE_FLAT | no       | 7z                 | -               | 7z — Best compression=7z, ZIP — Maximum compatibility=zip                                | Archive format                                        |
-| Step 2 | LEVEL             | SELECTABLE      | no       | 5                  | -               | Store — No compression=0, Fastest=1, Fast=3, Normal=5, Maximum=7, Ultra=9                | Compression level                                     |
-| Step 2 | ARCHIVE_NAME      | STRING          | yes      | $$ARCHIVE_BASENAME | --large         | -                                                                                        | Archive filename. Extension is added automatically.   |
-| Step 2 | ENABLE_ENCRYPTION | BOOLEAN         | no       | False              | -               | -                                                                                        | Password protect the archive                          |
-| Step 2 | PASSWORD          | STRING          | yes      | -                  | --password      | -                                                                                        | Archive password                                      |
-| Step 2 | ENCRYPT_FILENAMES | BOOLEAN         | no       | True               | -               | -                                                                                        | Encrypt filenames inside the archive                  |
-| Step 2 | SPLIT_SIZE        | SELECTABLE      | no       | -                  | -               | No splitting=, 10 MB=10m, 50 MB=50m, 100 MB=100m, 500 MB=500m, 1 GB=1g, 2 GB=2g, 4 GB=4g | Optionally split the archive into volumes             |
-| Step 2 | OUTPUT_FOLDER     | STRING          | no       | -                  | --folder-picker | -                                                                                        | Leave empty to save next to the selected file/folder. |
+| Step | Name | Type | Required | Default | Flags | Options | Details |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Step 2 | FORMAT | SELECTABLE_FLAT | no | 7z | - | 7z — Best compression=7z, ZIP — Maximum compatibility=zip | Archive format |
+| Step 2 | LEVEL | SELECTABLE | no | 5 | - | Store — No compression=0, Fastest=1, Fast=3, Normal=5, Maximum=7, Ultra=9 | Compression level |
+| Step 2 | ARCHIVE_NAME | STRING | yes | $$ARCHIVE_BASENAME | --large | - | Archive filename. Extension is added automatically. |
+| Step 2 | ENABLE_ENCRYPTION | BOOLEAN | no | False | - | - | Password protect the archive |
+| Step 2 | PASSWORD | STRING | yes | - | --password | - | Archive password |
+| Step 2 | ENCRYPT_FILENAMES | BOOLEAN | no | True | - | - | Encrypt filenames inside the archive |
+| Step 2 | SPLIT_SIZE | SELECTABLE | no | - | - | No splitting=, 10 MB=10m, 50 MB=50m, 100 MB=100m, 500 MB=500m, 1 GB=1g, 2 GB=2g, 4 GB=4g | Optionally split the archive into volumes |
+| Step 2 | OUTPUT_FOLDER | STRING | no | - | --folder-picker | - | Leave empty to save next to the selected file/folder. |

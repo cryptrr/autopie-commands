@@ -2,8 +2,6 @@
 
 Check a URL every 15 minutes and send an Android notification when a failure is detected.
 
-AutoPie must have Android notification permission, and its main notification channel must be enabled. Tapping a notification opens the command log.
-
 #### Command
 
 - Path: `default`
@@ -95,6 +93,6 @@ print("#@AUTOPIE " + json.dumps({
 
 #### Extras
 
-| Name | Type   | Required | Default | Flags             | Options | Details                  |
-| ---- | ------ | -------- | ------- | ----------------- | ------- | ------------------------ |
-| URL  | STRING | yes      | -       | --internal-config | -       | The URL to check health. |
+| Name | Type | Required | Default | Flags | Options | Details |
+| --- | --- | --- | --- | --- | --- | --- |
+| URL | STRING | yes | - | --internal-config | - | The URL to check health. |

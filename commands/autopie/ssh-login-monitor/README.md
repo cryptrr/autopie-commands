@@ -1,6 +1,6 @@
-Designed to send notifications when SSH logins or failures are detected.
-
 ### SSH Login Monitor
+
+Sends notifications when SSH logins or failures are detected.
 
 #### Command
 

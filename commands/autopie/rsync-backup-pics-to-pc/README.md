@@ -6,6 +6,7 @@ Back up a local pictures folder to a remote rsync server.
 
 - Path: `default`
 - Command slug: `rsync`
+- Type: `MANUAL`
 
 ```sh
 rsync -avz "${FOLDER_FROM}" "${FOLDER_TO}"

@@ -6,6 +6,7 @@ Set a Mac's output volume remotely over SSH.
 
 - Path: `default`
 - Command slug: `openssh`
+- Type: `MANUAL`
 
 ```sh
 sshpass -p "$PASSWORD" ssh -nT \

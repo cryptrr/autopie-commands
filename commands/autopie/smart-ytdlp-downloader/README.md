@@ -391,7 +391,7 @@ rm -rf -- "$WORK_ROOT"
 
 | Step | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Step 1 | USE_COOKIE_JAR | FLAG | no | true | - | - | Use AutoPie's browser cookie jar for inspection and download. |
+| Step 1 | USE_COOKIE_JAR | FLAG | no | false | - | - | Use AutoPie's browser cookie jar for inspection and download. |
 | Step 2 | OUTPUT_FOLDER | STRING | no | Download | --internal-config, --folder-picker | - | Folder where the downloaded media will be saved. |
 | Step 2 | DOWNLOAD_TYPE | SELECTABLE | no | video | - | Video=video, Audio only=audio | Download as video or extract audio only. |
 | Step 2 | QUALITY | SELECTABLE | no | $$QUALITY_DEFAULT | - | Available resolutions=$$QUALITY_OPTIONS | Resolution choices are generated from the inspected media. |

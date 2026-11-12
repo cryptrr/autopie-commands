@@ -5,7 +5,8 @@ Temporarily share a file or folder over the local network with an expiring HTTP 
 #### Command
 
 - Path: `default`
-- Command slug: ``
+- Command slug: `share`
+- Type: `SHARE`
 
 ```sh
 #@PYTHON
@@ -148,7 +149,7 @@ def find_lan_hostname(ip):
 # Input
 # ---------------------------------------------------------------------
 
-target_value = os.environ.get("INPUT_FILE", "").strip()
+target_value = os.environ.get("INPUT", "").strip()
 if not target_value:
     die("No file or folder received")
 

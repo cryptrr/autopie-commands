@@ -6,6 +6,7 @@ Synchronize pictures from a remote rsync server to a folder on the device.
 
 - Path: `default`
 - Command slug: `rsync`
+- Type: `MANUAL`
 
 ```sh
 rsync -avz "${FOLDER_FROM}" "${FOLDER_TO}"

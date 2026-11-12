@@ -91,7 +91,7 @@ fi
 | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- |
 | USER | STRING | yes | - | --internal-config | - | The SSH user on host. |
-| HOST | SELECTABLE | yes | server.local | - | server.local, workstation.lan | The SSH host to connect to. |
+| HOST | SELECTABLE_FLAT | yes | server.local | - | server.local, workstation.lan | The SSH host to connect to. |
 | SSH_PORT | STRING | yes | 22 | --internal-config | - | SSH port on the remote server. |
 | AUTH_METHOD | SELECTABLE | yes | password | --internal-config | Password=password, SSH key=key | Authentication method used to connect to the remote server. |
 | PASSWORD | STRING | yes | - | --secret, --internal-config | - | SSH password. It is also used for sudo when no separate sudo password is set. |

@@ -1,10 +1,6 @@
 ### RSS Feed Watcher
 
-Watch RSS and Atom feeds every 15 minutes and send notifications for new entries. Tapping a notification opens the article URL.
-
-The first run creates a baseline by default, so existing entries do not generate notifications. Enable `FIRST_RUN_NOTIFY` to notify for matching entries already present when the watcher first runs.
-
-Include and exclude keywords are case-insensitive and match against entry titles and descriptions. Exclusions always take priority.
+Watch RSS and Atom feeds for new entries and send filtered notifications that open the article.
 
 #### Command
 
@@ -13,23 +9,288 @@ Include and exclude keywords are case-insensitive and match against entry titles
 - Type: `CRON`
 - Cron interval: `15m`
 
+```sh
+#@PYTHON
+import os
+import json
+import hashlib
+import html
+import re
+from pathlib import Path
+
+import feedparser
+import requests
+
+FEED_URLS = os.environ.get("FEED_URLS", "")
+FIRST_RUN_NOTIFY = os.environ.get("FIRST_RUN_NOTIFY", "false").lower() == "true"
+INCLUDE_KEYWORDS_RAW = os.environ.get("INCLUDE_KEYWORDS", "")
+EXCLUDE_KEYWORDS_RAW = os.environ.get("EXCLUDE_KEYWORDS", "")
+KEYWORD_MATCH_MODE = os.environ.get("KEYWORD_MATCH_MODE", "any").strip().lower()
+
+try:
+    MAX_NOTIFICATIONS = max(1, int(os.environ.get("MAX_NOTIFICATIONS", "10")))
+except ValueError:
+    MAX_NOTIFICATIONS = 10
+
+STATE_LIMIT = 500
+STATE_DIR = Path.home() / ".cache" / "autopie-rss-watcher"
+STATE_FILE = STATE_DIR / "state.json"
+
+
+def parse_list(value):
+    values = []
+    seen = set()
+
+    for item in re.split(r"[\n,]+", value):
+        item = item.strip().lower()
+        if item and item not in seen:
+            seen.add(item)
+            values.append(item)
+
+    return values
+
+
+INCLUDE_KEYWORDS = parse_list(INCLUDE_KEYWORDS_RAW)
+EXCLUDE_KEYWORDS = parse_list(EXCLUDE_KEYWORDS_RAW)
+
+
+def notify(title, body, url):
+    event = {
+        "type": "notification",
+        "title": title,
+        "body": body,
+    }
+
+    if url:
+        event["action"] = {
+            "type": "open_url",
+            "url": url,
+        }
+
+    print("#@AUTOPIE " + json.dumps(event, ensure_ascii=False), flush=True)
+
+
+def load_state():
+    try:
+        return json.loads(STATE_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return {"feeds": {}}
+
+
+def save_state(state):
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+
+    temp = STATE_FILE.with_suffix(".tmp")
+    temp.write_text(
+        json.dumps(state, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    temp.replace(STATE_FILE)
+
+
+def entry_id(entry, feed_url):
+    value = entry.get("id") or entry.get("guid") or entry.get("link")
+
+    if value:
+        return str(value)
+
+    raw = "|".join([
+        feed_url,
+        str(entry.get("title", "")),
+        str(entry.get("published", entry.get("updated", ""))),
+    ])
+
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+def clean_text(value):
+    value = html.unescape(str(value or ""))
+    value = re.sub(r"<[^>]+>", " ", value)
+    value = re.sub(r"\s+", " ", value)
+    return value.strip()
+
+
+def entry_search_text(entry):
+    parts = [
+        clean_text(entry.get("title", "")),
+        clean_text(entry.get("summary", "")),
+        clean_text(entry.get("description", "")),
+    ]
+
+    return " ".join(parts).lower()
+
+
+def matches_filters(entry):
+    text = entry_search_text(entry)
+
+    # Exclude always wins.
+    for keyword in EXCLUDE_KEYWORDS:
+        if keyword in text:
+            return False
+
+    # No include keywords means allow everything not excluded.
+    if not INCLUDE_KEYWORDS:
+        return True
+
+    if KEYWORD_MATCH_MODE == "all":
+        return all(keyword in text for keyword in INCLUDE_KEYWORDS)
+
+    return any(keyword in text for keyword in INCLUDE_KEYWORDS)
+
+
+def get_feed_title(feed, url):
+    title = feed.feed.get("title") if hasattr(feed, "feed") else None
+    return title or url
+
+
+urls = []
+
+for raw in re.split(r"[\n,]+", FEED_URLS):
+    url = raw.strip()
+
+    if not url:
+        continue
+
+    if not url.startswith(("http://", "https://")):
+        print(f"Skipping invalid URL: {url}", flush=True)
+        continue
+
+    if url not in urls:
+        urls.append(url)
+
+if not urls:
+    raise SystemExit("No RSS/Atom feeds configured")
+
+state = load_state()
+feeds_state = state.setdefault("feeds", {})
+
+new_items = []
+successful_feeds = 0
+filtered_count = 0
+
+for feed_url in urls:
+    print(f"Checking: {feed_url}", flush=True)
+
+    try:
+        response = requests.get(
+            feed_url,
+            timeout=20,
+            headers={
+                "User-Agent": "AutoPie RSS Watcher/1.0",
+                "Accept": "application/rss+xml, application/atom+xml, application/xml, text/xml, */*",
+            },
+        )
+        response.raise_for_status()
+
+        feed = feedparser.parse(response.content)
+
+        if feed.bozo and not feed.entries:
+            raise RuntimeError(str(feed.bozo_exception))
+
+        feed_title = get_feed_title(feed, feed_url)
+        previous = feeds_state.get(feed_url)
+        first_run = previous is None
+
+        previous_seen = set(previous.get("seen", [])) if previous else set()
+
+        current_ids = []
+        feed_new_items = []
+
+        for entry in feed.entries:
+            item_id = entry_id(entry, feed_url)
+            current_ids.append(item_id)
+
+            if item_id in previous_seen:
+                continue
+
+            # First run establishes a baseline unless explicitly enabled.
+            if first_run and not FIRST_RUN_NOTIFY:
+                continue
+
+            if not matches_filters(entry):
+                filtered_count += 1
+                continue
+
+            title = clean_text(entry.get("title", "Untitled")) or "Untitled"
+            link = str(entry.get("link", ""))
+
+            feed_new_items.append({
+                "feed": feed_title,
+                "title": title,
+                "url": link,
+            })
+
+        old_ids = previous.get("seen", []) if previous else []
+
+        # Store every entry as seen, including entries rejected by filters.
+        merged = list(dict.fromkeys(current_ids + old_ids))[:STATE_LIMIT]
+
+        feeds_state[feed_url] = {
+            "title": feed_title,
+            "seen": merged,
+        }
+
+        successful_feeds += 1
+
+        # Most RSS feeds return newest first. Reverse this feed's new items
+        # so notifications are emitted oldest -> newest.
+        feed_new_items.reverse()
+        new_items.extend(feed_new_items)
+
+        if first_run and not FIRST_RUN_NOTIFY:
+            print(
+                f"Baseline created: {feed_title} ({len(current_ids)} items)",
+                flush=True,
+            )
+        else:
+            print(
+                f"{feed_title}: {len(feed_new_items)} matching new item(s)",
+                flush=True,
+            )
+
+    except Exception as exc:
+        print(f"Failed: {feed_url}: {exc}", flush=True)
+
+save_state(state)
+
+if successful_feeds == 0:
+    raise SystemExit("All RSS feeds failed")
+
+total_new = len(new_items)
+
+if total_new > MAX_NOTIFICATIONS:
+    print(
+        f"{total_new} matching items found; limiting notifications to "
+        f"{MAX_NOTIFICATIONS}",
+        flush=True,
+    )
+
+    # Keep the newest matching items when the notification limit is reached.
+    new_items = new_items[-MAX_NOTIFICATIONS:]
+
+for item in new_items:
+    notify(
+        item["feed"],
+        item["title"],
+        item["url"],
+    )
+
+if total_new == 0:
+    print("No matching new RSS items", flush=True)
+else:
+    print(f"Found {total_new} matching new RSS item(s)", flush=True)
+
+if filtered_count:
+    print(f"Filtered out {filtered_count} new item(s)", flush=True)
+```
+
 #### Extras
 
-| Name | Type | Required | Default | Details |
-| --- | --- | --- | --- | --- |
-| `FEED_URLS` | STRING | yes | - | RSS or Atom feed URLs separated by commas or new lines. |
-| `INCLUDE_KEYWORDS` | STRING | no | - | Notify only for entries containing any or all configured keywords. |
-| `EXCLUDE_KEYWORDS` | STRING | no | - | Ignore entries containing any configured keyword. |
-| `KEYWORD_MATCH_MODE` | SELECTABLE | yes | `any` | Match any or all include keywords. |
-| `FIRST_RUN_NOTIFY` | BOOLEAN | no | `false` | Notify for matching existing entries during the first run. |
-| `MAX_NOTIFICATIONS` | SLIDER | no | `10` | Limit article notifications per run from 1 to 50. |
-
-#### State
-
-The watcher stores up to 500 seen entry IDs in `~/.cache/autopie-rss-watcher/state.json`. Entries rejected by filters are still marked as seen and will not notify after filter changes.
-
-#### Dependencies
-
-- Python
-- feedparser
-- requests
+| Name | Type | Required | Default | Flags | Options | Details |
+| --- | --- | --- | --- | --- | --- | --- |
+| FEED_URLS | STRING | yes | - | --internal-config, --multiline, --large | - | RSS or Atom feed URLs. Separate multiple feeds with new lines or commas. |
+| INCLUDE_KEYWORDS | STRING | no | - | --internal-config, --large | - | Only notify when these keywords appear in the title or description. Separate with commas or new lines. Leave empty to allow all. |
+| EXCLUDE_KEYWORDS | STRING | no | - | --internal-config, --large | - | Ignore entries containing these keywords. Separate with commas or new lines. Exclude keywords always take priority. |
+| KEYWORD_MATCH_MODE | SELECTABLE | yes | any | --internal-config | Match any keyword=any, Match all keywords=all | How include keywords should be matched. |
+| FIRST_RUN_NOTIFY | BOOLEAN | no | False | --internal-config | - | Notify for matching existing feed items on the first run. |
+| MAX_NOTIFICATIONS | SLIDER | no | 1,10,50 | --int, --internal-config | - | Maximum number of article notifications per run. |

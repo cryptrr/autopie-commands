@@ -87,5 +87,5 @@ esac
 | MAC_USER | STRING | yes | amal | --internal-config | - | Your macOS account username |
 | MAC_HOST | STRING | yes | amals-mac-mini.lan | --internal-config | - | Mac hostname or IP address |
 | AUTH_METHOD | SELECTABLE | yes | password | --internal-config | Password=password, SSH key=key | SSH authentication method |
-| MAC_PASSWORD | STRING | yes | - | --password, --large | - | macOS login password; encrypted by AutoPie |
-| ACTION | BUTTON | yes | play_pause | --realtime, --large | ⏮ Previous=previous, ⏯ Play/Pause=play_pause, ⏭ Next=next, 🔉 Volume −=volume_down, 🔇 Mute=mute, 🔊 Volume +=volume_up, 🌐 Safari=safari, 🌙 Sleep Display=sleep_display | Control your Mac |
+| MAC_PASSWORD | STRING | yes | - | --password, --large, --internal-config | - | macOS login password; encrypted by AutoPie |
+| ACTION | BUTTON | yes | play_pause | --realtime, --large | ⏯ Play/Pause=play_pause, 🌙 Sleep Display=sleep_display, ⏮ Previous=previous, ⏭ Next=next, 🔉 Volume −=volume_down, 🔊 Volume +=volume_up, 🔇 Mute=mute, 🌐 Safari=safari | Control your Mac |

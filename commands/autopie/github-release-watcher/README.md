@@ -7,7 +7,7 @@ Watch GitHub repositories for new releases and open the release page from the no
 - Path: `default`
 - Command slug: ``
 - Type: `CRON`
-- Cron interval: `1m`
+- Cron interval: `1h`
 
 ```sh
 #@PYTHON
@@ -217,8 +217,8 @@ print("#@AUTOPIE " + json.dumps({
 
 #### Extras
 
-| Name            | Type       | Required | Default                      | Flags                       | Options     | Details                                                              |
-| --------------- | ---------- | -------- | ---------------------------- | --------------------------- | ----------- | -------------------------------------------------------------------- |
-| REPOS           | STRING     | yes      | cryptrr/AutoPie,astral-sh/uv | --internal-config           | -           | Comma-separated GitHub repositories in owner/repo format.            |
-| RELEASE_CHANNEL | SELECTABLE | yes      | stable                       | --internal-config           | stable, all | Watch stable releases only, or include prereleases.                  |
-| GITHUB_TOKEN    | STRING     | no       | -                            | --secret, --internal-config | -           | Optional GitHub token for private repositories or higher API limits. |
+| Name | Type | Required | Default | Flags | Options | Details |
+| --- | --- | --- | --- | --- | --- | --- |
+| REPOS | STRING | yes | cryptrr/AutoPie,astral-sh/uv | --internal-config | - | Comma-separated GitHub repositories in owner/repo format. |
+| RELEASE_CHANNEL | SELECTABLE | yes | stable | --internal-config | stable, all | Watch stable releases only, or include prereleases. |
+| GITHUB_TOKEN | STRING | no | - | --secret, --internal-config | - | Optional GitHub token for private repositories or higher API limits. |
