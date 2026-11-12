@@ -6,7 +6,7 @@ Start a local aria2 RPC server for Android downloads and open AriaNg in the brow
 
 - Path: `default`
 - Command slug: ``
-- Type: `SHARE`
+- Type: `MANUAL`
 
 ```sh
 #@SHELL

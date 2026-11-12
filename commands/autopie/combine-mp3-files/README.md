@@ -23,7 +23,7 @@ done
 first="${INPUT_FILES_ARR[0]}"
 name="${first##*/}"
 name="${name%.*}"
-output="$DIRECTORY/${name} - combined - $RANDOM.mp3"
+output="$DIRECTORY/${name}-combined-$RANDOM.mp3"
 ffmpeg -hide_banner -loglevel error -n -f concat -safe 0 -i "$list" -c:a copy "$output"
 export OUTPUT="$output"
 printf 'Created: %s\n' "$output"

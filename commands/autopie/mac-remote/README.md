@@ -6,7 +6,7 @@ Control Music playback, adjust volume, open Safari, or sleep a Mac's display ove
 
 - Path: `default`
 - Command slug: `openssh`
-- Type: `SHARE`
+- Type: `MANUAL`
 
 ```sh
 mkdir -p "$HOME/.ssh"
