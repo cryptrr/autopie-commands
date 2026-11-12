@@ -384,7 +384,7 @@
       "tags": ["openssh", "macos"],
       "type": "SHARE",
       "updatedAt": "2026-11-12T08:16:16Z",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "autopie.open-in-video-player": {
       "addedAt": "2026-07-14T11:24:14Z",

@@ -1,7 +1,7 @@
 schemaVersion: "2026.6.1"
 addedAt: "2026-11-12T08:16:16Z"
 updatedAt: "2026-11-12T08:16:16Z"
-version: "1.0.0"
+version: "1.0.1"
 id: "autopie.mac-remote"
 namespace: "autopie"
 name: "Mac Remote"
@@ -125,14 +125,14 @@ runtime:
       required: true
       flags: ["--realtime", "--large"]
       selectableOptions:
-        "⏮ Previous": "previous"
         "⏯ Play/Pause": "play_pause"
+        "🌙 Sleep Display": "sleep_display"
+        "⏮ Previous": "previous"
         "⏭ Next": "next"
         "🔉 Volume −": "volume_down"
-        "🔇 Mute": "mute"
         "🔊 Volume +": "volume_up"
+        "🔇 Mute": "mute"
         "🌐 Safari": "safari"
-        "🌙 Sleep Display": "sleep_display"
 install:
   dependencies:
     pkg: ["openssh", "sshpass"]
