@@ -584,6 +584,20 @@
       "updatedAt": "2026-09-13T23:43:11Z",
       "version": "1.0.0"
     },
+    "autopie.start-aria2-webui": {
+      "addedAt": "2026-11-12T09:30:00Z",
+      "name": "Start aria2 WebUI",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Start a local aria2 RPC server for Android downloads and open AriaNg in the browser.",
+      "tags": [
+        "aria2",
+        "curl"
+      ],
+      "type": "SHARE",
+      "updatedAt": "2026-11-12T09:30:00Z",
+      "version": "1.0.0"
+    },
     "autopie.strip-image-metadata-share": {
       "addedAt": "2026-09-14T00:42:20Z",
       "name": "Strip Image Metadata & Share",
@@ -662,6 +676,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-11-12T08:17:52Z",
+  "generatedAt": "2026-11-12T09:30:30Z",
   "schemaVersion": "2026.6.1"
 }
