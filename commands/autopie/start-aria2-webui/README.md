@@ -38,6 +38,8 @@ if [[ -n "$pid" ]]; then
 fi
 ```
 
+- Flags: `--show-loading-screen-small`
+
 #### Extras
 
 No extras.

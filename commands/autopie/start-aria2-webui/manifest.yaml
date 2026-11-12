@@ -40,6 +40,7 @@ runtime:
       trap 'kill "$pid" 2>/dev/null || true' EXIT
       wait "$pid"
     fi
+  flags: ["--show-loading-screen-small"]
 install:
   dependencies:
     pkg: ["aria2", "curl"]
