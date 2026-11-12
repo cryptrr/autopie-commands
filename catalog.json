@@ -375,6 +375,17 @@
       "updatedAt": "2026-09-14T00:25:39Z",
       "version": "1.0.0"
     },
+    "autopie.mac-remote": {
+      "addedAt": "2026-11-12T08:16:16Z",
+      "name": "Mac Remote",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Control Music playback, adjust volume, open Safari, or sleep a Mac's display over SSH.",
+      "tags": ["openssh", "macos"],
+      "type": "SHARE",
+      "updatedAt": "2026-11-12T08:16:16Z",
+      "version": "1.0.0"
+    },
     "autopie.open-in-video-player": {
       "addedAt": "2026-07-14T11:24:14Z",
       "name": "Open in Video Player",
@@ -651,6 +662,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-09-20T11:08:45Z",
+  "generatedAt": "2026-11-12T08:17:52Z",
   "schemaVersion": "2026.6.1"
 }

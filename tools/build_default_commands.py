@@ -10,7 +10,7 @@ from manifest_io import find_manifest_files, load_manifest
 
 COMMANDS_DIR = Path("commands")
 OUTPUT_FILE = Path("default-commands.json")
-SELECTABLE_TYPES = {"SELECTABLE", "SELECTABLE_FLAT", "MULTI_SELECTABLE"}
+OPTION_TYPES = {"BUTTON", "SELECTABLE", "SELECTABLE_FLAT", "MULTI_SELECTABLE"}
 
 
 def parse_default_boolean(value: Any) -> bool:
@@ -39,7 +39,7 @@ def convert_extra(extra: dict[str, Any]) -> dict[str, Any]:
         if key in extra:
             converted[key] = extra[key]
 
-    if extra_type in SELECTABLE_TYPES and "selectableOptions" in extra:
+    if extra_type in OPTION_TYPES and "selectableOptions" in extra:
         converted["selectableOptions"] = extra["selectableOptions"]
 
     if extra_type == "BOOLEAN":
