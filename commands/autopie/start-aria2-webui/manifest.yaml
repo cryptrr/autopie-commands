@@ -8,7 +8,7 @@ name: "Start aria2 WebUI"
 commandSlug: ""
 summary: "Start a local aria2 RPC server for Android downloads and open AriaNg in the browser."
 kind: "APP"
-tags: ["aria2", "curl"]
+tags: ["aria2", "curl", "torrents"]
 runtime:
   type: "SHARE"
   path: ""
