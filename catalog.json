@@ -805,15 +805,15 @@
       "name": "Start aria2 WebUI",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "Start a local aria2 RPC server for Android downloads and open AriaNg in the browser.",
+      "summary": "Open AriaNg with a local aria2 server that saves and restores download tasks.",
       "tags": [
         "aria2",
         "curl",
         "torrents"
       ],
       "type": "MANUAL",
-      "updatedAt": "2026-11-12T09:30:00Z",
-      "version": "1.0.0"
+      "updatedAt": "2026-11-13T12:43:02Z",
+      "version": "1.1.0"
     },
     "autopie.strip-image-metadata-share": {
       "addedAt": "2026-09-14T00:42:20Z",
@@ -911,6 +911,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-11-13T12:15:21Z",
+  "generatedAt": "2026-11-13T12:46:15Z",
   "schemaVersion": "2026.6.1"
 }
