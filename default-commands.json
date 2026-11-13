@@ -927,6 +927,36 @@
     ],
     "id": "autopie.health-check-widget"
   },
+  "Image Format Converter": {
+    "path": "Download",
+    "command": "input=${INPUT_FILE:-}\nif [ ! -f \"$input\" ] || [ ! -r \"$input\" ]; then\n  printf '%s\\n' 'Share a readable image file to convert.' >&2\n  exit 1\nfi\n\nformat=${OUTPUT_FORMAT:-png}\ncase \"$format\" in\n  png|jpg|webp|avif|gif|bmp|tiff|ico) ;;\n  *) printf 'Unsupported output format: %s\\n' \"$format\" >&2; exit 1 ;;\nesac\n\noutput=$(mktemp --suffix=\".$format\" ./converted-XXXXXXXX) || exit 1\ncase \"$format\" in\n  jpg) set -- -background white -alpha remove -alpha off ;;\n  ico) set -- -resize '256x256>' ;;\n  *) set -- ;;\nesac\n\n# Read through stdin so ImageMagick treats the shared path as a literal file.\nsource='-[0]'\ncase \"$input\" in\n  *.[iI][cC][oO]) source='ico:-[0]' ;;\nesac\nif ! magick \"$source\" -auto-orient \"$@\" \"$format:$output\" < \"$input\" || [ ! -s \"$output\" ]; then\n  rm -f \"$output\"\n  printf 'Could not convert the shared image to %s.\\n' \"$format\" >&2\n  exit 1\nfi\n\nOUTPUT=\"${PWD}/${output#./}\"\nexport OUTPUT\nprintf '%s\\n' \"$OUTPUT\"",
+    "exec": "magick",
+    "flags": [
+      "--show-loading-screen-small"
+    ],
+    "type": "SHARE",
+    "extras": [
+      {
+        "default": "png",
+        "description": "Choose the output format. Animated and multi-page inputs use the first frame or page. JPG replaces transparency with white. ICO scales large images to fit within 256 × 256 pixels.",
+        "id": "output_format",
+        "name": "OUTPUT_FORMAT",
+        "required": true,
+        "type": "SELECTABLE",
+        "selectableOptions": {
+          "PNG": "png",
+          "JPG": "jpg",
+          "WebP": "webp",
+          "AVIF": "avif",
+          "GIF": "gif",
+          "BMP": "bmp",
+          "TIFF": "tiff",
+          "ICO": "ico"
+        }
+      }
+    ],
+    "id": "autopie.image-format-converter"
+  },
   "Mac Remote": {
     "path": "",
     "command": "mkdir -p \"$HOME/.ssh\"\n\ncase \"$ACTION\" in\n  previous)\n    REMOTE=\"osascript -e 'tell application \\\"Music\\\" to previous track'\"\n    ;;\n  play_pause)\n    REMOTE=\"osascript -e 'tell application \\\"Music\\\" to playpause'\"\n    ;;\n  next)\n    REMOTE=\"osascript -e 'tell application \\\"Music\\\" to next track'\"\n    ;;\n  volume_down)\n    REMOTE=\"osascript -e 'set volume output volume ((output volume of (get volume settings)) - 10)'\"\n    ;;\n  mute)\n    REMOTE=\"osascript -e 'set volume output muted (not (output muted of (get volume settings)))'\"\n    ;;\n  volume_up)\n    REMOTE=\"osascript -e 'set volume output volume ((output volume of (get volume settings)) + 10)'\"\n    ;;\n  safari)\n    REMOTE=\"open -a Safari\"\n    ;;\n  sleep_display)\n    REMOTE=\"pmset displaysleepnow\"\n    ;;\n  *)\n    printf 'Unsupported action: %s\\n' \"$ACTION\" >&2\n    exit 2\n    ;;\nesac\n\nSSH_TARGET=\"$MAC_USER@$MAC_HOST\"\nSSH_OPTIONS=(\n  -o ConnectTimeout=4\n  -o StrictHostKeyChecking=accept-new\n  -o ControlMaster=auto\n  -o ControlPersist=10m\n  -o ControlPath=\"$HOME/.ssh/autopie-%C\"\n)\n\ncase \"$AUTH_METHOD\" in\n  password)\n    if [ -z \"$MAC_PASSWORD\" ]; then\n      printf 'The Mac password is required.\\n' >&2\n      exit 2\n    fi\n\n    SSHPASS=\"$MAC_PASSWORD\" sshpass -e ssh \\\n      \"${SSH_OPTIONS[@]}\" \\\n      -o PubkeyAuthentication=no \\\n      -o PreferredAuthentications=password,keyboard-interactive \\\n      -o NumberOfPasswordPrompts=1 \\\n      \"$SSH_TARGET\" \\\n      \"$REMOTE\"\n    ;;\n  key)\n    ssh \\\n      \"${SSH_OPTIONS[@]}\" \\\n      -o BatchMode=yes \\\n      \"$SSH_TARGET\" \\\n      \"$REMOTE\"\n    ;;\n  *)\n    printf 'Unsupported authentication method: %s\\n' \"$AUTH_METHOD\" >&2\n    exit 2\n    ;;\nesac",

@@ -499,6 +499,21 @@
       "updatedAt": "2026-09-14T00:25:39Z",
       "version": "1.0.0"
     },
+    "autopie.image-format-converter": {
+      "addedAt": "2026-11-13T12:12:40Z",
+      "name": "Image Format Converter",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Convert a shared image to PNG, JPG, WebP, AVIF, GIF, BMP, TIFF, or ICO and save it to Downloads.",
+      "tags": [
+        "imagemagick",
+        "image",
+        "conversion"
+      ],
+      "type": "SHARE",
+      "updatedAt": "2026-11-13T12:12:40Z",
+      "version": "1.0.0"
+    },
     "autopie.mac-remote": {
       "addedAt": "2026-11-12T08:16:16Z",
       "name": "Mac Remote",
@@ -896,6 +911,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-11-13T11:48:27Z",
+  "generatedAt": "2026-11-13T12:15:21Z",
   "schemaVersion": "2026.6.1"
 }
