@@ -1334,6 +1334,16 @@
     "type": "SHARE",
     "id": "autopie.paste-rs"
   },
+  "QR Code Generator": {
+    "path": "Download",
+    "command": "set +x\nset -u\n\ntext=\"${INPUT_TEXT:-${INPUT_URL:-${INPUT:-}}}\"\nif [ -z \"$text\" ]; then\n  printf '%s\\n' 'Share text or a URL to generate a QR code.' >&2\n  exit 1\nfi\n\nimage=$(mktemp \"$(pwd -P)/qr-code-XXXXXXXX.png\") || exit 1\nif ! printf '%s' \"$text\" | qrencode -t PNG -s 8 -o \"$image\"; then\n  rm -f \"$image\"\n  printf '%s\\n' 'Could not generate a QR code. Try sharing less text.' >&2\n  exit 1\nfi\n\nOUTPUT=$(jq -cn --arg path \"$image\" '{type:\"image\", path:$path}') || exit 1\nexport OUTPUT\n\napp_component=\"${LOADING_ACTIVITY:-com.autopi/.LoadingActivity}\"\nam start -n \"${app_component%%/*}/.OutputPresentationActivity\" \\\n  --es output \"$OUTPUT\" --es commandName \"QR Code Generator\" >/dev/null",
+    "exec": "qrencode",
+    "flags": [
+      "--show-loading-screen-small"
+    ],
+    "type": "SHARE",
+    "id": "autopie.qr-code-generator"
+  },
   "Remove Audio": {
     "path": "",
     "command": "ffmpeg -i \"${INPUT_FILE}\" -an -c:v copy \"${INPUT_FILE}-noaud.mp4\"",

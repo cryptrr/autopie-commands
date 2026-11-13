@@ -570,6 +570,23 @@
       "updatedAt": "2026-09-18T10:11:12Z",
       "version": "1.0.0"
     },
+    "autopie.qr-code-generator": {
+      "addedAt": "2026-11-13T11:47:47Z",
+      "name": "QR Code Generator",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Generate a QR code PNG from shared text or a URL and display it in AutoPie's output viewer.",
+      "tags": [
+        "qrencode",
+        "qr",
+        "image",
+        "text",
+        "url"
+      ],
+      "type": "SHARE",
+      "updatedAt": "2026-11-13T11:47:47Z",
+      "version": "1.0.0"
+    },
     "autopie.remove-audio": {
       "addedAt": "2026-07-14T11:24:14Z",
       "name": "Remove Audio",
@@ -879,6 +896,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-11-13T11:35:53Z",
+  "generatedAt": "2026-11-13T11:48:27Z",
   "schemaVersion": "2026.6.1"
 }
