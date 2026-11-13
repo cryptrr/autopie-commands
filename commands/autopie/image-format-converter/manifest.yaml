@@ -1,17 +1,17 @@
 schemaVersion: "2026.6.1"
 addedAt: "2026-11-13T12:12:40Z"
-updatedAt: "2026-11-13T12:12:40Z"
-version: "1.0.0"
+updatedAt: "2026-11-13T16:01:54Z"
+version: "1.0.1"
 id: "autopie.image-format-converter"
 namespace: "autopie"
 name: "Image Format Converter"
 commandSlug: "magick"
-summary: "Convert a shared image to PNG, JPG, WebP, AVIF, GIF, BMP, TIFF, or ICO and save it to Downloads."
+summary: "Convert a shared image to PNG, JPG, WebP, AVIF, GIF, BMP, TIFF, or ICO and save it beside the original."
 kind: "APP"
 tags: ["imagemagick", "image", "conversion"]
 runtime:
   type: "SHARE"
-  path: "Download"
+  path: ""
   flags: ["--show-loading-screen-small"]
   command: |-
     input=${INPUT_FILE:-}
@@ -25,6 +25,16 @@ runtime:
       png|jpg|webp|avif|gif|bmp|tiff|ico) ;;
       *) printf 'Unsupported output format: %s\n' "$format" >&2; exit 1 ;;
     esac
+
+    case "$input" in
+      /*) ;;
+      *) input="$PWD/$input" ;;
+    esac
+    directory=${DIRECTORY:-${input%/*}/}
+    if ! CDPATH= cd -- "$directory"; then
+      printf 'Could not open the output folder: %s\n' "$directory" >&2
+      exit 1
+    fi
 
     output=$(mktemp --suffix=".$format" ./converted-XXXXXXXX) || exit 1
     case "$format" in
@@ -44,7 +54,7 @@ runtime:
       exit 1
     fi
 
-    OUTPUT="${PWD}/${output#./}"
+    OUTPUT="${PWD%/}/${output#./}"
     export OUTPUT
     printf '%s\n' "$OUTPUT"
   extras:

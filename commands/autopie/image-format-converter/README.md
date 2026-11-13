@@ -1,10 +1,10 @@
 ### Image Format Converter
 
-Convert a shared image to PNG, JPG, WebP, AVIF, GIF, BMP, TIFF, or ICO and save it to Downloads.
+Convert a shared image to PNG, JPG, WebP, AVIF, GIF, BMP, TIFF, or ICO and save it beside the original.
 
 #### Command
 
-- Path: `Download`
+- Path: `default`
 - Command slug: `magick`
 - Type: `SHARE`
 
@@ -20,6 +20,16 @@ case "$format" in
   png|jpg|webp|avif|gif|bmp|tiff|ico) ;;
   *) printf 'Unsupported output format: %s\n' "$format" >&2; exit 1 ;;
 esac
+
+case "$input" in
+  /*) ;;
+  *) input="$PWD/$input" ;;
+esac
+directory=${DIRECTORY:-${input%/*}/}
+if ! CDPATH= cd -- "$directory"; then
+  printf 'Could not open the output folder: %s\n' "$directory" >&2
+  exit 1
+fi
 
 output=$(mktemp --suffix=".$format" ./converted-XXXXXXXX) || exit 1
 case "$format" in
@@ -39,7 +49,7 @@ if ! magick "$source" -auto-orient "$@" "$format:$output" < "$input" || [ ! -s "
   exit 1
 fi
 
-OUTPUT="${PWD}/${output#./}"
+OUTPUT="${PWD%/}/${output#./}"
 export OUTPUT
 printf '%s\n' "$OUTPUT"
 ```

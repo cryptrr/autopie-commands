@@ -7,9 +7,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Set a Mac's output volume remotely over SSH.",
-      "tags": [
-        "openssh"
-      ],
+      "tags": ["openssh"],
       "type": "MANUAL",
       "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.0"
@@ -20,9 +18,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Fetch a Mac's current volume over SSH, then adjust it with a slider.",
-      "tags": [
-        "openssh"
-      ],
+      "tags": ["openssh"],
       "type": "MANUAL",
       "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.1"
@@ -33,9 +29,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Display the EXIF metadata embedded in a selected file.",
-      "tags": [
-        "exiftool"
-      ],
+      "tags": ["exiftool"],
       "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
@@ -46,9 +40,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Find and open the closest available Wayback Machine snapshot of a URL.",
-      "tags": [
-        "python"
-      ],
+      "tags": ["python"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -59,9 +51,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Display detailed format, codec, stream, and metadata information for a media file.",
-      "tags": [
-        "mediainfo"
-      ],
+      "tags": ["mediainfo"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -72,9 +62,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Resize and stack multiple GIFs vertically into a single animated GIF.",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -85,9 +73,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Resize and arrange multiple images side by side in a single JPEG.",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -98,9 +84,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Combine selected images into a consistently sized, multi-page PDF.",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -111,9 +95,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Turn a sequence of images into a looping GIF with a configurable frame delay.",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -124,9 +106,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Resize and stack multiple images vertically in a single JPEG.",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -137,10 +117,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Combine two or more shared MP3 files into one file without re-encoding.",
-      "tags": [
-        "ffmpeg",
-        "mp3"
-      ],
+      "tags": ["ffmpeg", "mp3"],
       "type": "SHARE",
       "updatedAt": "2026-11-12T09:39:53Z",
       "version": "1.0.0"
@@ -151,12 +128,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Compress files or a folder into a configurable 7z or ZIP archive.",
-      "tags": [
-        "7zip",
-        "compression",
-        "archive",
-        "share"
-      ],
+      "tags": ["7zip", "compression", "archive", "share"],
       "type": "SHARE",
       "updatedAt": "2026-09-13T23:56:43Z",
       "version": "1.0.0"
@@ -167,9 +139,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Create a high-compression ZIP archive from the contents of a folder.",
-      "tags": [
-        "p7zip"
-      ],
+      "tags": ["p7zip"],
       "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
@@ -180,9 +150,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Create a high-compression ZIP archive from multiple selected files.",
-      "tags": [
-        "p7zip"
-      ],
+      "tags": ["p7zip"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -193,9 +161,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Convert a video or animation into a looping 15 FPS animated WebP.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -206,9 +172,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Convert a selected portion of a video into a scaled 15 FPS GIF.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -219,9 +183,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Transcode a video to WebM with configurable codec, bitrate, and quality.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -232,9 +194,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Convert an image to WebP with configurable quality and compression effort.",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -245,9 +205,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Transcode a video to AV1 in an MKV container using high-quality settings.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -258,9 +216,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Crop an image or GIF to a chosen aspect ratio and anchor position.",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -271,9 +227,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Crop a video to a configurable portrait aspect ratio while preserving its audio.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -284,13 +238,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Extract an EPUB's reading-order content into a UTF-8 text file beside the book.",
-      "tags": [
-        "python",
-        "epub",
-        "text",
-        "ebook",
-        "beautifulsoup"
-      ],
+      "tags": ["python", "epub", "text", "ebook", "beautifulsoup"],
       "type": "SHARE",
       "updatedAt": "2026-09-18T11:10:12Z",
       "version": "1.0.0"
@@ -301,9 +249,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Extract audio from a media file in a selected format and bitrate.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -314,9 +260,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Extract an MP3 audio track from a media URL with a custom bitrate and filename.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -327,9 +271,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Render every page of a PDF as a numbered PNG image.",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -340,9 +282,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Transcode a video to an H.264 MP4 at CRF 24 using FFmpeg.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
@@ -353,9 +293,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Cut a video to a specified start time and end time using FFmpeg.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.1"
@@ -366,9 +304,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Compress a video to H.264 and AAC MP4 with fast-start playback enabled.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
@@ -379,9 +315,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Mirror a video horizontally while preserving it as an MP4.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
@@ -392,10 +326,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Download image galleries and media collections from a supported URL with gallery-dl.",
-      "tags": [
-        "gallery-dl",
-        "downloader"
-      ],
+      "tags": ["gallery-dl", "downloader"],
       "type": "SHARE",
       "updatedAt": "2026-07-16T20:21:36Z",
       "version": "1.0.0"
@@ -406,13 +337,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Watch GitHub repositories for new releases and open the release page from the notification.",
-      "tags": [
-        "python",
-        "github",
-        "cron",
-        "notification",
-        "releases"
-      ],
+      "tags": ["python", "github", "cron", "notification", "releases"],
       "type": "CRON",
       "updatedAt": "2026-09-19T02:25:25Z",
       "version": "1.0.0"
@@ -423,12 +348,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "A 15-minute GitHub repository monitor cron designed for display as an Android widget.",
-      "tags": [
-        "python",
-        "github",
-        "cron",
-        "widget"
-      ],
+      "tags": ["python", "github", "cron", "widget"],
       "type": "CRON",
       "updatedAt": "2026-09-13T23:18:02Z",
       "version": "1.0.0"
@@ -439,13 +359,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Fetch a GitHub repository's star count every 15 minutes for display in an Android widget.",
-      "tags": [
-        "curl",
-        "python",
-        "github",
-        "cron",
-        "widget"
-      ],
+      "tags": ["curl", "python", "github", "cron", "widget"],
       "type": "CRON",
       "updatedAt": "2026-09-20T11:08:45Z",
       "version": "1.0.0"
@@ -456,11 +370,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Generate one or more hashes for a shared file, shared text, or text you enter.",
-      "tags": [
-        "python",
-        "hash",
-        "checksum"
-      ],
+      "tags": ["python", "hash", "checksum"],
       "type": "SHARE",
       "updatedAt": "2026-11-13T11:33:34Z",
       "version": "1.0.0"
@@ -471,13 +381,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Check a URL every 15 minutes and send an Android notification when a failure is detected.",
-      "tags": [
-        "curl",
-        "python",
-        "cron",
-        "notification",
-        "monitoring"
-      ],
+      "tags": ["curl", "python", "cron", "notification", "monitoring"],
       "type": "CRON",
       "updatedAt": "2026-09-14T00:25:39Z",
       "version": "1.0.0"
@@ -488,13 +392,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "A widget that checks a URL every 15 minutes and reports its health and response timings.",
-      "tags": [
-        "curl",
-        "python",
-        "cron",
-        "widget",
-        "monitoring"
-      ],
+      "tags": ["curl", "python", "cron", "widget", "monitoring"],
       "type": "CRON",
       "updatedAt": "2026-09-14T00:25:39Z",
       "version": "1.0.0"
@@ -504,15 +402,11 @@
       "name": "Image Format Converter",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "Convert a shared image to PNG, JPG, WebP, AVIF, GIF, BMP, TIFF, or ICO and save it to Downloads.",
-      "tags": [
-        "imagemagick",
-        "image",
-        "conversion"
-      ],
+      "summary": "Convert a shared image to PNG, JPG, WebP, AVIF, GIF, BMP, TIFF, or ICO and save it beside the original.",
+      "tags": ["imagemagick", "image", "conversion"],
       "type": "SHARE",
-      "updatedAt": "2026-11-13T12:12:40Z",
-      "version": "1.0.0"
+      "updatedAt": "2026-11-13T16:01:54Z",
+      "version": "1.0.1"
     },
     "autopie.mac-remote": {
       "addedAt": "2026-11-12T08:16:16Z",
@@ -520,10 +414,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Control Music playback, adjust volume, open Safari, or sleep a Mac's display over SSH.",
-      "tags": [
-        "openssh",
-        "macos"
-      ],
+      "tags": ["openssh", "macos"],
       "type": "MANUAL",
       "updatedAt": "2026-11-12T08:16:16Z",
       "version": "1.0.1"
@@ -534,9 +425,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Resolve a direct media URL with yt-dlp and send it to an Android video player.",
-      "tags": [
-        "yt-dlp"
-      ],
+      "tags": ["yt-dlp"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.1"
@@ -547,11 +436,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Discover and manage OpenWrt network clients over SSH.",
-      "tags": [
-        "openssh",
-        "openwrt",
-        "network"
-      ],
+      "tags": ["openssh", "openwrt", "network"],
       "type": "MANUAL",
       "updatedAt": "2026-08-28T18:22:50Z",
       "version": "1.0.0"
@@ -562,9 +447,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Run common Wi-Fi, network, reboot, and wake-on-LAN actions on an OpenWrt router over SSH.",
-      "tags": [
-        "openssh"
-      ],
+      "tags": ["openssh"],
       "type": "MANUAL",
       "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.0"
@@ -575,12 +458,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Upload shared text to Paste.rs, then share the resulting URL through Android.",
-      "tags": [
-        "curl",
-        "paste",
-        "text",
-        "share"
-      ],
+      "tags": ["curl", "paste", "text", "share"],
       "type": "SHARE",
       "updatedAt": "2026-09-18T10:11:12Z",
       "version": "1.0.0"
@@ -591,13 +469,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Generate a QR code PNG from shared text or a URL and display it in AutoPie's output viewer.",
-      "tags": [
-        "qrencode",
-        "qr",
-        "image",
-        "text",
-        "url"
-      ],
+      "tags": ["qrencode", "qr", "image", "text", "url"],
       "type": "SHARE",
       "updatedAt": "2026-11-13T11:47:47Z",
       "version": "1.0.0"
@@ -608,9 +480,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Remove all audio streams from a video without re-encoding the video.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
@@ -621,9 +491,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Automatically trim uniform borders from an image with configurable color tolerance.",
-      "tags": [
-        "imagemagick"
-      ],
+      "tags": ["imagemagick"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -634,9 +502,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Resize a video to custom dimensions while copying its existing audio stream.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -647,9 +513,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Rotate a video clockwise by 90, 180, or 270 degrees while preserving its audio.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -660,13 +524,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Watch RSS and Atom feeds for new entries and send filtered notifications that open the article.",
-      "tags": [
-        "python",
-        "rss",
-        "atom",
-        "cron",
-        "notification"
-      ],
+      "tags": ["python", "rss", "atom", "cron", "notification"],
       "type": "CRON",
       "updatedAt": "2026-09-20T11:03:07Z",
       "version": "1.0.1"
@@ -677,9 +535,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Back up a local pictures folder to a remote rsync server.",
-      "tags": [
-        "rsync"
-      ],
+      "tags": ["rsync"],
       "type": "MANUAL",
       "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.0"
@@ -690,9 +546,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Synchronize pictures from a remote rsync server to a folder on the device.",
-      "tags": [
-        "rsync"
-      ],
+      "tags": ["rsync"],
       "type": "MANUAL",
       "updatedAt": "2026-07-15T21:22:21Z",
       "version": "1.0.0"
@@ -703,13 +557,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Save a shared webpage and its assets as one portable HTML file named from the page title.",
-      "tags": [
-        "monolith",
-        "curl",
-        "html",
-        "web",
-        "share"
-      ],
+      "tags": ["monolith", "curl", "html", "web", "share"],
       "type": "SHARE",
       "updatedAt": "2026-09-14T00:36:20Z",
       "version": "1.0.0"
@@ -720,9 +568,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Set a selected file's modification timestamp to the current time.",
-      "tags": [
-        "coreutils"
-      ],
+      "tags": ["coreutils"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -733,9 +579,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Calculate and display the SHA-256 checksum of a selected file.",
-      "tags": [
-        "coreutils"
-      ],
+      "tags": ["coreutils"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -746,11 +590,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Temporarily share a file or folder over the local network with an expiring HTTP link.",
-      "tags": [
-        "python",
-        "network",
-        "sharing"
-      ],
+      "tags": ["python", "network", "sharing"],
       "type": "SHARE",
       "updatedAt": "2026-09-04T20:52:25Z",
       "version": "1.0.1"
@@ -761,9 +601,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Shut down a remote server using SSH password or private-key authentication.",
-      "tags": [
-        "openssh"
-      ],
+      "tags": ["openssh"],
       "type": "SHARE",
       "updatedAt": "2026-09-10T05:50:14Z",
       "version": "1.1.0"
@@ -774,11 +612,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Inspect a shared media URL, then download video, audio, subtitles, or a selected clip.",
-      "tags": [
-        "yt-dlp",
-        "ffmpeg",
-        "media"
-      ],
+      "tags": ["yt-dlp", "ffmpeg", "media"],
       "type": "SHARE",
       "updatedAt": "2026-09-08T22:17:31Z",
       "version": "1.0.2"
@@ -789,13 +623,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Sends notifications when SSH logins or failures are detected.",
-      "tags": [
-        "python",
-        "openssh",
-        "cron",
-        "notifications",
-        "security"
-      ],
+      "tags": ["python", "openssh", "cron", "notifications", "security"],
       "type": "CRON",
       "updatedAt": "2026-09-13T23:43:11Z",
       "version": "1.0.0"
@@ -805,12 +633,8 @@
       "name": "Start aria2 WebUI",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "Open AriaNg with a local aria2 server that saves and restores download tasks.",
-      "tags": [
-        "aria2",
-        "curl",
-        "torrents"
-      ],
+      "summary": "Start a local aria2 RPC server for Android downloads and open AriaNg in the browser.",
+      "tags": ["aria2", "curl", "torrents"],
       "type": "MANUAL",
       "updatedAt": "2026-11-13T12:43:02Z",
       "version": "1.1.0"
@@ -821,13 +645,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Remove metadata from a shared image without changing the original, then open the Android share sheet.",
-      "tags": [
-        "python",
-        "exiftool",
-        "image",
-        "privacy",
-        "share"
-      ],
+      "tags": ["python", "exiftool", "image", "privacy", "share"],
       "type": "SHARE",
       "updatedAt": "2026-09-14T00:55:21Z",
       "version": "1.0.0"
@@ -838,9 +656,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Calculate a file's SHA-256 hash and open its existing VirusTotal report.",
-      "tags": [
-        "coreutils"
-      ],
+      "tags": ["coreutils"],
       "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
@@ -851,9 +667,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Overlay a watermark image at a selected corner of a video.",
-      "tags": [
-        "ffmpeg"
-      ],
+      "tags": ["ffmpeg"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -864,9 +678,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Download a URL with wcurl using an optional filename and timestamp behavior.",
-      "tags": [
-        "wcurl"
-      ],
+      "tags": ["wcurl"],
       "type": "SHARE",
       "updatedAt": "2026-08-31T23:23:42Z",
       "version": "1.0.1"
@@ -877,9 +689,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Download a video or selected time range at a chosen maximum resolution with yt-dlp.",
-      "tags": [
-        "yt-dlp"
-      ],
+      "tags": ["yt-dlp"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.1"
@@ -890,9 +700,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Download media from a URL and extract it in a selected audio format.",
-      "tags": [
-        "yt-dlp"
-      ],
+      "tags": ["yt-dlp"],
       "type": "SHARE",
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
@@ -903,14 +711,12 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Resolve and display the direct media URL for a supported page with yt-dlp.",
-      "tags": [
-        "yt-dlp"
-      ],
+      "tags": ["yt-dlp"],
       "type": "SHARE",
       "updatedAt": "2026-07-15T20:52:09Z",
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-11-13T12:46:15Z",
+  "generatedAt": "2026-11-13T16:02:12Z",
   "schemaVersion": "2026.6.1"
 }
