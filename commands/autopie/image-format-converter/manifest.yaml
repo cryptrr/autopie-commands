@@ -6,7 +6,7 @@ id: "autopie.image-format-converter"
 namespace: "autopie"
 name: "Image Format Converter"
 commandSlug: "magick"
-summary: "Convert a shared image to PNG, JPG, WebP, AVIF, GIF, BMP, TIFF, or ICO and save it beside the original."
+summary: "Convert a shared image to PNG, JPG, WebP, AVIF, GIF, BMP, TIFF, or ICO and saves it."
 kind: "APP"
 tags: ["imagemagick", "image", "conversion"]
 runtime:
