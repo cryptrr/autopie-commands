@@ -450,6 +450,21 @@
       "updatedAt": "2026-09-20T11:08:45Z",
       "version": "1.0.0"
     },
+    "autopie.hash-generator": {
+      "addedAt": "2026-11-13T11:33:34Z",
+      "name": "Hash Generator",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Generate one or more hashes for a shared file, shared text, or text you enter.",
+      "tags": [
+        "python",
+        "hash",
+        "checksum"
+      ],
+      "type": "SHARE",
+      "updatedAt": "2026-11-13T11:33:34Z",
+      "version": "1.0.0"
+    },
     "autopie.health-check-notification": {
       "addedAt": "2026-09-14T00:21:00Z",
       "name": "Health Check Notification",
@@ -864,6 +879,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-11-12T10:51:06Z",
+  "generatedAt": "2026-11-13T11:35:53Z",
   "schemaVersion": "2026.6.1"
 }

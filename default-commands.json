@@ -804,6 +804,85 @@
     ],
     "id": "autopie.github-stars"
   },
+  "Hash Generator": {
+    "id": "autopie.hash-generator",
+    "multiStage": true,
+    "steps": [
+      {
+        "path": "",
+        "command": "if [ -n \"${INPUT:-}\" ]; then\n  export INPUT_PRESENT=\"yes\"\nelse\n  export INPUT_PRESENT=\"no\"\nfi",
+        "id": "detect_input"
+      },
+      {
+        "path": "",
+        "command": "set -e\nOUTPUT=\"$(python - <<'PYHASH'\nimport hashlib\nimport json\nimport os\nimport sys\n\nalgorithms = {\n    \"md5\": \"MD5\",\n    \"sha1\": \"SHA-1\",\n    \"sha256\": \"SHA-256\",\n    \"sha512\": \"SHA-512\",\n    \"sha3_256\": \"SHA3-256\",\n    \"blake2b\": \"BLAKE2b\",\n}\nchoice = os.environ.get(\"HASH_ALGORITHM\", \"all\") or \"all\"\nif choice not in (\"all\", *algorithms):\n    sys.exit(\"Unsupported hash algorithm: \" + choice)\n\nactive_input = os.environ.get(\"INPUT\", \"\")\ninput_file = os.environ.get(\"INPUT_FILE\", \"\")\npath = input_file if input_file and os.path.isfile(input_file) else (\n    active_input if active_input and os.path.isfile(active_input) else None\n)\nselected = algorithms if choice == \"all\" else {choice: algorithms[choice]}\nhashers = {name: hashlib.new(name) for name in selected}\n\nif path:\n    with open(path, \"rb\") as source:\n        for block in iter(lambda: source.read(1024 * 1024), b\"\"):\n            for hasher in hashers.values():\n                hasher.update(block)\n    title = \"File hashes: \" + os.path.basename(path)\nelse:\n    text = (os.environ.get(\"INPUT_TEXT\") or active_input) if active_input else os.environ.get(\"DATA\", \"\")\n    if not text:\n        sys.exit(\"Share text or a file, or enter text to hash.\")\n    data = text.encode(\"utf-8\")\n    for hasher in hashers.values():\n        hasher.update(data)\n    title = \"Text hashes (UTF-8)\"\n\ndigests = {name: hasher.hexdigest() for name, hasher in hashers.items()}\nitems = [\n    {\"type\": \"text\", \"text\": label + \"\\n\" + digests[name]}\n    for name, label in selected.items()\n]\nexpected_hash = os.environ.get(\"EXPECTED_HASH\", \"\").strip().lower()\nif choice != \"all\" and expected_hash:\n    matches = digests[choice] == expected_hash\n    items.append({\"type\": \"text\", \"text\": \"Match: \" + (\"true\" if matches else \"false\")})\n\noutput = {\"type\": \"list\", \"title\": title, \"items\": items}\nprint(json.dumps(output, ensure_ascii=False, separators=(\",\", \":\")))\nPYHASH\n)\"\nexport OUTPUT\nam start -n com.autopi/.OutputPresentationActivity --es output \"$OUTPUT\" >/dev/null",
+        "id": "hash",
+        "flags": [
+          "--show-loading-screen-small"
+        ],
+        "extras": [
+          {
+            "default": "all",
+            "description": "Generate all hashes or select one algorithm.",
+            "id": "hash_algorithm",
+            "name": "HASH_ALGORITHM",
+            "type": "SELECTABLE",
+            "selectableOptions": {
+              "All": "all",
+              "MD5": "md5",
+              "SHA-1": "sha1",
+              "SHA-256": "sha256",
+              "SHA-512": "sha512",
+              "SHA3-256": "sha3_256",
+              "BLAKE2b": "blake2b"
+            }
+          },
+          {
+            "default": "",
+            "description": "Paste an expected hash to compare with the generated hash.",
+            "id": "expected_hash",
+            "name": "EXPECTED_HASH",
+            "required": false,
+            "type": "STRING",
+            "visibleWhen": {
+              "extraId": "hash_algorithm",
+              "notEquals": "all",
+              "isEmpty": false
+            }
+          },
+          {
+            "default": "$$INPUT_PRESENT",
+            "description": "Internal flag reflecting whether data was shared.",
+            "id": "input_present",
+            "name": "INPUT_PRESENT",
+            "flags": [
+              "--internal-config"
+            ],
+            "type": "STRING"
+          },
+          {
+            "default": "",
+            "description": "Text to hash when no input was shared.",
+            "id": "data",
+            "name": "DATA",
+            "required": false,
+            "flags": [
+              "--multiline"
+            ],
+            "type": "STRING",
+            "visibleWhen": {
+              "extraId": "input_present",
+              "equals": "no"
+            }
+          }
+        ]
+      }
+    ],
+    "flags": [
+      "--show-loading-screen-small"
+    ],
+    "type": "SHARE"
+  },
   "Health Check Notification": {
     "path": "",
     "command": "RESPONSE_FILE=\"$HOME/.cache/autopie-health-notification-response.txt\"\nmkdir -p \"$(dirname \"$RESPONSE_FILE\")\"\n: > \"$RESPONSE_FILE\"\n\nMETRICS=\"$(\n  curl -sS \\\n    -o \"$RESPONSE_FILE\" \\\n    -w '%{http_code}|%{time_total}|%{time_connect}|%{time_starttransfer}|%{size_download}' \\\n    --max-time 10 \\\n    \"$URL\"\n)\"\nCURL_STATUS=$?\n\nIFS='|' read -r HTTP_CODE TIME_TOTAL TIME_CONNECT TIME_TTFB SIZE_DOWNLOAD <<< \"$METRICS\"\n\nif [[ \"$CURL_STATUS\" -ne 0 ]]; then\n  HTTP_CODE=\"000\"\nfi\n\nLATENCY_MS=$(awk \"BEGIN {printf \\\"%.0f\\\", ${TIME_TOTAL:-0} * 1000}\")\nCONNECT_MS=$(awk \"BEGIN {printf \\\"%.0f\\\", ${TIME_CONNECT:-0} * 1000}\")\nTTFB_MS=$(awk \"BEGIN {printf \\\"%.0f\\\", ${TIME_TTFB:-0} * 1000}\")\nCURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')\n\nif [[ \"$CURL_STATUS\" -eq 0 && \"$HTTP_CODE\" == \"200\" ]]; then\n  printf 'Healthy: %s (HTTP %s, %s ms)\\n' \"$URL\" \"$HTTP_CODE\" \"$LATENCY_MS\"\n  exit 0\nfi\n\nRESPONSE=\"$(cat \"$RESPONSE_FILE\" 2>/dev/null || true)\"\n\nURL=\"$URL\" \\\nCURL_STATUS=\"$CURL_STATUS\" \\\nHTTP_CODE=\"$HTTP_CODE\" \\\nLATENCY_MS=\"$LATENCY_MS\" \\\nCONNECT_MS=\"$CONNECT_MS\" \\\nTTFB_MS=\"$TTFB_MS\" \\\nCURRENT_TIME=\"$CURRENT_TIME\" \\\nRESPONSE=\"$RESPONSE\" \\\npython -c '\nimport json\nimport os\nfrom urllib.parse import urlparse\n\nurl = os.environ[\"URL\"]\nhost = urlparse(url).hostname or url\ncurl_status = int(os.environ[\"CURL_STATUS\"])\nhttp_code = int(os.environ[\"HTTP_CODE\"]) if os.environ[\"HTTP_CODE\"].isdigit() else 0\nlatency_ms = os.environ[\"LATENCY_MS\"]\nconnect_ms = os.environ[\"CONNECT_MS\"]\nttfb_ms = os.environ[\"TTFB_MS\"]\ncurrent_time = os.environ[\"CURRENT_TIME\"]\n\nif curl_status:\n    status = f\"Connection failed (curl exit {curl_status})\"\nelse:\n    status = f\"HTTP {http_code}\"\n\nlines = [\n    f\"URL: {url}\",\n    f\"Status: {status}\",\n    f\"Latency: {latency_ms} ms\",\n    f\"Connect: {connect_ms} ms\",\n    f\"TTFB: {ttfb_ms} ms\",\n    f\"Checked: {current_time}\",\n]\n\nresponse = os.environ.get(\"RESPONSE\", \"\").strip()\nif response:\n    if len(response) > 500:\n        response = response[:500] + \"…\"\n    lines.extend([\"\", f\"Response: {response}\"])\n\nprint(\"#@AUTOPIE \" + json.dumps({\n    \"type\": \"notification\",\n    \"title\": f\"Health Check Failed • {host}\",\n    \"body\": \"\\n\".join(lines),\n}, separators=(\",\", \":\")))\n'",
