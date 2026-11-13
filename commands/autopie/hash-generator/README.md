@@ -90,6 +90,6 @@ am start -n com.autopi/.OutputPresentationActivity --es output "$OUTPUT" >/dev/n
 | Step | Name | Type | Required | Default | Flags | Options | Details |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Step 2 | HASH_ALGORITHM | SELECTABLE | no | all | - | All=all, MD5=md5, SHA-1=sha1, SHA-256=sha256, SHA-512=sha512, SHA3-256=sha3_256, BLAKE2b=blake2b | Generate all hashes or select one algorithm. |
-| Step 2 | EXPECTED_HASH | STRING | no | - | - | - | Paste an expected hash to compare with the generated hash. |
+| Step 2 | EXPECTED_HASH | STRING | no | - | - | - | Paste an expected hash to compare with the generated hash (optional). |
 | Step 2 | INPUT_PRESENT | STRING | no | $$INPUT_PRESENT | --internal-config | - | Internal flag reflecting whether data was shared. |
 | Step 2 | DATA | STRING | no | - | --multiline | - | Text to hash when no input was shared. |

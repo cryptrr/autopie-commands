@@ -839,7 +839,7 @@
           },
           {
             "default": "",
-            "description": "Paste an expected hash to compare with the generated hash.",
+            "description": "Paste an expected hash to compare with the generated hash (optional).",
             "id": "expected_hash",
             "name": "EXPECTED_HASH",
             "required": false,

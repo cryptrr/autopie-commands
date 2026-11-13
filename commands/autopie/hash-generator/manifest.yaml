@@ -99,7 +99,7 @@ runtime:
           name: "EXPECTED_HASH"
           type: "STRING"
           default: ""
-          description: "Paste an expected hash to compare with the generated hash."
+          description: "Paste an expected hash to compare with the generated hash (optional)."
           required: false
           visibleWhen:
             extraId: "hash_algorithm"
