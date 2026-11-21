@@ -28,8 +28,12 @@ fi
 OUTPUT=$(jq -cn --arg path "$image" '{type:"image", path:$path}') || exit 1
 export OUTPUT
 
-app_component="${LOADING_ACTIVITY:-com.autopi/.LoadingActivity}"
-am start -n "${app_component%%/*}/.OutputPresentationActivity" \
+output_activity="${OUTPUT_ACTIVITY:-}"
+if [ -z "$output_activity" ]; then
+  app_component="${LOADING_ACTIVITY:-com.autopi/.LoadingActivity}"
+  output_activity="${app_component%%/*}/.OutputPresentationActivity"
+fi
+am start -n "$output_activity" \
   --es output "$OUTPUT" --es commandName "QR Code Generator" >/dev/null
 ```
 

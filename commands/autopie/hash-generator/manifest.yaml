@@ -1,7 +1,7 @@
 schemaVersion: "2026.6.1"
 addedAt: "2026-11-13T11:33:34Z"
-updatedAt: "2026-11-13T11:33:34Z"
-version: "1.0.0"
+updatedAt: "2026-11-21T12:54:46Z"
+version: "1.0.1"
 id: "autopie.hash-generator"
 namespace: "autopie"
 name: "Hash Generator"
@@ -80,7 +80,14 @@ runtime:
         PYHASH
         )"
         export OUTPUT
-        am start -n com.autopi/.OutputPresentationActivity --es output "$OUTPUT" >/dev/null
+
+        //TODO: Stopgap. Can be directly called in a newer version.
+        output_activity="${OUTPUT_ACTIVITY:-}"
+        if [ -z "$output_activity" ]; then
+          app_component="${LOADING_ACTIVITY:-com.autopi/.LoadingActivity}"
+          output_activity="${app_component%%/*}/.OutputPresentationActivity"
+        fi
+        am start -n "$output_activity" --es output "$OUTPUT" >/dev/null
       extras:
         - id: "hash_algorithm"
           name: "HASH_ALGORITHM"

@@ -80,7 +80,12 @@ print(json.dumps(output, ensure_ascii=False, separators=(",", ":")))
 PYHASH
 )"
 export OUTPUT
-am start -n com.autopi/.OutputPresentationActivity --es output "$OUTPUT" >/dev/null
+output_activity="${OUTPUT_ACTIVITY:-}"
+if [ -z "$output_activity" ]; then
+  app_component="${LOADING_ACTIVITY:-com.autopi/.LoadingActivity}"
+  output_activity="${app_component%%/*}/.OutputPresentationActivity"
+fi
+am start -n "$output_activity" --es output "$OUTPUT" >/dev/null
 ```
 
 - Flags: `--show-loading-screen-small`

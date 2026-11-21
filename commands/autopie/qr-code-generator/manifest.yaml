@@ -1,7 +1,7 @@
 schemaVersion: "2026.6.1"
 addedAt: "2026-11-13T11:47:47Z"
-updatedAt: "2026-11-13T11:47:47Z"
-version: "1.0.0"
+updatedAt: "2026-11-21T12:54:46Z"
+version: "1.0.1"
 id: "autopie.qr-code-generator"
 namespace: "autopie"
 name: "QR Code Generator"
@@ -33,8 +33,13 @@ runtime:
     OUTPUT=$(jq -cn --arg path "$image" '{type:"image", path:$path}') || exit 1
     export OUTPUT
 
-    app_component="${LOADING_ACTIVITY:-com.autopi/.LoadingActivity}"
-    am start -n "${app_component%%/*}/.OutputPresentationActivity" \
+    //TODO: Stopgap. Can be directly called in a newer version.
+    output_activity="${OUTPUT_ACTIVITY:-}"
+    if [ -z "$output_activity" ]; then
+      app_component="${LOADING_ACTIVITY:-com.autopi/.LoadingActivity}"
+      output_activity="${app_component%%/*}/.OutputPresentationActivity"
+    fi
+    am start -n "$output_activity" \
       --es output "$OUTPUT" --es commandName "QR Code Generator" >/dev/null
 install:
   dependencies:
