@@ -1,7 +1,7 @@
 schemaVersion: "2026.6.1"
 addedAt: "2026-11-13T11:47:47Z"
-updatedAt: "2026-11-23T06:22:49Z"
-version: "1.0.2"
+updatedAt: "2026-11-23T06:30:06Z"
+version: "1.0.3"
 id: "autopie.qr-code-generator"
 namespace: "autopie"
 name: "QR Code Generator"
@@ -10,7 +10,7 @@ summary: "Generate a QR code PNG from shared text or a URL and display it in Aut
 kind: "APP"
 tags: ["qrencode", "qr", "image", "text", "url"]
 runtime:
-  path: "AutoPie/autopie.qr-code-generator"
+  path: ""
   type: "SHARE"
   flags: ["--show-loading-screen-small"]
   command: |-
@@ -23,7 +23,13 @@ runtime:
       exit 1
     fi
 
-    image=$(mktemp "$(pwd -P)/qr-code-XXXXXXXX.png") || exit 1
+    output_dir="/storage/emulated/0/AutoPie/autopie.qr-code-generator"
+    if ! mkdir -p "$output_dir"; then
+      printf 'Could not create QR code output directory: %s\n' "$output_dir" >&2
+      exit 1
+    fi
+
+    image=$(mktemp "$output_dir/qr-code-XXXXXXXX.png") || exit 1
     if ! printf '%s' "$text" | qrencode -t PNG -s 8 -o "$image"; then
       rm -f "$image"
       printf '%s\n' 'Could not generate a QR code. Try sharing less text.' >&2

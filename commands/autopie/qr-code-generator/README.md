@@ -4,7 +4,7 @@ Generate a QR code PNG from shared text or a URL and display it in AutoPie's out
 
 #### Command
 
-- Path: `AutoPie/autopie.qr-code-generator`
+- Path: `/storage/emulated/0`
 - Command slug: `qrencode`
 - Type: `SHARE`
 
@@ -18,7 +18,13 @@ if [ -z "$text" ]; then
   exit 1
 fi
 
-image=$(mktemp "$(pwd -P)/qr-code-XXXXXXXX.png") || exit 1
+output_dir="/storage/emulated/0/AutoPie/autopie.qr-code-generator"
+if ! mkdir -p "$output_dir"; then
+  printf 'Could not create QR code output directory: %s\n' "$output_dir" >&2
+  exit 1
+fi
+
+image=$(mktemp "$output_dir/qr-code-XXXXXXXX.png") || exit 1
 if ! printf '%s' "$text" | qrencode -t PNG -s 8 -o "$image"; then
   rm -f "$image"
   printf '%s\n' 'Could not generate a QR code. Try sharing less text.' >&2

@@ -1,5 +1,9 @@
 ### Changelog
 
+#### 1.0.3
+
+- Create the output directory explicitly and save QR codes there regardless of the shell working directory.
+
 #### 1.0.2
 
 - Save QR code images under `/storage/emulated/0/AutoPie/autopie.qr-code-generator/`.
