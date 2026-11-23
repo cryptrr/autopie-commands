@@ -468,6 +468,21 @@
       "updatedAt": "2026-09-18T10:11:12Z",
       "version": "1.0.0"
     },
+    "autopie.pdf-to-text": {
+      "addedAt": "2026-11-23T06:38:49Z",
+      "name": "PDF to Text",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Extract embedded PDF text into a UTF-8 file beside the PDF, with optional layout preservation.",
+      "tags": [
+        "poppler",
+        "pdf",
+        "text"
+      ],
+      "type": "SHARE",
+      "updatedAt": "2026-11-23T06:38:49Z",
+      "version": "1.0.0"
+    },
     "autopie.qr-code-generator": {
       "addedAt": "2026-11-13T11:47:47Z",
       "name": "QR Code Generator",
@@ -722,6 +737,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-11-23T06:30:06Z",
+  "generatedAt": "2026-11-23T06:39:14Z",
   "schemaVersion": "2026.6.1"
 }
