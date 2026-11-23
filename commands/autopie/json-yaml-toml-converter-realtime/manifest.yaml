@@ -147,13 +147,12 @@ runtime:
           type: "SELECTABLE"
           default: "auto"
           description: "Choose the input format, or detect it automatically."
-          flags: ["--hidden"]
           selectableOptions:
             "Auto detect": "auto"
             "JSON": "json"
             "YAML": "yaml"
             "TOML": "toml"
-          flags: ["--realtime"]
+          flags: ["--realtime", "--hidden"]
         - id: "target_format"
           name: "TO_FORMAT"
           type: "SELECTABLE"
@@ -188,7 +187,7 @@ runtime:
           type: "STRING"
           default: "$$CONVERTED_TEXT"
           description: "Converted result."
-          flags: ["--multiline", "--realtime"]
+          flags: ["--multiline", "--realtime", "--read-only"]
 install:
   dependencies:
     pkg: ["python"]
