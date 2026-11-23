@@ -183,11 +183,11 @@ runtime:
           required: true
           flags: ["--multiline", "--realtime"]
         - id: "converted_text"
-          name: "RESULT_TEXT"
+          name: "RESULT"
           type: "STRING"
           default: "$$CONVERTED_TEXT"
           description: "Converted result."
-          flags: ["--multiline", "--realtime", "--read-only"]
+          flags: ["--multiline", "--realtime", "--read-only", "--copy-button"]
 install:
   dependencies:
     pkg: ["python"]
