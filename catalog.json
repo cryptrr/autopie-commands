@@ -428,7 +428,7 @@
       "tags": ["python", "json", "yaml", "toml", "converter"],
       "type": "SHARE",
       "updatedAt": "2026-11-23T06:48:09Z",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "autopie.mac-remote": {
       "addedAt": "2026-11-12T08:16:16Z",

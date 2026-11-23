@@ -1,7 +1,7 @@
 schemaVersion: "2026.6.1"
 addedAt: "2026-11-23T06:48:09Z"
 updatedAt: "2026-11-23T06:48:09Z"
-version: "1.0.0"
+version: "1.0.1"
 id: "autopie.json-yaml-toml-converter-realtime"
 namespace: "autopie"
 name: "JSON <> YAML <> TOML Converter"
