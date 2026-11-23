@@ -424,6 +424,17 @@
       "updatedAt": "2026-11-13T16:01:54Z",
       "version": "1.0.1"
     },
+    "autopie.json-yaml-toml-converter-realtime": {
+      "addedAt": "2026-11-23T06:48:09Z",
+      "name": "JSON - YAML - TOML Converter",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Convert shared JSON, YAML, or TOML with editable source text and live format controls.",
+      "tags": ["python", "json", "yaml", "toml", "converter"],
+      "type": "SHARE",
+      "updatedAt": "2026-11-23T06:48:09Z",
+      "version": "1.0.0"
+    },
     "autopie.mac-remote": {
       "addedAt": "2026-11-12T08:16:16Z",
       "name": "Mac Remote",
@@ -748,6 +759,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-11-23T06:45:27Z",
+  "generatedAt": "2026-11-23T06:49:19Z",
   "schemaVersion": "2026.6.1"
 }
