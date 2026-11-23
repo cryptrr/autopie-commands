@@ -1,6 +1,6 @@
 ### GitHub Stars
 
-Fetch a GitHub repository's star count every 15 minutes for display in an Android widget.
+Fetch a GitHub repository's star count and displays in an Android widget..
 
 #### Command
 
@@ -17,6 +17,6 @@ printf '%s\n' "$OUTPUT"
 
 #### Extras
 
-| Name | Type | Required | Default | Flags | Options | Details |
-| --- | --- | --- | --- | --- | --- | --- |
-| REPO | STRING | yes | cryptrr/AutoPie | --internal-config | - | GitHub repository in owner/repo format |
+| Name | Type   | Required | Default         | Flags             | Options | Details                                |
+| ---- | ------ | -------- | --------------- | ----------------- | ------- | -------------------------------------- |
+| REPO | STRING | yes      | cryptrr/AutoPie | --internal-config | -       | GitHub repository in owner/repo format |
