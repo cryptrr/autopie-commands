@@ -238,7 +238,7 @@ def manifest_text(
             '  readme: "README.md"',
             '  changelog: "CHANGELOG.md"',
             "compatibility:",
-            '  autopieMinVersion: "0.x"',
+            '  autopieMinVersion: null',
             '  autopieMaxVersion: null',
             "status: \"stable\"",
             f"maintainers: {json_scalar(MAINTAINERS)}",

@@ -33,7 +33,7 @@ docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"
 compatibility:
-  autopieMinVersion: "0.x"
+  autopieMinVersion: null
   autopieMaxVersion: null
 status: "stable"
 maintainers: ["cryptrr"]
