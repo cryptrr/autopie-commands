@@ -281,11 +281,16 @@
       "name": "FFMPEG: Convert to HEVC",
       "namespace": "autopie",
       "status": "stable",
-      "summary": "Transcode a video to an H.264 MP4 at CRF 24 using FFmpeg.",
-      "tags": ["ffmpeg"],
+      "summary": "Convert a shared video to HEVC (H.265) MP4 with configurable quality, encoding speed, and audio.",
+      "tags": [
+        "ffmpeg",
+        "video",
+        "hevc",
+        "conversion"
+      ],
       "type": "SHARE",
-      "updatedAt": "2026-07-15T20:52:09Z",
-      "version": "1.0.0"
+      "updatedAt": "2026-11-23T03:26:47Z",
+      "version": "1.1.0"
     },
     "autopie.ffmpeg-cut-video": {
       "addedAt": "2026-07-14T11:24:14Z",
@@ -717,6 +722,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-11-21T12:55:01Z",
+  "generatedAt": "2026-11-23T03:26:48Z",
   "schemaVersion": "2026.6.1"
 }
