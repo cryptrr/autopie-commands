@@ -4,7 +4,7 @@ updatedAt: "2026-11-23T06:48:09Z"
 version: "1.0.0"
 id: "autopie.json-yaml-toml-converter-realtime"
 namespace: "autopie"
-name: "JSON - YAML - TOML Converter"
+name: "JSON <> YAML <> TOML Converter"
 commandSlug: "python"
 summary: "Convert shared JSON, YAML, or TOML with editable source text and live format controls."
 kind: "APP"
@@ -137,6 +137,7 @@ runtime:
         export CONVERTED_TEXT="$(autopie_convert_document)"
     - id: "convert"
       path: ""
+      flags: ["--realtime"]
       command: |-
         #@SHELL
         export CONVERTED_TEXT="$(autopie_convert_document)"
