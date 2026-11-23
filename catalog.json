@@ -232,6 +232,17 @@
       "updatedAt": "2026-07-14T11:24:14Z",
       "version": "1.0.0"
     },
+    "autopie.cut-audio": {
+      "addedAt": "2026-11-23T06:44:05Z",
+      "name": "Cut Audio",
+      "namespace": "autopie",
+      "status": "stable",
+      "summary": "Inspect a shared audio file, then trim a selected time range with precise or fast cutting.",
+      "tags": ["ffmpeg", "audio", "trim", "python"],
+      "type": "SHARE",
+      "updatedAt": "2026-11-23T06:44:05Z",
+      "version": "1.0.0"
+    },
     "autopie.epub-to-text": {
       "addedAt": "2026-09-18T11:10:12Z",
       "name": "EPUB to Text",
@@ -737,6 +748,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-11-23T06:39:14Z",
+  "generatedAt": "2026-11-23T06:45:27Z",
   "schemaVersion": "2026.6.1"
 }

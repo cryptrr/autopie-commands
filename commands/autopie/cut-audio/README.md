@@ -1,0 +1,152 @@
+### Cut Audio
+
+Inspect a shared audio file, then trim a selected time range with precise or fast cutting.
+
+#### Steps
+
+##### Step 1
+
+- Path: `default`
+- Command slug: `ffmpeg`
+
+```sh
+set -e
+if ! command -v ffmpeg >/dev/null 2>&1 || ! command -v ffprobe >/dev/null 2>&1; then
+  echo 'FFmpeg and ffprobe are required. Install with: pkg install ffmpeg' >&2
+  exit 1
+fi
+source_file="${INPUT_FILE:-}"
+if [[ -z "$source_file" || ! -f "$source_file" ]]; then
+  echo 'Select or share one audio file first.' >&2
+  exit 1
+fi
+codec="$(ffprobe -v error -select_streams a:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 -i "$source_file" | head -n 1)"
+if [[ -z "$codec" ]]; then
+  echo 'The selected file has no recognized audio stream.' >&2
+  exit 1
+fi
+duration="$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -i "$source_file" | head -n 1)"
+if [[ ! "$duration" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+  duration="$(ffprobe -v error -select_streams a:0 -show_entries stream=duration -of default=noprint_wrappers=1:nokey=1 -i "$source_file" | head -n 1)"
+fi
+if [[ ! "$duration" =~ ^[0-9]+([.][0-9]+)?$ ]] || ! awk -v d="$duration" 'BEGIN {exit !(d>0)}'; then
+  echo 'Could not determine audio duration.' >&2
+  exit 1
+fi
+export SOURCE_AUDIO="$source_file"
+export SOURCE_CODEC="$codec"
+export ORIGINAL_SECONDS="$duration"
+export START_PRESET='00:00:00.000'
+export END_PRESET="$(awk -v d="$duration" 'BEGIN {ms=int(d*1000+0.5); h=int(ms/3600000); ms%=3600000; m=int(ms/60000); ms%=60000; s=int(ms/1000); ms%=1000; printf "%02d:%02d:%02d.%03d", h,m,s,ms}')"
+export OUTPUT="$source_file"
+printf 'Audio: %s\nDuration: %s\nCodec: %s\n' "$(basename -- "$source_file")" "$END_PRESET" "$SOURCE_CODEC"
+```
+
+##### Step 2
+
+- Path: `default`
+- Command slug: `ffmpeg`
+
+```sh
+set -e
+source_file="${SOURCE_AUDIO:-${INPUT:-}}"
+if [[ -z "$source_file" || ! -f "$source_file" ]]; then
+  echo 'Source audio is unavailable.' >&2
+  exit 1
+fi
+
+timing="$(python - "$START_TIME" "$END_TIME" "$ORIGINAL_SECONDS" <<'PYCODE'
+import re
+import sys
+
+def seconds(value):
+    value = value.strip()
+    parts = value.split(':')
+    if not 1 <= len(parts) <= 3:
+        raise ValueError('Use HH:MM:SS.mmm, MM:SS.mmm, or seconds')
+    if not all(re.fullmatch(r'\d+(?:\.\d{1,3})?', v) for v in parts):
+        raise ValueError('Invalid time: ' + value)
+    if len(parts) >= 2 and float(parts[-1]) >= 60:
+        raise ValueError('Seconds must be below 60')
+    if len(parts) == 3 and int(parts[-2]) >= 60:
+        raise ValueError('Minutes must be below 60')
+    result = 0.0
+    for part in parts:
+        result = result * 60 + float(part)
+    return result
+
+try:
+    start = seconds(sys.argv[1])
+    end = seconds(sys.argv[2])
+    total = float(sys.argv[3])
+    if start < 0 or end <= start:
+        raise ValueError('End time must be after start time')
+    if end > total + 0.01:
+        raise ValueError('End time exceeds audio duration')
+    print(f'{start:.3f} {end - start:.3f}')
+except (ValueError, IndexError) as exc:
+    print('Invalid trim range: ' + str(exc), file=sys.stderr)
+    sys.exit(1)
+PYCODE
+)" || exit 1
+read -r start_seconds clip_seconds <<< "$timing"
+
+filename="$(basename -- "$source_file")"
+directory="$(dirname -- "$source_file")"
+if [[ "$filename" != *.* ]]; then
+  echo 'Audio file must have an extension so FFmpeg can write the matching format.' >&2
+  exit 1
+fi
+stem="${filename%.*}"
+ext="${filename##*.}"
+target="$directory/$stem-trimmed-$RAND.$ext"
+index=1
+while [[ -e "$target" ]]; do
+  target="$directory/$stem-trimmed-$RAND-$index.$ext"
+  ((index+=1))
+done
+
+common=(-hide_banner -nostdin -loglevel error -stats -n -ss "$start_seconds" -i "$source_file" -t "$clip_seconds" -map 0:a:0 -vn -map_metadata 0 -map_chapters -1)
+case "${TRIM_MODE:-precise}" in
+  fast)
+    codec_args=(-c:a copy)
+    ;;
+  precise)
+    case "${SOURCE_CODEC:-}" in
+      mp3) codec_args=(-c:a libmp3lame -q:a 2) ;;
+      aac) codec_args=(-c:a aac -b:a 192k) ;;
+      opus) codec_args=(-c:a libopus -b:a 128k) ;;
+      vorbis) codec_args=(-c:a libvorbis -q:a 5) ;;
+      flac) codec_args=(-c:a flac) ;;
+      alac) codec_args=(-c:a alac) ;;
+      pcm_*) codec_args=(-c:a "${SOURCE_CODEC}") ;;
+      *) codec_args=() ;;
+    esac
+    ;;
+  *)
+    echo "Invalid trim mode: $TRIM_MODE" >&2
+    exit 1
+    ;;
+esac
+
+if ! ffmpeg "${common[@]}" "${codec_args[@]}" "$target"; then
+  rm -f -- "$target"
+  echo 'Trimming failed.' >&2
+  exit 1
+fi
+if [[ ! -s "$target" ]]; then
+  rm -f -- "$target"
+  echo 'Trimmed file was empty.' >&2
+  exit 1
+fi
+export OUTPUT="$target"
+printf 'Saved: %s\nStart: %s\nEnd: %s\n' "$target" "$START_TIME" "$END_TIME"
+```
+
+#### Extras
+
+| Step | Name | Type | Required | Default | Flags | Options | Details |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Step 2 | START_TIME | STRING | yes | $$START_PRESET | --large | - | Start position. HH:MM:SS.mmm (or MM:SS). |
+| Step 2 | END_TIME | STRING | yes | $$END_PRESET | --large | - | End position; initially set to full audio duration. |
+| Step 2 | TRIM_MODE | SELECTABLE | no | precise | - | Precise trim (re-encode)=precise, Fast trim (no re-encode)=fast | Precise re-encodes audio; fast copies compressed frames without quality loss but cut points may shift. |
