@@ -203,7 +203,7 @@ docs:
   readme: "README.md"
   changelog: "CHANGELOG.md"
 compatibility:
-  autopieMinVersion: "0.x"
+  autopieMinVersion: "0.21.3-beta"
   autopieMaxVersion: "0.x"
 status: "stable"
 maintainers: ["cryptrr"]
