@@ -239,7 +239,7 @@ def manifest_text(
             '  changelog: "CHANGELOG.md"',
             "compatibility:",
             '  autopieMinVersion: "0.x"',
-            '  autopieMaxVersion: "0.x"',
+            '  autopieMaxVersion: null',
             "status: \"stable\"",
             f"maintainers: {json_scalar(MAINTAINERS)}",
             "",

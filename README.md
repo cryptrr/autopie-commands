@@ -142,7 +142,7 @@ docs:
   changelog: "CHANGELOG.md"
 compatibility:
   autopieMinVersion: "0.x"
-  autopieMaxVersion: "0.x"
+  autopieMaxVersion: null
 status: "stable"
 maintainers: ["your-name"]
 ```
@@ -553,7 +553,7 @@ docs:
   changelog: "CHANGELOG.md"
 compatibility:
   autopieMinVersion: "0.x"
-  autopieMaxVersion: "0.x"
+  autopieMaxVersion: null
 ```
 
 - The command README is its generated runtime and extras reference.

@@ -78,6 +78,6 @@ docs:
   changelog: "CHANGELOG.md"
 compatibility:
   autopieMinVersion: "0.x"
-  autopieMaxVersion: "0.x"
+  autopieMaxVersion: null
 status: "stable"
 maintainers: ["cryptrr"]
