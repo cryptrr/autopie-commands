@@ -12,6 +12,7 @@ tags: ["python", "json", "yaml", "toml", "converter"]
 runtime:
   type: "SHARE"
   multiStage: true
+  flags: ["--realtime"]
   steps:
     - id: "inspect"
       path: ""

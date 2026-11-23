@@ -293,12 +293,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Convert a shared video to HEVC (H.265) MP4 with configurable quality, encoding speed, and audio.",
-      "tags": [
-        "ffmpeg",
-        "video",
-        "hevc",
-        "conversion"
-      ],
+      "tags": ["ffmpeg", "video", "hevc", "conversion"],
       "type": "SHARE",
       "updatedAt": "2026-11-23T03:26:47Z",
       "version": "1.1.0"
@@ -426,7 +421,7 @@
     },
     "autopie.json-yaml-toml-converter-realtime": {
       "addedAt": "2026-11-23T06:48:09Z",
-      "name": "JSON - YAML - TOML Converter",
+      "name": "JSON <> YAML <> TOML Converter",
       "namespace": "autopie",
       "status": "stable",
       "summary": "Convert shared JSON, YAML, or TOML with editable source text and live format controls.",
@@ -496,11 +491,7 @@
       "namespace": "autopie",
       "status": "stable",
       "summary": "Extract embedded PDF text into a UTF-8 file beside the PDF, with optional layout preservation.",
-      "tags": [
-        "poppler",
-        "pdf",
-        "text"
-      ],
+      "tags": ["poppler", "pdf", "text"],
       "type": "SHARE",
       "updatedAt": "2026-11-23T06:38:49Z",
       "version": "1.0.0"
