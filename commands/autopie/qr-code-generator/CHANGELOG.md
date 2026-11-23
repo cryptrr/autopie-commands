@@ -1,5 +1,9 @@
 ### Changelog
 
+#### 1.0.2
+
+- Save QR code images under `/storage/emulated/0/AutoPie/autopie.qr-code-generator/`.
+
 #### 1.0.1
 
 - Launch the output viewer using AutoPie's `OUTPUT_ACTIVITY` environment variable. Fall back to the legacy activity component on older AutoPie versions.

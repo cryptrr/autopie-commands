@@ -4,7 +4,7 @@ Generate a QR code PNG from shared text or a URL and display it in AutoPie's out
 
 #### Command
 
-- Path: `Download`
+- Path: `AutoPie/autopie.qr-code-generator`
 - Command slug: `qrencode`
 - Type: `SHARE`
 
@@ -28,6 +28,7 @@ fi
 OUTPUT=$(jq -cn --arg path "$image" '{type:"image", path:$path}') || exit 1
 export OUTPUT
 
+#TODO: Stopgap. Can be directly called in a newer version.
 output_activity="${OUTPUT_ACTIVITY:-}"
 if [ -z "$output_activity" ]; then
   app_component="${LOADING_ACTIVITY:-com.autopi/.LoadingActivity}"

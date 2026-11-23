@@ -1,7 +1,7 @@
 schemaVersion: "2026.6.1"
 addedAt: "2026-11-13T11:47:47Z"
-updatedAt: "2026-11-21T12:54:46Z"
-version: "1.0.1"
+updatedAt: "2026-11-23T06:22:49Z"
+version: "1.0.2"
 id: "autopie.qr-code-generator"
 namespace: "autopie"
 name: "QR Code Generator"
@@ -10,7 +10,7 @@ summary: "Generate a QR code PNG from shared text or a URL and display it in Aut
 kind: "APP"
 tags: ["qrencode", "qr", "image", "text", "url"]
 runtime:
-  path: "Download"
+  path: "AutoPie/autopie.qr-code-generator"
   type: "SHARE"
   flags: ["--show-loading-screen-small"]
   command: |-

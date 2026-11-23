@@ -476,8 +476,8 @@
       "summary": "Generate a QR code PNG from shared text or a URL and display it in AutoPie's output viewer.",
       "tags": ["qrencode", "qr", "image", "text", "url"],
       "type": "SHARE",
-      "updatedAt": "2026-11-21T12:54:46Z",
-      "version": "1.0.1"
+      "updatedAt": "2026-11-23T06:22:49Z",
+      "version": "1.0.2"
     },
     "autopie.remove-audio": {
       "addedAt": "2026-07-14T11:24:14Z",
@@ -722,6 +722,6 @@
       "version": "1.0.0"
     }
   },
-  "generatedAt": "2026-11-23T03:26:48Z",
+  "generatedAt": "2026-11-23T06:22:59Z",
   "schemaVersion": "2026.6.1"
 }
