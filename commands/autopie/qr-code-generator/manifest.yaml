@@ -6,7 +6,7 @@ id: "autopie.qr-code-generator"
 namespace: "autopie"
 name: "QR Code Generator"
 commandSlug: "qrencode"
-summary: "Generate a QR code PNG from shared text or a URL and display it in AutoPie's output viewer."
+summary: "Generate a QR code from shared text or a URL and display it in AutoPie's output viewer."
 kind: "APP"
 tags: ["qrencode", "qr", "image", "text", "url"]
 runtime:
